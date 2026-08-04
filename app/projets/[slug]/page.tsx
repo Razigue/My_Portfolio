@@ -64,7 +64,7 @@ export default async function ProjetPage({ params }: Params) {
               variant="lines"
               as="p"
               order={0}
-              className="max-w-measure font-display text-h3 leading-tight tracking-tight text-paper"
+              className="max-w-measure text-lede text-paper-2"
             >
               {project.description}
             </Reveal>

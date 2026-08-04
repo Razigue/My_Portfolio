@@ -60,7 +60,7 @@ export default function AProposPage() {
             Expériences
           </Reveal>
 
-          <ol className="zebra mt-12 grid">
+          <ol className="zebra -mx-5 mt-12 grid">
             {experiences.map((experience) => (
               <li
                 key={experience.role}
@@ -125,7 +125,7 @@ export default function AProposPage() {
               Langues
             </Reveal>
             <Reveal variant="rise" order={3} className="mt-6">
-              <dl className="zebra grid">
+              <dl className="zebra -mx-4 grid">
                 {langues.map((langue) => (
                   <div
                     key={langue.name}

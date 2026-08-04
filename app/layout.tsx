@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
+import { Geist, Geist_Mono, Newsreader } from "next/font/google";
 import "./globals.css";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
@@ -12,10 +12,13 @@ import { INK, INK_LIGHT } from "@/lib/palette";
 import { themeScript } from "@/lib/theme-script";
 import { jsonLd } from "@/lib/jsonld";
 
-const instrument = Instrument_Serif({
-  variable: "--font-instrument",
+// Variable, so no `weight`: the range ships in one file. `opsz` earns its bytes
+// — the browser thins the display sizes and thickens the reading sizes on its
+// own, which a static face cannot do.
+const newsreader = Newsreader({
+  variable: "--font-newsreader",
   subsets: ["latin", "latin-ext"],
-  weight: "400",
+  axes: ["opsz"],
   style: ["normal", "italic"],
   display: "swap",
 });
@@ -88,7 +91,7 @@ export default function RootLayout({
     <html
       lang="fr"
       suppressHydrationWarning
-      className={`${instrument.variable} ${geist.variable} ${geistMono.variable}`}
+      className={`${newsreader.variable} ${geist.variable} ${geistMono.variable}`}
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />

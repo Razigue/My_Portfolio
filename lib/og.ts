@@ -10,7 +10,7 @@ export async function loadDisplayFont(
   text: string,
 ): Promise<ArrayBuffer | null> {
   try {
-    const api = `https://fonts.googleapis.com/css2?family=Instrument+Serif&text=${encodeURIComponent(text)}`;
+    const api = `https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@72,400&text=${encodeURIComponent(text)}`;
     const css = await fetch(api).then((response) => response.text());
     const url = /src:\s*url\(([^)]+)\)/.exec(css)?.[1];
     if (!url) return null;

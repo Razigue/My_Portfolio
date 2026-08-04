@@ -65,10 +65,6 @@ export function SiteFooter() {
           <Reveal variant="fade" order={4}>
             <dl className="flex flex-wrap gap-x-8 gap-y-2">
               <div className="flex gap-2">
-                <dt>Next.js</dt>
-                <dd className="tnum text-paper-2">{buildInfo.next}</dd>
-              </div>
-              <div className="flex gap-2">
                 <dt>Build</dt>
                 <dd className="tnum text-paper-2">{buildInfo.date}</dd>
               </div>

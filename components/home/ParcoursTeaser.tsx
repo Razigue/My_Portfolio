@@ -30,7 +30,7 @@ export function ParcoursTeaser() {
               variant="lines"
               as="p"
               order={1}
-              className="max-w-measure font-display text-h3 leading-tight tracking-tight text-paper"
+              className="max-w-measure text-lede text-paper-2"
             >
               {presentation}
             </Reveal>
@@ -66,8 +66,11 @@ export function ParcoursTeaser() {
                 <dd className="mt-4">
                   {/* Rows were told apart by a filet under each one. Every
                       other row is lifted instead, which separates them the way
-                      a table without rules does. */}
-                  <ul className="zebra grid">
+                      a table without rules does. The list is then pulled left
+                      by its own padding, so the roles line up with the label
+                      above them and the lifted band keeps its air on both
+                      sides. */}
+                  <ul className="zebra -mx-4 grid">
                     {experiences.map((experience) => (
                       <li
                         key={experience.role}
