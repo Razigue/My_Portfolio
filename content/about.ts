@@ -45,7 +45,6 @@ export const formation = {
   school: "Web@cadémie by Epitech",
   place: "Le Kremlin-Bicêtre (94)",
   detail: "Formation 24 mois dont 14 en alternance",
-  track: "Fullstack JavaScript / Java",
 } as const;
 
 export const langues: readonly {

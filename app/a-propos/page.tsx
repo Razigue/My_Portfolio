@@ -115,7 +115,6 @@ export default function AProposPage() {
                 <li>{formation.place}</li>
                 <li className="tnum">{formation.period}</li>
                 <li className="tnum">{formation.detail}</li>
-                <li>{formation.track}</li>
               </ul>
             </Reveal>
           </div>
