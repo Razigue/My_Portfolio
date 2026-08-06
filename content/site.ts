@@ -82,6 +82,7 @@ export const copy = {
   copyIdle: "copier",
   copyDone: "copié",
   sourceLink: "Code source ↗",
+  footerPlace: "Paris",
   statusLive: "en ligne",
   statusArchived: "archivé",
   skipLink: "Aller au contenu",

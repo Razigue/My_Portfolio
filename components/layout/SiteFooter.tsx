@@ -2,7 +2,6 @@ import { Scrub } from "@/components/motion/Scrub";
 import { Stage } from "@/components/motion/Stage";
 import { Reveal } from "@/components/ui/Reveal";
 import { Eyebrow, ExternalLink } from "@/components/ui/primitives";
-import { buildInfo } from "@/lib/build-info";
 import { copy, site } from "@/content/site";
 
 export function SiteFooter() {
@@ -57,22 +56,15 @@ export function SiteFooter() {
           </Reveal>
         </div>
 
-        {/* Each figure is a labelled term, not three strings run together. */}
+        {/* A name at one end and a place at the other. Two plain sentences,
+            since a description list stopped earning its markup once the build
+            figures came out of it. */}
         <div className="mt-24 flex flex-col gap-6 font-mono text-micro tracking-meta text-paper-3 sm:flex-row sm:items-baseline sm:justify-between">
           <Reveal variant="fade" as="p" order={3}>
             {site.name}
           </Reveal>
-          <Reveal variant="fade" order={4}>
-            <dl className="flex flex-wrap gap-x-8 gap-y-2">
-              <div className="flex gap-2">
-                <dt>Build</dt>
-                <dd className="tnum text-paper-2">{buildInfo.date}</dd>
-              </div>
-              <div className="flex gap-2">
-                <dt className="sr-only">Lieu</dt>
-                <dd className="text-paper-2">{buildInfo.place}</dd>
-              </div>
-            </dl>
+          <Reveal variant="fade" as="p" order={4} className="text-paper-2">
+            {copy.footerPlace}
           </Reveal>
         </div>
       </div>
