@@ -31,7 +31,7 @@ export const site = {
 checkSite(site);
 
 export const availability = {
-  headline: "Recherche alternance 14 mois",
+  headline: "Recherche alternance 12 mois",
   windowLabel: "Période",
   window: "de septembre 2026 à fin octobre 2027",
   rhythmLabel: "Rythme",
@@ -39,7 +39,7 @@ export const availability = {
   /** Le bandeau défilant. Chaque entrée reprend un fait déjà présent ci-dessus. */
   ticker: [
     "Disponible septembre 2026",
-    "Alternance 14 mois",
+    "Alternance 12 mois",
     "6 semaines en entreprise, 2 semaines en formation",
     "Paris et Île-de-France",
   ],
@@ -52,7 +52,7 @@ export const hero = {
 } as const;
 
 export const presentation =
-  "Développeur web full-stack formé sur le terrain : c’est en créant mon site e-commerce en auto-entrepreneur que j’ai découvert le code. Aujourd’hui à la Web@cadémie by Epitech Paris (2025 à 2027), je conçois des applications avec PHP et Laravel, Java et Spring Boot, React, et je recherche une alternance de 14 mois dès septembre 2026, à raison de 6 semaines en entreprise pour 2 semaines en formation.";
+  "Développeur web full-stack formé sur le terrain : c’est en créant mon site e-commerce en auto-entrepreneur que j’ai découvert le code. Aujourd’hui à la Web@cadémie by Epitech Paris (2025 à 2027), je conçois des applications avec PHP et Laravel, Java et Spring Boot, React, et je recherche une alternance de 12 mois dès septembre 2026, à raison de 6 semaines en entreprise pour 2 semaines en formation.";
 
 export const navItems = [
   { href: "/", label: "~/", title: "Accueil" },

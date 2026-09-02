@@ -1,7 +1,7 @@
 # Instructions for an agent working on this project
 
 This is Razigue Benhmida's portfolio (he/him): a French-language site for a
-full-stack web developer looking for a 14-month alternance from September 2026.
+full-stack web developer looking for a 12-month alternance from September 2026.
 
 Razigue is the owner. He may not read code, and he is the one who has to live
 with whatever you leave behind. Prefer the change he could have made himself.

@@ -44,7 +44,7 @@ export const formation = {
   period: "2025 à 2027",
   school: "Web@cadémie by Epitech",
   place: "Le Kremlin-Bicêtre (94)",
-  detail: "Formation 24 mois dont 14 en alternance",
+  detail: "Formation 24 mois dont 12 en alternance",
 } as const;
 
 export const langues: readonly {
