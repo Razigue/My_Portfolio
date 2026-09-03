@@ -61,7 +61,7 @@ export default async function ProjetPage({ params }: Params) {
           project.image ? (
             <ProjectShot
               image={project.image}
-              sizes="(min-width: 1024px) 24rem, 100vw"
+              sizes="(min-width: 1024px) 40rem, 100vw"
               priority
             />
           ) : undefined

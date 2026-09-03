@@ -19,6 +19,10 @@ export function PageHeader({
    * Set beside the title on wide screens, under it otherwise. The header is a
    * page's opening frame, so what goes here has to be worth as much room as
    * the title itself — in practice, a capture of the thing the page is about.
+   *
+   * Its track takes up to 40rem and gives way before the title does: the title
+   * track floors at `min-content`, because a display-size h1 is usually one
+   * word and a single word cannot wrap out of a column too narrow for it.
    */
   media?: React.ReactNode;
   children?: React.ReactNode;
@@ -36,7 +40,7 @@ export function PageHeader({
         <div
           className={
             media
-              ? "grid gap-12 lg:grid-cols-[minmax(0,1fr)_24rem] lg:items-end lg:gap-16"
+              ? "grid gap-12 lg:grid-cols-[minmax(min-content,1fr)_minmax(0,40rem)] lg:items-end lg:gap-16"
               : undefined
           }
         >
