@@ -120,7 +120,7 @@ compétences et la phrase « Treize projets, de 2025 à 2026 » suivent tout seu
 Dans le même fichier, plus bas :
 
 ```ts
-export const featuredSlugs = ["corelab", "connect-in-v2", "tonecraft"] as const;
+export const featuredSlugs = ["tonecraft", "corelab", "connect-in-v2"] as const;
 ```
 
 Remplace un slug, ou ajoutes-en un. Le titre de la section (« Trois projets

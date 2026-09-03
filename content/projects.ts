@@ -304,7 +304,7 @@ export const projects: readonly Project[] = [
 ] as const;
 
 /** Ceux que met en avant l'accueil, dans cet ordre. */
-export const featuredSlugs = ["corelab", "connect-in-v2", "tonecraft"] as const;
+export const featuredSlugs = ["tonecraft", "corelab", "connect-in-v2"] as const;
 
 // Slugs inconnus, doublons, statut « en ligne » sans démo, apostrophe droite :
 // la compilation s'arrête ici plutôt que de publier la page.
