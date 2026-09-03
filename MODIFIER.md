@@ -68,6 +68,7 @@ plus récent au plus ancien.
     ],
     approach: null,
     stack: ["React", "Node.js"],
+    image: null,
     year: 2026,
     repo: "https://github.com/Razigue/MonNouveauProjet",
     demo: null,
@@ -101,6 +102,7 @@ Champ par champ :
   retrouver en ouvrant le dépôt.
 - **`stack`** — les technologies, une par entrée. Elles alimentent aussi le
   tableau des compétences de l’accueil, qui se recalcule seul.
+- **`image`** — une capture du projet, ou `null`. Voir la section suivante.
 - **`year`** — l’année sur quatre chiffres.
 - **`repo`** — l’adresse GitHub complète, ou `null` s’il n’y a pas de dépôt
   public.
@@ -130,6 +132,51 @@ la compilation et te dit lesquels sont disponibles.
 
 Efface son bloc. Si son slug était dans `featuredSlugs`, retire-le aussi : la
 compilation te le rappellera sinon.
+
+### Ajouter une capture d’écran
+
+Dépose le fichier dans `content/media/`, nommé comme le slug du projet, puis
+renseigne `image` :
+
+```ts
+    image: {
+      src: tonecraftShot,
+      alt: "L’interface de Tonecraft\u00A0: les modules In, Gate, Amp, Cab et Out alignés de gauche à droite, chacun portant ses curseurs.",
+    },
+```
+
+Il faut aussi une ligne d’import en haut du fichier, à côté des autres :
+
+```ts
+import tonecraftShot from "@/content/media/tonecraft.png";
+```
+
+L’image est importée depuis `content/media/` et non depuis `public/`, comme le
+portrait : c’est ce qui permet à Next de lire ses dimensions tout seul, de
+préparer les tailles servies aux petits écrans et d’afficher un flou pendant le
+chargement.
+
+- **`alt`** — ce que voit quelqu’un qui ne voit pas l’image. Décris ce qu’elle
+  montre, ne la nomme pas : « L’interface de Tonecraft : les modules In, Gate,
+  Amp… » plutôt que « capture de Tonecraft ». Ce texte est relu comme les
+  autres, apostrophes et espaces insécables comprises, et un champ vide arrête
+  la compilation.
+
+La capture s’affiche à deux endroits :
+
+- **Sur la page du projet**, en haut, à côté du titre. Elle est visible tout de
+  suite : c’est la page du projet, l’image y est chez elle.
+- **Sur l’accueil**, si le projet est mis en avant, elle est repliée derrière
+  « Voir l’aperçu », sous les liens du panneau. Un panneau d’accueil fait un
+  écran de haut et son sujet est le titre ; une image posée là en permanence
+  pèserait plus lourd que lui. Le visiteur l’ouvre s’il en a envie.
+
+Elle n’apparaît pas dans l’index, dont les treize lignes partagent la même
+hauteur.
+
+Rien n’est encadré ni ombré : l’image est son propre bord, comme le reste du
+site n’a pas un trait. Le repli est un `<details>` du navigateur, donc il
+fonctionne même si le JavaScript ne se charge pas, comme le menu mobile.
 
 ---
 
@@ -165,7 +212,8 @@ Dans `content/site.ts` :
 - `hero`, `presentation` — l’accroche et le paragraphe de présentation
 - `navItems` — les entrées du menu
 - `sections` — les numéros et noms de chapitre de l’accueil
-- `copy` — les libellés des boutons et les messages d’erreur
+- `copy` — les libellés des boutons, « La démarche », « Voir l’aperçu » et les
+  messages d’erreur
 - `form` — les libellés du formulaire de contact
 
 ---

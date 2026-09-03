@@ -145,6 +145,12 @@ export function checkProjects(
       );
     }
 
+    // Une image sans texte de remplacement n'existe pas pour qui ne la voit
+    // pas, et le champ est trop facile à laisser vide en la déposant.
+    if (project.image !== null) {
+      checkProse(problems, `« ${name} » : image.alt`, project.image.alt);
+    }
+
     if (project.stack.length === 0) {
       problems.push(`« ${name} » : stack est vide. Lister au moins une technologie.`);
     }

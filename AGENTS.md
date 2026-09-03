@@ -27,6 +27,7 @@ something it covers, do exactly what it says.
 | `content/about.ts` | the long-form story, experience, education, languages |
 | `content/check.ts` | the rules that stop a bad edit; read before editing content |
 | `content/media/razigue.png` | the portrait, imported as a module, not from `public/` |
+| `content/media/*.png` | project captures, imported the same way and set on `image` |
 | `public/cv-razigue-benhmida.pdf` | the downloadable CV |
 
 No rendered string is written anywhere else. If you are hunting for a phrase, it
@@ -74,24 +75,32 @@ you are the only check.
 2. **Nothing is set in capitals.** No `uppercase`, no `capitalize`, no small
    caps, anywhere. Acronyms stay acronyms — HTML, PHP, JWT, RNCP. The `RB`
    monogram is the site's mark.
-3. **One accent, and the two themes do not share it.** Pale gold at night, dark
+3. **An image is a block, never a framed one.** `.shot` is the only container a
+   project capture gets: overflow, a ground while it loads, and nothing drawn
+   around it. It deliberately does not carry the portrait's grayscale filter —
+   that exists to keep one photograph from pulling the composition off neutral,
+   and a screenshot has to report the interface's own colours. On a home panel
+   the capture is folded behind a `<details>` rather than pinned open: a panel
+   is one screenful whose subject is the title. That disclosure is markup, not
+   state, for the same reason the mobile menu is.
+4. **One accent, and the two themes do not share it.** Pale gold at night, dark
    orange by day. The daylight value is capped by contrast arithmetic against
    `--ink-3`; see the README before touching it.
-4. **Every colour lives in `app/globals.css`.** ESLint rejects a colour literal
+5. **Every colour lives in `app/globals.css`.** ESLint rejects a colour literal
    in any `.ts` or `.tsx`. The one exception is `lib/palette.ts`, for the three
    surfaces that render without a stylesheet.
-5. **No invented facts.** No metric, date, duration, team size, client name or
+6. **No invented facts.** No metric, date, duration, team size, client name or
    outcome that is not already in the CV, on GitHub, or in the existing content.
    A project's `highlights` may only restate what its `description` or `stack`
    already says. `approach`, the long-form account rendered under « La
    démarche », is the one place a choice may be explained at length — it is
    still held to the same rule: a recruiter opening the repo has to find what
    the page claims.
-6. **Nothing that can be counted is typed.** The project count, the years the
+7. **Nothing that can be counted is typed.** The project count, the years the
    index spans, the per-technology counters, the row numbers — all derived. If
    you find yourself typing a number that describes the data, you are about to
    make it wrong at the next edit.
-7. **`null` renders nothing.** Never a disabled link, a `mailto:#`, a greyed
+8. **`null` renders nothing.** Never a disabled link, a `mailto:#`, a greyed
    button or « bientôt ». An absence has to read as a decision.
 
 ---

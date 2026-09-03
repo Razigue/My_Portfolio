@@ -1,6 +1,7 @@
 import { Scrub } from "@/components/motion/Scrub";
 import { Stage } from "@/components/motion/Stage";
 import { TransitionLink } from "@/components/motion/TransitionLink";
+import { ProjectShotDisclosure } from "@/components/projects/ProjectShot";
 import { Reveal } from "@/components/ui/Reveal";
 import { ExternalLink, StatusDot, TagList } from "@/components/ui/primitives";
 import type { Project } from "@/content/projects";
@@ -140,6 +141,22 @@ export function FeaturedPanel({
                 </ExternalLink>
               ) : null}
             </Reveal>
+
+            {/* Folded away by default. A panel is one screenful and its subject
+                is the title; a picture pinned open here would outweigh it. */}
+            {project.image ? (
+              <Reveal
+                variant="rise"
+                order={6}
+                className={`mt-8 ${flip ? "" : "lg:flex lg:flex-col lg:items-end"}`}
+              >
+                <ProjectShotDisclosure
+                  image={project.image}
+                  sizes="(min-width: 1024px) 22rem, 100vw"
+                  className="max-w-[22rem]"
+                />
+              </Reveal>
+            ) : null}
           </div>
         </div>
       </div>

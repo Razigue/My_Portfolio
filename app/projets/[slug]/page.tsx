@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PageHeader } from "@/components/layout/PageHeader";
+import { ProjectShot } from "@/components/projects/ProjectShot";
 import { Stage } from "@/components/motion/Stage";
 import { TransitionLink } from "@/components/motion/TransitionLink";
 import { Reveal } from "@/components/ui/Reveal";
@@ -11,6 +12,7 @@ import {
   TagList,
 } from "@/components/ui/primitives";
 import { getProject, projectNumber, projects } from "@/content/projects";
+import { copy } from "@/content/site";
 
 type Params = { params: Promise<{ slug: string }> };
 
@@ -55,6 +57,15 @@ export default async function ProjetPage({ params }: Params) {
         eyebrow={String(project.year)}
         title={project.title}
         sub={project.subtitle ?? undefined}
+        media={
+          project.image ? (
+            <ProjectShot
+              image={project.image}
+              sizes="(min-width: 1024px) 24rem, 100vw"
+              priority
+            />
+          ) : undefined
+        }
       />
 
       <Stage className="band" stagger={0.09}>
@@ -149,7 +160,7 @@ export default async function ProjetPage({ params }: Params) {
               id="demarche-title"
               className="eyebrow"
             >
-              La démarche
+              {copy.approachTitle}
             </Reveal>
 
             <div className="prose-fr mt-12 max-w-measure text-body">

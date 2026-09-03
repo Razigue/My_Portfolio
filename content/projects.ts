@@ -12,10 +12,18 @@
  * l'impact. Rien qui ne soit vérifiable.
  */
 
+import type { StaticImageData } from "next/image";
+import tonecraftShot from "@/content/media/tonecraft.png";
 import { checkProjects } from "@/content/check";
 import { capitalise, cardinal } from "@/lib/french";
 
 export type ProjectStatus = "live" | "archived";
+
+export type ProjectImage = {
+  readonly src: StaticImageData;
+  /** Read aloud in place of the picture, so it describes it rather than names it. */
+  readonly alt: string;
+};
 
 export type Project = {
   readonly slug: string;
@@ -31,6 +39,13 @@ export type Project = {
    */
   readonly approach: readonly string[] | null;
   readonly stack: readonly string[];
+  /**
+   * A capture of the project, imported as a module rather than served from
+   * `public/` so that Next reads its dimensions and builds its blur placeholder
+   * itself. `null` on a project that has nothing to show, which is most of
+   * them: the pages carry their weight in type.
+   */
+  readonly image: ProjectImage | null;
   readonly year: number;
   /** `null` renders nothing at all. Never a disabled or placeholder link. */
   readonly repo: string | null;
@@ -61,6 +76,10 @@ export const projects: readonly Project[] = [
       "Rien de compilé n’entre dans le dépôt. L’intégration continue compile le WebAssembly et publie le site à chaque commit, si bien que la page en ligne est exactement l’image d’une version et qu’un retour en arrière est un revert. Ce qui manque est écrit noir sur blanc dans le dépôt\u00A0: l’overdrive, le compresseur, la réverbération, l’accordeur et le chemin d’écoute sans JavaScript sont spécifiés et pas encore branchés.",
     ],
     stack: ["Astro", "Svelte", "C++", "WebAssembly", "Web Audio API"],
+    image: {
+      src: tonecraftShot,
+      alt: "L’interface de Tonecraft\u00A0: les modules In, Gate, Amp, Cab et Out alignés de gauche à droite, chacun portant ses curseurs.",
+    },
     year: 2026,
     repo: `${GH}Razigue/Tonecraft`,
     demo: "https://razigue.github.io/Tonecraft/",
@@ -79,6 +98,7 @@ export const projects: readonly Project[] = [
     ],
     approach: null,
     stack: ["Node.js", "Express", "MongoDB"],
+    image: null,
     year: 2026,
     repo: `${GH}Razigue/Corelab`,
     demo: null,
@@ -97,6 +117,7 @@ export const projects: readonly Project[] = [
     ],
     approach: null,
     stack: ["Spring Boot", "React", "MySQL"],
+    image: null,
     year: 2026,
     repo: `${GH}Razigue/Connectin_V2`,
     demo: null,
@@ -115,6 +136,7 @@ export const projects: readonly Project[] = [
     ],
     approach: null,
     stack: ["Ollama", "Modelfile"],
+    image: null,
     year: 2026,
     repo: null,
     demo: null,
@@ -132,6 +154,7 @@ export const projects: readonly Project[] = [
     ],
     approach: null,
     stack: ["n8n", "Ollama", "Linux"],
+    image: null,
     year: 2026,
     repo: null,
     demo: null,
@@ -149,6 +172,7 @@ export const projects: readonly Project[] = [
     ],
     approach: null,
     stack: ["HTML", "CSS", "PHP"],
+    image: null,
     year: 2026,
     repo: `${GH}Razigue/CV_Generator`,
     demo: null,
@@ -167,6 +191,7 @@ export const projects: readonly Project[] = [
     ],
     approach: null,
     stack: ["PHP", "Laravel", "MySQL"],
+    image: null,
     year: 2025,
     repo: `${GH}Razigue/Connectin`,
     demo: null,
@@ -185,6 +210,7 @@ export const projects: readonly Project[] = [
     ],
     approach: null,
     stack: ["GitHub Actions", "Jest", "Playwright"],
+    image: null,
     year: 2025,
     repo: `${GH}Razigue/JeuVideoOPS`,
     demo: null,
@@ -203,6 +229,7 @@ export const projects: readonly Project[] = [
     ],
     approach: null,
     stack: ["WordPress", "ACF", "PHP"],
+    image: null,
     year: 2025,
     repo: `${GH}Razigue/LearnSphere`,
     demo: null,
@@ -220,6 +247,7 @@ export const projects: readonly Project[] = [
     ],
     approach: null,
     stack: ["HTML", "CSS", "PHP", "SQL"],
+    image: null,
     year: 2025,
     repo: `${GH}Razigue/My_Cinema`,
     demo: null,
@@ -237,6 +265,7 @@ export const projects: readonly Project[] = [
     ],
     approach: null,
     stack: ["Docker", "JavaScript", "Java"],
+    image: null,
     year: 2025,
     repo: `${GH}Razigue/Popeye`,
     demo: null,
@@ -251,6 +280,7 @@ export const projects: readonly Project[] = [
     highlights: ["Intégration pixel-perfect", "HTML et CSS purs"],
     approach: null,
     stack: ["HTML", "CSS"],
+    image: null,
     year: 2025,
     repo: `${GH}Razigue/site-statique`,
     demo: "https://razigue.github.io/site-statique/",
@@ -265,6 +295,7 @@ export const projects: readonly Project[] = [
     highlights: ["Reprise du site statique", "Thème libre en Tailwind CSS"],
     approach: null,
     stack: ["HTML", "Tailwind CSS"],
+    image: null,
     year: 2025,
     repo: `${GH}Razigue/site-statique-tailwind`,
     demo: "https://razigue.github.io/site-statique-tailwind/",

@@ -1140,6 +1140,62 @@
     transform: scale(1.04);
   }
 
+  /* --- A capture of a project ---
+     Same container as the portrait, without the grayscale: that filter keeps
+     one photograph from pulling the composition off neutral, and a screenshot
+     of an interface has to report its own colours. No border and no shadow —
+     rule one holds here as everywhere, and the block of pixels is its own
+     edge. The ground behind it only shows through while the image loads. */
+  .shot {
+    position: relative;
+    overflow: hidden;
+    background-color: var(--color-ink-2);
+  }
+
+  .shot img {
+    transition: transform var(--t-slow) var(--ease-cine);
+  }
+
+  .shot:hover img {
+    transform: scale(1.02);
+  }
+
+  /* --- The capture, folded away behind a word ---
+     Same swap as the mobile menu: two labels in the markup, one of them hidden,
+     so the control names its own state instead of relying on a chevron nobody
+     reads. No marker triangle: it is a shape the site does not draw. */
+  .shot-summary {
+    list-style: none;
+  }
+
+  .shot-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .shot-word[data-shot-word="open"],
+  .shot-toggle[open] .shot-word[data-shot-word="closed"] {
+    display: none;
+  }
+
+  .shot-toggle[open] .shot-word[data-shot-word="open"] {
+    display: inline;
+  }
+
+  /* The picture arrives the way every other image on the site does — uncovered
+     from the bottom edge — rather than appearing between two frames. */
+  .shot-toggle[open] .shot-panel {
+    animation: shot-open 0.72s var(--ease-cine) both;
+  }
+
+  @keyframes shot-open {
+    from {
+      clip-path: inset(100% 0% 0% 0%);
+    }
+    to {
+      clip-path: inset(0% 0% 0% 0%);
+    }
+  }
+
   /* A gold sliver that travels across the frame once, as it is uncovered. */
   .sheen {
     position: absolute;
