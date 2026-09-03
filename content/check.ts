@@ -131,6 +131,20 @@ export function checkProjects(
       checkProse(problems, `« ${name} » : highlights[${i}]`, h),
     );
 
+    // Un tableau vide afficherait le titre « La démarche » au-dessus de rien.
+    // L'absence de texte long s'écrit `null`, comme partout ailleurs.
+    if (project.approach !== null) {
+      if (project.approach.length === 0) {
+        problems.push(
+          `« ${name} » : approach est une liste vide. Mettre \`null\` si le ` +
+            `projet n'a pas de texte long, ou écrire au moins un paragraphe.`,
+        );
+      }
+      project.approach.forEach((paragraph, i) =>
+        checkProse(problems, `« ${name} » : approach[${i}]`, paragraph),
+      );
+    }
+
     if (project.stack.length === 0) {
       problems.push(`« ${name} » : stack est vide. Lister au moins une technologie.`);
     }

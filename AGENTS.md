@@ -83,7 +83,10 @@ you are the only check.
 5. **No invented facts.** No metric, date, duration, team size, client name or
    outcome that is not already in the CV, on GitHub, or in the existing content.
    A project's `highlights` may only restate what its `description` or `stack`
-   already says. A recruiter opening the repo has to find what the page claims.
+   already says. `approach`, the long-form account rendered under « La
+   démarche », is the one place a choice may be explained at length — it is
+   still held to the same rule: a recruiter opening the repo has to find what
+   the page claims.
 6. **Nothing that can be counted is typed.** The project count, the years the
    index spans, the per-technology counters, the row numbers — all derived. If
    you find yourself typing a number that describes the data, you are about to

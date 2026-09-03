@@ -66,6 +66,7 @@ plus récent au plus ancien.
       "Un autre",
       "Un troisième",
     ],
+    approach: null,
     stack: ["React", "Node.js"],
     year: 2026,
     repo: "https://github.com/Razigue/MonNouveauProjet",
@@ -89,6 +90,15 @@ Champ par champ :
   que reformuler ce qui est déjà dans `description` ou `stack`.** Pas de
   chiffre, pas de durée, pas de résultat, pas d’adjectif sur l’impact : rien
   qu’un recruteur ne puisse vérifier en ouvrant le dépôt.
+- **`approach`** — le texte long, quand le projet mérite d’être raconté :
+  d’où vient l’idée, ce que tu cherchais à obtenir, ce qui tourne aujourd’hui.
+  Une entrée par paragraphe, comme `parcours` dans `content/about.ts`. Il
+  s’affiche sous le titre « La démarche », en bas de la page du projet, et il
+  n’apparaît pas dans l’index. Mets `null` sur les projets qui n’en ont pas :
+  une page courte est une page juste, et c’est le cas de la plupart. Ce texte
+  n’a pas la contrainte des `highlights` — tu peux y expliquer un choix — mais
+  il reste soumis à la même règle de fond : rien qu’un recruteur ne puisse
+  retrouver en ouvrant le dépôt.
 - **`stack`** — les technologies, une par entrée. Elles alimentent aussi le
   tableau des compétences de l’accueil, qui se recalcule seul.
 - **`year`** — l’année sur quatre chiffres.

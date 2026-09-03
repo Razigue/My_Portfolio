@@ -136,6 +136,37 @@ export default async function ProjetPage({ params }: Params) {
         </div>
       </Stage>
 
+      {/* The long-form account, when the project carries one. Its own Stage,
+          so it is choreographed against its own scroll position rather than
+          the one that revealed the summary two screens earlier. */}
+      {project.approach ? (
+        <Stage aria-labelledby="demarche-title" stagger={0.08}>
+          <div className="section-body-tight mx-auto max-w-page px-6 lg:px-10">
+            <Reveal
+              variant="fade"
+              as="h2"
+              order={0}
+              id="demarche-title"
+              className="eyebrow"
+            >
+              La démarche
+            </Reveal>
+
+            <div className="prose-fr mt-12 max-w-measure text-body">
+              {project.approach.map((paragraph, order) => (
+                <p
+                  key={paragraph}
+                  data-choreo="lines"
+                  data-choreo-order={order + 1}
+                >
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+          </div>
+        </Stage>
+      ) : null}
+
       <Stage stagger={0.1}>
         <nav
           aria-label="Projet précédent et suivant"
