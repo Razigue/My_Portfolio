@@ -42,6 +42,31 @@ const GH = "https://github.com/";
 
 export const projects: readonly Project[] = [
   {
+    slug: "tonecraft",
+    title: "Tonecraft",
+    subtitle: "ampli guitare dans le navigateur",
+    description:
+      "Ampli et effets guitare jouables dans un onglet, sans rien installer\u00A0: les étages du signal sont écrits en C++, compilés en WebAssembly et exécutés dans un AudioWorklet.",
+    highlights: [
+      "Étages du signal écrits en C++ et compilés en WebAssembly",
+      "Traitement exécuté dans un AudioWorklet",
+      "Jouable dans un onglet, sans rien installer",
+    ],
+    approach: [
+      "Obtenir un bon son de guitare sur un ordinateur demande aujourd’hui une licence et une après-midi\u00A0: installer un hôte, installer un greffon, installer un pilote, puis découvrir que tout arrive avec quarante millisecondes de retard. Tonecraft prend le problème par l’autre bout\u00A0: une adresse, rien à installer, et le son dans l’onglet.",
+      "La décision qui arbitre tout le reste, c’est que le moteur n’est pas le produit. Il tourne à la compilation pour rendre à l’avance ce que la plupart des visiteurs entendront, et en temps réel seulement pour ceux qui branchent une guitare. Écouter est le cas fréquent, jouer est le cas rare, et l’architecture est rangée dans cet ordre.",
+      "Deux contraintes tiennent l’ensemble. Aucun serveur\u00A0: le site est un jeu de fichiers statiques servis par GitHub Pages, sans base de données, sans compte et sans donnée personnelle. Et une qualité fixe, jamais adaptée à la machine\u00A0: un son partagé par lien doit sonner pareil chez celui qui l’ouvre, ce qu’un moteur se dégradant tout seul rendrait impossible.",
+      "La chaîne fonctionne aujourd’hui de bout en bout\u00A0: noise gate, ampli, baffle, limiteur. Les étages sont écrits en C++, compilés en WebAssembly et exécutés dans un AudioWorklet, donc jamais sur le fil principal de la page. L’ampli est décrit en Faust\u00A0: quatre étages de gain modérés plutôt qu’un seul violent, un passe-haut devant chacun pour que les basses ne tournent pas en boue, un passe-bas derrière pour tenir la fizz, et un suréchantillonnage quatre fois autour de la fenêtre non linéaire.",
+      "Le reste tient dans une règle\u00A0: ce qui est mesuré est montré. La latence aller-retour est affichée, les décrochages sont comptés, et une entrée audio médiocre — l’entrée micro d’un portable, qui n’offre pas l’impédance qu’attend un micro de guitare — est diagnostiquée et nommée. Rien n’est jamais bloqué\u00A0: qui ne peut pas distinguer un mauvais branchement d’un mauvais moteur accusera le moteur.",
+      "Rien de compilé n’entre dans le dépôt. L’intégration continue compile le WebAssembly et publie le site à chaque commit, si bien que la page en ligne est exactement l’image d’une version et qu’un retour en arrière est un revert. Ce qui manque est écrit noir sur blanc dans le dépôt\u00A0: l’overdrive, le compresseur, la réverbération, l’accordeur et le chemin d’écoute sans JavaScript sont spécifiés et pas encore branchés.",
+    ],
+    stack: ["Astro", "Svelte", "C++", "WebAssembly", "Web Audio API"],
+    year: 2026,
+    repo: `${GH}Razigue/Tonecraft`,
+    demo: "https://razigue.github.io/Tonecraft/",
+    status: "live",
+  },
+  {
     slug: "corelab",
     title: "Corelab",
     subtitle: "plateforme e-learning",
@@ -76,31 +101,6 @@ export const projects: readonly Project[] = [
     repo: `${GH}Razigue/Connectin_V2`,
     demo: null,
     status: "archived",
-  },
-  {
-    slug: "tonecraft",
-    title: "Tonecraft",
-    subtitle: "ampli guitare dans le navigateur",
-    description:
-      "Ampli et effets guitare jouables dans un onglet, sans rien installer\u00A0: les étages du signal sont écrits en C++, compilés en WebAssembly et exécutés dans un AudioWorklet.",
-    highlights: [
-      "Étages du signal écrits en C++ et compilés en WebAssembly",
-      "Traitement exécuté dans un AudioWorklet",
-      "Jouable dans un onglet, sans rien installer",
-    ],
-    approach: [
-      "Obtenir un bon son de guitare sur un ordinateur demande aujourd’hui une licence et une après-midi\u00A0: installer un hôte, installer un greffon, installer un pilote, puis découvrir que tout arrive avec quarante millisecondes de retard. Tonecraft prend le problème par l’autre bout\u00A0: une adresse, rien à installer, et le son dans l’onglet.",
-      "La décision qui arbitre tout le reste, c’est que le moteur n’est pas le produit. Il tourne à la compilation pour rendre à l’avance ce que la plupart des visiteurs entendront, et en temps réel seulement pour ceux qui branchent une guitare. Écouter est le cas fréquent, jouer est le cas rare, et l’architecture est rangée dans cet ordre.",
-      "Deux contraintes tiennent l’ensemble. Aucun serveur\u00A0: le site est un jeu de fichiers statiques servis par GitHub Pages, sans base de données, sans compte et sans donnée personnelle. Et une qualité fixe, jamais adaptée à la machine\u00A0: un son partagé par lien doit sonner pareil chez celui qui l’ouvre, ce qu’un moteur se dégradant tout seul rendrait impossible.",
-      "La chaîne fonctionne aujourd’hui de bout en bout\u00A0: noise gate, ampli, baffle, limiteur. Les étages sont écrits en C++, compilés en WebAssembly et exécutés dans un AudioWorklet, donc jamais sur le fil principal de la page. L’ampli est décrit en Faust\u00A0: quatre étages de gain modérés plutôt qu’un seul violent, un passe-haut devant chacun pour que les basses ne tournent pas en boue, un passe-bas derrière pour tenir la fizz, et un suréchantillonnage quatre fois autour de la fenêtre non linéaire.",
-      "Le reste tient dans une règle\u00A0: ce qui est mesuré est montré. La latence aller-retour est affichée, les décrochages sont comptés, et une entrée audio médiocre — l’entrée micro d’un portable, qui n’offre pas l’impédance qu’attend un micro de guitare — est diagnostiquée et nommée. Rien n’est jamais bloqué\u00A0: qui ne peut pas distinguer un mauvais branchement d’un mauvais moteur accusera le moteur.",
-      "Rien de compilé n’entre dans le dépôt. L’intégration continue compile le WebAssembly et publie le site à chaque commit, si bien que la page en ligne est exactement l’image d’une version et qu’un retour en arrière est un revert. Ce qui manque est écrit noir sur blanc dans le dépôt\u00A0: l’overdrive, le compresseur, la réverbération, l’accordeur et le chemin d’écoute sans JavaScript sont spécifiés et pas encore branchés.",
-    ],
-    stack: ["Astro", "Svelte", "C++", "WebAssembly", "Web Audio API"],
-    year: 2026,
-    repo: `${GH}Razigue/Tonecraft`,
-    demo: "https://razigue.github.io/Tonecraft/",
-    status: "live",
   },
   {
     slug: "securite-llm",
