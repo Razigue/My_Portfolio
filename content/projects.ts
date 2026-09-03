@@ -70,21 +70,21 @@ export const projects: readonly Project[] = [
     status: "archived",
   },
   {
-    slug: "epitone",
-    title: "Epitone",
-    subtitle: "VST dans le navigateur",
+    slug: "tonecraft",
+    title: "Tonecraft",
+    subtitle: "ampli guitare dans le navigateur",
     description:
-      "Projet perso : un VST guitare (ampli & effets) jouable directement dans le navigateur, prototypé avec la Web Audio API.",
+      "Ampli et effets guitare jouables dans un onglet, sans rien installer\u00A0: les étages du signal sont écrits en C++, compilés en WebAssembly et exécutés dans un AudioWorklet.",
     highlights: [
-      "Ampli et effets guitare",
-      "Jouable directement dans le navigateur",
-      "Prototypé avec la Web Audio API",
+      "Étages du signal écrits en C++ et compilés en WebAssembly",
+      "Traitement exécuté dans un AudioWorklet",
+      "Jouable dans un onglet, sans rien installer",
     ],
-    stack: ["React", "Web Audio API"],
+    stack: ["Astro", "Svelte", "C++", "WebAssembly", "Web Audio API"],
     year: 2026,
-    repo: null,
-    demo: null,
-    status: "archived",
+    repo: `${GH}Razigue/Tonecraft`,
+    demo: "https://razigue.github.io/Tonecraft/",
+    status: "live",
   },
   {
     slug: "securite-llm",
@@ -247,7 +247,7 @@ export const projects: readonly Project[] = [
 ] as const;
 
 /** Ceux que met en avant l'accueil, dans cet ordre. */
-export const featuredSlugs = ["corelab", "connect-in-v2", "epitone"] as const;
+export const featuredSlugs = ["corelab", "connect-in-v2", "tonecraft"] as const;
 
 // Slugs inconnus, doublons, statut « en ligne » sans démo, apostrophe droite :
 // la compilation s'arrête ici plutôt que de publier la page.

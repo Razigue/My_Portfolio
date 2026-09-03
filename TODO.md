@@ -53,17 +53,16 @@ si le code reste privé.
 
 ---
 
-## 4. Trois projets sans dépôt identifié
+## 4. Deux projets sans dépôt identifié
 
 **`content/projects.ts`**, `repo: null` sur :
 
-- Epitone, VST dans le navigateur → `epitone`
 - Sécurité LLM, prompt injection → `securite-llm`
 - Automatisation IA → `automatisation-ia`
 
-Ces trois projets viennent du CV et n’ont pas pu être rattachés à un dépôt
+Ces deux projets viennent du CV et n’ont pas pu être rattachés à un dépôt
 public. Piste : `github.com/Razigue/Persona` est public mais n’a pas de README,
-c’est peut-être l’un des trois. En revanche `github.com/Razigue/Klivio` est
+c’est peut-être l’un des deux. En revanche `github.com/Razigue/Klivio` est
 **confirmé comme n’étant pas** l’un d’eux : son README montre qu’il s’agit du
 projet statique Figma et Tailwind.
 
