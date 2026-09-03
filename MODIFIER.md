@@ -120,7 +120,7 @@ compétences et la phrase « Treize projets, de 2025 à 2026 » suivent tout seu
 Dans le même fichier, plus bas :
 
 ```ts
-export const featuredSlugs = ["tonecraft", "corelab", "connect-in-v2"] as const;
+export const featuredSlugs = ["tonecraft", "overkill", "corelab"] as const;
 ```
 
 Remplace un slug, ou ajoutes-en un. Le titre de la section (« Trois projets
@@ -291,7 +291,7 @@ content/projects.ts — 2 problème(s) à corriger :
   • « corelab » : ce slug est utilisé deux fois. Chaque projet a son adresse,
     donc son slug doit être unique.
   • featuredSlugs contient « ancien-projet », qui ne correspond à aucun projet.
-    Slugs disponibles : corelab, connect-in-v2, …
+    Slugs disponibles : tonecraft, overkill, corelab, …
 ```
 
 Corrige, enregistre, la page se recharge. Ces vérifications tournent aussi bien

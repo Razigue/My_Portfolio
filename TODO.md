@@ -53,14 +53,21 @@ si le code reste privé.
 
 ---
 
-## 4. Deux projets sans dépôt identifié
+## 4. Trois projets sans dépôt public
 
 **`content/projects.ts`**, `repo: null` sur :
 
+- Overkill, agrégateur d’offres → `overkill`
 - Sécurité LLM, prompt injection → `securite-llm`
 - Automatisation IA → `automatisation-ia`
 
-Ces deux projets viennent du CV et n’ont pas pu être rattachés à un dépôt
+Overkill est un cas différent des deux autres : son dépôt existe, mais il est
+dans l’organisation `EpitechWebAcademiePromo2027`, qui renvoie une 404 à tout
+visiteur. Un miroir public sur ton compte personnel — comme ceux déjà en place
+pour six autres projets — rendrait le lien affichable. À toi de décider si le
+travail d’équipe peut être republié ainsi.
+
+Les deux autres viennent du CV et n’ont pas pu être rattachés à un dépôt
 public. Piste : `github.com/Razigue/Persona` est public mais n’a pas de README,
 c’est peut-être l’un des deux. En revanche `github.com/Razigue/Klivio` est
 **confirmé comme n’étant pas** l’un d’eux : son README montre qu’il s’agit du

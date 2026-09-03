@@ -86,6 +86,29 @@ export const projects: readonly Project[] = [
     status: "live",
   },
   {
+    slug: "overkill",
+    title: "Overkill",
+    subtitle: "agrégateur d’offres",
+    description:
+      "Agrégateur d’offres d’emploi, de stage et d’alternance construit en équipe\u00A0: API Symfony, front React, base PostgreSQL. Ma part couvre les offres et les favoris\u00A0: contrôleurs, DTO de validation, recherche filtrée et pagination.",
+    highlights: [
+      "Contrôleurs des offres et des favoris",
+      "DTO de validation des données entrantes",
+      "Recherche filtrée et pagination",
+    ],
+    approach: [
+      "Overkill rassemble au même endroit les offres d’emploi, de stage et d’alternance. C’est un projet d’équipe\u00A0: une API Symfony, un front React, une base PostgreSQL, le tout monté sous Docker. On s’est réparti l’API par domaine.",
+      "J’ai eu les offres et les favoris. Le contrôleur des offres porte les routes du domaine\u00A0: lecture filtrée, lecture par identifiant, création, suppression. La recherche accepte des critères cumulables — texte libre, ville, entreprise, contrat, type, télétravail, salaire minimum, catégorie —, les pagine, et ne remonte que les offres publiées dans les trente derniers jours, parce qu’une annonce périmée dans un agrégateur est pire qu’une absence de résultat. Le contrôleur des favoris tient les siennes sur l’utilisateur connecté.",
+      "Le DTO est la frontière du domaine. Les offres n’arrivent pas d’un formulaire mais d’un collecteur, donc personne ne relit ce qui entre\u00A0: le titre est obligatoire et borné, le type ne peut valoir que trois valeurs, le pays est un code à deux lettres, les coordonnées doivent tenir dans leurs plages. Le JSON est validé avant d’atteindre la base, jamais après.",
+    ],
+    stack: ["Symfony", "PHP", "PostgreSQL", "React", "Docker"],
+    image: null,
+    year: 2026,
+    repo: null,
+    demo: null,
+    status: "archived",
+  },
+  {
     slug: "corelab",
     title: "Corelab",
     subtitle: "plateforme e-learning",
@@ -101,25 +124,6 @@ export const projects: readonly Project[] = [
     image: null,
     year: 2026,
     repo: `${GH}Razigue/Corelab`,
-    demo: null,
-    status: "archived",
-  },
-  {
-    slug: "connect-in-v2",
-    title: "Connect’In v2",
-    subtitle: null,
-    description:
-      "Refonte du réseau social : nouvelles fonctionnalités, refactorisation de l’architecture et interface repensée.",
-    highlights: [
-      "Nouvelles fonctionnalités",
-      "Refactorisation de l’architecture",
-      "Interface repensée",
-    ],
-    approach: null,
-    stack: ["Spring Boot", "React", "MySQL"],
-    image: null,
-    year: 2026,
-    repo: `${GH}Razigue/Connectin_V2`,
     demo: null,
     status: "archived",
   },
@@ -304,7 +308,7 @@ export const projects: readonly Project[] = [
 ] as const;
 
 /** Ceux que met en avant l'accueil, dans cet ordre. */
-export const featuredSlugs = ["tonecraft", "corelab", "connect-in-v2"] as const;
+export const featuredSlugs = ["tonecraft", "overkill", "corelab"] as const;
 
 // Slugs inconnus, doublons, statut « en ligne » sans démo, apostrophe droite :
 // la compilation s'arrête ici plutôt que de publier la page.
