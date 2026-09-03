@@ -113,13 +113,17 @@ export const projects: readonly Project[] = [
     title: "Corelab",
     subtitle: "plateforme e-learning",
     description:
-      "API REST sécurisée : authentification JWT, contrôle d’accès par rôles et CRUD complet (Mongoose, bcrypt, Zod).",
+      "Plateforme de cours et de quiz construite en équipe, avec une API Express et une base MongoDB. Ma part couvre les modèles de données et les routes\u00A0: authentification JWT, contrôle d’accès par rôles, et le CRUD des cours, leçons, quiz et résultats.",
     highlights: [
-      "Authentification JWT",
-      "Contrôle d’accès par rôles",
-      "CRUD complet (Mongoose, bcrypt, Zod)",
+      "Modèles de données et routes de l’API",
+      "Authentification JWT et contrôle d’accès par rôles",
+      "CRUD des cours, leçons, quiz et résultats",
     ],
-    approach: null,
+    approach: [
+      "Corelab est une plateforme d’apprentissage autour du jeu vidéo\u00A0: des cours à suivre, des quiz pour vérifier ce qui est retenu, et une administration pour les gérer. C’est un projet d’équipe, et je m’y suis occupé du serveur\u00A0: les modèles de données et les routes.",
+      "Les modèles fixent la forme de tout le reste\u00A0: utilisateur, cours, leçon, quiz, résultat, notification. Écrits avec Mongoose, ce sont eux qui décident ce qu’un élève possède, ce qu’un cours contient et ce qu’un résultat retient d’un quiz passé. Une route ne rattrape pas un modèle mal posé.",
+      "Les routes suivent\u00A0: le CRUD des cours, des leçons et des quiz, l’enregistrement des résultats, la progression d’un élève, le seuil à partir duquel un quiz est réussi, la programmation d’une leçon à une date, l’import d’utilisateurs avec génération du mot de passe par bcrypt, et le mot de passe choisi à la première connexion. L’accès passe par un middleware qui vérifie le jeton JWT puis le rôle, et le formulaire de connexion est validé par Zod avant d’atteindre quoi que ce soit.",
+    ],
     stack: ["Node.js", "Express", "MongoDB"],
     image: null,
     year: 2026,
