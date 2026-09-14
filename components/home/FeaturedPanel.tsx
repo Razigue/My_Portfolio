@@ -89,7 +89,7 @@ export function FeaturedPanel({
           ) : null}
         </div>
 
-        <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end lg:gap-16">
+        <div className="grid gap-10 lg:grid-cols-2 lg:items-end lg:gap-16">
           <Reveal
             variant="lines"
             as="p"
@@ -105,7 +105,7 @@ export function FeaturedPanel({
               order={4}
               className={flip ? "lg:flex lg:justify-start" : "lg:flex lg:justify-end"}
             >
-              <TagList items={project.stack} />
+              <TagList items={project.primaryStack ?? project.stack} />
             </Reveal>
 
             <Reveal

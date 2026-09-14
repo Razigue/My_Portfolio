@@ -170,6 +170,17 @@ export function checkProjects(
       }
     });
 
+    if (project.primaryStack !== undefined) {
+      if (project.primaryStack.length === 0) {
+        problems.push(`« ${name} » : primaryStack est vide. Choisir les technologies principales ou retirer ce champ.`);
+      }
+      for (const technology of project.primaryStack) {
+        if (!project.stack.includes(technology)) {
+          problems.push(`« ${name} » : primaryStack contient « ${technology} », absente de stack. Utiliser le même nom que dans stack.`);
+        }
+      }
+    }
+
     if (!Number.isInteger(project.year) || project.year < 2000) {
       problems.push(`« ${name} » : year doit être une année sur quatre chiffres.`);
     }

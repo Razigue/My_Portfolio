@@ -113,6 +113,10 @@ Champ par champ :
   l’utilisent. Une technologie qu’aucun domaine ne liste arrête la compilation :
   ajoute-la dans `competences`, dans `content/about.ts`.
 - **`image`** — une capture du projet, ou `null`. Voir la section suivante.
+- **`primaryStack`** — facultatif, les technologies principales à afficher dans
+  le panneau d’accueil, par exemple `["Astro", "Svelte", "TypeScript", "C++", "WebAssembly"]`.
+  Choisis des noms déjà présents dans `stack`. La page du projet et les
+  compétences gardent la liste complète. Sans ce champ, le panneau utilise `stack`.
 - **`year`** — l’année sur quatre chiffres.
 - **`repo`** — l’adresse GitHub complète, ou `null` s’il n’y a pas de dépôt
   public.

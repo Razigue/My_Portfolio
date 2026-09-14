@@ -53,6 +53,8 @@ export type Project = {
    */
   readonly approach: readonly ProjectSection[] | null;
   readonly stack: readonly string[];
+  /** Optional selection for the home panel; the project page keeps the full stack. */
+  readonly primaryStack?: readonly string[];
   /**
    * A capture of the project, imported as a module rather than served from
    * `public/` so that Next reads its dimensions and builds its blur placeholder
@@ -126,6 +128,7 @@ export const projects: readonly Project[] = [
       "Astro", "Svelte", "TypeScript", "C++", "Rust", "WebAssembly",
       "Web Audio API", "alphaTab", "IndexedDB", "Playwright", "GitHub Actions",
     ],
+    primaryStack: ["Astro", "Svelte", "TypeScript", "C++", "WebAssembly"],
     image: {
       src: tonecraftShot,
       alt: "L’interface actuelle de Tonecraft\u00A0: les sélecteurs d’ampli, de baffle et de preset au-dessus de la tête GUILT, avec ses vitraux violets et les réglages Tone, Pitch, Boost et Reverb.",
