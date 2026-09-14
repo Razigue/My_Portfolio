@@ -75,11 +75,11 @@ export const projects: readonly Project[] = [
   {
     slug: "tonecraft",
     title: "Tonecraft",
-    subtitle: "un espace de pratique guitare",
+    subtitle: "plus qu’un standalone",
     kind: "personnel",
     team: null,
     description:
-      "Un espace de pratique guitare qui réunit simulation d’ampli, baffle et effets, lecture et édition de tablatures, accordeur, métronome et looper. L’enregistreur permet de garder une prise, de jouer sur une piste d’accompagnement et d’exporter le résultat en WAV, depuis la même page.",
+      "Au-delà de la simulation d’ampli, de baffle et d’effets, Tonecraft réunit tablatures, accordeur, métronome et looper. De quoi travailler un morceau, jouer sur un accompagnement et enregistrer une prise en WAV au même endroit, sans installer de DAW ni de plugins.",
     highlights: [
       "Simulation d’ampli, baffle et effets",
       "Tablatures, accordeur et métronome au même endroit",
