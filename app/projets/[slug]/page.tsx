@@ -181,15 +181,33 @@ export default async function ProjetPage({ params }: Params) {
               {copy.approachTitle}
             </Reveal>
 
-            <div className="prose-fr mt-12 max-w-measure text-body">
-              {project.approach.map((paragraph, order) => (
-                <p
-                  key={paragraph}
-                  data-choreo="lines"
-                  data-choreo-order={order + 1}
+            <div className="mt-12 grid gap-14 lg:gap-20">
+              {project.approach.map((section, index) => (
+                <section
+                  key={section.title}
+                  aria-labelledby={`demarche-section-${index}`}
+                  className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] lg:gap-16"
                 >
-                  {paragraph}
-                </p>
+                  <Reveal
+                    variant="rise"
+                    as="h3"
+                    id={`demarche-section-${index}`}
+                    className="font-display text-h3 leading-tight tracking-tight text-paper"
+                  >
+                    {section.title}
+                  </Reveal>
+                  <div className="grid max-w-measure gap-6 text-body">
+                    {section.paragraphs.map((paragraph) => (
+                      <p
+                        key={paragraph}
+                        data-choreo="lines"
+                        className="prose-fr"
+                      >
+                        {paragraph}
+                      </p>
+                    ))}
+                  </div>
+                </section>
               ))}
             </div>
           </div>

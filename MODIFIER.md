@@ -100,9 +100,10 @@ Champ par champ :
   qu’un recruteur ne puisse vérifier en ouvrant le dépôt.
 - **`approach`** — le texte long, quand le projet mérite d’être raconté :
   d’où vient l’idée, ce que tu cherchais à obtenir, ce qui tourne aujourd’hui.
-  Une entrée par paragraphe, comme `parcours` dans `content/about.ts`. Il
-  s’affiche sous le titre « La démarche », en bas de la page du projet, et il
-  n’apparaît pas dans l’index. Mets `null` sur les projets qui n’en ont pas :
+  Une entrée par partie, avec un titre (`title`) et une liste de paragraphes
+  (`paragraphs`). Il s’affiche sous le titre « La démarche », en bas de la
+  page du projet, et il n’apparaît pas dans l’index.
+  Mets `null` sur les projets qui n’en ont pas :
   une page courte est une page juste, et c’est le cas de la plupart. Ce texte
   n’a pas la contrainte des `highlights` — tu peux y expliquer un choix — mais
   il reste soumis à la même règle de fond : rien qu’un recruteur ne puisse
@@ -121,7 +122,43 @@ Champ par champ :
   promettre au visiteur quelque chose qui n’existe pas.
 
 Un projet ajouté reste **en réserve** tant que son slug n’est pas dans
-`featuredSlugs` (section suivante) : il n’apparaît nulle part sur le site.
+`featuredSlugs` (voir « Choisir les projets publiés ») : il n’apparaît nulle
+part sur le site.
+
+### Organiser le récit d’un projet
+
+Cette organisation reprend le principe de l’[étude de cas Episort de
+Kisukesama](https://kisukesaama.com/fr/episort) : des parties titrées pour
+retrouver les informations. Le portfolio garde sa propre mise en page.
+
+Les parties aident à retrouver le besoin, ta contribution, les choix techniques
+et le fonctionnement. Choisis les titres adaptés au texte disponible : aucune
+liste de rubriques n’est imposée. Pour un projet d’équipe, « Ma part » indique
+ce que tu as fait personnellement.
+
+```ts
+    approach: [
+      {
+        title: "Le besoin",
+        paragraphs: [
+          "Le problème auquel le projet répond.",
+        ],
+      },
+      {
+        title: "Ma part",
+        paragraphs: [
+          "Ce que j’ai réalisé dans le projet.",
+          "Un autre paragraphe, si nécessaire.",
+        ],
+      },
+    ],
+```
+
+Remplace ces phrases par des faits du projet. Un titre vide, une liste de
+paragraphes vide ou un paragraphe vide arrête la compilation. Pour supprimer
+une partie, retire son bloc ; pour supprimer tout le récit, mets
+`approach: null`. N’ajoute une partie sur ce qui reste à faire que si le README
+ou les issues du dépôt le documentent.
 
 ### Choisir les projets publiés
 

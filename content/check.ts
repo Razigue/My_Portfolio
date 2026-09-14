@@ -131,18 +131,28 @@ export function checkProjects(
       checkProse(problems, `« ${name} » : highlights[${i}]`, h),
     );
 
-    // Un tableau vide afficherait le titre « La démarche » au-dessus de rien.
-    // L'absence de texte long s'écrit `null`, comme partout ailleurs.
+    // An empty section would publish a heading with nothing below it.
+    // Projects without a long-form account use `null` instead.
     if (project.approach !== null) {
       if (project.approach.length === 0) {
         problems.push(
           `« ${name} » : approach est une liste vide. Mettre \`null\` si le ` +
-            `projet n'a pas de texte long, ou écrire au moins un paragraphe.`,
+            `projet n'a pas de texte long, ou écrire au moins une partie titrée.`,
         );
       }
-      project.approach.forEach((paragraph, i) =>
-        checkProse(problems, `« ${name} » : approach[${i}]`, paragraph),
-      );
+      project.approach.forEach((section, i) => {
+        const where = `« ${name} » : approach[${i}]`;
+        checkProse(problems, `${where}.title`, section.title);
+        if (section.paragraphs.length === 0) {
+          problems.push(
+            `${where}.paragraphs est une liste vide. Écrire au moins un ` +
+              `paragraphe, ou retirer cette partie.`,
+          );
+        }
+        section.paragraphs.forEach((paragraph, j) =>
+          checkProse(problems, `${where}.paragraphs[${j}]`, paragraph),
+        );
+      });
     }
 
     // Une image sans texte de remplacement n'existe pas pour qui ne la voit

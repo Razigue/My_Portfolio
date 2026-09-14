@@ -93,7 +93,8 @@ you are the only check.
    outcome that is not already in the CV, on GitHub, or in the existing content.
    A project's `highlights` may only restate what its `description` or `stack`
    already says. `approach`, the long-form account rendered under « La
-   démarche », is the one place a choice may be explained at length — it is
+   démarche » as titled sections (`title`, `paragraphs`), is the one place a
+   choice may be explained at length — it is
    still held to the same rule: a recruiter opening the repo has to find what
    the page claims.
 7. **Nothing that can be counted is typed.** The project count, the years the
