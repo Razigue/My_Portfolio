@@ -191,7 +191,7 @@ renseigne `image` :
 ```ts
     image: {
       src: tonecraftShot,
-      alt: "L’interface de Tonecraft\u00A0: les modules In, Gate, Amp, Cab et Out alignés de gauche à droite, chacun portant ses curseurs.",
+      alt: "L’interface de Tonecraft\u00A0: les sélecteurs d’ampli et de baffle au-dessus de la tête GUILT, avec ses vitraux violets et ses réglages.",
     },
 ```
 
@@ -207,8 +207,8 @@ préparer les tailles servies aux petits écrans et d’afficher un flou pendant
 chargement.
 
 - **`alt`** — ce que voit quelqu’un qui ne voit pas l’image. Décris ce qu’elle
-  montre, ne la nomme pas : « L’interface de Tonecraft : les modules In, Gate,
-  Amp… » plutôt que « capture de Tonecraft ». Ce texte est relu comme les
+  montre, ne la nomme pas : « L’interface de Tonecraft : les sélecteurs d’ampli
+  et de baffle… » plutôt que « capture de Tonecraft ». Ce texte est relu comme les
   autres, apostrophes et espaces insécables comprises, et un champ vide arrête
   la compilation.
 

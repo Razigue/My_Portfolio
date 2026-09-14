@@ -120,12 +120,12 @@ export const principes: readonly {
   },
   {
     title: "Dire ce qui échoue en silence",
-    body: "Quand le moteur de Tonecraft ne démarre pas, la chaîne laisse passer le son sec et rien n’a l’air cassé. L’interface l’écrit donc en toutes lettres, et un test de bout en bout en navigateur vérifie à chaque commit que la capture tourne.",
+    body: "Quand une capture d’ampli ne se charge pas dans Tonecraft, entendre du son ne prouve pas qu’elle fonctionne. L’interface attend une confirmation du moteur et signale l’échec. Les tests en navigateur vérifient ce chargement avant la publication.",
     projects: ["tonecraft"],
   },
   {
-    title: "Ne rien afficher qui ne fait rien",
-    body: "Une capture d’ampli ne se règle pas, donc l’ampli de Tonecraft ne porte aucun curseur. La démonstration n’ouvre aucun micro et ne demande aucune permission, et le test compte les appels plutôt que de croire la phrase.",
+    title: "Simplifier le parcours",
+    body: "Tonecraft réunit simulation guitare, tablatures et outils de pratique dans la même page. Le lecteur et ses instruments ne sont chargés qu’à l’ouverture d’une partition. Un visiteur peut écouter la démonstration sans ouvrir le micro.",
     projects: ["tonecraft"],
   },
 ];
@@ -167,9 +167,13 @@ export const competences: readonly {
       "CSS",
       "Tailwind CSS",
       "Bootstrap",
-      "WebAssembly",
-      "Web Audio API",
+      "alphaTab",
+      "IndexedDB",
     ],
+  },
+  {
+    domain: "Audio et natif",
+    technologies: ["C++", "Rust", "WebAssembly", "Web Audio API"],
   },
   {
     domain: "DevOps et qualité",

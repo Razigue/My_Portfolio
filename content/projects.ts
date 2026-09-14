@@ -73,49 +73,62 @@ export const projects: readonly Project[] = [
   {
     slug: "tonecraft",
     title: "Tonecraft",
-    subtitle: "ampli guitare dans le navigateur",
+    subtitle: "un espace de pratique guitare",
     kind: "personnel",
     team: null,
     description:
-      "Ampli et effets guitare jouables dans un onglet, sans rien installer\u00A0: l’ampli est une capture Neural Amp Modeler exécutée en WebAssembly, le baffle, le boost, la correction et la réverbération sont écrits dans le projet, et toute la chaîne tourne dans un AudioWorklet.",
+      "Un espace de pratique guitare qui réunit simulation d’ampli, baffle et effets, lecture et édition de tablatures, accordeur, métronome et looper. L’enregistreur permet de garder une prise, de jouer sur une piste d’accompagnement et d’exporter le résultat en WAV, depuis la même page.",
     highlights: [
-      "Ampli\u00A0: une capture Neural Amp Modeler exécutée en WebAssembly",
-      "Baffle, boost, correction et réverbération écrits dans le projet",
-      "Chaîne complète exécutée dans un AudioWorklet, sans rien à installer",
+      "Simulation d’ampli, baffle et effets",
+      "Tablatures, accordeur et métronome au même endroit",
+      "Looper, enregistrement avec accompagnement et export WAV",
     ],
     approach: [
       {
         title: "Le problème initial",
         paragraphs: [
-          "Obtenir un bon son de guitare sur un ordinateur demande aujourd’hui une licence et une après-midi\u00A0: installer un hôte, installer un greffon, installer un pilote, puis découvrir que tout arrive avec quarante millisecondes de retard. Tonecraft prend le problème par l’autre bout\u00A0: une adresse, rien à installer, et le son dans l’onglet.",
+          "Travailler sa guitare sur ordinateur peut demander tout un parcours avant de jouer\u00A0: installer un logiciel de production musicale (DAW), un lecteur de tablatures et les plugins nécessaires à la simulation d’ampli, de baffle et de pédales d’effet. Il faut ensuite se familiariser avec le DAW et configurer le routage audio pour relier l’entrée de la guitare aux effets, puis à la sortie d’écoute.",
+          "C’est ce parcours que je veux simplifier avec Tonecraft\u00A0: centraliser le son, les tablatures et les outils de pratique au même endroit. La version navigateur fonctionne sans installer de DAW ni de plugin. Le choix de l’interface audio et de ses entrées reste accessible dans les réglages de la page.",
+        ],
+      },
+      {
+        title: "Ce qu’on peut faire",
+        paragraphs: [
+          "Le lecteur ouvre notamment les fichiers Guitar Pro et MusicXML. On peut sélectionner une piste, l’écouter seule ou la couper, ralentir la lecture et répéter un passage. Un manche affiche les notes jouées et peut y superposer une gamme. L’éditeur permet aussi d’écrire une tablature et de l’exporter au format Guitar Pro.",
+          "L’accordeur, le métronome et le looper accompagnent la pratique. La simulation réunit le traitement de l’entrée, le noise gate, la transposition, le boost, la capture d’ampli, le baffle, l’égalisation et la réverbération. L’enregistreur accueille la guitare et une piste d’accompagnement, avec un export WAV de la guitare seule, de l’accompagnement ou du mélange.",
+          "L’accueil distingue le musicien du visiteur qui veut découvrir le projet. Le premier accède aux réglages audio\u00A0; le second dispose d’un tutoriel et d’une prise de démonstration à écouter sans ouvrir le micro. L’accueil et le tutoriel sont disponibles en français et en anglais.",
         ],
       },
       {
         title: "Choix importants",
         paragraphs: [
-          "L’ampli a d’abord été écrit à la main, en C++ compilé en WebAssembly. À partir du moment où la chaîne a été mesurée contre une référence plutôt que discutée, il a cédé la place à une capture Neural Amp Modeler\u00A0: un modèle entraîné sur un vrai amplificateur, vérifié contre celui qui l’a entraîné, et exécuté ici par le moteur d’origine compilé en WebAssembly. Il n’y a plus de chaîne de compilation C++ dans le dépôt\u00A0: un clone neuf n’a besoin de rien d’autre que d’un npm ci.",
-          "Une capture est l’instantané figé d’un ampli à un réglage\u00A0: son gain, son canal et son égalisation sont dans le fichier et ne se pilotent pas. L’ampli et le baffle ne portent donc aucun curseur à l’écran, parce qu’inventer un bouton qui ne ferait rien serait mentir sur ce qu’est une capture. Ce qui se décide, c’est ce qu’on envoie dedans et ce qu’on fait de ce qui en sort\u00A0: un noise gate et un boost de type Tube Screamer devant, un baffle, une correction quatre bandes, une réverbération et un limiteur derrière. Le baffle n’est pas une option\u00A0: ces captures sont celles de l’amplificateur seul, mesurées elles sont encore à +5 dB à 7 kHz, là où une capture prise avec un baffle serait 25 dB plus bas.",
+          "L’amplificateur repose sur une capture Neural Amp Modeler. Cette capture correspond à un ampli à un réglage donné. Les commandes de Tonecraft agissent sur le signal autour de cette capture\u00A0: le boost en amont, le baffle, l’égalisation et la réverbération en aval. Le choix de la capture et du baffle fait donc partie du son, au même titre que les réglages.",
+          "Le looper conserve le son traité pour le rejouer tel qu’il a été entendu. L’enregistreur garde au contraire le signal brut de la guitare (DI), avant les effets\u00A0: on peut changer de son après la prise. À l’export, le choix entre DI et son traité est explicite. Le traitement hors ligne utilise le même moteur audio que le jeu en direct, dans un worker séparé.",
+          "Le lecteur de tablatures et ses instruments ne sont chargés que lorsqu’on ouvre ou crée une partition. La dernière partition, la dernière prise, l’accompagnement et les réglages sont conservés localement dans IndexedDB, sans compte ni envoi de ces fichiers à un serveur distant. Retrouver une session ne déclenche pas de son automatiquement.",
         ],
       },
       {
-        title: "L’expérience proposée",
+        title: "Comment ça tourne",
         paragraphs: [
-          "La page s’ouvre sur une question, parce que les deux visiteurs ne veulent pas la même chose. «\u00A0J’ai une guitare\u00A0» ouvre l’entrée audio. «\u00A0Fais-moi juste entendre\u00A0» charge une prise livrée avec le site et n’appelle jamais getUserMedia\u00A0: aucune demande de permission, aucun périphérique ouvert, rien qui écoute. Une boîte de dialogue de permission devant une démonstration est un péage, et le test navigateur compte les appels plutôt que de croire la phrase.",
-          "Un bouton en haut à droite, ou la touche B, coupe toute la simulation d’un coup\u00A0: c’est la seule façon de répondre à la question qu’un visiteur se pose vraiment : qu’est-ce que ça fait à ma guitare ? Le chemin direct porte 5,9 dB de compensation mesurée pour que les deux soient au même niveau, sans quoi la comparaison n’est plus qu’un test de volume, et le plus fort gagne toujours. Couper coupe aussi l’entrée live, parce qu’écouter le micro d’un portable dans les haut-parleurs est une boucle de larsen, pas une comparaison.",
+          "Astro sert une page statique et Svelte porte l’interface. TypeScript relie les commandes au moteur, tandis qu’alphaTab assure la lecture des partitions. La chaîne audio est écrite en C++, intègre NeuralAmpModelerCore et se compile en WebAssembly. Dans le navigateur, elle s’exécute dans un AudioWorklet, séparé de l’interface.",
+          "Pour les interfaces qui demandent un accès natif, Tonecraft Engine est un programme optionnel en Rust. Il exécute le même fichier WebAssembly avec wasmtime et accède aux périphériques via ASIO sous Windows, CoreAudio sous macOS ou ALSA sous Linux. La page reste l’interface de commande, reliée au moteur par une connexion WebSocket locale. Si ce moteur n’est pas disponible au démarrage, Tonecraft utilise le navigateur et l’indique.",
         ],
       },
       {
-        title: "Fonctionnement et déploiement",
+        title: "Vérifier avant de publier",
         paragraphs: [
-          "Le reste tient dans une règle\u00A0: ce qui peut échouer en silence est dit. Quand le moteur ne démarre pas, la chaîne laisse passer le signal sec\u00A0: il y a du son, les indicateurs de niveau bougent, rien n’a l’air cassé. Le worklet confirme donc que la capture tourne, l’interface écrit en toutes lettres qu’on entend sa guitare sèche quand ce n’est pas le cas, et le test de bout en bout en navigateur s’appuie sur cette confirmation à chaque commit. La latence aller-retour reste affichée en permanence, un chiffre et rien de plus\u00A0: le rapport qui l’expliquait a été retiré, parce que sur une machine saine il nommait le tampon du système d’exploitation à chaque image.",
-          "Deux contraintes tiennent l’ensemble. Aucun serveur\u00A0: le site est un jeu de fichiers statiques publié sur GitHub Pages à chaque commit, sans base de données, sans compte et sans donnée personnelle. Et un dépôt qui dit ce qu’il embarque\u00A0: le seul binaire versionné est le moteur d’ampli, épinglé à une version, et les captures d’amplis sont sous licence GPL v3 — le README le dit plutôt que de le laisser découvrir.",
+          "Entendre du son ne suffit pas à prouver que l’ampli fonctionne\u00A0: une capture qui ne se charge pas peut laisser passer le signal sec. L’interface attend donc une confirmation du moteur, signale l’échec et affiche une estimation de la latence. Les tests Playwright vérifient notamment le chargement de la capture, la démonstration sans accès micro, le lecteur et l’enregistreur. Un test de parité compare aussi la sortie du moteur navigateur et du moteur natif, échantillon par échantillon.",
+          "GitHub Actions vérifie le schéma des paramètres, exécute les tests et construit le site avant sa publication sur GitHub Pages. Le fichier WebAssembly compilé est versionné\u00A0: installer les dépendances suffit pour construire le site, tandis que recompiler le traitement audio demande Emscripten. Le programme natif possède sa propre chaîne de compilation et de publication.",
         ],
       },
     ],
-    stack: ["Astro", "Svelte", "TypeScript", "WebAssembly", "Web Audio API"],
+    stack: [
+      "Astro", "Svelte", "TypeScript", "C++", "Rust", "WebAssembly",
+      "Web Audio API", "alphaTab", "IndexedDB", "Playwright", "GitHub Actions",
+    ],
     image: {
       src: tonecraftShot,
-      alt: "L’interface de Tonecraft\u00A0: les modules In, Gate, Boost, Amp, Cab, Tone, Reverb et Out alignés de gauche à droite dans l’ordre du signal, chacun portant ses curseurs verticaux, l’ampli et le baffle portant à la place le nom de la capture et du baffle choisis.",
+      alt: "L’interface actuelle de Tonecraft\u00A0: les sélecteurs d’ampli, de baffle et de preset au-dessus de la tête GUILT, avec ses vitraux violets et les réglages Tone, Pitch, Boost et Reverb.",
     },
     year: 2026,
     repo: `${GH}Razigue/Tonecraft`,
