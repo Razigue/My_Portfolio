@@ -11,13 +11,22 @@ import {
   StatusDot,
   TagList,
 } from "@/components/ui/primitives";
-import { getProject, projectNumber, projects } from "@/content/projects";
+import {
+  featuredProjects,
+  getProject,
+  projectContext,
+  projectNumber,
+} from "@/content/projects";
 import { copy } from "@/content/site";
 
 type Params = { params: Promise<{ slug: string }> };
 
+// Projects kept in reserve get no page: an address nobody can reach from the
+// site should not answer either.
+export const dynamicParams = false;
+
 export function generateStaticParams() {
-  return projects.map((project) => ({ slug: project.slug }));
+  return featuredProjects.map((project) => ({ slug: project.slug }));
 }
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
@@ -46,9 +55,11 @@ export default async function ProjetPage({ params }: Params) {
   const project = getProject(slug);
   if (!project) notFound();
 
-  const index = projects.findIndex((p) => p.slug === slug);
-  const previous = index > 0 ? projects[index - 1] : null;
-  const next = index < projects.length - 1 ? projects[index + 1] : null;
+  const index = featuredProjects.findIndex((p) => p.slug === slug);
+  const previous = index > 0 ? featuredProjects[index - 1] : null;
+  const next =
+    index < featuredProjects.length - 1 ? featuredProjects[index + 1] : null;
+  const context = projectContext(project);
 
   return (
     <>
@@ -102,6 +113,13 @@ export default async function ProjetPage({ params }: Params) {
           </div>
 
           <aside className="grid content-start gap-10">
+            {context ? (
+              <Reveal variant="rise">
+                <Eyebrow>Cadre</Eyebrow>
+                <p className="mt-4 text-body text-paper">{context}</p>
+              </Reveal>
+            ) : null}
+
             <Reveal variant="rise">
               <Eyebrow>Stack</Eyebrow>
               <TagList items={project.stack} className="mt-4" />

@@ -5,7 +5,14 @@ import { PageHeader } from "@/components/layout/PageHeader";
 import { Stage } from "@/components/motion/Stage";
 import { Reveal } from "@/components/ui/Reveal";
 import { BtnLabel } from "@/components/ui/primitives";
-import { experiences, formation, langues, parcours } from "@/content/about";
+import {
+  atouts,
+  experiences,
+  formation,
+  interets,
+  langues,
+  parcours,
+} from "@/content/about";
 import { copy, presentation, site } from "@/content/site";
 
 export const metadata: Metadata = {
@@ -150,6 +157,38 @@ export default function AProposPage() {
               </a>
             </Reveal>
           </div>
+        </div>
+      </Stage>
+
+      {/* Atouts, and what fills the rest of the time */}
+      <Stage aria-labelledby="atouts-title" stagger={0.08}>
+        <div className="section-body-tight mx-auto grid max-w-page gap-14 px-6 lg:grid-cols-2 lg:gap-16 lg:px-10">
+          {[
+            { id: "atouts-title", title: "Atouts", items: atouts },
+            { id: "interets-title", title: "Au-delà du code", items: interets },
+          ].map((column, columnIndex) => (
+            <div key={column.id}>
+              <Reveal
+                variant="fade"
+                as="h2"
+                order={columnIndex * 2}
+                id={column.id}
+                className="eyebrow"
+              >
+                {column.title}
+              </Reveal>
+              <Reveal variant="rise" order={columnIndex * 2 + 1} className="mt-6">
+                <dl className="zebra -mx-4 grid">
+                  {column.items.map((item) => (
+                    <div key={item.name} className="grid gap-1 px-4 py-4">
+                      <dt className="text-body text-paper">{item.name}</dt>
+                      <dd className="text-meta text-paper-3">{item.detail}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </Reveal>
+            </div>
+          ))}
         </div>
       </Stage>
     </>

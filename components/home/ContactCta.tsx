@@ -2,7 +2,7 @@ import { Stage } from "@/components/motion/Stage";
 import { TransitionLink } from "@/components/motion/TransitionLink";
 import { Reveal } from "@/components/ui/Reveal";
 import { BtnLabel, SectionLabel } from "@/components/ui/primitives";
-import { copy, sections, site } from "@/content/site";
+import { aiNote, copy, sections, site } from "@/content/site";
 
 /**
  * The buttons here hold still. Their fill rises and their label swaps for a
@@ -61,6 +61,11 @@ export function ContactCta() {
           <a href={`mailto:${site.email}`} className="btn">
             <BtnLabel>{site.email}</BtnLabel>
           </a>
+        </Reveal>
+
+        <Reveal variant="rise" order={4} className="mt-24 max-w-measure">
+          <p className="eyebrow">{aiNote.label}</p>
+          <p className="mt-4 text-body text-paper-3">{aiNote.body}</p>
         </Reveal>
       </div>
     </Stage>

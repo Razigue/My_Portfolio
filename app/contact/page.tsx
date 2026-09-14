@@ -6,6 +6,7 @@ import { Stage } from "@/components/motion/Stage";
 import { Reveal } from "@/components/ui/Reveal";
 import { Eyebrow, ExternalLink } from "@/components/ui/primitives";
 import { availability, copy, site } from "@/content/site";
+import { searchCriteria } from "@/lib/criteria";
 
 export const metadata: Metadata = {
   title: copy.contactHeading,
@@ -90,9 +91,16 @@ export default function ContactPage() {
                 <span className="mark-flare dot-baseline" aria-hidden="true" />
                 {availability.headline}
               </p>
-              <p className="mt-2 text-meta text-paper-3">
-                {availability.window}
-              </p>
+              <dl className="zebra -mx-4 mt-5 grid">
+                {searchCriteria().map((criterion) => (
+                  <div key={criterion.label} className="grid gap-1 px-4 py-3">
+                    <dt className="font-mono text-micro tracking-meta text-paper-3">
+                      {criterion.label}
+                    </dt>
+                    <dd className="text-meta text-paper">{criterion.value}</dd>
+                  </div>
+                ))}
+              </dl>
             </Reveal>
           </aside>
         </div>

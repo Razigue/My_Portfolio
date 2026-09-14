@@ -31,15 +31,13 @@ Rien ne casse en local ni à la compilation entre-temps. Si le domaine finit par
 
 ## 2. URL LinkedIn
 
-**`content/site.ts` → `site.linkedin`**, actuellement `null`.
+**`content/site.ts` → `site.linkedin`**, désormais
+`https://www.linkedin.com/in/benhmida-razigue`.
 
-Absente du CV, du profil GitHub et de l’ancien portfolio. Tant qu’elle vaut
-`null`, aucun lien LinkedIn n’est rendu : ni dans le pied de page, ni sur
-`/contact`, ni dans le `sameAs` du JSON-LD. Rien à supprimer, juste à remplir.
-
-```ts
-linkedin: "https://www.linkedin.com/in/…",
-```
+Reprise du CV actuel. Elle n’a pas pu être vérifiée depuis le projet : LinkedIn
+refuse les requêtes automatiques. À ouvrir une fois dans un navigateur. Si elle
+ne mène pas au bon profil, la remettre à `null` : le lien disparaît du pied de
+page, de `/contact` et du `sameAs` du JSON-LD.
 
 ---
 
@@ -68,7 +66,8 @@ pour six autres projets — rendrait le lien affichable. À toi de décider si l
 travail d’équipe peut être republié ainsi.
 
 Les deux autres viennent du CV et n’ont pas pu être rattachés à un dépôt
-public. Piste : `github.com/Razigue/Persona` est public mais n’a pas de README,
+public. Ils sont aujourd’hui en réserve, donc non publiés : la question ne se
+pose qu’au jour où tu les remets dans `featuredSlugs`. Piste : `github.com/Razigue/Persona` est public mais n’a pas de README,
 c’est peut-être l’un des deux. En revanche `github.com/Razigue/Klivio` est
 **confirmé comme n’étant pas** l’un d’eux : son README montre qu’il s’agit du
 projet statique Figma et Tailwind.

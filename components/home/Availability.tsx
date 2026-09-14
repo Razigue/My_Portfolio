@@ -2,6 +2,7 @@ import { Stage } from "@/components/motion/Stage";
 import { Reveal } from "@/components/ui/Reveal";
 import { Ticker } from "@/components/ui/Ticker";
 import { availability } from "@/content/site";
+import { searchCriteria } from "@/lib/criteria";
 
 /**
  * The single most useful thing on the site for the person reading it, so it is
@@ -35,16 +36,13 @@ export function Availability() {
           {availability.headline}
         </Reveal>
 
-        <dl className="mt-16 grid gap-10 sm:grid-cols-2">
-          <Reveal variant="rise" order={2}>
-            <dt className="eyebrow">{availability.windowLabel}</dt>
-            <dd className="mt-3 text-lede text-paper">{availability.window}</dd>
-          </Reveal>
-
-          <Reveal variant="rise" order={3}>
-            <dt className="eyebrow">{availability.rhythmLabel}</dt>
-            <dd className="mt-3 text-lede text-paper">{availability.rhythm}</dd>
-          </Reveal>
+        <dl className="mt-16 grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+          {searchCriteria().map((criterion, index) => (
+            <Reveal key={criterion.label} variant="rise" order={2 + index}>
+              <dt className="eyebrow">{criterion.label}</dt>
+              <dd className="mt-3 text-lede text-paper">{criterion.value}</dd>
+            </Reveal>
+          ))}
         </dl>
       </div>
     </Stage>

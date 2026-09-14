@@ -1,12 +1,13 @@
 import { Stage } from "@/components/motion/Stage";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionLabel } from "@/components/ui/primitives";
-import { projects } from "@/content/projects";
+import { featuredProjects } from "@/content/projects";
 import { sections } from "@/content/site";
-import { projectCountLabel, skillMatrix } from "@/lib/skills";
+import { skillDomains, technologyCount } from "@/lib/skills";
 
 /**
- * Every number here is counted from `content/projects.ts` at build time; see
+ * The domains come from `content/about.ts`; every figure and every project
+ * name beside a technology is derived from `content/projects.ts`. See
  * `lib/skills.ts`.
  *
  * The two figures at the top are `data-choreo="counter"`, which counts the
@@ -14,12 +15,13 @@ import { projectCountLabel, skillMatrix } from "@/lib/skills";
  * real figure is simply there.
  */
 export function SkillsMatrix() {
-  const skills = skillMatrix();
+  const domains = skillDomains();
 
   return (
     <Stage
       as="section"
       aria-labelledby="competences-title"
+      className="band"
       stagger={0.04}
       start="top 88%"
     >
@@ -40,7 +42,7 @@ export function SkillsMatrix() {
           id="competences-title"
           className="mt-8 max-w-measure font-display text-h2 leading-tight tracking-display text-paper"
         >
-          Ce que ces projets utilisent
+          Ce que j’utilise, et où le voir
         </Reveal>
 
         <div className="mt-12 flex flex-wrap items-end gap-x-14 gap-y-6">
@@ -50,14 +52,14 @@ export function SkillsMatrix() {
               data-choreo-order="2"
               className="tnum font-display text-h2 leading-none text-flare"
             >
-              {skills.length}
+              {technologyCount()}
             </span>
             <span
               data-choreo="fade"
               data-choreo-order="3"
               className="eyebrow pb-1"
             >
-              technologies distinctes
+              technologies
             </span>
           </p>
 
@@ -67,41 +69,71 @@ export function SkillsMatrix() {
               data-choreo-order="4"
               className="tnum font-display text-h2 leading-none text-flare"
             >
-              {projects.length}
+              {domains.length}
             </span>
             <span
               data-choreo="fade"
               data-choreo-order="5"
               className="eyebrow pb-1"
             >
-              projets recensés
+              domaines
+            </span>
+          </p>
+
+          <p className="flex items-end gap-4">
+            <span
+              data-choreo="counter"
+              data-choreo-order="6"
+              className="tnum font-display text-h2 leading-none text-flare"
+            >
+              {featuredProjects.length}
+            </span>
+            <span
+              data-choreo="fade"
+              data-choreo-order="7"
+              className="eyebrow pb-1"
+            >
+              {featuredProjects.length > 1 ? "projets publiés" : "projet publié"}
             </span>
           </p>
         </div>
 
-        <ul className="mt-16 grid gap-x-12 gap-y-7 sm:grid-cols-2 lg:grid-cols-3">
-          {skills.map((skill) => (
-            <li key={skill.name} data-choreo="rise" className="skill-row">
-              <div className="flex items-baseline justify-between gap-4">
-                <span className="skill-name text-body text-paper">
-                  {skill.name}
-                </span>
-                <span className="tnum font-mono text-micro tracking-meta text-paper-3">
-                  {projectCountLabel(skill.count)}
-                </span>
-              </div>
+        <div className="mt-16 grid gap-x-12 gap-y-16 sm:grid-cols-2 lg:grid-cols-4">
+          {domains.map((domain) => (
+            <div key={domain.domain}>
+              <h3 data-choreo="fade" className="eyebrow">
+                {domain.domain}
+              </h3>
 
-              {/* One block per project, not a bar of proportional length: the
-                  counts are small enough to be read rather than estimated. The
-                  figure beside it says the same thing for anyone not seeing. */}
-              <span className="units mt-3" aria-hidden="true">
-                {Array.from({ length: skill.count }, (_, unit) => (
-                  <span key={unit} className="unit" />
+              <ul className="mt-6 grid gap-y-5">
+                {domain.skills.map((skill) => (
+                  <li key={skill.name} data-choreo="rise" className="skill-row">
+                    <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                      <span className="skill-name text-body text-paper">
+                        {skill.name}
+                      </span>
+                      {skill.projects.length > 0 ? (
+                        <span className="font-mono text-micro tracking-meta text-paper-3">
+                          {skill.projects.map((p) => p.title).join(", ")}
+                        </span>
+                      ) : null}
+                    </div>
+
+                    {/* One block per published project using it. The names
+                        beside it say the same thing for anyone not seeing. */}
+                    {skill.projects.length > 0 ? (
+                      <span className="units mt-3" aria-hidden="true">
+                        {skill.projects.map((p) => (
+                          <span key={p.slug} className="unit" />
+                        ))}
+                      </span>
+                    ) : null}
+                  </li>
                 ))}
-              </span>
-            </li>
+              </ul>
+            </div>
           ))}
-        </ul>
+        </div>
       </div>
     </Stage>
   );

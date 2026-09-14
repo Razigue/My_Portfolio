@@ -25,7 +25,7 @@ export function ProjectRow({
       </span>
 
       <div>
-        <h2 className="index-title font-display text-h3 leading-tight tracking-tight text-paper">
+        <h3 className="index-title font-display text-h3 leading-tight tracking-tight text-paper">
           <TransitionLink
             href={`/projets/${project.slug}`}
             curtainLabel={project.title}
@@ -36,10 +36,16 @@ export function ProjectRow({
           <span className="index-arrow ml-3 align-middle text-body" aria-hidden="true">
             →
           </span>
-        </h2>
+        </h3>
         {project.subtitle ? (
           <p className="index-sub mt-1 font-display text-body italic text-paper-3">
             {project.subtitle}
+          </p>
+        ) : null}
+        {/* The group heading already names the kind; only the team is new. */}
+        {project.team ? (
+          <p className="mt-2 font-mono text-micro tracking-meta text-paper-3">
+            {project.team}
           </p>
         ) : null}
       </div>

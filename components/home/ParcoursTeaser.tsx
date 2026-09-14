@@ -10,7 +10,6 @@ export function ParcoursTeaser() {
     <Stage
       as="section"
       aria-labelledby="parcours-title"
-      className="band"
       stagger={0.09}
     >
       <div className="section-body mx-auto max-w-page px-6 lg:px-10">

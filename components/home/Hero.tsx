@@ -3,9 +3,10 @@ import portrait from "@/content/media/razigue.png";
 import { ScrollCue } from "@/components/home/ScrollCue";
 import { Scrub } from "@/components/motion/Scrub";
 import { Stage } from "@/components/motion/Stage";
+import { TransitionLink } from "@/components/motion/TransitionLink";
 import { Reveal } from "@/components/ui/Reveal";
-import { Eyebrow } from "@/components/ui/primitives";
-import { hero, site } from "@/content/site";
+import { BtnLabel, Eyebrow } from "@/components/ui/primitives";
+import { copy, hero, site } from "@/content/site";
 
 /**
  * The opening frame. Everything inside arrives on load, and the whole block
@@ -83,20 +84,40 @@ export function Hero() {
 
           {/* Wide enough to set in two lines. At the lede measure this sentence
               broke into four, which reads as four separate thoughts. */}
-          <Reveal
-            variant="lines"
-            as="p"
-            order={3}
-            className="hero-lede max-w-measure text-lede text-paper-2"
-          >
-            {hero.tagline}
-          </Reveal>
+          <div className="hero-lede max-w-measure">
+            <Reveal
+              variant="lines"
+              as="p"
+              order={3}
+              className="text-lede text-paper-2"
+            >
+              {hero.tagline}
+            </Reveal>
 
-          <Reveal variant="fade" order={4} className="hero-cue">
+            <Reveal
+              variant="rise"
+              order={4}
+              className="mt-10 flex flex-wrap items-center gap-5"
+            >
+              <TransitionLink
+                href="/contact"
+                curtainLabel="Contact"
+                className="btn btn-solid"
+              >
+                <BtnLabel>{copy.heroContact}</BtnLabel>
+              </TransitionLink>
+
+              <a href={site.cvUrl} download className="btn">
+                <BtnLabel>{copy.cvButton}</BtnLabel>
+              </a>
+            </Reveal>
+          </div>
+
+          <Reveal variant="fade" order={5} className="hero-cue">
             <ScrollCue label="Défiler" />
           </Reveal>
 
-          <Reveal variant="fade" as="p" order={5} className="hero-place eyebrow">
+          <Reveal variant="fade" as="p" order={6} className="hero-place eyebrow">
             {site.location}
           </Reveal>
         </div>

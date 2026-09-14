@@ -1,35 +1,33 @@
-import { projects } from "@/content/projects";
+import { competences } from "@/content/about";
+import { featuredProjects, type Project } from "@/content/projects";
 
 /**
- * The coverage matrix is derived, never authored: each entry counts the
- * projects that list that technology, so it moves on its own when one is added
- * and a reader can check it against the index. Percentages, star ratings and
- * "expert / intermédiaire" levels are claims nobody can check, and are absent
- * deliberately.
+ * The domains and their technologies are authored in `content/about.ts`; what
+ * sits beside each technology is derived: the published projects whose stack
+ * lists it. A technology from the CV that no published project uses simply
+ * carries nothing, rather than a level or a percentage nobody could check.
  */
 
-export type SkillCount = {
+export type SkillUse = {
   readonly name: string;
-  readonly count: number;
+  readonly projects: readonly Project[];
 };
 
-export function skillMatrix(): readonly SkillCount[] {
-  const counts = new Map<string, number>();
+export type SkillDomain = {
+  readonly domain: string;
+  readonly skills: readonly SkillUse[];
+};
 
-  for (const project of projects) {
-    for (const technology of project.stack) {
-      counts.set(technology, (counts.get(technology) ?? 0) + 1);
-    }
-  }
-
-  return [...counts.entries()]
-    .map(([name, count]) => ({ name, count }))
-    .sort(
-      (a, b) => b.count - a.count || a.name.localeCompare(b.name, "fr"),
-    );
+export function skillDomains(): readonly SkillDomain[] {
+  return competences.map((group) => ({
+    domain: group.domain,
+    skills: group.technologies.map((name) => ({
+      name,
+      projects: featuredProjects.filter((p) => p.stack.includes(name)),
+    })),
+  }));
 }
 
-/** `4 projets` or `1 projet`, the label rendered beside each technology. */
-export function projectCountLabel(count: number): string {
-  return `${count} ${count > 1 ? "projets" : "projet"}`;
+export function technologyCount(): number {
+  return new Set(competences.flatMap((group) => group.technologies)).size;
 }

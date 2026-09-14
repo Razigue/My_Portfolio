@@ -37,9 +37,9 @@ te trompes, elle te dit immédiatement quoi corriger, en français.
 
 | Fichier | Ce qu’il contient |
 | --- | --- |
-| `content/projects.ts` | Les projets : titre, description, stack, année, liens |
-| `content/site.ts` | Identité, disponibilité, libellés des boutons, navigation |
-| `content/about.ts` | Parcours, expériences, formation, langues |
+| `content/projects.ts` | Les projets : titre, cadre, description, stack, année, liens, et lesquels sont publiés |
+| `content/site.ts` | Identité, ce que tu cherches, libellés des boutons, navigation, note sur l’IA |
+| `content/about.ts` | Parcours, expériences, formation, langues, atouts, centres d’intérêt, méthode, compétences |
 | `content/media/razigue.png` | Le portrait |
 | `public/cv-razigue-benhmida.pdf` | Le CV téléchargeable |
 
@@ -59,6 +59,8 @@ plus récent au plus ancien.
     slug: "mon-nouveau-projet",
     title: "Mon nouveau projet",
     subtitle: "sous-titre en italique",
+    kind: "ecole",
+    team: "équipe de 4",
     description:
       "Une phrase ou deux, au présent, sur ce que fait le projet.",
     highlights: [
@@ -85,6 +87,11 @@ Champ par champ :
 - **`title`** — le nom affiché, avec ses majuscules et ses accents.
 - **`subtitle`** — le qualificatif en italique sous le titre. Mets `null` si le
   projet n’en a pas.
+- **`kind`** — `"personnel"` ou `"ecole"`. L’index des projets les range sous
+  ces deux titres. Obligatoire sur un projet publié ; `null` accepté sur un
+  projet en réserve.
+- **`team`** — l’équipe telle que le CV la nomme, `"équipe de 5"`. Mets `null`
+  si tu as travaillé seul.
 - **`description`** — le texte principal de la page du projet. Une ou deux
   phrases suffisent ; une page courte est une page juste.
 - **`highlights`** — les points listés sous la description. **Ils ne peuvent
@@ -100,8 +107,10 @@ Champ par champ :
   n’a pas la contrainte des `highlights` — tu peux y expliquer un choix — mais
   il reste soumis à la même règle de fond : rien qu’un recruteur ne puisse
   retrouver en ouvrant le dépôt.
-- **`stack`** — les technologies, une par entrée. Elles alimentent aussi le
-  tableau des compétences de l’accueil, qui se recalcule seul.
+- **`stack`** — les technologies, une par entrée. Sur l’accueil, chacune
+  s’affiche dans son domaine de compétences avec le nom des projets qui
+  l’utilisent. Une technologie qu’aucun domaine ne liste arrête la compilation :
+  ajoute-la dans `competences`, dans `content/about.ts`.
 - **`image`** — une capture du projet, ou `null`. Voir la section suivante.
 - **`year`** — l’année sur quatre chiffres.
 - **`repo`** — l’adresse GitHub complète, ou `null` s’il n’y a pas de dépôt
@@ -111,11 +120,10 @@ Champ par champ :
   deux vont ensemble : `"live"` sans `demo` est refusé, parce que ce serait
   promettre au visiteur quelque chose qui n’existe pas.
 
-Il n’y a rien d’autre à faire. La ligne dans `/projets`, la page du projet, le
-`sitemap.xml`, les flèches précédent/suivant, le compteur de la matrice de
-compétences et la phrase « Treize projets, de 2025 à 2026 » suivent tout seuls.
+Un projet ajouté reste **en réserve** tant que son slug n’est pas dans
+`featuredSlugs` (section suivante) : il n’apparaît nulle part sur le site.
 
-### Mettre un projet en avant sur l’accueil
+### Choisir les projets publiés
 
 Dans le même fichier, plus bas :
 
@@ -123,10 +131,15 @@ Dans le même fichier, plus bas :
 export const featuredSlugs = ["tonecraft", "overkill", "corelab"] as const;
 ```
 
-Remplace un slug, ou ajoutes-en un. Le titre de la section (« Trois projets
-récents ») et la phrase qui suit (« Les dix autres sont dans l’index ») se
-réécrivent d’après le nombre. Un slug qui ne correspond à aucun projet arrête
-la compilation et te dit lesquels sont disponibles.
+**Seuls ces projets sont publiés**, dans cet ordre : sur l’accueil, dans
+l’index, avec leur page et dans le `sitemap.xml`. Les autres restent dans la
+liste `projects`, en réserve, et leur adresse répond « Page introuvable ».
+
+Remplace un slug, ou ajoutes-en un. Le titre « Trois projets récents », la
+phrase « Trois projets, en 2026 », les flèches précédent/suivant et les
+compteurs des compétences se réécrivent d’après la liste. Un slug qui ne
+correspond à aucun projet arrête la compilation et te dit lesquels sont
+disponibles.
 
 ### Supprimer un projet
 
@@ -195,7 +208,18 @@ la liste est l’ordre affiché, du plus récent au plus ancien.
 ```
 
 `parcours` est le texte long de la page « À propos » : une entrée par
-paragraphe. `formation` et `langues` se modifient sur place.
+paragraphe. `formation`, `langues`, `atouts` et `interets` se modifient sur
+place.
+
+Deux listes du même fichier alimentent l’accueil :
+
+- **`principes`**, la section « Méthode ». Chaque principe a un titre, un
+  texte, et la liste des slugs des projets qui le montrent. Un slug qui n’est
+  pas publié arrête la compilation, pour qu’un principe ne renvoie jamais vers
+  une page introuvable. Le texte ne dit rien que « La démarche » de ces projets
+  ne dise déjà.
+- **`competences`**, les domaines et leurs technologies. Le nom des projets
+  affiché à côté de chaque technologie se calcule tout seul.
 
 Ce fichier est relu comme les projets : un texte vide, une apostrophe droite ou
 une espace mal placée arrête la compilation avec le même genre de message.
@@ -207,11 +231,13 @@ une espace mal placée arrête la compilation avec le même genre de message.
 Dans `content/site.ts` :
 
 - `site` — nom, rôle, ville, email, GitHub, adresse du CV
-- `availability` — la recherche d’alternance, la période, le rythme, et le
-  bandeau qui défile
+- `availability` — la recherche d’alternance, la période, le rythme, le poste
+  visé, et le bandeau qui défile. L’école, le diplôme et le lieu affichés à côté
+  sont lus dans `formation` et `site.location`, ne les retape pas.
 - `hero`, `presentation` — l’accroche et le paragraphe de présentation
 - `navItems` — les entrées du menu
 - `sections` — les numéros et noms de chapitre de l’accueil
+- `aiNote` — la note sur l’usage de l’IA, en bas de la section Contact
 - `copy` — les libellés des boutons, « La démarche », « Voir l’aperçu » et les
   messages d’erreur
 - `form` — les libellés du formulaire de contact

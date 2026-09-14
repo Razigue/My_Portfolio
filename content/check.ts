@@ -198,6 +198,17 @@ export function checkProjects(
       problems.push(`featuredSlugs contient « ${slug} » deux fois.`);
     }
     featured.add(slug);
+
+    // L'index range les projets publiés par cadre : un projet sans cadre
+    // n'aurait nulle part où aller.
+    const project = projects.find((p) => p.slug === slug);
+    if (project?.kind === null) {
+      problems.push(
+        `« ${slug} » est publié mais kind vaut null. ` +
+          `Mettre "personnel" ou "ecole".`,
+      );
+    }
+    if (project) checkProse(problems, `« ${slug} » : team`, project.team);
   }
 
   report("content/projects.ts", problems);
@@ -213,6 +224,8 @@ export function checkAbout(about: {
   readonly experiences: readonly Texts[];
   readonly formation: Texts;
   readonly langues: readonly Texts[];
+  readonly atouts: readonly Texts[];
+  readonly interets: readonly Texts[];
 }): void {
   const problems: string[] = [];
 
@@ -227,6 +240,64 @@ export function checkAbout(about: {
   checkTexts(problems, "experiences", about.experiences);
   checkTexts(problems, "formation", about.formation);
   checkTexts(problems, "langues", about.langues);
+  checkTexts(problems, "atouts", about.atouts);
+  checkTexts(problems, "interets", about.interets);
+
+  report("content/about.ts", problems);
+}
+
+/**
+ * La méthode et les compétences renvoient aux projets publiés. Un principe qui
+ * cite un projet en réserve renverrait vers une page qui n'existe pas, et une
+ * technologie d'un projet publié absente des domaines disparaîtrait de
+ * l'accueil sans que personne le remarque.
+ */
+export function checkMethod(
+  method: {
+    readonly principes: readonly {
+      readonly title: string;
+      readonly body: string;
+      readonly projects: readonly string[];
+    }[];
+    readonly competences: readonly {
+      readonly domain: string;
+      readonly technologies: readonly string[];
+    }[];
+  },
+  published: readonly Project[],
+): void {
+  const problems: string[] = [];
+  const slugs = published.map((p) => p.slug);
+
+  method.principes.forEach((principe, i) => {
+    checkProse(problems, `principes[${i}].title`, principe.title);
+    checkProse(problems, `principes[${i}].body`, principe.body);
+    for (const slug of principe.projects) {
+      if (!slugs.includes(slug)) {
+        problems.push(
+          `principes[${i}] cite « ${slug} », qui n'est pas publié. ` +
+            `Projets publiés : ${slugs.join(", ")}.`,
+        );
+      }
+    }
+  });
+
+  const listed = new Set<string>();
+  method.competences.forEach((group, i) => {
+    checkProse(problems, `competences[${i}].domain`, group.domain);
+    group.technologies.forEach((t) => listed.add(t));
+  });
+  for (const project of published) {
+    for (const technology of project.stack) {
+      if (!listed.has(technology)) {
+        problems.push(
+          `« ${technology} » (stack de « ${project.slug} ») n'est rangée dans ` +
+            `aucun domaine de competences. L'ajouter à celui qui lui correspond, ` +
+            `écrite exactement pareil.`,
+        );
+      }
+    }
+  }
 
   report("content/about.ts", problems);
 }

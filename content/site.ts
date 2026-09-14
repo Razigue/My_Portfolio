@@ -16,7 +16,7 @@ export const site = {
   email: "razigue.benhmida@epitech.eu",
   github: "https://github.com/Razigue",
   cvUrl: "/cv-razigue-benhmida.pdf",
-  linkedin: null as string | null, // TODO, pas public à ce jour
+  linkedin: "https://www.linkedin.com/in/benhmida-razigue" as string | null, // repris du CV
   phone: null as string | null, // volontairement absent du balisage
   sourceRepo: null as string | null, // TODO, ce portfolio n’est pas encore publié
 
@@ -36,6 +36,13 @@ export const availability = {
   window: "de septembre 2026 à fin octobre 2027",
   rhythmLabel: "Rythme",
   rhythm: "6 semaines en entreprise, 2 semaines en formation",
+  targetLabel: "Poste visé",
+  target: "Développeur web full-stack, PHP / Laravel et React",
+  // L’école, le diplôme et le lieu ne se saisissent pas ici : ils sont lus
+  // dans `formation` (content/about.ts) et dans `site.location`.
+  schoolLabel: "École",
+  diplomaLabel: "Diplôme préparé",
+  placeLabel: "Lieu",
   /** Le bandeau défilant. Chaque entrée reprend un fait déjà présent ci-dessus. */
   ticker: [
     "Disponible septembre 2026",
@@ -69,9 +76,16 @@ export const navItems = [
  */
 export const sections = {
   selection: { ordinal: "01", label: "Sélection" },
-  parcours: { ordinal: "02", label: "Parcours" },
+  methode: { ordinal: "02", label: "Méthode" },
   competences: { ordinal: "03", label: "Compétences" },
-  contact: { ordinal: "04", label: "Contact" },
+  parcours: { ordinal: "04", label: "Parcours" },
+  contact: { ordinal: "05", label: "Contact" },
+} as const;
+
+/** La note sur l’usage de l’IA, en bas de la section Contact de l’accueil. */
+export const aiNote = {
+  label: "Usage de l’IA",
+  body: "Ce portfolio est écrit avec l’aide de Claude Code. Les choix, la relecture et ce qui est publié restent les miens : chaque affirmation du site renvoie à un dépôt ou au CV.",
 } as const;
 
 export const copy = {
@@ -79,6 +93,7 @@ export const copy = {
   contactHeading: "Prendre contact",
   contactSub: "Une question, une opportunité ? Je réponds sous 24 h.",
   cvButton: "Télécharger le CV (PDF)",
+  heroContact: "Me contacter",
   copyIdle: "copier",
   copyDone: "copié",
   sourceLink: "Code source ↗",
@@ -111,4 +126,4 @@ export const form = {
 
 // Chaque texte affiché passe la relecture, y compris ceux ajoutés plus tard :
 // un nouvel export se déclare simplement dans cet appel.
-checkCopy({ availability, hero, presentation, navItems, sections, copy, form });
+checkCopy({ availability, hero, presentation, navItems, sections, aiNote, copy, form });

@@ -19,6 +19,9 @@ import { capitalise, cardinal } from "@/lib/french";
 
 export type ProjectStatus = "live" | "archived";
 
+/** Where the project was made: on his own, or as Web@cadémie coursework. */
+export type ProjectKind = "personnel" | "ecole";
+
 export type ProjectImage = {
   readonly src: StaticImageData;
   /** Read aloud in place of the picture, so it describes it rather than names it. */
@@ -30,6 +33,13 @@ export type Project = {
   readonly title: string;
   /** The qualifier set in italics under the title, when the project has one. */
   readonly subtitle: string | null;
+  /**
+   * Personal or school. Required on every published project, since `/projets`
+   * groups by it; `null` is tolerated only on the ones kept in reserve.
+   */
+  readonly kind: ProjectKind | null;
+  /** The team as the CV states it, `équipe de 5`. `null` when he worked alone or it is unknown. */
+  readonly team: string | null;
   readonly description: string;
   readonly highlights: readonly string[];
   /**
@@ -60,6 +70,8 @@ export const projects: readonly Project[] = [
     slug: "tonecraft",
     title: "Tonecraft",
     subtitle: "ampli guitare dans le navigateur",
+    kind: "personnel",
+    team: null,
     description:
       "Ampli et effets guitare jouables dans un onglet, sans rien installer\u00A0: l’ampli est une capture Neural Amp Modeler exécutée en WebAssembly, le baffle, le boost, la correction et la réverbération sont écrits dans le projet, et toute la chaîne tourne dans un AudioWorklet.",
     highlights: [
@@ -90,6 +102,8 @@ export const projects: readonly Project[] = [
     slug: "overkill",
     title: "Overkill",
     subtitle: "agrégateur d’offres",
+    kind: "ecole",
+    team: "équipe de 5",
     description:
       "Agrégateur d’offres d’emploi, de stage et d’alternance construit en équipe\u00A0: API Symfony, front React, base PostgreSQL. Ma part couvre les offres et les favoris\u00A0: contrôleurs, DTO de validation, recherche filtrée et pagination.",
     highlights: [
@@ -113,6 +127,8 @@ export const projects: readonly Project[] = [
     slug: "corelab",
     title: "Corelab",
     subtitle: "plateforme e-learning",
+    kind: "ecole",
+    team: "équipe de 3",
     description:
       "Plateforme de formation au développement, cours et examens en QCM, construite en équipe avec une API Express et une base MongoDB. Ma part couvre les modèles de données et les routes\u00A0: authentification JWT, contrôle d’accès par rôles, et le CRUD des cours, leçons, quiz et résultats.",
     highlights: [
@@ -136,6 +152,8 @@ export const projects: readonly Project[] = [
     slug: "securite-llm",
     title: "Sécurité LLM",
     subtitle: "prompt injection",
+    kind: null,
+    team: null,
     description:
       "Système durci protégeant des valeurs secrètes : compartimentation, anti-acrostiche, anti-encodage, allow-list.",
     highlights: [
@@ -155,6 +173,8 @@ export const projects: readonly Project[] = [
     slug: "automatisation-ia",
     title: "Automatisation IA",
     subtitle: null,
+    kind: null,
+    team: null,
     description:
       "Workflows automatisés connectés à un modèle de langage exécuté en local sous Linux.",
     highlights: [
@@ -173,6 +193,8 @@ export const projects: readonly Project[] = [
     slug: "generateur-de-cv",
     title: "Générateur de CV",
     subtitle: null,
+    kind: null,
+    team: null,
     description:
       "Application PHP avec prévisualisation en temps réel au format A4 et export PDF.",
     highlights: [
@@ -191,6 +213,8 @@ export const projects: readonly Project[] = [
     slug: "connect-in",
     title: "Connect’In",
     subtitle: "réseau social",
+    kind: null,
+    team: null,
     description:
       "Partage de posts façon LinkedIn : architecture en couches, auth JWT, CORS et upload de fichiers.",
     highlights: [
@@ -210,6 +234,8 @@ export const projects: readonly Project[] = [
     slug: "jeuvideops",
     title: "JeuVideOPS",
     subtitle: "CI/CD",
+    kind: null,
+    team: null,
     description:
       "Pipeline d’intégration continue pour jeux JS rétro : ESLint, tests unitaires et E2E, audit npm, déploiement Pages.",
     highlights: [
@@ -229,6 +255,8 @@ export const projects: readonly Project[] = [
     slug: "learnsphere",
     title: "LearnSphere",
     subtitle: "e-learning",
+    kind: null,
+    team: null,
     description:
       "Custom post types, thème block, shortcode de quiz et configuration de plugins (projet en binôme).",
     highlights: [
@@ -248,6 +276,8 @@ export const projects: readonly Project[] = [
     slug: "my-cinema",
     title: "My Cinema",
     subtitle: null,
+    kind: null,
+    team: null,
     description:
       "Application web de consultation et gestion de films avec backend PHP et base de données.",
     highlights: [
@@ -266,6 +296,8 @@ export const projects: readonly Project[] = [
     slug: "popeye",
     title: "Popeye",
     subtitle: "vote distribué",
+    kind: null,
+    team: null,
     description:
       "Infrastructure de vote distribuée orchestrée avec Docker Compose (vote, worker, result).",
     highlights: [
@@ -284,6 +316,8 @@ export const projects: readonly Project[] = [
     slug: "integration-maquette-figma",
     title: "Intégration maquette Figma",
     subtitle: null,
+    kind: null,
+    team: null,
     description:
       "Intégration pixel-perfect d’une maquette Figma en HTML & CSS pur.",
     highlights: ["Intégration pixel-perfect", "HTML et CSS purs"],
@@ -299,6 +333,8 @@ export const projects: readonly Project[] = [
     slug: "introduction-tailwind",
     title: "Introduction Tailwind",
     subtitle: null,
+    kind: null,
+    team: null,
     description:
       "Reprise du site statique avec un thème libre en Tailwind CSS.",
     highlights: ["Reprise du site statique", "Thème libre en Tailwind CSS"],
@@ -312,7 +348,11 @@ export const projects: readonly Project[] = [
   },
 ] as const;
 
-/** Ceux que met en avant l'accueil, dans cet ordre. */
+/**
+ * Les projets publiés, dans cet ordre. Ce sont les seuls que le site montre :
+ * l'accueil, l'index, les pages de projet et le sitemap. Les autres restent
+ * dans la liste ci-dessus, en réserve, prêts à remplacer l'un d'eux.
+ */
 export const featuredSlugs = ["tonecraft", "overkill", "corelab"] as const;
 
 // Slugs inconnus, doublons, statut « en ligne » sans démo, apostrophe droite :
@@ -327,8 +367,21 @@ export const featuredProjects: readonly Project[] = featuredSlugs.map((slug) => 
   return project;
 });
 
+/** A project kept in reserve has no page, so its address answers 404. */
 export function getProject(slug: string): Project | undefined {
-  return projects.find((p) => p.slug === slug);
+  return featuredProjects.find((p) => p.slug === slug);
+}
+
+export const kindLabels: Readonly<Record<ProjectKind, string>> = {
+  personnel: "Projet personnel",
+  ecole: "Projet d’école",
+};
+
+/** « Projet d’école, équipe de 5 », or just the kind when he worked alone. */
+export function projectContext(project: Project): string | null {
+  if (!project.kind) return null;
+  const kind = kindLabels[project.kind];
+  return project.team ? `${kind}, ${project.team}` : kind;
 }
 
 /** Index sur deux chiffres, tel qu'affiché en tête de ligne. */
@@ -341,9 +394,10 @@ export function projectNumber(index: number): string {
  * projet met la phrase à jour toute seule, y compris les années.
  */
 export function projectsSummary(): string {
-  const years = projects.map((p) => p.year);
+  const years = featuredProjects.map((p) => p.year);
   const first = Math.min(...years);
   const last = Math.max(...years);
   const span = first === last ? `en ${first}` : `de ${first} à ${last}`;
-  return `${capitalise(cardinal(projects.length))} projets, ${span}.`;
+  const count = featuredProjects.length;
+  return `${capitalise(cardinal(count))} ${count > 1 ? "projets" : "projet"}, ${span}.`;
 }

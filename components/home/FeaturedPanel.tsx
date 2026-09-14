@@ -4,7 +4,7 @@ import { TransitionLink } from "@/components/motion/TransitionLink";
 import { ProjectShotDisclosure } from "@/components/projects/ProjectShot";
 import { Reveal } from "@/components/ui/Reveal";
 import { ExternalLink, StatusDot, TagList } from "@/components/ui/primitives";
-import type { Project } from "@/content/projects";
+import { projectContext, type Project } from "@/content/projects";
 
 /**
  * One featured project, taking the full viewport: meta pinned to the top, the
@@ -29,6 +29,7 @@ export function FeaturedPanel({
   const flip = index % 2 === 1;
   const titleId = `projet-${project.slug}`;
   const align = flip ? "lg:text-right" : "";
+  const context = projectContext(project);
 
   return (
     <Stage
@@ -58,6 +59,7 @@ export function FeaturedPanel({
         >
           <span className="tnum text-flare">{ordinal}</span>
           <span className="tnum">sur {String(total).padStart(2, "0")}</span>
+          {context ? <span>{context}</span> : null}
           <span className="ml-auto flex items-center gap-6">
             <span className="tnum">{project.year}</span>
             <StatusDot status={project.status} />

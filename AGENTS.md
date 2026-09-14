@@ -22,9 +22,9 @@ something it covers, do exactly what it says.
 
 | File | Holds |
 | --- | --- |
-| `content/projects.ts` | the projects, and which three the home page features |
-| `content/site.ts` | identity, availability, every interface label |
-| `content/about.ts` | the long-form story, experience, education, languages |
+| `content/projects.ts` | the projects, and `featuredSlugs`: the only ones published anywhere; the rest are a reserve with no page |
+| `content/site.ts` | identity, availability, every interface label, the AI note |
+| `content/about.ts` | the long-form story, experience, education, languages, strengths, interests, the home page's principles and skill domains |
 | `content/check.ts` | the rules that stop a bad edit; read before editing content |
 | `content/media/razigue.png` | the portrait, imported as a module, not from `public/` |
 | `content/media/*.png` | project captures, imported the same way and set on `image` |
