@@ -1,8 +1,9 @@
 "use server";
 
 import { Resend } from "resend";
-import type { ContactState } from "@/app/contact/state";
-import { form, site } from "@/content/site";
+import { form as englishForm } from "@/content/en/site";
+import { form as frenchForm, site } from "@/content/site";
+import type { ContactState } from "@/lib/contact/state";
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
@@ -23,6 +24,9 @@ export async function sendMessage(
   formData: FormData,
 ): Promise<ContactState> {
   const key = previous.key + 1;
+  const english = field(formData, "locale") === "en";
+  // The visitor is answered in the language of the page they wrote from.
+  const form = english ? englishForm : frenchForm;
   const name = field(formData, "name");
   const email = field(formData, "email");
   const message = field(formData, "message");
@@ -40,19 +44,19 @@ export async function sendMessage(
   }
 
   const fieldErrors: ContactState["fieldErrors"] = {};
-  if (name.length < 2) fieldErrors.name = "Indiquez votre nom.";
-  if (!EMAIL.test(email)) fieldErrors.email = "Adresse email invalide.";
+  if (name.length < 2) fieldErrors.name = form.nameMissing;
+  if (!EMAIL.test(email)) fieldErrors.email = form.emailInvalid;
   if (message.length < 10) {
-    fieldErrors.message = "Votre message est un peu court.";
+    fieldErrors.message = form.messageShort;
   }
   if (message.length > 5000) {
-    fieldErrors.message = "Votre message dépasse 5 000 caractères.";
+    fieldErrors.message = form.messageLong;
   }
 
   if (Object.keys(fieldErrors).length > 0) {
     return {
       status: "invalid",
-      message: "Corrigez les champs signalés.",
+      message: form.invalid,
       fieldErrors,
       key,
     };
@@ -86,7 +90,9 @@ export async function sendMessage(
         process.env.CONTACT_FROM_EMAIL ?? "Portfolio <onboarding@resend.dev>",
       to,
       replyTo: email,
-      subject: `Message de ${name} depuis le portfolio`,
+      // The subject is read by Razigue, so it stays French, and says which
+      // version of the site the message came from.
+      subject: `Message de ${name} depuis le portfolio${english ? " (version anglaise)" : ""}`,
       text: `${name} <${email}>\n\n${message}`,
     });
 

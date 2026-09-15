@@ -2,10 +2,13 @@ import { Stage } from "@/components/motion/Stage";
 import { TransitionLink } from "@/components/motion/TransitionLink";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionLabel } from "@/components/ui/primitives";
-import { experiences, formation } from "@/content/about";
-import { presentation, sections } from "@/content/site";
+import { getContent } from "@/lib/content";
+import { pathFor, type Locale } from "@/lib/i18n";
 
-export function ParcoursTeaser() {
+export function ParcoursTeaser({ locale }: { locale: Locale }) {
+  const { copy, experiences, formation, nav, presentation, sections } =
+    getContent(locale);
+
   return (
     <Stage
       as="section"
@@ -36,11 +39,11 @@ export function ParcoursTeaser() {
 
             <Reveal variant="rise" order={2} className="mt-10">
               <TransitionLink
-                href="/a-propos"
-                curtainLabel="À propos"
+                href={pathFor(locale, "about")}
+                curtainLabel={nav.about}
                 className="link font-mono text-meta tracking-meta text-paper"
               >
-                Parcours complet →
+                {copy.parcoursLink} →
               </TransitionLink>
             </Reveal>
           </div>
@@ -48,7 +51,7 @@ export function ParcoursTeaser() {
           <div>
             <dl className="grid gap-12">
               <Reveal variant="rise" order={3}>
-                <dt className="eyebrow">Formation</dt>
+                <dt className="eyebrow">{copy.formationTitle}</dt>
                 <dd className="mt-4 text-body text-paper">
                   {formation.title}
                   <span className="mt-2 block text-meta text-paper-3">
@@ -61,7 +64,7 @@ export function ParcoursTeaser() {
               </Reveal>
 
               <Reveal variant="rise" order={4}>
-                <dt className="eyebrow">Expériences</dt>
+                <dt className="eyebrow">{copy.experiencesTitle}</dt>
                 <dd className="mt-4">
                   {/* Rows were told apart by a filet under each one. Every
                       other row is lifted instead, which separates them the way

@@ -6,14 +6,17 @@ import { Stage } from "@/components/motion/Stage";
 import { TransitionLink } from "@/components/motion/TransitionLink";
 import { Reveal } from "@/components/ui/Reveal";
 import { BtnLabel, Eyebrow } from "@/components/ui/primitives";
-import { copy, hero, site } from "@/content/site";
+import { getContent } from "@/lib/content";
+import { pathFor, type Locale } from "@/lib/i18n";
 
 /**
  * The opening frame. Everything inside arrives on load, and the whole block
  * then pulls away as you leave it, so the first scroll of the page reads as a
  * camera move rather than as content sliding under a header.
  */
-export function Hero() {
+export function Hero({ locale }: { locale: Locale }) {
+  const { copy, hero, nav, site } = getContent(locale);
+
   return (
     <Stage
       immediate
@@ -73,7 +76,7 @@ export function Hero() {
           >
             <Image
               src={portrait}
-              alt={`Portrait de ${site.name}`}
+              alt={copy.portraitAlt}
               placeholder="blur"
               priority
               sizes="(min-width: 1024px) 12rem, (min-width: 640px) 9rem, 7rem"
@@ -100,8 +103,8 @@ export function Hero() {
               className="mt-10 flex flex-wrap items-center gap-5"
             >
               <TransitionLink
-                href="/contact"
-                curtainLabel="Contact"
+                href={pathFor(locale, "contact")}
+                curtainLabel={nav.contact}
                 className="btn btn-solid"
               >
                 <BtnLabel>{copy.heroContact}</BtnLabel>
@@ -114,7 +117,7 @@ export function Hero() {
           </div>
 
           <Reveal variant="fade" order={5} className="hero-cue">
-            <ScrollCue label="Défiler" />
+            <ScrollCue label={copy.scrollCue} />
           </Reveal>
 
           <Reveal variant="fade" as="p" order={6} className="hero-place eyebrow">

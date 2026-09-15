@@ -61,12 +61,13 @@ export const hero = {
 export const presentation =
   "Développeur web full-stack formé sur le terrain : c’est en créant mon site e-commerce en auto-entrepreneur que j’ai découvert le code. Aujourd’hui à la Web@cadémie by Epitech Paris (2025 à 2027), je conçois des applications avec PHP et Laravel, Java et Spring Boot, React, et je recherche une alternance de 12 mois dès septembre 2026, à raison de 6 semaines en entreprise pour 2 semaines en formation.";
 
-export const navItems = [
-  { href: "/", label: "~/", title: "Accueil" },
-  { href: "/projets", label: "~/projets", title: "Projets" },
-  { href: "/a-propos", label: "~/a-propos", title: "À propos" },
-  { href: "/contact", label: "~/contact", title: "Contact" },
-] as const;
+/** Les entrées du menu. Les adresses se calculent dans `lib/i18n.ts`. */
+export const nav = {
+  home: "Accueil",
+  projects: "Projets",
+  about: "À propos",
+  contact: "Contact",
+} as const;
 
 /**
  * Les chapitres de la page d’accueil. L’ordinal et le libellé sont deux champs
@@ -113,6 +114,90 @@ export const copy = {
   errorBody:
     "Quelque chose s’est mal passé de mon côté. Réessayez, ou revenez à l’accueil.",
   errorRetry: "Réessayer",
+  errorEyebrow: "Erreur",
+  errorRef: "Réf.",
+  notFoundEyebrow: "Erreur 404",
+
+  // En-tête et mobilier de page
+  navLabel: "Navigation principale",
+  menuOpen: "Menu",
+  menuClose: "Fermer",
+  toTop: "Retour en haut de la page",
+  themeToDay: "Passer en mode jour",
+  themeToNight: "Passer en mode nuit",
+  /** Lu sur les pages anglaises, par le drapeau qui ramène ici. */
+  switchLanguage: "Lire cette page en français",
+  newTab: "nouvel onglet",
+  portraitAlt: `Portrait de ${site.name}`,
+  scrollCue: "Défiler",
+  footerWrite: "Écrivez-moi",
+  cvShort: "CV (PDF)",
+  writeMessage: "Écrire un message",
+  copyAction: "Copier l’adresse email",
+  copyConfirm: "Adresse copiée",
+
+  // Accueil. `{count}` est remplacé par le nombre écrit en toutes lettres.
+  availabilityTitle: "Disponibilité",
+  selectionOne: "Un projet récent",
+  selectionMany: "{count} projets récents",
+  selectionSub: "Les plus récents et les plus substantiels.",
+  selectionIndex: "Voir l’index des projets",
+  panelOf: "sur",
+  viewProject: "Voir le projet",
+  methodTitle: "Ce que je tiens dans le code",
+  skillsTitle: "Ce que j’utilise, et où le voir",
+  skillsTechnologies: "technologies",
+  skillsDomains: "domaines",
+  skillsProjectOne: "projet publié",
+  skillsProjectMany: "projets publiés",
+  parcoursLink: "Parcours complet",
+  formationTitle: "Formation",
+  experiencesTitle: "Expériences",
+
+  // Projets. `{years}`, `{year}`, `{first}`, `{last}` et `{title}` se calculent.
+  projectsEyebrow: "Index",
+  projectsDescription: "Applications web full-stack, en solo et en équipe.",
+  projectsSummaryOne: "{count} projet, {years}.",
+  projectsSummaryMany: "{count} projets, {years}.",
+  yearsSingle: "en {year}",
+  yearsRange: "de {first} à {last}",
+  kindPersonal: "Projet personnel",
+  kindSchool: "Projet d’école",
+  groupPersonal: "Projets personnels",
+  groupSchool: "Projets d’école",
+  frameLabel: "Cadre",
+  stackLabel: "Stack",
+  statusLabel: "État",
+  linksLabel: "Liens",
+  repoShort: "Dépôt",
+  demoShort: "Démo",
+  repoLong: "Dépôt GitHub",
+  demoLong: "Démo en ligne",
+  repoLabel: "Dépôt GitHub de {title}",
+  demoLabel: "Démo en ligne de {title}",
+  pagerLabel: "Projet précédent et suivant",
+
+  // À propos et contact
+  aboutTitle: "À propos",
+  aboutEyebrow: "Parcours",
+  languagesTitle: "Langues",
+  documentTitle: "Document",
+  strengthsTitle: "Atouts",
+  interestsTitle: "Au-delà du code",
+  contactEyebrow: "Contact",
+  emailLabel: "Email",
+  elsewhereLabel: "Ailleurs",
+
+  /** Les mots-clés lus par les moteurs de recherche. */
+  keywords: [
+    "développeur web",
+    "full-stack",
+    "alternance",
+    "Paris",
+    "React",
+    "Laravel",
+    "Spring Boot",
+  ],
 } as const;
 
 export const form = {
@@ -124,8 +209,14 @@ export const form = {
   success: "Message envoyé. Je réponds sous 24 h.",
   error: "Une erreur est survenue. Réessayez ou écrivez-moi directement.",
   unconfigured: `Le formulaire n’est pas encore configuré. Écrivez-moi directement à ${site.email}.`,
+  invalid: "Corrigez les champs signalés.",
+  nameMissing: "Indiquez votre nom.",
+  emailInvalid: "Adresse email invalide.",
+  messageShort: "Votre message est un peu court.",
+  messageLong: "Votre message dépasse 5 000 caractères.",
+  honeypot: "Ne pas remplir",
 } as const;
 
 // Chaque texte affiché passe la relecture, y compris ceux ajoutés plus tard :
 // un nouvel export se déclare simplement dans cet appel.
-checkCopy({ availability, hero, presentation, navItems, sections, aiNote, copy, form });
+checkCopy({ availability, hero, presentation, nav, sections, aiNote, copy, form });

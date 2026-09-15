@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PageHeader } from "@/components/layout/PageHeader";
-import { ProjectShot } from "@/components/projects/ProjectShot";
 import { ProjectDiagram } from "@/components/projects/ProjectDiagram";
+import { ProjectShot } from "@/components/projects/ProjectShot";
 import { Stage } from "@/components/motion/Stage";
 import { TransitionLink } from "@/components/motion/TransitionLink";
 import { Reveal } from "@/components/ui/Reveal";
@@ -12,27 +12,21 @@ import {
   StatusDot,
   TagList,
 } from "@/components/ui/primitives";
-import {
-  featuredProjects,
-  getProject,
-  projectContext,
-  projectNumber,
-} from "@/content/projects";
-import { copy } from "@/content/site";
+import { featuredProjects, projectNumber } from "@/content/projects";
+import { findProject, getContent, projectContext } from "@/lib/content";
+import { alternates, fill, pathFor, type Locale } from "@/lib/i18n";
 
-type Params = { params: Promise<{ slug: string }> };
-
-// Projects kept in reserve get no page: an address nobody can reach from the
-// site should not answer either.
-export const dynamicParams = false;
-
-export function generateStaticParams() {
+/**
+ * Every published project. The slugs are the same in both languages, and
+ * projects kept in reserve get no page: an address nobody can reach from the
+ * site should not answer either.
+ */
+export function projectParams() {
   return featuredProjects.map((project) => ({ slug: project.slug }));
 }
 
-export async function generateMetadata({ params }: Params): Promise<Metadata> {
-  const { slug } = await params;
-  const project = getProject(slug);
+export function projectMetadata(locale: Locale, slug: string): Metadata {
+  const project = findProject(getContent(locale), slug);
   if (!project) return {};
 
   const title = project.subtitle
@@ -42,25 +36,25 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   return {
     title,
     description: project.description,
-    alternates: { canonical: `/projets/${project.slug}` },
+    alternates: alternates(locale, "projects", slug),
     openGraph: {
       title,
       description: project.description,
-      url: `/projets/${project.slug}`,
+      url: pathFor(locale, "projects", slug),
     },
   };
 }
 
-export default async function ProjetPage({ params }: Params) {
-  const { slug } = await params;
-  const project = getProject(slug);
+export function ProjectPage({ locale, slug }: { locale: Locale; slug: string }) {
+  const content = getContent(locale);
+  const { copy, projects } = content;
+  const project = findProject(content, slug);
   if (!project) notFound();
 
-  const index = featuredProjects.findIndex((p) => p.slug === slug);
-  const previous = index > 0 ? featuredProjects[index - 1] : null;
-  const next =
-    index < featuredProjects.length - 1 ? featuredProjects[index + 1] : null;
-  const context = projectContext(project);
+  const index = projects.findIndex((p) => p.slug === slug);
+  const previous = index > 0 ? projects[index - 1] : null;
+  const next = index < projects.length - 1 ? projects[index + 1] : null;
+  const context = projectContext(content, project);
 
   return (
     <>
@@ -116,7 +110,7 @@ export default async function ProjetPage({ params }: Params) {
           <aside className="grid content-start gap-10">
             {context ? (
               <Reveal variant="rise">
-                <Eyebrow>Cadre</Eyebrow>
+                <Eyebrow>{copy.frameLabel}</Eyebrow>
                 <p className="mt-4 text-body text-paper">{context}</p>
               </Reveal>
             ) : null}
@@ -131,31 +125,32 @@ export default async function ProjetPage({ params }: Params) {
                 </details>
               ) : (
                 <>
-                  <Eyebrow>Stack</Eyebrow>
+                  <Eyebrow>{copy.stackLabel}</Eyebrow>
                   <TagList items={project.stack} className="mt-4" />
                 </>
               )}
             </Reveal>
 
             <Reveal variant="rise">
-              <Eyebrow>État</Eyebrow>
+              <Eyebrow>{copy.statusLabel}</Eyebrow>
               <div className="mt-4">
-                <StatusDot status={project.status} />
+                <StatusDot status={project.status} labels={copy} />
               </div>
             </Reveal>
 
             {project.repo || project.demo ? (
               <Reveal variant="rise">
-                <Eyebrow>Liens</Eyebrow>
+                <Eyebrow>{copy.linksLabel}</Eyebrow>
                 <ul className="mt-4 grid gap-3">
                   {project.repo ? (
                     <li>
                       <ExternalLink
                         href={project.repo}
-                        label={`Dépôt GitHub de ${project.title}`}
+                        label={fill(copy.repoLabel, { title: project.title })}
+                        newTab={copy.newTab}
                         className="link font-mono text-meta tracking-meta text-paper"
                       >
-                        Dépôt GitHub ↗
+                        {copy.repoLong} ↗
                       </ExternalLink>
                     </li>
                   ) : null}
@@ -163,10 +158,11 @@ export default async function ProjetPage({ params }: Params) {
                     <li>
                       <ExternalLink
                         href={project.demo}
-                        label={`Démo en ligne de ${project.title}`}
+                        label={fill(copy.demoLabel, { title: project.title })}
+                        newTab={copy.newTab}
                         className="link font-mono text-meta tracking-meta text-flare"
                       >
-                        Démo en ligne ↗
+                        {copy.demoLong} ↗
                       </ExternalLink>
                     </li>
                   ) : null}
@@ -194,16 +190,16 @@ export default async function ProjetPage({ params }: Params) {
             </Reveal>
 
             <div className="mt-12 grid gap-14 lg:gap-20">
-              {project.approach.map((section, index) => (
+              {project.approach.map((section, sectionIndex) => (
                 <section
                   key={section.title}
-                  aria-labelledby={`demarche-section-${index}`}
+                  aria-labelledby={`demarche-section-${sectionIndex}`}
                   className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] lg:gap-16"
                 >
                   <Reveal
                     variant="rise"
                     as="h3"
-                    id={`demarche-section-${index}`}
+                    id={`demarche-section-${sectionIndex}`}
                     className="font-display text-h3 leading-tight tracking-tight text-paper"
                   >
                     {section.title}
@@ -220,7 +216,10 @@ export default async function ProjetPage({ params }: Params) {
                     ))}
                   </div>
                   {section.diagram ? (
-                    <ProjectDiagram diagram={section.diagram} />
+                    <ProjectDiagram
+                      diagram={section.diagram}
+                      labels={{ or: copy.diagramOr, apart: copy.diagramApart }}
+                    />
                   ) : null}
                 </section>
               ))}
@@ -231,13 +230,13 @@ export default async function ProjetPage({ params }: Params) {
 
       <Stage stagger={0.1}>
         <nav
-          aria-label="Projet précédent et suivant"
+          aria-label={copy.pagerLabel}
           className="section-body-tight mx-auto grid max-w-page gap-6 px-6 sm:grid-cols-2 lg:px-10"
         >
           <Reveal variant="rise">
             {previous ? (
               <TransitionLink
-                href={`/projets/${previous.slug}`}
+                href={pathFor(locale, "projects", previous.slug)}
                 curtainLabel={previous.title}
                 className="link font-mono text-meta tracking-meta text-paper-2"
               >
@@ -249,7 +248,7 @@ export default async function ProjetPage({ params }: Params) {
           <Reveal variant="rise" className="sm:text-right">
             {next ? (
               <TransitionLink
-                href={`/projets/${next.slug}`}
+                href={pathFor(locale, "projects", next.slug)}
                 curtainLabel={next.title}
                 className="link font-mono text-meta tracking-meta text-paper-2"
               >

@@ -4,7 +4,6 @@ import type {
   DiagramNode,
   ProjectDiagram as Diagram,
 } from "@/content/projects";
-import { copy } from "@/content/site";
 import { DiagramIcon } from "@/components/projects/DiagramIcon";
 
 /*
@@ -37,6 +36,13 @@ const MD_ONE_ROW = 5;
 /** What sits in the gutter left of a station: an arrow, or « ou ». */
 const GUTTER =
   "absolute top-0 -left-8 hidden h-16 w-8 items-center justify-center text-body";
+
+export type DiagramLabels = {
+  /** Between two alternatives. */
+  readonly or: string;
+  /** Over a branch that works beside the path, where an arrow would be. */
+  readonly apart: string;
+};
 
 function Station({
   node,
@@ -72,7 +78,7 @@ function Station({
   );
 }
 
-function Branch({ branch }: { branch: DiagramBranch }) {
+function Branch({ branch, apart }: { branch: DiagramBranch; apart: string }) {
   const arrow = BRANCH_ARROWS[branch.flow];
   return (
     <li className="grid gap-2">
@@ -82,7 +88,7 @@ function Branch({ branch }: { branch: DiagramBranch }) {
         }`}
         aria-hidden={arrow ? "true" : undefined}
       >
-        {arrow ?? copy.diagramApart}
+        {arrow ?? apart}
       </span>
       <Station node={branch} side />
     </li>
@@ -108,7 +114,13 @@ function placeSteps(steps: Diagram["steps"], columns: number) {
   });
 }
 
-export function ProjectDiagram({ diagram }: { diagram: Diagram }) {
+export function ProjectDiagram({
+  diagram,
+  labels,
+}: {
+  diagram: Diagram;
+  labels: DiagramLabels;
+}) {
   const total = diagram.steps.reduce((sum, step) => sum + step.nodes.length, 0);
   const mdColumns = total <= MD_ONE_ROW ? total : MD_COLUMNS;
   const columns = {
@@ -159,12 +171,12 @@ export function ProjectDiagram({ diagram }: { diagram: Diagram }) {
                     {i > 0 ? (
                       <>
                         <span className="w-14 text-center font-display text-body italic text-paper-3 md:hidden">
-                          {copy.diagramOr}
+                          {labels.or}
                         </span>
                         <span
                           className={`${GUTTER} font-display italic text-paper-3 md:flex`}
                         >
-                          {copy.diagramOr}
+                          {labels.or}
                         </span>
                       </>
                     ) : null}
@@ -175,7 +187,7 @@ export function ProjectDiagram({ diagram }: { diagram: Diagram }) {
               {step.branches ? (
                 <ul className="mt-3 grid content-start gap-6 pl-18 md:col-span-full md:mt-0 md:pl-0">
                   {step.branches.map((branch) => (
-                    <Branch key={branch.label} branch={branch} />
+                    <Branch key={branch.label} branch={branch} apart={labels.apart} />
                   ))}
                 </ul>
               ) : (

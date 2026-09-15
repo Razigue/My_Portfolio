@@ -1,6 +1,8 @@
 import { TransitionLink } from "@/components/motion/TransitionLink";
 import { ExternalLink, StatusDot } from "@/components/ui/primitives";
 import type { Project } from "@/content/projects";
+import type { Copy } from "@/lib/content";
+import { fill, pathFor, type Locale } from "@/lib/i18n";
 
 /**
  * One row of the index.
@@ -14,9 +16,13 @@ import type { Project } from "@/content/projects";
 export function ProjectRow({
   project,
   ordinal,
+  locale,
+  copy,
 }: {
   project: Project;
   ordinal: string;
+  locale: Locale;
+  copy: Copy;
 }) {
   return (
     <li data-choreo="rise" className="index-row">
@@ -27,7 +33,7 @@ export function ProjectRow({
       <div>
         <h3 className="index-title font-display text-h3 leading-tight tracking-tight text-paper">
           <TransitionLink
-            href={`/projets/${project.slug}`}
+            href={pathFor(locale, "projects", project.slug)}
             curtainLabel={project.title}
             className="stretch-link"
           >
@@ -61,25 +67,27 @@ export function ProjectRow({
       </span>
 
       <div className="relative z-10 flex flex-wrap items-center gap-x-6 gap-y-3">
-        <StatusDot status={project.status} />
+        <StatusDot status={project.status} labels={copy} />
 
         {project.repo ? (
           <ExternalLink
             href={project.repo}
-            label={`Dépôt GitHub de ${project.title}`}
+            label={fill(copy.repoLabel, { title: project.title })}
+            newTab={copy.newTab}
             className="link font-mono text-micro tracking-meta text-paper-3"
           >
-            Dépôt ↗
+            {copy.repoShort} ↗
           </ExternalLink>
         ) : null}
 
         {project.demo ? (
           <ExternalLink
             href={project.demo}
-            label={`Démo en ligne de ${project.title}`}
+            label={fill(copy.demoLabel, { title: project.title })}
+            newTab={copy.newTab}
             className="link font-mono text-micro tracking-meta text-live"
           >
-            Démo ↗
+            {copy.demoShort} ↗
           </ExternalLink>
         ) : null}
       </div>

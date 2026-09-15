@@ -3,14 +3,24 @@
 import Link from "next/link";
 import { useEffect } from "react";
 import { BtnLabel } from "@/components/ui/primitives";
-import { copy } from "@/content/site";
+import type { Copy } from "@/lib/content";
 
-export default function GlobalError({
+export type ErrorCopy = Pick<
+  Copy,
+  "errorEyebrow" | "errorTitle" | "errorBody" | "errorRetry" | "errorRef" | "notFoundLink"
+>;
+
+/** What each language's `error.tsx` renders, with that language's words. */
+export function ErrorPage({
   error,
   reset,
+  copy,
+  home,
 }: {
   error: Error & { digest?: string };
   reset: () => void;
+  copy: ErrorCopy;
+  home: string;
 }) {
   useEffect(() => {
     console.error(error);
@@ -18,7 +28,7 @@ export default function GlobalError({
 
   return (
     <div className="mx-auto flex min-h-dvh max-w-page flex-col justify-center px-6 py-32 lg:px-10">
-      <p className="eyebrow">Erreur</p>
+      <p className="eyebrow">{copy.errorEyebrow}</p>
 
       <h1 className="mt-6 font-display text-h1 leading-display tracking-display text-paper">
         {copy.errorTitle}
@@ -32,14 +42,14 @@ export default function GlobalError({
         <button type="button" onClick={reset} className="btn btn-solid">
           <BtnLabel>{copy.errorRetry}</BtnLabel>
         </button>
-        <Link href="/" className="btn">
+        <Link href={home} className="btn">
           <BtnLabel>{copy.notFoundLink}</BtnLabel>
         </Link>
       </div>
 
       {error.digest ? (
         <p className="mt-10 font-mono text-micro tracking-meta text-paper-3">
-          Réf. {error.digest}
+          {copy.errorRef} {error.digest}
         </p>
       ) : null}
     </div>

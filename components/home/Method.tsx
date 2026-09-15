@@ -2,16 +2,17 @@ import { Stage } from "@/components/motion/Stage";
 import { TransitionLink } from "@/components/motion/TransitionLink";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionLabel } from "@/components/ui/primitives";
-import { principes } from "@/content/about";
-import { featuredProjects } from "@/content/projects";
-import { sections } from "@/content/site";
+import { getContent } from "@/lib/content";
+import { pathFor, type Locale } from "@/lib/i18n";
 
 /**
  * How he works, said once per principle and pinned to the published projects
  * that show it, so every claim here is one click from its evidence.
  * `checkMethod` refuses a principle citing a project that is not published.
  */
-export function Method() {
+export function Method({ locale }: { locale: Locale }) {
+  const { copy, principes, projects, sections } = getContent(locale);
+
   return (
     <Stage
       as="section"
@@ -36,7 +37,7 @@ export function Method() {
           id="methode-title"
           className="mt-8 max-w-measure font-display text-h2 leading-tight tracking-display text-paper"
         >
-          Ce que je tiens dans le code
+          {copy.methodTitle}
         </Reveal>
 
         <ol className="mt-16 grid gap-x-16 gap-y-14 lg:grid-cols-2">
@@ -59,12 +60,12 @@ export function Method() {
               </p>
 
               <ul className="mt-2 flex flex-wrap gap-x-8 gap-y-3">
-                {featuredProjects
+                {projects
                   .filter((project) => principe.projects.includes(project.slug))
                   .map((project) => (
                     <li key={project.slug}>
                       <TransitionLink
-                        href={`/projets/${project.slug}`}
+                        href={pathFor(locale, "projects", project.slug)}
                         curtainLabel={project.title}
                         className="link font-mono text-meta tracking-meta text-paper-3"
                       >

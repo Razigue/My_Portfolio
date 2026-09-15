@@ -3,19 +3,34 @@
 import { useGSAP } from "@gsap/react";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef } from "react";
+import { LocaleSwitch } from "@/components/layout/LocaleSwitch";
 import { TransitionLink } from "@/components/motion/TransitionLink";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { getLenis } from "@/components/motion/SmoothScroll";
 import { gsap, quickSetter, registerGsap, ScrollTrigger } from "@/lib/gsap";
-import { navItems, site } from "@/content/site";
+import {
+  otherLocale,
+  pathFor,
+  translatePath,
+  type Locale,
+} from "@/lib/i18n";
 
-function isActive(pathname: string, href: string): boolean {
-  if (href === "/") return pathname === "/";
+function isActive(pathname: string, href: string, home: string): boolean {
+  if (href === home) return pathname === home;
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
 /** Short enough to stay a mark rather than a stripe, long enough to find. */
 const MIN_THUMB = 26;
+
+export type HeaderLabels = {
+  readonly navLabel: string;
+  readonly menuOpen: string;
+  readonly menuClose: string;
+  readonly toTop: string;
+  readonly themeToDay: string;
+  readonly themeToNight: string;
+};
 
 /**
  * The header, the read position and the back-to-top button.
@@ -30,8 +45,22 @@ const MIN_THUMB = 26;
  * page where several sections are a full screen each, the first is the more
  * useful fact.
  */
-export function SiteHeader() {
+export function SiteHeader({
+  locale,
+  name,
+  links: items,
+  labels,
+  switchLabel,
+}: {
+  locale: Locale;
+  name: string;
+  links: readonly { readonly href: string; readonly title: string }[];
+  labels: HeaderLabels;
+  switchLabel: string;
+}) {
   const pathname = usePathname();
+  const home = pathFor(locale, "home");
+  const other = otherLocale(locale);
   const header = useRef<HTMLElement>(null);
   const menu = useRef<HTMLDetailsElement>(null);
   const rail = useRef<HTMLDivElement>(null);
@@ -189,8 +218,8 @@ export function SiteHeader() {
     { scope: header, dependencies: [pathname] },
   );
 
-  const links = navItems.map((item) => {
-    const active = isActive(pathname, item.href);
+  const links = items.map((item) => {
+    const active = isActive(pathname, item.href, home);
     return (
       <li key={item.href}>
         <TransitionLink
@@ -236,24 +265,24 @@ export function SiteHeader() {
         <div className="site-header-bar mx-auto flex max-w-page items-center justify-between gap-6 px-4 sm:px-6 lg:px-10">
           {/* The accessible name starts with the two letters actually on
               screen, so that a spoken « RB » still matches what is visible. */}
-          <TransitionLink href="/" className="wordmark">
+          <TransitionLink href={home} className="wordmark">
             <span aria-hidden="true">RB</span>
-            <span className="sr-only">RB, {site.name}</span>
+            <span className="sr-only">RB, {name}</span>
           </TransitionLink>
 
           <div className="flex items-center gap-6 lg:gap-9">
-            <nav aria-label="Navigation principale" className="hidden lg:block">
+            <nav aria-label={labels.navLabel} className="hidden lg:block">
               <ul className="navrow">{links}</ul>
             </nav>
 
-            <nav aria-label="Navigation principale" className="lg:hidden">
+            <nav aria-label={labels.navLabel} className="lg:hidden">
               <details ref={menu} className="disclosure">
                 <summary className="menu-button">
                   <span className="menu-word" data-menu-word="closed">
-                    Menu
+                    {labels.menuOpen}
                   </span>
                   <span className="menu-word" data-menu-word="open">
-                    Fermer
+                    {labels.menuClose}
                   </span>
                 </summary>
                 <div className="menu-panel">
@@ -262,7 +291,19 @@ export function SiteHeader() {
               </details>
             </nav>
 
-            <ThemeToggle />
+            {/* The two page-wide settings sit together, closer to each other
+                than to the navigation. */}
+            <div className="flex items-center gap-3">
+              <LocaleSwitch
+                href={translatePath(pathname, other)}
+                to={other}
+                label={switchLabel}
+              />
+              <ThemeToggle
+                toDay={labels.themeToDay}
+                toNight={labels.themeToNight}
+              />
+            </div>
           </div>
         </div>
       </header>
@@ -293,7 +334,7 @@ export function SiteHeader() {
           <span className="to-top-face">↑</span>
           <span className="to-top-face to-top-face-alt">↑</span>
         </span>
-        <span className="sr-only">Retour en haut de la page</span>
+        <span className="sr-only">{labels.toTop}</span>
       </button>
     </>
   );

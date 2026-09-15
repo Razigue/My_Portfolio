@@ -3,12 +3,12 @@ import { Stage } from "@/components/motion/Stage";
 import { TransitionLink } from "@/components/motion/TransitionLink";
 import { Reveal } from "@/components/ui/Reveal";
 import { BtnLabel, SectionLabel } from "@/components/ui/primitives";
-import { featuredProjects } from "@/content/projects";
-import { sections } from "@/content/site";
-import { capitalise, cardinal } from "@/lib/french";
+import { countWord, getContent } from "@/lib/content";
+import { fill, pathFor, type Locale } from "@/lib/i18n";
 
-export function Selection() {
-  const count = featuredProjects.length;
+export function Selection({ locale }: { locale: Locale }) {
+  const { copy, nav, projects, sections } = getContent(locale);
+  const count = projects.length;
 
   return (
     <section
@@ -35,8 +35,8 @@ export function Selection() {
             className="mt-8 max-w-measure font-display text-h2 leading-tight tracking-display text-paper"
           >
             {count === 1
-              ? "Un projet récent"
-              : `${capitalise(cardinal(count))} projets récents`}
+              ? copy.selectionOne
+              : fill(copy.selectionMany, { count: countWord(locale, count) })}
           </Reveal>
 
           <Reveal
@@ -45,17 +45,18 @@ export function Selection() {
             order={2}
             className="mt-6 max-w-measure text-body text-paper-3"
           >
-            Les plus récents et les plus substantiels.
+            {copy.selectionSub}
           </Reveal>
         </div>
       </Stage>
 
-      {featuredProjects.map((project, index) => (
+      {projects.map((project, index) => (
         <FeaturedPanel
           key={project.slug}
           project={project}
           index={index}
           total={count}
+          locale={locale}
         />
       ))}
 
@@ -63,11 +64,11 @@ export function Selection() {
         <div className="section-body-tight mx-auto max-w-page px-6 lg:px-10">
           <Reveal variant="rise">
             <TransitionLink
-              href="/projets"
+              href={pathFor(locale, "projects")}
               className="btn"
-              curtainLabel="Projets"
+              curtainLabel={nav.projects}
             >
-              <BtnLabel>Voir l’index des projets</BtnLabel>
+              <BtnLabel>{copy.selectionIndex}</BtnLabel>
               <span aria-hidden="true">→</span>
             </TransitionLink>
           </Reveal>

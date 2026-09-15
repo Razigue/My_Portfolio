@@ -2,9 +2,12 @@ import { Scrub } from "@/components/motion/Scrub";
 import { Stage } from "@/components/motion/Stage";
 import { Reveal } from "@/components/ui/Reveal";
 import { Eyebrow, ExternalLink } from "@/components/ui/primitives";
-import { copy, site } from "@/content/site";
+import { getContent } from "@/lib/content";
+import type { Locale } from "@/lib/i18n";
 
-export function SiteFooter() {
+export function SiteFooter({ locale }: { locale: Locale }) {
+  const { copy, site } = getContent(locale);
+
   return (
     <Stage
       as="footer"
@@ -18,7 +21,7 @@ export function SiteFooter() {
         <div className="grid gap-12 md:grid-cols-[1fr_auto] md:items-end">
           <div>
             <Reveal variant="fade" as={Eyebrow} order={0}>
-              Écrivez-moi
+              {copy.footerWrite}
             </Reveal>
             <Reveal
               variant="chars"
@@ -33,21 +36,25 @@ export function SiteFooter() {
           <Reveal variant="rise" order={2}>
             <ul className="flex flex-wrap gap-x-7 gap-y-3 font-mono text-micro tracking-meta text-paper-3">
               <li>
-                <ExternalLink href={site.github}>GitHub ↗</ExternalLink>
+                <ExternalLink href={site.github} newTab={copy.newTab}>
+                  GitHub ↗
+                </ExternalLink>
               </li>
               <li>
                 <a href={site.cvUrl} download className="link">
-                  CV (PDF) ↓
+                  {copy.cvShort} ↓
                 </a>
               </li>
               {site.linkedin ? (
                 <li>
-                  <ExternalLink href={site.linkedin}>LinkedIn ↗</ExternalLink>
+                  <ExternalLink href={site.linkedin} newTab={copy.newTab}>
+                    LinkedIn ↗
+                  </ExternalLink>
                 </li>
               ) : null}
               {site.sourceRepo ? (
                 <li>
-                  <ExternalLink href={site.sourceRepo}>
+                  <ExternalLink href={site.sourceRepo} newTab={copy.newTab}>
                     {copy.sourceLink}
                   </ExternalLink>
                 </li>

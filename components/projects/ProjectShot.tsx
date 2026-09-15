@@ -1,6 +1,5 @@
 import Image from "next/image";
 import type { ProjectImage } from "@/content/projects";
-import { copy } from "@/content/site";
 
 /**
  * A capture of a project, in the one frame the site allows itself: a block of
@@ -59,19 +58,24 @@ export function ProjectShotDisclosure({
   image,
   sizes,
   className,
+  show,
+  hide,
 }: {
   image: ProjectImage;
   sizes: string;
   className?: string;
+  /** The word on the control while folded, and while open. */
+  show: string;
+  hide: string;
 }) {
   return (
     <details className={`disclosure shot-toggle ${className ?? ""}`}>
       <summary className="shot-summary link font-mono text-meta tracking-meta text-paper-3">
         <span className="shot-word" data-shot-word="closed">
-          {copy.shotShow}
+          {show}
         </span>
         <span className="shot-word" data-shot-word="open">
-          {copy.shotHide}
+          {hide}
         </span>
       </summary>
 

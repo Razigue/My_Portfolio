@@ -1,5 +1,4 @@
 import type { ElementType } from "react";
-import { copy } from "@/content/site";
 
 export function Eyebrow({
   children,
@@ -58,7 +57,13 @@ export function BtnLabel({ children }: { children: string }) {
   );
 }
 
-export function StatusDot({ status }: { status: "live" | "archived" }) {
+export function StatusDot({
+  status,
+  labels,
+}: {
+  status: "live" | "archived";
+  labels: { readonly statusLive: string; readonly statusArchived: string };
+}) {
   return (
     <span className="inline-flex items-center gap-2 whitespace-nowrap">
       <span
@@ -66,7 +71,7 @@ export function StatusDot({ status }: { status: "live" | "archived" }) {
         aria-hidden="true"
       />
       <span className="font-mono text-micro tracking-meta text-paper-3">
-        {status === "live" ? copy.statusLive : copy.statusArchived}
+        {status === "live" ? labels.statusLive : labels.statusArchived}
       </span>
     </span>
   );
@@ -105,12 +110,15 @@ export function ExternalLink({
   children,
   className,
   label,
+  newTab,
 }: {
   href: string;
   children: React.ReactNode;
   className?: string;
   /** Read by assistive tech in place of the visible text, when it is terser. */
   label?: string;
+  /** That the link opens a new tab, said in the language of the page. */
+  newTab: string;
 }) {
   return (
     <a
@@ -122,7 +130,7 @@ export function ExternalLink({
       className={className ?? "link"}
     >
       {children}
-      <span className="sr-only"> (nouvel onglet)</span>
+      <span className="sr-only"> ({newTab})</span>
     </a>
   );
 }

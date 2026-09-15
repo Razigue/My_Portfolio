@@ -4,7 +4,9 @@ import { TransitionLink } from "@/components/motion/TransitionLink";
 import { ProjectShotDisclosure } from "@/components/projects/ProjectShot";
 import { Reveal } from "@/components/ui/Reveal";
 import { ExternalLink, StatusDot, TagList } from "@/components/ui/primitives";
-import { projectContext, type Project } from "@/content/projects";
+import type { Project } from "@/content/projects";
+import { getContent, projectContext } from "@/lib/content";
+import { fill, pathFor, type Locale } from "@/lib/i18n";
 
 /**
  * One featured project, taking the full viewport: meta pinned to the top, the
@@ -20,16 +22,20 @@ export function FeaturedPanel({
   project,
   index,
   total,
+  locale,
 }: {
   project: Project;
   index: number;
   total: number;
+  locale: Locale;
 }) {
+  const content = getContent(locale);
+  const { copy } = content;
   const ordinal = String(index + 1).padStart(2, "0");
   const flip = index % 2 === 1;
   const titleId = `projet-${project.slug}`;
   const align = flip ? "lg:text-right" : "";
-  const context = projectContext(project);
+  const context = projectContext(content, project);
 
   return (
     <Stage
@@ -58,11 +64,13 @@ export function FeaturedPanel({
           className="flex flex-wrap items-center gap-x-5 gap-y-3 font-mono text-micro tracking-meta text-paper-3"
         >
           <span className="tnum text-flare">{ordinal}</span>
-          <span className="tnum">sur {String(total).padStart(2, "0")}</span>
+          <span className="tnum">
+            {copy.panelOf} {String(total).padStart(2, "0")}
+          </span>
           {context ? <span>{context}</span> : null}
           <span className="ml-auto flex items-center gap-6">
             <span className="tnum">{project.year}</span>
-            <StatusDot status={project.status} />
+            <StatusDot status={project.status} labels={copy} />
           </span>
         </Reveal>
 
@@ -116,30 +124,32 @@ export function FeaturedPanel({
               }`}
             >
               <TransitionLink
-                href={`/projets/${project.slug}`}
+                href={pathFor(locale, "projects", project.slug)}
                 curtainLabel={project.title}
                 className="link font-mono text-meta tracking-meta text-paper"
               >
-                Voir le projet →
+                {copy.viewProject} →
               </TransitionLink>
 
               {project.repo ? (
                 <ExternalLink
                   href={project.repo}
-                  label={`Dépôt GitHub de ${project.title}`}
+                  label={fill(copy.repoLabel, { title: project.title })}
+                  newTab={copy.newTab}
                   className="link font-mono text-meta tracking-meta text-paper-3"
                 >
-                  Dépôt ↗
+                  {copy.repoShort} ↗
                 </ExternalLink>
               ) : null}
 
               {project.demo ? (
                 <ExternalLink
                   href={project.demo}
-                  label={`Démo en ligne de ${project.title}`}
+                  label={fill(copy.demoLabel, { title: project.title })}
+                  newTab={copy.newTab}
                   className="link font-mono text-meta tracking-meta text-paper-3"
                 >
-                  Démo ↗
+                  {copy.demoShort} ↗
                 </ExternalLink>
               ) : null}
             </Reveal>
@@ -156,6 +166,8 @@ export function FeaturedPanel({
                   image={project.image}
                   sizes="(min-width: 1024px) 22rem, 100vw"
                   className="max-w-[22rem]"
+                  show={copy.shotShow}
+                  hide={copy.shotHide}
                 />
               </Reveal>
             ) : null}

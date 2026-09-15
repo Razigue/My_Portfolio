@@ -1,9 +1,7 @@
-import { copy } from "@/content/site";
-
-export function SkipLink() {
+export function SkipLink({ label }: { label: string }) {
   return (
     <a href="#contenu" className="skip-link">
-      {copy.skipLink}
+      {label}
     </a>
   );
 }

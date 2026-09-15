@@ -1,5 +1,5 @@
-import { competences } from "@/content/about";
-import { featuredProjects, type Project } from "@/content/projects";
+import type { Project } from "@/content/projects";
+import type { Content } from "@/lib/content";
 
 /**
  * The domains and their technologies are authored in `content/about.ts`; what
@@ -18,16 +18,16 @@ export type SkillDomain = {
   readonly skills: readonly SkillUse[];
 };
 
-export function skillDomains(): readonly SkillDomain[] {
-  return competences.map((group) => ({
+export function skillDomains(content: Content): readonly SkillDomain[] {
+  return content.competences.map((group) => ({
     domain: group.domain,
     skills: group.technologies.map((name) => ({
       name,
-      projects: featuredProjects.filter((p) => p.stack.includes(name)),
+      projects: content.projects.filter((p) => p.stack.includes(name)),
     })),
   }));
 }
 
-export function technologyCount(): number {
-  return new Set(competences.flatMap((group) => group.technologies)).size;
+export function technologyCount(content: Content): number {
+  return new Set(content.competences.flatMap((group) => group.technologies)).size;
 }

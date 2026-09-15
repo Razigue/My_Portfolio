@@ -1,8 +1,8 @@
 import { Stage } from "@/components/motion/Stage";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionLabel } from "@/components/ui/primitives";
-import { featuredProjects } from "@/content/projects";
-import { sections } from "@/content/site";
+import { getContent } from "@/lib/content";
+import type { Locale } from "@/lib/i18n";
 import { skillDomains, technologyCount } from "@/lib/skills";
 
 /**
@@ -14,8 +14,10 @@ import { skillDomains, technologyCount } from "@/lib/skills";
  * numeral up to whatever the server already printed. With scripting off the
  * real figure is simply there.
  */
-export function SkillsMatrix() {
-  const domains = skillDomains();
+export function SkillsMatrix({ locale }: { locale: Locale }) {
+  const content = getContent(locale);
+  const { copy, projects, sections } = content;
+  const domains = skillDomains(content);
 
   return (
     <Stage
@@ -42,7 +44,7 @@ export function SkillsMatrix() {
           id="competences-title"
           className="mt-8 max-w-measure font-display text-h2 leading-tight tracking-display text-paper"
         >
-          Ce que j’utilise, et où le voir
+          {copy.skillsTitle}
         </Reveal>
 
         <div className="mt-12 flex flex-wrap items-end gap-x-14 gap-y-6">
@@ -52,14 +54,14 @@ export function SkillsMatrix() {
               data-choreo-order="2"
               className="tnum font-display text-h2 leading-none text-flare"
             >
-              {technologyCount()}
+              {technologyCount(content)}
             </span>
             <span
               data-choreo="fade"
               data-choreo-order="3"
               className="eyebrow pb-1"
             >
-              technologies
+              {copy.skillsTechnologies}
             </span>
           </p>
 
@@ -76,7 +78,7 @@ export function SkillsMatrix() {
               data-choreo-order="5"
               className="eyebrow pb-1"
             >
-              domaines
+              {copy.skillsDomains}
             </span>
           </p>
 
@@ -86,14 +88,16 @@ export function SkillsMatrix() {
               data-choreo-order="6"
               className="tnum font-display text-h2 leading-none text-flare"
             >
-              {featuredProjects.length}
+              {projects.length}
             </span>
             <span
               data-choreo="fade"
               data-choreo-order="7"
               className="eyebrow pb-1"
             >
-              {featuredProjects.length > 1 ? "projets publiés" : "projet publié"}
+              {projects.length > 1
+                ? copy.skillsProjectMany
+                : copy.skillsProjectOne}
             </span>
           </p>
         </div>

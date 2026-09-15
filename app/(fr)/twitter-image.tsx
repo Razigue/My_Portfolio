@@ -3,4 +3,4 @@ export {
   size,
   contentType,
   alt,
-} from "@/app/opengraph-image";
+} from "@/app/(fr)/opengraph-image";

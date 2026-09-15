@@ -6,10 +6,15 @@ export function CopyButton({
   value,
   idle,
   done,
+  action,
+  confirm,
 }: {
   value: string;
   idle: string;
   done: string;
+  /** The accessible name before copying, and the one after. */
+  action: string;
+  confirm: string;
 }) {
   const [copied, setCopied] = useState(false);
   const timer = useRef(0);
@@ -34,9 +39,7 @@ export function CopyButton({
       className="bg-ink-3 px-3 py-1.5 font-mono text-micro tracking-meta text-paper-2 transition-colors duration-200 hover:bg-flare hover:text-ink"
     >
       <span aria-hidden="true">{copied ? done : idle}</span>
-      <span className="sr-only">
-        {copied ? "Adresse copiée" : "Copier l’adresse email"}
-      </span>
+      <span className="sr-only">{copied ? confirm : action}</span>
     </button>
   );
 }

@@ -2,13 +2,16 @@ import { Stage } from "@/components/motion/Stage";
 import { TransitionLink } from "@/components/motion/TransitionLink";
 import { Reveal } from "@/components/ui/Reveal";
 import { BtnLabel, SectionLabel } from "@/components/ui/primitives";
-import { aiNote, copy, sections, site } from "@/content/site";
+import { getContent } from "@/lib/content";
+import { pathFor, type Locale } from "@/lib/i18n";
 
 /**
  * The buttons here hold still. Their fill rises and their label swaps for a
  * copy of itself, but the target never moves out from under the pointer.
  */
-export function ContactCta() {
+export function ContactCta({ locale }: { locale: Locale }) {
+  const { aiNote, copy, nav, sections, site } = getContent(locale);
+
   return (
     <Stage
       as="section"
@@ -51,11 +54,11 @@ export function ContactCta() {
           className="mt-12 flex flex-wrap items-center gap-5"
         >
           <TransitionLink
-            href="/contact"
-            curtainLabel="Contact"
+            href={pathFor(locale, "contact")}
+            curtainLabel={nav.contact}
             className="btn btn-solid"
           >
-            <BtnLabel>Écrire un message</BtnLabel>
+            <BtnLabel>{copy.writeMessage}</BtnLabel>
           </TransitionLink>
 
           <a href={`mailto:${site.email}`} className="btn">

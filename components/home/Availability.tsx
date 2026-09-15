@@ -1,15 +1,19 @@
 import { Stage } from "@/components/motion/Stage";
 import { Reveal } from "@/components/ui/Reveal";
 import { Ticker } from "@/components/ui/Ticker";
-import { availability } from "@/content/site";
+import { getContent } from "@/lib/content";
 import { searchCriteria } from "@/lib/criteria";
+import type { Locale } from "@/lib/i18n";
 
 /**
  * The single most useful thing on the site for the person reading it, so it is
  * the second thing they meet and the only place the accent is allowed to move
  * on its own.
  */
-export function Availability() {
+export function Availability({ locale }: { locale: Locale }) {
+  const content = getContent(locale);
+  const { availability, copy } = content;
+
   return (
     <Stage
       as="section"
@@ -23,7 +27,7 @@ export function Availability() {
       <div className="section-body mx-auto max-w-page px-6 lg:px-10">
         <Reveal variant="fade" order={0} className="flex items-center gap-3.5">
           <span className="mark-flare" aria-hidden="true" />
-          <span className="eyebrow">Disponibilité</span>
+          <span className="eyebrow">{copy.availabilityTitle}</span>
         </Reveal>
 
         <Reveal
@@ -37,7 +41,7 @@ export function Availability() {
         </Reveal>
 
         <dl className="mt-16 grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
-          {searchCriteria().map((criterion, index) => (
+          {searchCriteria(content).map((criterion, index) => (
             <Reveal key={criterion.label} variant="rise" order={2 + index}>
               <dt className="eyebrow">{criterion.label}</dt>
               <dd className="mt-3 text-lede text-paper">{criterion.value}</dd>

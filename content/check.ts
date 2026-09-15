@@ -17,7 +17,8 @@
  * cherchant ces messages dans `.next/static`, où aucun n'apparaît.
  */
 
-import type { Project } from "@/content/projects";
+import type { Project, ProjectTranslation } from "@/content/projects";
+import type { Locale } from "@/lib/i18n";
 
 /** Une seule erreur arrête tout, mais on les rassemble d'abord pour les dire toutes. */
 function report(file: string, problems: readonly string[]): void {
@@ -44,10 +45,18 @@ const STRAIGHT_QUOTES = /['"]/;
  */
 const LOOSE_SPACE = / [;:!?»]|« /;
 
+/**
+ * L'anglais fait l'inverse : aucune espace, même insécable, devant `;` `:` `!`
+ * `?`, et des guillemets “ ” plutôt que « ». Une phrase copiée depuis le
+ * français garde souvent les siennes.
+ */
+const ENGLISH_SPACE = /[   ][;:!?]|[«»]/;
+
 function checkProse(
   problems: string[],
   where: string,
   value: string | null,
+  locale: Locale = "fr",
 ): void {
   if (value === null) return;
   if (value.trim() === "") {
@@ -59,6 +68,16 @@ function checkProse(
       `${where} contient une apostrophe ou un guillemet droit : « ${value.trim()} ». ` +
         `Utiliser ’ et « » plutôt que ' et ".`,
     );
+  }
+  if (locale === "en") {
+    if (ENGLISH_SPACE.test(value)) {
+      problems.push(
+        `${where} : texte anglais avec une espace devant ; : ! ? ou des ` +
+          `guillemets « », dans « ${value.trim()} ». L'anglais colle la ` +
+          `ponctuation au mot et s'écrit avec “ ”.`,
+      );
+    }
+    return;
   }
   if (LOOSE_SPACE.test(value)) {
     problems.push(
@@ -78,14 +97,24 @@ type Texts = string | readonly Texts[] | { readonly [key: string]: Texts };
  * nommant le chemin de chacune. Écrit ainsi plutôt que champ par champ pour
  * qu'un champ ajouté demain soit relu sans que personne ait à y penser.
  */
-function checkTexts(problems: string[], where: string, value: Texts): void {
+function checkTexts(
+  problems: string[],
+  where: string,
+  value: Texts,
+  locale: Locale = "fr",
+): void {
   if (typeof value === "string") {
-    checkProse(problems, where, value);
+    checkProse(problems, where, value, locale);
     return;
   }
   const indexed = Array.isArray(value);
   for (const [key, item] of Object.entries(value)) {
-    checkTexts(problems, indexed ? `${where}[${key}]` : `${where}.${key}`, item);
+    checkTexts(
+      problems,
+      indexed ? `${where}[${key}]` : `${where}.${key}`,
+      item,
+      locale,
+    );
   }
 }
 
@@ -347,12 +376,16 @@ export function checkMethod(
  * export à `content/site.ts` demande de l'ajouter à cet appel, ce qui est la
  * seule chose à ne pas oublier.
  */
-export function checkCopy(texts: Readonly<Record<string, Texts>>): void {
+export function checkCopy(
+  texts: Readonly<Record<string, Texts>>,
+  file = "content/site.ts",
+  locale: Locale = "fr",
+): void {
   const problems: string[] = [];
   for (const [name, value] of Object.entries(texts)) {
-    checkTexts(problems, name, value);
+    checkTexts(problems, name, value, locale);
   }
-  report("content/site.ts", problems);
+  report(file, problems);
 }
 
 export function checkSite(site: {
@@ -380,4 +413,167 @@ export function checkSite(site: {
   checkUrl(problems, "sourceRepo", site.sourceRepo);
 
   report("content/site.ts", problems);
+}
+
+/**
+ * Les textes anglais des projets publiés, dans `content/en/projects.ts`. Un
+ * projet publié sans eux n'aurait pas de page anglaise, et un champ présent
+ * dans une langue et absent de l'autre montrerait un sous-titre, une équipe ou
+ * un schéma à la moitié des visiteurs seulement.
+ */
+export function checkProjectTexts(
+  projects: readonly Project[],
+  featuredSlugs: readonly string[],
+  texts: Readonly<Record<string, ProjectTranslation>>,
+): void {
+  const problems: string[] = [];
+
+  for (const slug of Object.keys(texts)) {
+    if (!projects.some((project) => project.slug === slug)) {
+      problems.push(
+        `« ${slug} » est traduit mais ne correspond à aucun projet de ` +
+          `content/projects.ts. Corriger le slug ou retirer l'entrée.`,
+      );
+    }
+  }
+
+  for (const slug of featuredSlugs) {
+    const project = projects.find((p) => p.slug === slug);
+    if (!project) continue;
+    const text = texts[slug];
+    if (!text) {
+      problems.push(
+        `« ${slug} » est publié mais n'a pas de texte anglais. Ajouter son ` +
+          `entrée, en reprenant chaque champ texte du projet.`,
+      );
+      continue;
+    }
+
+    const name = `« ${slug} »`;
+    checkProse(problems, `${name} : title`, text.title, "en");
+    checkProse(problems, `${name} : subtitle`, text.subtitle, "en");
+    checkProse(problems, `${name} : team`, text.team, "en");
+    checkProse(problems, `${name} : description`, text.description, "en");
+    text.highlights.forEach((h, i) =>
+      checkProse(problems, `${name} : highlights[${i}]`, h, "en"),
+    );
+    if (text.stackDisclosure !== undefined) {
+      checkProse(problems, `${name} : stackDisclosure`, text.stackDisclosure, "en");
+    }
+    if (text.imageAlt !== undefined) {
+      checkProse(problems, `${name} : imageAlt`, text.imageAlt, "en");
+    }
+
+    const pairs: readonly (readonly [string, boolean, boolean])[] = [
+      ["subtitle", project.subtitle !== null, text.subtitle !== null],
+      ["team", project.team !== null, text.team !== null],
+      ["approach", project.approach !== null, text.approach !== null],
+      [
+        "stackDisclosure",
+        project.stackDisclosure !== undefined,
+        text.stackDisclosure !== undefined,
+      ],
+      ["imageAlt", project.image !== null, text.imageAlt !== undefined],
+    ];
+    for (const [field, french, english] of pairs) {
+      if (french !== english) {
+        problems.push(
+          `${name} : ${field} ` +
+            (french
+              ? "existe en français mais manque en anglais."
+              : "existe en anglais mais pas en français.") +
+            ` Les deux langues doivent montrer les mêmes champs.`,
+        );
+      }
+    }
+
+    if (project.approach && text.approach) {
+      if (project.approach.length !== text.approach.length) {
+        problems.push(
+          `${name} : approach compte ${text.approach.length} partie(s) en ` +
+            `anglais et ${project.approach.length} en français. Traduire ` +
+            `chaque partie, dans le même ordre.`,
+        );
+      }
+      text.approach.forEach((section, i) => {
+        const where = `${name} : approach[${i}]`;
+        checkProse(problems, `${where}.title`, section.title, "en");
+        if (section.paragraphs.length === 0) {
+          problems.push(`${where}.paragraphs est une liste vide.`);
+        }
+        section.paragraphs.forEach((paragraph, j) =>
+          checkProse(problems, `${where}.paragraphs[${j}]`, paragraph, "en"),
+        );
+        if (section.diagram !== undefined) {
+          checkTexts(problems, `${where}.diagram`, section.diagram, "en");
+        }
+        const french = project.approach?.[i];
+        if (
+          french &&
+          (french.diagram === undefined) !== (section.diagram === undefined)
+        ) {
+          problems.push(
+            `${where} : le schéma doit exister dans les deux langues, ou dans aucune.`,
+          );
+        }
+      });
+    }
+  }
+
+  report("content/en/projects.ts", problems);
+}
+
+/**
+ * Le parcours en anglais. Chaque liste suit la française entrée par entrée,
+ * dans le même ordre : une expérience ajoutée d'un seul côté décalerait toutes
+ * celles qui la suivent.
+ */
+export function checkAboutTranslation(
+  french: {
+    readonly experiences: number;
+    readonly langues: number;
+    readonly atouts: number;
+    readonly interets: number;
+    readonly principes: number;
+    readonly competences: number;
+  },
+  english: {
+    readonly parcours: readonly string[];
+    readonly experiences: readonly Texts[];
+    readonly formation: Texts;
+    readonly langues: readonly Texts[];
+    readonly atouts: readonly Texts[];
+    readonly interets: readonly Texts[];
+    readonly principes: readonly Texts[];
+    readonly competenceDomains: readonly string[];
+  },
+): void {
+  const problems: string[] = [];
+
+  if (english.parcours.length === 0) {
+    problems.push("parcours est vide : la page « About » n'aurait pas de texte.");
+  }
+
+  const counts: readonly (readonly [string, number, number])[] = [
+    ["experiences", english.experiences.length, french.experiences],
+    ["langues", english.langues.length, french.langues],
+    ["atouts", english.atouts.length, french.atouts],
+    ["interets", english.interets.length, french.interets],
+    ["principes", english.principes.length, french.principes],
+    ["competenceDomains", english.competenceDomains.length, french.competences],
+  ];
+  for (const [field, en, fr] of counts) {
+    if (en !== fr) {
+      problems.push(
+        `${field} compte ${en} entrée(s) en anglais et ${fr} en français. ` +
+          `Chaque entrée française a sa traduction, dans le même ordre.`,
+      );
+    }
+  }
+
+  for (const [field, value] of Object.entries(english)) {
+    checkTexts(problems, field, value, "en");
+  }
+
+  report("content/en/about.ts", problems);
 }

@@ -1,6 +1,7 @@
 # Portfolio de Razigue Benhmida
 
-Portfolio français d’un développeur web full-stack en recherche d’alternance.
+Portfolio bilingue d’un développeur web full-stack en recherche d’alternance :
+français par défaut à la racine, anglais sous `/en`.
 Next.js 16 (App Router, Turbopack), React 19, TypeScript strict, Tailwind
 CSS v4, GSAP ScrollTrigger et Lenis.
 
@@ -60,7 +61,8 @@ npm run dev
 ```
 
 - `npm run dev` → serveur de développement
-- `npm run build` → build de production, 25 routes, toutes statiques
+- `npm run build` → build de production, toutes les routes statiques, dans les
+  deux langues
 - `npm start` → sert le build
 - `npm run lint` → ESLint
 - `npm run typecheck` → `tsc --noEmit`
@@ -75,6 +77,9 @@ dur dans un composant.**
 - `content/site.ts` → identité, disponibilité, libellés d’interface, navigation
 - `content/projects.ts` → les projets
 - `content/about.ts` → parcours, expériences, formation, langues
+- `content/en/` → les mêmes textes en anglais : `site.ts`, `about.ts`, et les
+  mots des projets publiés dans `projects.ts`. Les faits (liens, stack, années,
+  captures) ne sont écrits que dans les fichiers français
 - `content/check.ts` → les règles de relecture, exécutées à l’import
 - `content/media/razigue.png` → portrait, **import statique**, pas `public/`
 

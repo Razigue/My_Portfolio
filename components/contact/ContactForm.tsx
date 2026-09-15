@@ -2,16 +2,17 @@
 
 import { useActionState, useEffect, useId, useRef } from "react";
 import { useFormStatus } from "react-dom";
-import { sendMessage } from "@/app/contact/actions";
-import { initialContactState, type ContactState } from "@/app/contact/state";
 import { BtnLabel } from "@/components/ui/primitives";
-import { form } from "@/content/site";
+import { sendMessage } from "@/lib/contact/actions";
+import { initialContactState, type ContactState } from "@/lib/contact/state";
+import type { FormCopy } from "@/lib/content";
+import type { Locale } from "@/lib/i18n";
 
-function Submit() {
+function Submit({ idle, busy }: { idle: string; busy: string }) {
   const { pending } = useFormStatus();
   return (
     <button type="submit" className="btn btn-solid" disabled={pending}>
-      <BtnLabel>{pending ? form.pending : form.submit}</BtnLabel>
+      <BtnLabel>{pending ? busy : idle}</BtnLabel>
     </button>
   );
 }
@@ -71,7 +72,13 @@ function Field({
   );
 }
 
-export function ContactForm() {
+export function ContactForm({
+  locale,
+  form,
+}: {
+  locale: Locale;
+  form: FormCopy;
+}) {
   const [state, action] = useActionState<ContactState, FormData>(
     sendMessage,
     initialContactState,
@@ -97,7 +104,7 @@ export function ContactForm() {
       {/* Honeypot, off-screen rather than hidden, so bots that check for
           display:none still fill it in. Never announced, never focusable. */}
       <div className="sr-only" aria-hidden="true">
-        <label htmlFor={`${base}-website`}>Ne pas remplir</label>
+        <label htmlFor={`${base}-website`}>{form.honeypot}</label>
         <input
           id={`${base}-website`}
           name="website"
@@ -107,6 +114,8 @@ export function ContactForm() {
         />
       </div>
       <input ref={startedAt} type="hidden" name="startedAt" defaultValue="0" />
+      {/* So the server answers in the language the visitor wrote in. */}
+      <input type="hidden" name="locale" value={locale} />
 
       <Field
         id={`${base}-name`}
@@ -132,7 +141,7 @@ export function ContactForm() {
       />
 
       <div className="flex flex-wrap items-center gap-6">
-        <Submit />
+        <Submit idle={form.submit} busy={form.pending} />
       </div>
 
       <p

@@ -40,6 +40,7 @@ te trompes, elle te dit immédiatement quoi corriger, en français.
 | `content/projects.ts` | Les projets : titre, cadre, description, stack, année, liens, et lesquels sont publiés |
 | `content/site.ts` | Identité, ce que tu cherches, libellés des boutons, navigation, note sur l’IA |
 | `content/about.ts` | Parcours, expériences, formation, langues, atouts, centres d’intérêt, méthode, compétences |
+| `content/en/site.ts`, `content/en/about.ts`, `content/en/projects.ts` | Les mêmes textes, en anglais. Voir « La version anglaise » |
 | `content/media/razigue.png` | Le portrait |
 | `public/cv-razigue-benhmida.pdf` | Le CV téléchargeable |
 
@@ -328,7 +329,7 @@ Dans `content/site.ts` :
   visé, et le bandeau qui défile. L’école, le diplôme et le lieu affichés à côté
   sont lus dans `formation` et `site.location`, ne les retape pas.
 - `hero`, `presentation` — l’accroche et le paragraphe de présentation
-- `navItems` — les entrées du menu
+- `nav` — les noms des entrées du menu ; leurs adresses se calculent seules
 - `sections` — les numéros et noms de chapitre de l’accueil
 - `aiNote` — la note sur l’usage de l’IA, en bas de la section Contact
 - `copy` — les libellés des boutons, « La démarche », « Voir l’aperçu » et les
@@ -349,6 +350,83 @@ cvUrl: "/cv-razigue-benhmida.pdf",
 **Le portrait.** Remplace `content/media/razigue.png` en gardant le même nom. Il
 est importé comme un fichier et non depuis `public/`, ce qui permet à Next de
 calculer ses dimensions et sa vignette de chargement lui-même.
+
+---
+
+## La version anglaise
+
+Le site existe en deux langues. Le français est la langue par défaut, à la
+racine (`/`, `/projets`, `/a-propos`, `/contact`). L’anglais reprend chaque
+page sous `/en` (`/en`, `/en/projects`, `/en/about`, `/en/contact`). Le
+drapeau à côté de l’interrupteur jour/nuit mène à la même page dans l’autre
+langue.
+
+Les faits ne s’écrivent qu’une fois, dans les fichiers français : liens, stack,
+années, captures, projets publiés, email. Les fichiers anglais ne contiennent
+que les mots.
+
+| Fichier | Ce qu’il traduit |
+| --- | --- |
+| `content/en/site.ts` | `content/site.ts` : rôle, ville, disponibilité, accroche, présentation, menu, chapitres, note sur l’IA, libellés, formulaire |
+| `content/en/about.ts` | `content/about.ts` : parcours, expériences, formation, langues, atouts, centres d’intérêt, principes, noms des domaines de compétences |
+| `content/en/projects.ts` | les textes des projets publiés : titre, sous-titre, équipe, description, points, récit et schémas, texte des technologies, description de la capture |
+
+**Quand tu modifies un texte en français, modifie aussi sa version anglaise.**
+Rien ne peut vérifier que les deux disent la même chose. En revanche, la
+compilation s’arrête si :
+
+- une clé existe dans une langue et pas dans l’autre (`content/en/site.ts`) ;
+- une liste n’a pas le même nombre d’entrées dans les deux langues
+  (expériences, langues, atouts, centres d’intérêt, principes, domaines) ;
+- un projet publié n’a pas d’entrée dans `content/en/projects.ts`, ou un champ
+  (sous-titre, équipe, récit, schéma, description de la capture) n’existe que
+  dans une des deux langues.
+
+Les listes se traduisent **dans le même ordre** : la troisième expérience
+anglaise est la traduction de la troisième française.
+
+### Publier un projet en anglais
+
+Quand tu ajoutes un slug à `featuredSlugs`, ajoute son entrée dans
+`content/en/projects.ts`, au nom du slug :
+
+```ts
+  "mon-nouveau-projet": {
+    title: "My new project",
+    subtitle: "subtitle in italics",
+    team: "team of 4",
+    description: "One or two sentences, in the present tense, on what the project does.",
+    highlights: ["A technical point", "Another one"],
+    approach: null,
+  },
+```
+
+Mets `null` là où le français a `null`. Si le projet a une capture, ajoute
+`imageAlt`, sa description en anglais ; s’il a `stackDisclosure`, traduis-le
+aussi. Dans un schéma, garde les mêmes `icon` et `flow`, et traduis `title`,
+`label`, `hint` et `detail`.
+
+Un projet en réserve n’a pas besoin de traduction : il n’a de page dans
+aucune langue.
+
+### Les phrases avec des accolades
+
+Certains libellés de `copy` contiennent `{count}`, `{years}`, `{title}`… Le
+site y met la valeur calculée : `"{count} recent projects"` devient « Three
+recent projects ». Garde les accolades telles quelles, dans les deux langues.
+
+### La typographie anglaise
+
+Les apostrophes restent courbes (`’`). Mais l’anglais ne met **aucune espace**
+devant `:` `;` `!` `?`, ni insécable ni ordinaire, et ses guillemets sont
+`“ ”`, pas `« »`. La compilation refuse une phrase anglaise qui garde la
+ponctuation française.
+
+### Le CV
+
+Il n’existe qu’en français, et les boutons anglais le disent : « Download the
+CV (PDF, in French) ». Si un CV anglais est ajouté un jour, il faudra un
+second fichier dans `public/` et ces libellés à mettre à jour.
 
 ---
 

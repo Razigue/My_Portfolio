@@ -15,7 +15,6 @@
 import type { StaticImageData } from "next/image";
 import tonecraftShot from "@/content/media/tonecraft.png";
 import { checkProjects } from "@/content/check";
-import { capitalise, cardinal } from "@/lib/french";
 
 export type ProjectStatus = "live" | "archived";
 
@@ -106,6 +105,23 @@ export type Project = {
   readonly repo: string | null;
   readonly demo: string | null;
   readonly status: ProjectStatus;
+};
+
+/**
+ * The English words of one project, in `content/en/projects.ts`. Only what is
+ * read changes with the language: the slug, the stack, the links, the year and
+ * the capture itself are taken from the French entry.
+ */
+export type ProjectTranslation = {
+  readonly title: string;
+  readonly subtitle: string | null;
+  readonly team: string | null;
+  readonly description: string;
+  readonly highlights: readonly string[];
+  readonly approach: readonly ProjectSection[] | null;
+  readonly stackDisclosure?: string;
+  /** The capture's description, required when the project has one. */
+  readonly imageAlt?: string;
 };
 
 const GH = "https://github.com/";
@@ -571,37 +587,7 @@ export const featuredProjects: readonly Project[] = featuredSlugs.map((slug) => 
   return project;
 });
 
-/** A project kept in reserve has no page, so its address answers 404. */
-export function getProject(slug: string): Project | undefined {
-  return featuredProjects.find((p) => p.slug === slug);
-}
-
-export const kindLabels: Readonly<Record<ProjectKind, string>> = {
-  personnel: "Projet personnel",
-  ecole: "Projet d’école",
-};
-
-/** « Projet d’école, équipe de 5 », or just the kind when he worked alone. */
-export function projectContext(project: Project): string | null {
-  if (!project.kind) return null;
-  const kind = kindLabels[project.kind];
-  return project.team ? `${kind}, ${project.team}` : kind;
-}
-
 /** Index sur deux chiffres, tel qu'affiché en tête de ligne. */
 export function projectNumber(index: number): string {
   return String(index + 1).padStart(2, "0");
-}
-
-/**
- * « Treize projets, de 2025 à 2026. » — calculé, jamais saisi. Ajouter un
- * projet met la phrase à jour toute seule, y compris les années.
- */
-export function projectsSummary(): string {
-  const years = featuredProjects.map((p) => p.year);
-  const first = Math.min(...years);
-  const last = Math.max(...years);
-  const span = first === last ? `en ${first}` : `de ${first} à ${last}`;
-  const count = featuredProjects.length;
-  return `${capitalise(cardinal(count))} ${count > 1 ? "projets" : "projet"}, ${span}.`;
 }

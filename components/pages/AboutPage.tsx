@@ -5,31 +5,43 @@ import { PageHeader } from "@/components/layout/PageHeader";
 import { Stage } from "@/components/motion/Stage";
 import { Reveal } from "@/components/ui/Reveal";
 import { BtnLabel } from "@/components/ui/primitives";
-import {
-  atouts,
-  experiences,
-  formation,
-  interets,
-  langues,
-  parcours,
-} from "@/content/about";
-import { copy, presentation, site } from "@/content/site";
+import { getContent } from "@/lib/content";
+import { alternates, pathFor, type Locale } from "@/lib/i18n";
 
-export const metadata: Metadata = {
-  title: "À propos",
-  description: presentation,
-  alternates: { canonical: "/a-propos" },
-  openGraph: {
-    title: "À propos",
+export function aboutMetadata(locale: Locale): Metadata {
+  const { copy, presentation } = getContent(locale);
+  return {
+    title: copy.aboutTitle,
     description: presentation,
-    url: "/a-propos",
-  },
-};
+    alternates: alternates(locale, "about"),
+    openGraph: {
+      title: copy.aboutTitle,
+      description: presentation,
+      url: pathFor(locale, "about"),
+    },
+  };
+}
 
-export default function AProposPage() {
+export function AboutPage({ locale }: { locale: Locale }) {
+  const {
+    atouts,
+    copy,
+    experiences,
+    formation,
+    interets,
+    langues,
+    parcours,
+    presentation,
+    site,
+  } = getContent(locale);
+
   return (
     <>
-      <PageHeader eyebrow="Parcours" title="À propos" sub={presentation} />
+      <PageHeader
+        eyebrow={copy.aboutEyebrow}
+        title={copy.aboutTitle}
+        sub={presentation}
+      />
 
       {/* Portrait + the longer-form story */}
       <Stage className="band" stagger={0.09}>
@@ -45,7 +57,7 @@ export default function AProposPage() {
           <Reveal variant="mask" order={9} className="portrait h-fit">
             <Image
               src={portrait}
-              alt={`Portrait de ${site.name}`}
+              alt={copy.portraitAlt}
               placeholder="blur"
               sizes="(min-width: 1024px) 22rem, 100vw"
               className="h-full w-full object-cover"
@@ -54,7 +66,7 @@ export default function AProposPage() {
         </div>
       </Stage>
 
-      {/* Expériences */}
+      {/* Experience */}
       <Stage aria-labelledby="experiences-title" stagger={0.08}>
         <div className="section-body-tight mx-auto max-w-page px-6 lg:px-10">
           <Reveal
@@ -64,7 +76,7 @@ export default function AProposPage() {
             id="experiences-title"
             className="eyebrow"
           >
-            Expériences
+            {copy.experiencesTitle}
           </Reveal>
 
           <ol className="zebra -mx-5 mt-12 grid">
@@ -97,7 +109,7 @@ export default function AProposPage() {
         </div>
       </Stage>
 
-      {/* Formation, langues, CV */}
+      {/* Education, languages, CV */}
       <Stage aria-labelledby="formation-title" className="band" stagger={0.08}>
         <div className="section-body-tight mx-auto grid max-w-page gap-14 px-6 lg:grid-cols-3 lg:gap-16 lg:px-10">
           <div>
@@ -108,7 +120,7 @@ export default function AProposPage() {
               id="formation-title"
               className="eyebrow"
             >
-              Formation
+              {copy.formationTitle}
             </Reveal>
             <Reveal variant="rise" order={1} className="mt-6">
               <p className="font-display text-h3 leading-tight tracking-tight text-paper">
@@ -128,7 +140,7 @@ export default function AProposPage() {
 
           <div>
             <Reveal variant="fade" as="h2" order={2} className="eyebrow">
-              Langues
+              {copy.languagesTitle}
             </Reveal>
             <Reveal variant="rise" order={3} className="mt-6">
               <dl className="zebra -mx-4 grid">
@@ -149,7 +161,7 @@ export default function AProposPage() {
 
           <div data-print="hide">
             <Reveal variant="fade" as="h2" order={4} className="eyebrow">
-              Document
+              {copy.documentTitle}
             </Reveal>
             <Reveal variant="rise" order={5} className="mt-6">
               <a href={site.cvUrl} download className="btn">
@@ -160,12 +172,12 @@ export default function AProposPage() {
         </div>
       </Stage>
 
-      {/* Atouts, and what fills the rest of the time */}
+      {/* Strengths, and what fills the rest of the time */}
       <Stage aria-labelledby="atouts-title" stagger={0.08}>
         <div className="section-body-tight mx-auto grid max-w-page gap-14 px-6 lg:grid-cols-2 lg:gap-16 lg:px-10">
           {[
-            { id: "atouts-title", title: "Atouts", items: atouts },
-            { id: "interets-title", title: "Au-delà du code", items: interets },
+            { id: "atouts-title", title: copy.strengthsTitle, items: atouts },
+            { id: "interets-title", title: copy.interestsTitle, items: interets },
           ].map((column, columnIndex) => (
             <div key={column.id}>
               <Reveal

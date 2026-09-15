@@ -2,16 +2,18 @@ import { Stage } from "@/components/motion/Stage";
 import { TransitionLink } from "@/components/motion/TransitionLink";
 import { Reveal } from "@/components/ui/Reveal";
 import { BtnLabel, Eyebrow } from "@/components/ui/primitives";
-import { copy } from "@/content/site";
+import { getContent } from "@/lib/content";
+import { pathFor, type Locale } from "@/lib/i18n";
 
-export const metadata = { title: copy.notFoundTitle };
+/** A 404 inside one language's layout, for a `notFound()` raised by a page. */
+export function NotFoundPage({ locale }: { locale: Locale }) {
+  const { copy, nav } = getContent(locale);
 
-export default function NotFound() {
   return (
     <Stage immediate delay={0.1} stagger={0.11}>
       <div className="mx-auto flex min-h-dvh max-w-page flex-col justify-center px-6 py-32 lg:px-10">
         <Reveal variant="fade" as={Eyebrow} order={0}>
-          Erreur 404
+          {copy.notFoundEyebrow}
         </Reveal>
 
         <Reveal
@@ -33,7 +35,11 @@ export default function NotFound() {
         </Reveal>
 
         <Reveal variant="rise" order={3} className="mt-12">
-          <TransitionLink href="/" curtainLabel="Accueil" className="btn">
+          <TransitionLink
+            href={pathFor(locale, "home")}
+            curtainLabel={nav.home}
+            className="btn"
+          >
             <BtnLabel>{copy.notFoundLink}</BtnLabel>
           </TransitionLink>
         </Reveal>

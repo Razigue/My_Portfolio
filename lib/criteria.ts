@@ -1,5 +1,4 @@
-import { formation } from "@/content/about";
-import { availability, site } from "@/content/site";
+import type { Content } from "@/lib/content";
 
 export type Criterion = {
   readonly label: string;
@@ -11,7 +10,11 @@ export type Criterion = {
  * fields that already hold each fact, so the school or the city is never typed
  * twice. Shown on the home page and beside the contact form.
  */
-export function searchCriteria(): readonly Criterion[] {
+export function searchCriteria({
+  availability,
+  formation,
+  site,
+}: Content): readonly Criterion[] {
   return [
     { label: availability.windowLabel, value: availability.window },
     { label: availability.rhythmLabel, value: availability.rhythm },

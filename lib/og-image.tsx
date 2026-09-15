@@ -1,5 +1,6 @@
 import { ImageResponse } from "next/og";
-import { availability, hero, site } from "@/content/site";
+import { getContent } from "@/lib/content";
+import type { Locale } from "@/lib/i18n";
 import {
   FLARE,
   INK,
@@ -9,11 +10,14 @@ import {
   PAPER_3,
 } from "@/lib/og";
 
-export const size = OG_SIZE;
-export const contentType = "image/png";
-export const alt = `${site.name}, ${site.role}`;
+export function ogAlt(locale: Locale): string {
+  const { site } = getContent(locale);
+  return `${site.name}, ${site.role}`;
+}
 
-export default async function OpenGraphImage() {
+/** The social card of one language. Each root layout has its own. */
+export async function renderOgImage(locale: Locale): Promise<ImageResponse> {
+  const { availability, hero, site } = getContent(locale);
   const font = await loadDisplayFont(site.name);
 
   return new ImageResponse(
@@ -98,7 +102,7 @@ export default async function OpenGraphImage() {
       </div>
     ),
     {
-      ...size,
+      ...OG_SIZE,
       fonts: font
         ? [{ name: "Display", data: font, style: "normal", weight: 400 }]
         : undefined,

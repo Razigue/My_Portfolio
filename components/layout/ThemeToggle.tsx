@@ -11,7 +11,13 @@ import { THEME_STORAGE_KEY } from "@/lib/theme-script";
  * Which position is drawn, and which of the two labels is in the accessible
  * tree, both come from the `dark` class. See `.lightswitch` in globals.css.
  */
-export function ThemeToggle() {
+export function ThemeToggle({
+  toDay,
+  toNight,
+}: {
+  toDay: string;
+  toNight: string;
+}) {
   // Follow the operating system for as long as nothing is stored.
   useEffect(() => {
     const query = window.matchMedia("(prefers-color-scheme: dark)");
@@ -40,10 +46,10 @@ export function ThemeToggle() {
     <button type="button" onClick={flip} className="lightswitch">
       <span className="lightswitch-disc" aria-hidden="true" />
       <span className="sr-only theme-say" data-when="dark">
-        Passer en mode jour
+        {toDay}
       </span>
       <span className="sr-only theme-say" data-when="light">
-        Passer en mode nuit
+        {toNight}
       </span>
     </button>
   );
