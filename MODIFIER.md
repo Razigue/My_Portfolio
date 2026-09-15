@@ -117,6 +117,9 @@ Champ par champ :
   le panneau d’accueil, par exemple `["Astro", "Svelte", "TypeScript", "C++", "WebAssembly"]`.
   Choisis des noms déjà présents dans `stack`. La page du projet et les
   compétences gardent la liste complète. Sans ce champ, le panneau utilise `stack`.
+- **`stackDisclosure`** — facultatif, le texte à cliquer pour ouvrir la liste
+  des technologies sur la page du projet, par exemple
+  `"Voir les technologies utilisées"`. Sans ce champ, la liste reste visible.
 - **`year`** — l’année sur quatre chiffres.
 - **`repo`** — l’adresse GitHub complète, ou `null` s’il n’y a pas de dépôt
   public.
@@ -163,6 +166,34 @@ paragraphes vide ou un paragraphe vide arrête la compilation. Pour supprimer
 une partie, retire son bloc ; pour supprimer tout le récit, mets
 `approach: null`. N’ajoute une partie sur ce qui reste à faire que si le README
 ou les issues du dépôt le documentent.
+
+### Ajouter un schéma à une partie
+
+Dans `approach`, une partie peut aussi avoir un champ `diagram`, après ses
+`paragraphs`. Tous les textes du schéma restent dans `content/projects.ts`.
+`layout: "sequence"` présente des étapes numérotées dans l’ordre de lecture ;
+`layout: "roles"` présente les parties d’un système sans numérotation.
+Les blocs s’empilent sur petit écran. Les numéros sont calculés automatiquement.
+
+```ts
+        diagram: {
+          title: "Les grandes parties de l’application",
+          layout: "roles",
+          items: [
+            {
+              title: "La page de commande",
+              description: "Elle transmet les réglages au moteur audio.",
+            },
+            {
+              title: "Le moteur audio",
+              description: "Il transforme le son selon ces réglages.",
+            },
+          ],
+        },
+```
+
+Retire le champ `diagram` pour supprimer le schéma. Un titre, une description
+ou une liste de blocs vide arrête la compilation.
 
 ### Choisir les projets publiés
 

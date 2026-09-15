@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { ProjectShot } from "@/components/projects/ProjectShot";
+import { ProjectDiagram } from "@/components/projects/ProjectDiagram";
 import { Stage } from "@/components/motion/Stage";
 import { TransitionLink } from "@/components/motion/TransitionLink";
 import { Reveal } from "@/components/ui/Reveal";
@@ -121,8 +122,19 @@ export default async function ProjetPage({ params }: Params) {
             ) : null}
 
             <Reveal variant="rise">
-              <Eyebrow>Stack</Eyebrow>
-              <TagList items={project.stack} className="mt-4" />
+              {project.stackDisclosure ? (
+                <details>
+                  <summary className="cursor-pointer font-mono text-meta tracking-meta text-paper-2">
+                    {project.stackDisclosure}
+                  </summary>
+                  <TagList items={project.stack} className="mt-4" />
+                </details>
+              ) : (
+                <>
+                  <Eyebrow>Stack</Eyebrow>
+                  <TagList items={project.stack} className="mt-4" />
+                </>
+              )}
             </Reveal>
 
             <Reveal variant="rise">
@@ -207,6 +219,9 @@ export default async function ProjetPage({ params }: Params) {
                       </p>
                     ))}
                   </div>
+                  {section.diagram ? (
+                    <ProjectDiagram diagram={section.diagram} />
+                  ) : null}
                 </section>
               ))}
             </div>

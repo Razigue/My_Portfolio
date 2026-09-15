@@ -152,6 +152,14 @@ export function checkProjects(
         section.paragraphs.forEach((paragraph, j) =>
           checkProse(problems, `${where}.paragraphs[${j}]`, paragraph),
         );
+        if (section.diagram !== undefined) {
+          checkTexts(problems, `${where}.diagram`, section.diagram);
+          if (section.diagram.items.length === 0) {
+            problems.push(
+              `${where}.diagram.items est une liste vide. Ajouter des étapes ou retirer le schéma.`,
+            );
+          }
+        }
       });
     }
 
@@ -169,6 +177,10 @@ export function checkProjects(
         problems.push(`« ${name} » : stack[${i}] est vide.`);
       }
     });
+
+    if (project.stackDisclosure !== undefined) {
+      checkProse(problems, `« ${name} » : stackDisclosure`, project.stackDisclosure);
+    }
 
     if (project.primaryStack !== undefined) {
       if (project.primaryStack.length === 0) {

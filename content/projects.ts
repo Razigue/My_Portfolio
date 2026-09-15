@@ -28,9 +28,19 @@ export type ProjectImage = {
   readonly alt: string;
 };
 
+export type ProjectDiagram = {
+  readonly title: string;
+  readonly layout: "sequence" | "roles";
+  readonly items: readonly {
+    readonly title: string;
+    readonly description: string;
+  }[];
+};
+
 export type ProjectSection = {
   readonly title: string;
   readonly paragraphs: readonly string[];
+  readonly diagram?: ProjectDiagram;
 };
 
 export type Project = {
@@ -53,6 +63,7 @@ export type Project = {
    */
   readonly approach: readonly ProjectSection[] | null;
   readonly stack: readonly string[];
+  readonly stackDisclosure?: string;
   /** Optional selection for the home panel; the project page keeps the full stack. */
   readonly primaryStack?: readonly string[];
   /**
@@ -75,55 +86,100 @@ export const projects: readonly Project[] = [
   {
     slug: "tonecraft",
     title: "Tonecraft",
-    subtitle: "plus qu’un standalone",
+    subtitle: "la guitare, simplement",
     kind: "personnel",
     team: null,
     description:
-      "Au-delà de la simulation d’ampli, de baffle et d’effets, Tonecraft réunit tablatures, accordeur, métronome et looper. De quoi travailler un morceau, jouer sur un accompagnement et enregistrer une prise en WAV au même endroit, sans installer de DAW ni de plugins.",
+      "Tonecraft permet de jouer de la guitare dans son navigateur, avec un ampli et des effets virtuels. Lire une tablature, s’accorder, garder le rythme, répéter une boucle ou enregistrer avec un accompagnement\u00A0: tout se fait au même endroit.",
     highlights: [
-      "Simulation d’ampli, baffle et effets",
-      "Tablatures, accordeur et métronome au même endroit",
-      "Looper, enregistrement avec accompagnement et export WAV",
+      "Choisir son ampli et ses effets",
+      "Travailler un morceau à son rythme",
+      "Enregistrer sa guitare avec un accompagnement",
     ],
     approach: [
       {
-        title: "Le problème initial",
+        title: "Moins de réglages, plus de musique",
         paragraphs: [
-          "Travailler sa guitare sur ordinateur peut demander tout un parcours avant de jouer\u00A0: installer un logiciel de production musicale (DAW), un lecteur de tablatures et les plugins nécessaires à la simulation d’ampli, de baffle et de pédales d’effet. Il faut ensuite se familiariser avec le DAW et configurer le routage audio pour relier l’entrée de la guitare aux effets, puis à la sortie d’écoute.",
-          "C’est ce parcours que je veux simplifier avec Tonecraft\u00A0: centraliser le son, les tablatures et les outils de pratique au même endroit. La version navigateur fonctionne sans installer de DAW ni de plugin. Le choix de l’interface audio et de ses entrées reste accessible dans les réglages de la page.",
+          "Sur ordinateur, jouer de la guitare demande souvent d’installer plusieurs logiciels et de les faire fonctionner ensemble. J’ai créé Tonecraft pour réunir le son et les outils de pratique dans une seule page.",
+          "On branche sa guitare à une interface audio, le boîtier qui la relie à l’ordinateur, puis on choisit son son. Sans guitare, une démonstration permet aussi d’écouter le résultat, sans activer le micro.",
         ],
       },
       {
-        title: "Ce qu’on peut faire",
+        title: "Apprendre et garder une prise",
         paragraphs: [
-          "Le lecteur ouvre notamment les fichiers Guitar Pro et MusicXML. On peut sélectionner une piste, l’écouter seule ou la couper, ralentir la lecture et répéter un passage. Un manche affiche les notes jouées et peut y superposer une gamme. L’éditeur permet aussi d’écrire une tablature et de l’exporter au format Guitar Pro.",
-          "L’accordeur, le métronome et le looper accompagnent la pratique. La simulation réunit le traitement de l’entrée, le noise gate, la transposition, le boost, la capture d’ampli, le baffle, l’égalisation et la réverbération. L’enregistreur accueille la guitare et une piste d’accompagnement, avec un export WAV de la guitare seule, de l’accompagnement ou du mélange.",
-          "L’accueil distingue le musicien du visiteur qui veut découvrir le projet. Le premier accède aux réglages audio\u00A0; le second dispose d’un tutoriel et d’une prise de démonstration à écouter sans ouvrir le micro. L’accueil et le tutoriel sont disponibles en français et en anglais.",
+          "On peut ouvrir une tablature, la ralentir et répéter un passage. L’accordeur aide à accorder la guitare, le métronome donne le tempo et le looper répète ce qu’on vient de jouer. Le lecteur et ses sons d’instruments se chargent seulement quand on ouvre une partition.",
+          "L’enregistreur conserve la DI\u00A0: le son de la guitare avant les effets. On peut donc changer d’ampli après avoir joué, puis télécharger la prise avec ou sans effets, seule ou avec son accompagnement. Le looper, lui, garde le son avec ses effets.",
         ],
       },
       {
-        title: "Choix importants",
+        title: "Le trajet du son",
         paragraphs: [
-          "L’amplificateur repose sur une capture Neural Amp Modeler. Cette capture correspond à un ampli à un réglage donné. Les commandes de Tonecraft agissent sur le signal autour de cette capture\u00A0: le boost en amont, le baffle, l’égalisation et la réverbération en aval. Le choix de la capture et du baffle fait donc partie du son, au même titre que les réglages.",
-          "Le looper conserve le son traité pour le rejouer tel qu’il a été entendu. L’enregistreur garde au contraire le signal brut de la guitare (DI), avant les effets\u00A0: on peut changer de son après la prise. À l’export, le choix entre DI et son traité est explicite. Le traitement hors ligne utilise le même moteur audio que le jeu en direct, dans un worker séparé.",
-          "Le lecteur de tablatures et ses instruments ne sont chargés que lorsqu’on ouvre ou crée une partition. La dernière partition, la dernière prise, l’accompagnement et les réglages sont conservés localement dans IndexedDB, sans compte ni envoi de ces fichiers à un serveur distant. Retrouver une session ne déclenche pas de son automatiquement.",
+          "Du son brut au son que l’on entend, chaque étape a un rôle. Les effets s’appliquent selon les réglages choisis.",
         ],
+        diagram: {
+          title: "De la guitare au casque, dans l’ordre de lecture",
+          layout: "sequence",
+          items: [
+            {
+              title: "Le son entre",
+              description: "La guitare arrive par le boîtier audio, ou depuis un fichier. C’est ici que l’enregistreur garde la DI, avant les effets.",
+            },
+            {
+              title: "Il se prépare",
+              description: "Le niveau est ajusté et les bruits faibles peuvent être coupés. On peut ensuite changer la hauteur des notes et pousser le son avant l’ampli.",
+            },
+            {
+              title: "L’ampli donne le caractère",
+              description: "Une reproduction numérique d’un ampli transforme le son de la guitare.",
+            },
+            {
+              title: "Le son prend sa couleur",
+              description: "Un haut-parleur virtuel, le baffle, façonne le son. Viennent ensuite les réglages des graves et des aigus, puis la réverbération, qui ajoute une sensation d’espace.",
+            },
+            {
+              title: "L’écoute se prépare",
+              description: "Le looper peut répéter le son obtenu. Le volume est réglé, l’accompagnement rejoint la guitare et les pics de volume sont limités.",
+            },
+            {
+              title: "Le son sort",
+              description: "Le résultat arrive dans le casque ou les enceintes. Le métronome peut s’y ajouter pour garder le rythme.",
+            },
+          ],
+        },
       },
       {
-        title: "Comment ça tourne",
+        title: "Derrière la page",
         paragraphs: [
-          "Astro sert une page statique et Svelte porte l’interface. TypeScript relie les commandes au moteur, tandis qu’alphaTab assure la lecture des partitions. La chaîne audio est écrite en C++, intègre NeuralAmpModelerCore et se compile en WebAssembly. Dans le navigateur, elle s’exécute dans un AudioWorklet, séparé de l’interface.",
-          "Pour les interfaces qui demandent un accès natif, Tonecraft Engine est un programme optionnel en Rust. Il exécute le même fichier WebAssembly avec wasmtime et accède aux périphériques via ASIO sous Windows, CoreAudio sous macOS ou ALSA sous Linux. La page reste l’interface de commande, reliée au moteur par une connexion WebSocket locale. Si ce moteur n’est pas disponible au démarrage, Tonecraft utilise le navigateur et l’indique.",
+          "L’application sépare ce que l’on voit, ce qui transforme le son et ce qui garde la session. Les commandes de la page transmettent les réglages à la partie audio.",
         ],
+        diagram: {
+          title: "Les grandes parties de Tonecraft",
+          layout: "roles",
+          items: [
+            {
+              title: "La page de commande",
+              description: "Elle affiche les réglages et les tablatures. On y choisit son ampli, ses effets et ce que l’on veut jouer.",
+            },
+            {
+              title: "Le moteur audio",
+              description: "Il reçoit ces réglages et transforme le son pendant que l’on joue, séparément de l’affichage.",
+            },
+            {
+              title: "La mémoire locale",
+              description: "Elle garde la dernière partition, la prise, l’accompagnement et les réglages dans le navigateur, sans compte ni envoi de ces fichiers à un serveur.",
+            },
+          ],
+        },
       },
       {
-        title: "Vérifier avant de publier",
+        title: "Avec ou sans programme installé",
         paragraphs: [
-          "Entendre du son ne suffit pas à prouver que l’ampli fonctionne\u00A0: une capture qui ne se charge pas peut laisser passer le signal sec. L’interface attend donc une confirmation du moteur, signale l’échec et affiche une estimation de la latence. Les tests Playwright vérifient notamment le chargement de la capture, la démonstration sans accès micro, le lecteur et l’enregistreur. Un test de parité compare aussi la sortie du moteur navigateur et du moteur natif, échantillon par échantillon.",
-          "GitHub Actions vérifie le schéma des paramètres, exécute les tests et construit le site avant sa publication sur GitHub Pages. Le fichier WebAssembly compilé est versionné\u00A0: installer les dépendances suffit pour construire le site, tandis que recompiler le traitement audio demande Emscripten. Le programme natif possède sa propre chaîne de compilation et de publication.",
+          "Le traitement du son fonctionne dans le navigateur. Pour certaines interfaces audio, un programme optionnel, Tonecraft Engine, permet un accès direct au matériel. La page garde les mêmes commandes et le traitement reste le même.",
+          "La page attend que le moteur confirme le chargement de l’ampli et signale un échec. Avant de publier, des tests vérifient ce chargement, la démonstration sans micro, la lecture et l’enregistrement.",
         ],
       },
     ],
+    stackDisclosure: "Voir les technologies utilisées",
     stack: [
       "Astro", "Svelte", "TypeScript", "C++", "Rust", "WebAssembly",
       "Web Audio API", "alphaTab", "IndexedDB", "Playwright", "GitHub Actions",
@@ -131,7 +187,7 @@ export const projects: readonly Project[] = [
     primaryStack: ["Astro", "Svelte", "TypeScript", "C++", "WebAssembly"],
     image: {
       src: tonecraftShot,
-      alt: "L’interface actuelle de Tonecraft\u00A0: les sélecteurs d’ampli, de baffle et de preset au-dessus de la tête GUILT, avec ses vitraux violets et les réglages Tone, Pitch, Boost et Reverb.",
+      alt: "L’interface actuelle de Tonecraft\u00A0: les choix d’ampli et de haut-parleur au-dessus d’un ampli aux vitraux violets, avec ses boutons de réglage.",
     },
     year: 2026,
     repo: `${GH}Razigue/Tonecraft`,
