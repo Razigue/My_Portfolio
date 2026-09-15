@@ -171,29 +171,49 @@ ou les issues du dépôt le documentent.
 
 Dans `approach`, une partie peut aussi avoir un champ `diagram`, après ses
 `paragraphs`. Tous les textes du schéma restent dans `content/projects.ts`.
-`layout: "sequence"` présente des étapes numérotées dans l’ordre de lecture ;
-`layout: "roles"` présente les parties d’un système sans numérotation.
-Les blocs s’empilent sur petit écran. Les numéros sont calculés automatiquement.
+
+Le schéma est un trajet d’étapes reliées par des flèches : de gauche à droite
+sur ordinateur, de haut en bas sur téléphone. Il est fait pour être compris
+d’un coup d’œil, sans connaître la musique ni le code. Dans une étape :
+
+- **`nodes`** — l’étape elle-même. Mets-en deux pour dire « l’un ou
+  l’autre » : ils s’affichent l’un sous l’autre, séparés par « ou ».
+- **`icon`** — le pictogramme. Au choix : `guitar`, `funnel`, `amp`,
+  `speaker`, `sliders`, `volume`, `headphones`, `record`, `loop`, `note`,
+  `metronome`, `screen`, `chip`, `browser`, `install`, `export`, `wave`,
+  `storage`, `sheet`.
+- **`label`** — le nom de l’étape, court.
+- **`hint`** — quelques mots sous le nom. Pas une phrase : si ça dépasse une
+  ligne, c’est trop long.
+- **`detail`** — facultatif, la technologie, écrite en petit.
+- **`branches`** — facultatif, ce qui est à côté du trajet, affiché sous
+  l’étape. `flow` dit comment : `"out"` part du trajet (↓), `"in"` le rejoint
+  (↑), `"loop"` part et revient (↕), `"apart"` travaille à côté, sans flèche.
 
 ```ts
         diagram: {
           title: "Les grandes parties de l’application",
-          layout: "roles",
-          items: [
+          steps: [
             {
-              title: "La page de commande",
-              description: "Elle transmet les réglages au moteur audio.",
+              nodes: [
+                { icon: "screen", label: "La page", hint: "ce qu’on voit", detail: "Svelte" },
+              ],
+              branches: [
+                { flow: "apart", icon: "storage", label: "La mémoire", hint: "garde les réglages" },
+              ],
             },
             {
-              title: "Le moteur audio",
-              description: "Il transforme le son selon ces réglages.",
+              nodes: [
+                { icon: "wave", label: "Le moteur audio", hint: "transforme le son" },
+              ],
             },
           ],
         },
 ```
 
-Retire le champ `diagram` pour supprimer le schéma. Un titre, une description
-ou une liste de blocs vide arrête la compilation.
+Retire le champ `diagram` pour supprimer le schéma. Un texte vide, une liste
+d’étapes vide ou une étape sans bloc arrête la compilation. Un nom d’icône
+inconnu aussi.
 
 ### Choisir les projets publiés
 

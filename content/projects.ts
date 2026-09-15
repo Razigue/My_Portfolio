@@ -28,13 +28,41 @@ export type ProjectImage = {
   readonly alt: string;
 };
 
+/** The pictograms a diagram can use; they are drawn in `DiagramIcon.tsx`. */
+export type DiagramIcon =
+  | "guitar" | "funnel" | "amp" | "speaker" | "sliders" | "volume"
+  | "headphones" | "record" | "loop" | "note" | "metronome"
+  | "screen" | "chip" | "browser" | "install" | "export" | "wave"
+  | "storage" | "sheet";
+
+/** A station: a pictogram, a name and a few words, for a reader who does not play. */
+export type DiagramNode = {
+  readonly icon: DiagramIcon;
+  readonly label: string;
+  /** A few words under the name. Longer than one line is too long. */
+  readonly hint: string;
+  /** The technology behind the station, set small. */
+  readonly detail?: string;
+};
+
+/**
+ * Something beside the main path: it leaves it (`out`), joins it (`in`),
+ * records from it and plays back into it (`loop`), or works next to it (`apart`).
+ */
+export type DiagramBranch = DiagramNode & {
+  readonly flow: "out" | "in" | "loop" | "apart";
+};
+
+export type DiagramStep = {
+  /** More than one node means alternatives: one or the other takes this place. */
+  readonly nodes: readonly DiagramNode[];
+  readonly branches?: readonly DiagramBranch[];
+};
+
+/** A path read top to bottom, one step after another. */
 export type ProjectDiagram = {
   readonly title: string;
-  readonly layout: "sequence" | "roles";
-  readonly items: readonly {
-    readonly title: string;
-    readonly description: string;
-  }[];
+  readonly steps: readonly DiagramStep[];
 };
 
 export type ProjectSection = {
@@ -114,35 +142,57 @@ export const projects: readonly Project[] = [
       {
         title: "Le trajet du son",
         paragraphs: [
-          "Du son brut au son que l’on entend, chaque étape a un rôle. Les effets s’appliquent selon les réglages choisis.",
+          "De la guitare au casque, le son traverse une suite d’étapes. Chacune le transforme un peu.",
         ],
         diagram: {
-          title: "De la guitare au casque, dans l’ordre de lecture",
-          layout: "sequence",
-          items: [
+          title: "De la guitare au casque",
+          steps: [
             {
-              title: "Le son entre",
-              description: "La guitare arrive par le boîtier audio, ou depuis un fichier. C’est ici que l’enregistreur garde la DI, avant les effets.",
+              nodes: [
+                { icon: "guitar", label: "La guitare", hint: "le son brut entre" },
+              ],
+              branches: [
+                { flow: "out", icon: "record", label: "L’enregistreur", hint: "garde le son brut" },
+              ],
             },
             {
-              title: "Il se prépare",
-              description: "Le niveau est ajusté et les bruits faibles peuvent être coupés. On peut ensuite changer la hauteur des notes et pousser le son avant l’ampli.",
+              nodes: [
+                { icon: "funnel", label: "La préparation", hint: "nettoie et dose le son" },
+              ],
             },
             {
-              title: "L’ampli donne le caractère",
-              description: "Une reproduction numérique d’un ampli transforme le son de la guitare.",
+              nodes: [
+                { icon: "amp", label: "L’ampli", hint: "donne le caractère" },
+              ],
             },
             {
-              title: "Le son prend sa couleur",
-              description: "Un haut-parleur virtuel, le baffle, façonne le son. Viennent ensuite les réglages des graves et des aigus, puis la réverbération, qui ajoute une sensation d’espace.",
+              nodes: [
+                { icon: "speaker", label: "Le haut-parleur", hint: "sonne comme un vrai ampli" },
+              ],
             },
             {
-              title: "L’écoute se prépare",
-              description: "Le looper peut répéter le son obtenu. Le volume est réglé, l’accompagnement rejoint la guitare et les pics de volume sont limités.",
+              nodes: [
+                { icon: "sliders", label: "La couleur", hint: "graves, aigus, écho" },
+              ],
+              branches: [
+                { flow: "loop", icon: "loop", label: "Le looper", hint: "répète ce qu’on joue" },
+              ],
             },
             {
-              title: "Le son sort",
-              description: "Le résultat arrive dans le casque ou les enceintes. Le métronome peut s’y ajouter pour garder le rythme.",
+              nodes: [
+                { icon: "volume", label: "Le volume", hint: "dosé, sans pics" },
+              ],
+              branches: [
+                { flow: "in", icon: "note", label: "Le morceau", hint: "pour jouer par-dessus" },
+              ],
+            },
+            {
+              nodes: [
+                { icon: "headphones", label: "Le casque", hint: "ce qu’on entend" },
+              ],
+              branches: [
+                { flow: "in", icon: "metronome", label: "Le métronome", hint: "donne le tempo" },
+              ],
             },
           ],
         },
@@ -150,23 +200,38 @@ export const projects: readonly Project[] = [
       {
         title: "Derrière la page",
         paragraphs: [
-          "L’application sépare ce que l’on voit, ce qui transforme le son et ce qui garde la session. Les commandes de la page transmettent les réglages à la partie audio.",
+          "Ce que l’on voit, ce qui décide et ce qui transforme le son sont séparés.",
         ],
         diagram: {
           title: "Les grandes parties de Tonecraft",
-          layout: "roles",
-          items: [
+          steps: [
             {
-              title: "La page de commande",
-              description: "Elle affiche les réglages et les tablatures. On y choisit son ampli, ses effets et ce que l’on veut jouer.",
+              nodes: [
+                { icon: "screen", label: "La page", hint: "ce qu’on voit", detail: "Astro, Svelte" },
+              ],
+              branches: [
+                { flow: "apart", icon: "storage", label: "La mémoire", hint: "garde la session", detail: "IndexedDB" },
+                { flow: "apart", icon: "sheet", label: "Les tablatures", hint: "leur propre son", detail: "alphaTab" },
+              ],
             },
             {
-              title: "Le moteur audio",
-              description: "Il reçoit ces réglages et transforme le son pendant que l’on joue, séparément de l’affichage.",
+              nodes: [
+                { icon: "chip", label: "Le chef d’orchestre", hint: "décide des réglages", detail: "TypeScript" },
+              ],
             },
             {
-              title: "La mémoire locale",
-              description: "Elle garde la dernière partition, la prise, l’accompagnement et les réglages dans le navigateur, sans compte ni envoi de ces fichiers à un serveur.",
+              nodes: [
+                { icon: "browser", label: "Le navigateur", hint: "rien à installer", detail: "Web Audio API" },
+                { icon: "install", label: "Tonecraft Engine", hint: "programme en option", detail: "Rust" },
+              ],
+            },
+            {
+              nodes: [
+                { icon: "wave", label: "Le traitement du son", hint: "le même dans les deux cas", detail: "C++, WebAssembly" },
+              ],
+              branches: [
+                { flow: "apart", icon: "export", label: "L’export", hint: "rejoue une prise" },
+              ],
             },
           ],
         },

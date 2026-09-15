@@ -154,11 +154,18 @@ export function checkProjects(
         );
         if (section.diagram !== undefined) {
           checkTexts(problems, `${where}.diagram`, section.diagram);
-          if (section.diagram.items.length === 0) {
+          if (section.diagram.steps.length === 0) {
             problems.push(
-              `${where}.diagram.items est une liste vide. Ajouter des étapes ou retirer le schéma.`,
+              `${where}.diagram.steps est une liste vide. Ajouter des étapes ou retirer le schéma.`,
             );
           }
+          section.diagram.steps.forEach((step, j) => {
+            if (step.nodes.length === 0) {
+              problems.push(
+                `${where}.diagram.steps[${j}].nodes est une liste vide. Ajouter un bloc ou retirer l'étape.`,
+              );
+            }
+          });
         }
       });
     }
