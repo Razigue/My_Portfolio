@@ -13,6 +13,12 @@ import { DiagramIcon } from "@/components/projects/DiagramIcon";
  * under its station, so its arrow points up or down on every screen. On a
  * phone it is indented to the station's text, so its arrow is never read as
  * one of the main path's.
+ *
+ * From a tablet up, every station is a column of one grid, and each step is a
+ * subgrid of two rows: the stations, and what hangs under them. Every tile,
+ * name and branch therefore sits on the same line as its neighbours'. A step
+ * with alternatives spans one column per alternative, with « ou » set in the
+ * gutter where an arrow would be.
  */
 const BRANCH_ARROWS: Record<DiagramBranch["flow"], string | null> = {
   out: "↓",
@@ -21,17 +27,41 @@ const BRANCH_ARROWS: Record<DiagramBranch["flow"], string | null> = {
   apart: null,
 };
 
-function Node({ node }: { node: DiagramNode }) {
+/**
+ * Between a tablet and a wide screen, a short path keeps one row and a long
+ * one wraps after this many columns.
+ */
+const MD_COLUMNS = 4;
+const MD_ONE_ROW = 5;
+
+/** What sits in the gutter left of a station: an arrow, or « ou ». */
+const GUTTER =
+  "absolute top-0 -left-8 hidden h-16 w-8 items-center justify-center text-body";
+
+function Station({
+  node,
+  side = false,
+}: {
+  node: DiagramNode;
+  side?: boolean;
+}) {
   return (
-    <div className="flex min-w-0 items-center gap-4 md:flex-col md:items-start md:gap-3">
-      <span className="flex size-14 shrink-0 items-center justify-center bg-ink-3 text-flare md:size-16">
-        <DiagramIcon icon={node.icon} className="size-7 md:size-8" />
+    <div className="flex min-w-0 items-center gap-4 md:flex-col md:items-start">
+      <span
+        className={`flex shrink-0 items-center justify-center md:size-16 ${
+          side ? "size-10 bg-ink-2 text-paper-2" : "size-14 bg-ink-3 text-flare"
+        }`}
+      >
+        <DiagramIcon
+          icon={node.icon}
+          className={`md:size-8 ${side ? "size-5" : "size-7"}`}
+        />
       </span>
-      <div className="min-w-0 break-words">
-        <h4 className="font-display text-lede leading-tight text-paper md:text-body md:leading-tight">
+      <div className="min-w-0 break-words hyphens-auto">
+        <h4 className="font-display text-body leading-tight text-paper">
           {node.label}
         </h4>
-        <p className="mt-1 text-meta text-paper-2">{node.hint}</p>
+        <p className="mt-1.5 text-meta text-paper-2">{node.hint}</p>
         {node.detail ? (
           <p className="mt-1 font-mono text-micro tracking-meta text-paper-3">
             {node.detail}
@@ -45,41 +75,45 @@ function Node({ node }: { node: DiagramNode }) {
 function Branch({ branch }: { branch: DiagramBranch }) {
   const arrow = BRANCH_ARROWS[branch.flow];
   return (
-    <li className="grid min-w-0 gap-2">
+    <li className="grid gap-2">
       <span
-        className="font-mono text-meta whitespace-nowrap text-flare"
+        className={`flex h-6 w-10 items-center justify-center whitespace-nowrap font-mono text-flare md:w-16 ${
+          arrow ? "text-body" : "text-micro tracking-meta"
+        }`}
         aria-hidden={arrow ? "true" : undefined}
       >
         {arrow ?? copy.diagramApart}
       </span>
-      <div className="flex min-w-0 items-center gap-3 md:flex-col md:items-start md:gap-2">
-        <span className="flex size-10 shrink-0 items-center justify-center bg-ink-2 text-paper-2">
-          <DiagramIcon icon={branch.icon} className="size-5" />
-        </span>
-        <div className="min-w-0 break-words hyphens-auto">
-          <h5 className="font-display text-body leading-tight text-paper">
-            {branch.label}
-          </h5>
-          <p className="text-meta text-paper-2">{branch.hint}</p>
-          {branch.detail ? (
-            <p className="font-mono text-micro tracking-meta text-paper-3">
-              {branch.detail}
-            </p>
-          ) : null}
-        </div>
-      </div>
+      <Station node={branch} side />
     </li>
   );
 }
 
 /**
- * Stations read top to bottom on a phone and left to right from a tablet up,
- * all on one row once the page is wide enough to hold them.
+ * Where each step lands on a tablet grid: how many columns it takes, whether
+ * it opens a row, and whether it sits below the first one.
  */
+function placeSteps(steps: Diagram["steps"], columns: number) {
+  let column = 0;
+  let row = 0;
+  return steps.map((step) => {
+    const span = step.nodes.length;
+    if (column > 0 && column + span > columns) {
+      column = 0;
+      row += 1;
+    }
+    const place = { step, span, startsRow: column === 0, wrapped: row > 0 };
+    column += span;
+    return place;
+  });
+}
+
 export function ProjectDiagram({ diagram }: { diagram: Diagram }) {
+  const total = diagram.steps.reduce((sum, step) => sum + step.nodes.length, 0);
+  const mdColumns = total <= MD_ONE_ROW ? total : MD_COLUMNS;
   const columns = {
-    "--diagram-steps": diagram.steps.length,
-    "--diagram-steps-md": Math.min(diagram.steps.length, 4),
+    "--diagram-columns": total,
+    "--diagram-columns-md": mdColumns,
   } as CSSProperties;
 
   return (
@@ -88,47 +122,68 @@ export function ProjectDiagram({ diagram }: { diagram: Diagram }) {
         {diagram.title}
       </figcaption>
       <ol
-        className="grid md:grid-cols-[repeat(var(--diagram-steps-md),minmax(0,1fr))] md:gap-y-12 xl:grid-cols-[repeat(var(--diagram-steps),minmax(0,1fr))]"
+        className="flex flex-col md:grid md:grid-cols-[repeat(var(--diagram-columns-md),minmax(0,1fr))] md:gap-x-8 xl:grid-cols-[repeat(var(--diagram-columns),minmax(0,1fr))]"
         style={columns}
       >
-        {diagram.steps.map((step, index) => (
-          <li
-            key={step.nodes.map((node) => node.label).join()}
-            className="flex min-w-0 flex-col md:flex-row"
-            data-choreo="rise"
-          >
-            {index > 0 ? (
-              <span
-                aria-hidden="true"
-                className="block w-14 py-2 text-center font-mono text-body text-flare md:w-8 md:shrink-0 md:py-0 md:pt-4"
-              >
-                <span className="md:hidden">↓</span>
-                <span className="hidden md:inline">→</span>
-              </span>
-            ) : null}
-            <div className="grid min-w-0 flex-1 content-start gap-5 md:pr-3">
-              <div className="grid gap-2">
+        {placeSteps(diagram.steps, mdColumns).map(
+          ({ step, span, startsRow, wrapped }, index) => (
+            <li
+              key={step.nodes.map((node) => node.label).join()}
+              className={`relative flex min-w-0 flex-col md:row-span-2 md:grid md:grid-cols-subgrid md:grid-rows-subgrid md:gap-y-0 ${
+                wrapped ? "md:mt-12 xl:mt-0" : ""
+              }`}
+              style={{ gridColumn: `span ${span} / span ${span}` }}
+              data-choreo="rise"
+            >
+              {index > 0 ? (
+                <>
+                  <span
+                    aria-hidden="true"
+                    className="flex h-10 w-14 items-center justify-center font-mono text-body text-flare md:hidden"
+                  >
+                    ↓
+                  </span>
+                  <span
+                    aria-hidden="true"
+                    className={`${GUTTER} font-mono text-flare ${
+                      startsRow ? "xl:flex" : "md:flex"
+                    }`}
+                  >
+                    →
+                  </span>
+                </>
+              ) : null}
+              <div className="grid content-start gap-3 md:col-span-full md:grid-cols-subgrid md:gap-y-0 md:pb-6">
                 {step.nodes.map((node, i) => (
-                  <div key={node.label} className="grid gap-2">
+                  <div key={node.label} className="relative grid min-w-0 gap-3">
                     {i > 0 ? (
-                      <span className="w-14 text-center font-display text-body italic text-paper-3 md:w-16">
-                        {copy.diagramOr}
-                      </span>
+                      <>
+                        <span className="w-14 text-center font-display text-body italic text-paper-3 md:hidden">
+                          {copy.diagramOr}
+                        </span>
+                        <span
+                          className={`${GUTTER} font-display italic text-paper-3 md:flex`}
+                        >
+                          {copy.diagramOr}
+                        </span>
+                      </>
                     ) : null}
-                    <Node node={node} />
+                    <Station node={node} />
                   </div>
                 ))}
               </div>
               {step.branches ? (
-                <ul className="grid gap-4 pl-18 md:pl-0">
+                <ul className="mt-3 grid content-start gap-6 pl-18 md:col-span-full md:mt-0 md:pl-0">
                   {step.branches.map((branch) => (
                     <Branch key={branch.label} branch={branch} />
                   ))}
                 </ul>
-              ) : null}
-            </div>
-          </li>
-        ))}
+              ) : (
+                <div aria-hidden="true" className="hidden md:col-span-full md:block" />
+              )}
+            </li>
+          ),
+        )}
       </ol>
     </figure>
   );

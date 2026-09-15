@@ -177,7 +177,8 @@ sur ordinateur, de haut en bas sur téléphone. Il est fait pour être compris
 d’un coup d’œil, sans connaître la musique ni le code. Dans une étape :
 
 - **`nodes`** — l’étape elle-même. Mets-en deux pour dire « l’un ou
-  l’autre » : ils s’affichent l’un sous l’autre, séparés par « ou ».
+  l’autre » : ils s’affichent côte à côte (l’un sous l’autre sur téléphone),
+  séparés par « ou ».
 - **`icon`** — le pictogramme. Au choix : `guitar`, `funnel`, `amp`,
   `speaker`, `sliders`, `volume`, `headphones`, `record`, `loop`, `note`,
   `metronome`, `screen`, `chip`, `browser`, `install`, `export`, `wave`,

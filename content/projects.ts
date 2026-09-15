@@ -157,7 +157,7 @@ export const projects: readonly Project[] = [
             },
             {
               nodes: [
-                { icon: "funnel", label: "La préparation", hint: "nettoie et dose le son" },
+                { icon: "funnel", label: "La préparation", hint: "nettoie et dose" },
               ],
             },
             {
@@ -167,7 +167,7 @@ export const projects: readonly Project[] = [
             },
             {
               nodes: [
-                { icon: "speaker", label: "Le haut-parleur", hint: "sonne comme un vrai ampli" },
+                { icon: "speaker", label: "Le haut-parleur", hint: "sonne comme en vrai" },
               ],
             },
             {
@@ -183,7 +183,7 @@ export const projects: readonly Project[] = [
                 { icon: "volume", label: "Le volume", hint: "dosé, sans pics" },
               ],
               branches: [
-                { flow: "in", icon: "note", label: "Le morceau", hint: "pour jouer par-dessus" },
+                { flow: "in", icon: "note", label: "Le morceau", hint: "pour jouer dessus" },
               ],
             },
             {
