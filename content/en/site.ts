@@ -26,7 +26,7 @@ export const site: Localized<Pick<typeof frenchSite, "role" | "location">> = {
 export const availability: Localized<typeof frenchAvailability> = {
   headline: "Looking for a 12-month apprenticeship",
   windowLabel: "Period",
-  window: "from September 2026 to the end of October 2027",
+  window: "from September 2026",
   rhythmLabel: "Schedule",
   rhythm: "6 weeks at the company, 2 weeks in training",
   targetLabel: "Target role",
@@ -45,7 +45,7 @@ export const availability: Localized<typeof frenchAvailability> = {
 export const hero: Localized<typeof frenchHero> = {
   role: site.role,
   tagline:
-    "An apprentice web developer at Epitech, I build clean, modern and accessible web experiences.",
+    "Studying at Web@cadémie by Epitech, I build web applications and am looking for a full-stack development apprenticeship.",
 };
 
 export const presentation =
@@ -69,7 +69,7 @@ export const sections: { readonly [K in keyof typeof frenchSections]: string } =
 
 export const aiNote: Localized<typeof frenchAiNote> = {
   label: "Use of AI",
-  body: "This portfolio is written with the help of Claude Code. The choices, the review and what gets published remain mine: every claim on the site points to a repository or to the CV.",
+  body: "This portfolio is developed with the help of Claude Code and Codex. I remain responsible for the decisions, review and published content. The information presented is based on my projects and CV.",
 };
 
 export const copy: Localized<typeof frenchCopy> = {
@@ -124,7 +124,7 @@ export const copy: Localized<typeof frenchCopy> = {
   selectionIndex: "See the project index",
   panelOf: "of",
   viewProject: "View the project",
-  methodTitle: "What I hold to in code",
+  methodTitle: "The principles I apply",
   skillsTitle: "What I use, and where to see it",
   skillsTechnologies: "technologies",
   skillsDomains: "domains",

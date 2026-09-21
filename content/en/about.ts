@@ -17,8 +17,8 @@ import {
 import type { Localized } from "@/lib/i18n";
 
 export const parcours: readonly string[] = [
-  "Before Epitech, I worked various jobs to pay the bills, including in restaurants. As AI and diffusion models such as Midjourney became widely available, I saw an opportunity to start working for myself.",
-  "That is when I discovered web development, building my first personal projects. I quickly got hooked, and it made me want to make it my profession.",
+  "Before Epitech, I worked in several jobs, including catering and grounds maintenance. I then built an online business selling AI-generated visuals made with Midjourney.",
+  "Building my shop introduced me to web development. I continued with personal projects, then joined Web@cadémie by Epitech to make it my career. My experience as a sole trader shapes how I work, with attention to user needs, the product and customer relations.",
 ];
 
 export const experiences: Localized<typeof frenchExperiences> = [
@@ -46,7 +46,7 @@ export const experiences: Localized<typeof frenchExperiences> = [
 ];
 
 export const formation: Localized<typeof frenchFormation> = {
-  title: "Web Integrator-Developer",
+  title: "Web Developer and Integrator",
   credential: "RNCP level 5 qualification",
   period: "2025 to 2027",
   school: "Web@cadémie by Epitech",
@@ -97,11 +97,11 @@ export const principes: readonly {
 }[] = [
   {
     title: "Validate on the way in, never after",
-    body: "Overkill’s offers come from a collector, not from a form: nobody reviews what comes in, so a DTO validates every JSON payload before it reaches the database. On Corelab, the login form goes through Zod before it touches anything.",
+    body: "On Overkill, a DTO defines the constraints for offers received from the collector, and Symfony validates them before writing to the database. On Corelab, Zod validates login data before the user lookup.",
   },
   {
     title: "Control who is allowed",
-    body: "On Corelab, access goes through a middleware that checks the JWT, then the role. The passwords generated when users are imported are hashed with bcrypt.",
+    body: "On Corelab, middleware verifies the JWT, and the relevant routes check the user’s role. Passwords generated when users are imported are hashed with bcrypt.",
   },
   {
     title: "Report what fails silently",

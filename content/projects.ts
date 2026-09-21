@@ -13,7 +13,7 @@
  */
 
 import type { StaticImageData } from "next/image";
-import tonecraftShot from "@/content/media/tonecraft.png";
+import tonecraftStudio from "@/content/media/tonecraft-studio.png";
 import tonecraftThumbnail from "@/content/media/tonecraft-guilt.png";
 import tonecraftBackground from "@/content/media/tonecraft-background.png";
 import { checkProjects } from "@/content/check";
@@ -102,9 +102,9 @@ export type Project = {
    * them: the pages carry their weight in type.
    */
   readonly image: ProjectImage | null;
-  /** Optional artwork beside the title on the home and project pages. */
+  /** Optional artwork beside the title on the home page. */
   readonly thumbnail?: ProjectImage & {
-    /** Decorative scenery behind the artwork in each opening composition. */
+    /** Decorative scenery behind the artwork on the home page. */
     readonly background?: StaticImageData;
   };
   readonly year: number;
@@ -165,7 +165,7 @@ export const projects: readonly Project[] = [
         title: "Apprendre et garder une prise",
         paragraphs: [
           "On peut ouvrir une tablature, la ralentir et répéter un passage. L’accordeur aide à accorder la guitare, le métronome donne le tempo et le looper répète ce qu’on vient de jouer. Le lecteur et ses sons d’instruments se chargent seulement quand on ouvre une partition.",
-          "L’enregistreur conserve la DI\u00A0: le son de la guitare avant les effets. On peut donc changer d’ampli après avoir joué, puis télécharger la prise avec ou sans effets, seule ou avec son accompagnement. Le looper, lui, garde le son avec ses effets.",
+          "L’enregistreur conserve la DI\u00A0: le son de la guitare avant les effets. On peut donc changer d’ampli après avoir joué, puis télécharger la prise avec ou sans effets, seule ou mixée avec un fichier audio d’accompagnement importé. Le son du lecteur de tablatures reste séparé et n’est pas inclus dans cet export. Le looper, lui, garde le son avec ses effets.",
         ],
       },
       {
@@ -196,12 +196,12 @@ export const projects: readonly Project[] = [
             },
             {
               nodes: [
-                { icon: "speaker", label: "Le haut-parleur", hint: "sonne comme en vrai" },
+                { icon: "speaker", label: "Le baffle virtuel", hint: "simule les haut-parleurs" },
               ],
             },
             {
               nodes: [
-                { icon: "sliders", label: "La couleur", hint: "graves, aigus, écho" },
+                { icon: "sliders", label: "La couleur", hint: "égalisation, réverbération" },
               ],
               branches: [
                 { flow: "loop", icon: "loop", label: "Le looper", hint: "répète ce qu’on joue" },
@@ -209,7 +209,7 @@ export const projects: readonly Project[] = [
             },
             {
               nodes: [
-                { icon: "volume", label: "Le volume", hint: "dosé, sans pics" },
+                { icon: "volume", label: "Le volume", hint: "réglage et limiteur" },
               ],
               branches: [
                 { flow: "in", icon: "note", label: "Le morceau", hint: "pour jouer dessus" },
@@ -269,7 +269,7 @@ export const projects: readonly Project[] = [
         title: "Avec ou sans programme installé",
         paragraphs: [
           "Le traitement du son fonctionne dans le navigateur. Pour certaines interfaces audio, un programme optionnel, Tonecraft Engine, permet un accès direct au matériel. La page garde les mêmes commandes et le traitement reste le même.",
-          "La page attend que le moteur confirme le chargement de l’ampli et signale un échec. Avant de publier, des tests vérifient ce chargement, la démonstration sans micro, la lecture et l’enregistrement.",
+          "L’interface attend la confirmation du moteur avant d’indiquer que l’ampli est chargé et signale les erreurs de chargement. Le déploiement du site passe par des tests en navigateur qui vérifient ce chargement, la démonstration sans micro, la lecture des tablatures et l’enregistrement.",
         ],
       },
     ],
@@ -280,8 +280,8 @@ export const projects: readonly Project[] = [
     ],
     primaryStack: ["Astro", "Svelte", "TypeScript", "C++", "WebAssembly"],
     image: {
-      src: tonecraftShot,
-      alt: "L’interface actuelle de Tonecraft\u00A0: les choix d’ampli et de haut-parleur au-dessus d’un ampli aux vitraux violets, avec ses boutons de réglage.",
+      src: tonecraftStudio,
+      alt: "Le studio de Tonecraft dans l’onglet Tone, ampli allumé : la barre de réglages en haut, avec l’entrée, le gate, l’ampli, le baffle et le preset Lead, l’ampli Guilt aux vitraux violets éclairés au centre, et en bas le lecteur de tablatures, le looper et les pistes de guitare et d’accompagnement.",
     },
     year: 2026,
     repo: `${GH}Razigue/Tonecraft`,
@@ -370,7 +370,7 @@ export const projects: readonly Project[] = [
       {
         title: "Comment ça tourne",
         paragraphs: [
-          "Les routes suivent\u00A0: le CRUD des cours, des leçons et des quiz, l’enregistrement des résultats, la progression d’un élève, la comparaison d’un score au seuil de réussite, la programmation d’une leçon à une date, l’import d’utilisateurs avec génération du mot de passe par bcrypt, et le mot de passe choisi à la première connexion. L’accès passe par un middleware qui vérifie le jeton JWT puis le rôle, et le formulaire de connexion est validé par Zod avant d’atteindre quoi que ce soit.",
+          "Les routes suivent\u00A0: le CRUD des cours, des leçons et des quiz, l’enregistrement des résultats, la progression d’un élève, la comparaison d’un score au seuil de réussite, la programmation d’une leçon à une date, l’import d’utilisateurs avec génération de mots de passe hachés avec bcrypt, et le mot de passe choisi à la première connexion. Un middleware vérifie le jeton JWT, les routes concernées contrôlent le rôle de l’utilisateur et Zod valide les données de connexion avant la recherche de l’utilisateur.",
         ],
       },
     ],

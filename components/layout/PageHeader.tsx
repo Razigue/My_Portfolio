@@ -8,7 +8,6 @@ export function PageHeader({
   title,
   sub,
   media,
-  backdrop,
   children,
 }: {
   eyebrow: string;
@@ -26,8 +25,6 @@ export function PageHeader({
    * word and a single word cannot wrap out of a column too narrow for it.
    */
   media?: React.ReactNode;
-  /** Decorative layer behind the opening composition, contained by this header. */
-  backdrop?: React.ReactNode;
   children?: React.ReactNode;
 }) {
   return (
@@ -36,9 +33,7 @@ export function PageHeader({
       as="header"
       delay={0.12}
       stagger={0.11}
-      className={backdrop ? "relative isolate overflow-hidden" : undefined}
     >
-      {backdrop}
       <div className="mx-auto max-w-page px-6 pb-20 pt-36 lg:px-10 lg:pb-28 lg:pt-48">
         {/* Two tracks only when there is something to put in the second one,
             so every other page keeps the markup it had. */}

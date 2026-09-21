@@ -272,9 +272,7 @@ chargement.
 La capture s’affiche à deux endroits :
 
 - **Sur la page du projet**, en haut, à côté du titre. Elle est visible tout de
-  suite. Si le projet a une miniature `thumbnail`, celle-ci prend sa place
-  dans l’en-tête et la capture reste accessible via « Voir l’aperçu », sous
-  les points de présentation.
+  suite : c’est la page du projet, l’image y est chez elle.
 - **Sur l’accueil**, si le projet est mis en avant, elle est repliée derrière
   « Voir l’aperçu », sous les liens du panneau. Un panneau d’accueil fait un
   écran de haut et son sujet est le titre ; une image posée là en permanence
@@ -287,7 +285,11 @@ Rien n’est encadré ni ombré : l’image est son propre bord, comme le reste 
 site n’a pas un trait. Le repli est un `<details>` du navigateur, donc il
 fonctionne même si le JavaScript ne se charge pas, comme le menu mobile.
 
-### Ajouter une illustration sur l’accueil et la page projet
+La capture actuelle de Tonecraft montre son
+[studio](https://razigue.github.io/Tonecraft/app/) dans l’onglet Tone, fenêtre
+d’accueil fermée et ampli allumé.
+
+### Ajouter une illustration sur l’accueil
 
 Une illustration peut aussi occuper l’espace à côté du titre du panneau,
 comme l’ampli Guilt de Tonecraft. Sur téléphone, elle passe sous le titre,
@@ -308,10 +310,8 @@ ajoute au projet :
 
 Ajoute aussi `thumbnailAlt` dans `content/en/projects.ts` avec sa description
 en anglais. Retire le champ `thumbnail` et sa traduction pour supprimer la
-miniature. La même illustration et le même décor ouvrent la page du projet,
-avec un fondu adapté à la hauteur de son en-tête. La capture `image` reste
-accessible sous la présentation via « Voir l’aperçu ». Sans `thumbnail`,
-la capture reprend sa place dans l’en-tête.
+miniature. La page du projet utilise la capture `image` ; l’illustration et
+son décor animé restent réservés à l’accueil.
 
 `src` peut être un PNG détouré avec un fond transparent. Le champ facultatif
 `background` contient le décor, importé lui aussi depuis `content/media/`.

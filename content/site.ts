@@ -33,7 +33,7 @@ checkSite(site);
 export const availability = {
   headline: "Recherche alternance 12 mois",
   windowLabel: "Période",
-  window: "de septembre 2026 à fin octobre 2027",
+  window: "à partir de septembre 2026",
   rhythmLabel: "Rythme",
   rhythm: "6 semaines en entreprise, 2 semaines en formation",
   targetLabel: "Poste visé",
@@ -55,7 +55,7 @@ export const availability = {
 export const hero = {
   role: site.role,
   tagline:
-    "Apprenti développeur web à Epitech, je construis des expériences web propres, modernes et accessibles.",
+    "En formation à la Web@cadémie by Epitech, je développe des applications web et recherche une alternance en développement full-stack.",
 } as const;
 
 export const presentation =
@@ -86,7 +86,7 @@ export const sections = {
 /** La note sur l’usage de l’IA, en bas de la section Contact de l’accueil. */
 export const aiNote = {
   label: "Usage de l’IA",
-  body: "Ce portfolio est écrit avec l’aide de Claude Code. Les choix, la relecture et ce qui est publié restent les miens : chaque affirmation du site renvoie à un dépôt ou au CV.",
+  body: "Ce portfolio est développé avec l’aide de Claude Code et de Codex. Je garde la responsabilité des choix, de la relecture et du contenu publié. Les informations présentées s’appuient sur mes projets et mon CV.",
 } as const;
 
 export const copy = {
@@ -144,7 +144,7 @@ export const copy = {
   selectionIndex: "Voir l’index des projets",
   panelOf: "sur",
   viewProject: "Voir le projet",
-  methodTitle: "Ce que je tiens dans le code",
+  methodTitle: "Les principes que j’applique",
   skillsTitle: "Ce que j’utilise, et où le voir",
   skillsTechnologies: "technologies",
   skillsDomains: "domaines",

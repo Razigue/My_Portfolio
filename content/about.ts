@@ -4,8 +4,8 @@ import { checkAbout, checkMethod } from "@/content/check";
 import { featuredProjects } from "@/content/projects";
 
 export const parcours: readonly string[] = [
-  "Avant Epitech, j’ai travaillé dans divers emplois alimentaires et de restauration. Avec la démocratisation de l’IA et des modèles de diffusion tels que Midjourney, j’y ai vu une opportunité de me lancer dans l’auto-entrepreneuriat.",
-  "C’est à ce moment-là que j’ai découvert le développement web en créant mes premiers projets personnels. J’ai rapidement accroché à ce domaine, ce qui m’a donné envie d’en faire ma profession.",
+  "Avant Epitech, j’ai occupé plusieurs emplois, notamment dans la restauration et l’entretien d’espaces verts. J’ai ensuite développé une activité de vente en ligne de visuels générés par IA avec Midjourney.",
+  "La création de ma boutique m’a fait découvrir le développement web. J’ai poursuivi avec des projets personnels, puis rejoint la Web@cadémie by Epitech pour en faire mon métier. Mon expérience d’auto-entrepreneur nourrit ma façon de travailler, avec une attention portée au besoin, au produit et à la relation client.",
 ];
 
 export type Experience = {
@@ -40,8 +40,8 @@ export const experiences: readonly Experience[] = [
 ];
 
 export const formation = {
-  title: "Intégrateur-Développeur Web",
-  credential: "Titre RNCP Niv. 5",
+  title: "Développeur intégrateur web",
+  credential: "Titre RNCP de niveau 5",
   period: "2025 à 2027",
   school: "Web@cadémie by Epitech",
   place: "Le Kremlin-Bicêtre (94)",
@@ -110,12 +110,12 @@ export const principes: readonly {
 }[] = [
   {
     title: "Valider à l’entrée, jamais après",
-    body: "Les offres d’Overkill arrivent d’un collecteur, pas d’un formulaire : personne ne relit ce qui entre, alors un DTO valide chaque JSON avant qu’il atteigne la base. Sur Corelab, le formulaire de connexion passe par Zod avant de toucher quoi que ce soit.",
+    body: "Sur Overkill, un DTO définit les contraintes des offres reçues du collecteur et Symfony les valide avant l’écriture en base. Sur Corelab, Zod valide les données de connexion avant la recherche de l’utilisateur.",
     projects: ["overkill", "corelab"],
   },
   {
     title: "Contrôler qui a le droit",
-    body: "Sur Corelab, l’accès passe par un middleware qui vérifie le jeton JWT, puis le rôle. Les mots de passe générés à l’import des utilisateurs sont hachés par bcrypt.",
+    body: "Sur Corelab, un middleware vérifie le jeton JWT et les routes concernées contrôlent le rôle de l’utilisateur. Les mots de passe générés à l’import des utilisateurs sont hachés avec bcrypt.",
     projects: ["corelab"],
   },
   {
@@ -125,7 +125,7 @@ export const principes: readonly {
   },
   {
     title: "Simplifier le parcours",
-    body: "Tonecraft réunit simulation guitare, tablatures et outils de pratique dans la même page. Le lecteur et ses instruments ne sont chargés qu’à l’ouverture d’une partition. Un visiteur peut écouter la démonstration sans ouvrir le micro.",
+    body: "Tonecraft réunit simulation guitare, tablatures et outils de pratique dans la même page. Le lecteur et ses instruments ne sont chargés qu’à l’ouverture d’une partition. Un visiteur peut écouter la démonstration sans activer le micro.",
     projects: ["tonecraft"],
   },
 ];

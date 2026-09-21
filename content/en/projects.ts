@@ -38,7 +38,7 @@ export const projectTexts: Readonly<Record<string, ProjectTranslation>> = {
         title: "Learning, and keeping a take",
         paragraphs: [
           "You can open a tablature, slow it down and loop a passage. The tuner helps tune the guitar, the metronome sets the tempo and the looper repeats what you just played. The player and its instrument sounds only load when you open a score.",
-          "The recorder keeps the DI: the sound of the guitar before the effects. So you can change amps after playing, then download the take with or without effects, on its own or with its backing track. The looper, for its part, keeps the sound with its effects.",
+          "The recorder keeps the DI: the sound of the guitar before the effects. So you can change amps after playing, then download the take with or without effects, on its own or mixed with an imported backing audio file. The tablature player’s audio remains separate and is not included in this export. The looper, for its part, keeps the sound with its effects.",
         ],
       },
       {
@@ -69,12 +69,12 @@ export const projectTexts: Readonly<Record<string, ProjectTranslation>> = {
             },
             {
               nodes: [
-                { icon: "speaker", label: "The speaker", hint: "sounds like the real thing" },
+                { icon: "speaker", label: "The virtual cabinet", hint: "simulates the speakers" },
               ],
             },
             {
               nodes: [
-                { icon: "sliders", label: "The colour", hint: "bass, treble, echo" },
+                { icon: "sliders", label: "The colour", hint: "EQ and reverb" },
               ],
               branches: [
                 { flow: "loop", icon: "loop", label: "The looper", hint: "repeats what you play" },
@@ -82,7 +82,7 @@ export const projectTexts: Readonly<Record<string, ProjectTranslation>> = {
             },
             {
               nodes: [
-                { icon: "volume", label: "The volume", hint: "levelled, no spikes" },
+                { icon: "volume", label: "The volume", hint: "level control and limiter" },
               ],
               branches: [
                 { flow: "in", icon: "note", label: "The song", hint: "to play along to" },
@@ -142,13 +142,13 @@ export const projectTexts: Readonly<Record<string, ProjectTranslation>> = {
         title: "With or without an installed program",
         paragraphs: [
           "Sound processing runs in the browser. For some audio interfaces, an optional program, Tonecraft Engine, gives direct access to the hardware. The page keeps the same controls and the processing stays the same.",
-          "The page waits for the engine to confirm the amp has loaded, and reports a failure. Before each release, tests check this loading, the demo without a microphone, playback and recording.",
+          "The interface waits for confirmation from the engine before showing that the amp has loaded, and reports loading errors. Site deployment runs browser tests that check this loading, the demo without a microphone, tablature playback and recording.",
         ],
       },
     ],
     stackDisclosure: "Show the technologies used",
     imageAlt:
-      "The current Tonecraft interface: the amp and speaker choices above an amp with purple stained glass, and its control knobs.",
+      "Tonecraft’s studio in the Tone tab, with the amp switched on: the settings bar at the top, with input, gate, amp, cabinet and the Lead preset, the Guilt amp with its lit purple stained glass in the middle, and the tab player, the looper and the guitar and backing tracks at the bottom.",
   },
 
   overkill: {
@@ -224,7 +224,7 @@ export const projectTexts: Readonly<Record<string, ProjectTranslation>> = {
       {
         title: "How it runs",
         paragraphs: [
-          "The routes follow: the CRUD for courses, lessons and quizzes, saving results, a student’s progress, comparing a score with the pass mark, scheduling a lesson for a date, importing users with passwords generated through bcrypt, and a password chosen at first login. Access goes through a middleware that checks the JWT and then the role, and the login form is validated by Zod before it reaches anything.",
+          "The routes follow: the CRUD for courses, lessons and quizzes, saving results, a student’s progress, comparing a score with the pass mark, scheduling a lesson for a date, importing users with generated passwords hashed with bcrypt, and a password chosen at first login. Middleware verifies the JWT, the relevant routes check the user’s role, and Zod validates login data before the user lookup.",
         ],
       },
     ],
