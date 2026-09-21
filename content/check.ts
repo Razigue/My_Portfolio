@@ -204,6 +204,9 @@ export function checkProjects(
     if (project.image !== null) {
       checkProse(problems, `« ${name} » : image.alt`, project.image.alt);
     }
+    if (project.thumbnail !== undefined) {
+      checkProse(problems, `« ${name} » : thumbnail.alt`, project.thumbnail.alt);
+    }
 
     if (project.stack.length === 0) {
       problems.push(`« ${name} » : stack est vide. Lister au moins une technologie.`);
@@ -463,6 +466,9 @@ export function checkProjectTexts(
     if (text.imageAlt !== undefined) {
       checkProse(problems, `${name} : imageAlt`, text.imageAlt, "en");
     }
+    if (text.thumbnailAlt !== undefined) {
+      checkProse(problems, `${name} : thumbnailAlt`, text.thumbnailAlt, "en");
+    }
 
     const pairs: readonly (readonly [string, boolean, boolean])[] = [
       ["subtitle", project.subtitle !== null, text.subtitle !== null],
@@ -474,6 +480,7 @@ export function checkProjectTexts(
         text.stackDisclosure !== undefined,
       ],
       ["imageAlt", project.image !== null, text.imageAlt !== undefined],
+      ["thumbnailAlt", project.thumbnail !== undefined, text.thumbnailAlt !== undefined],
     ];
     for (const [field, french, english] of pairs) {
       if (french !== english) {

@@ -272,7 +272,9 @@ chargement.
 La capture s’affiche à deux endroits :
 
 - **Sur la page du projet**, en haut, à côté du titre. Elle est visible tout de
-  suite : c’est la page du projet, l’image y est chez elle.
+  suite. Si le projet a une miniature `thumbnail`, celle-ci prend sa place
+  dans l’en-tête et la capture reste accessible via « Voir l’aperçu », sous
+  les points de présentation.
 - **Sur l’accueil**, si le projet est mis en avant, elle est repliée derrière
   « Voir l’aperçu », sous les liens du panneau. Un panneau d’accueil fait un
   écran de haut et son sujet est le titre ; une image posée là en permanence
@@ -284,6 +286,38 @@ hauteur.
 Rien n’est encadré ni ombré : l’image est son propre bord, comme le reste du
 site n’a pas un trait. Le repli est un `<details>` du navigateur, donc il
 fonctionne même si le JavaScript ne se charge pas, comme le menu mobile.
+
+### Ajouter une illustration sur l’accueil et la page projet
+
+Une illustration peut aussi occuper l’espace à côté du titre du panneau,
+comme l’ampli Guilt de Tonecraft. Sur téléphone, elle passe sous le titre,
+dans un format plus petit. L’illustration s’efface progressivement au
+défilement pour laisser place à la lecture ; elle revient en remontant.
+Cette miniature est indépendante de la capture `image` et de « Voir l’aperçu ».
+
+Dépose le fichier dans `content/media/`, importe-le comme une capture, puis
+ajoute au projet :
+
+```ts
+    thumbnail: {
+      src: tonecraftThumbnail,
+      background: tonecraftBackground,
+      alt: "L’ampli Guilt de Tonecraft, blanc et orné de vitraux violets, avec ses boutons de réglage.",
+    },
+```
+
+Ajoute aussi `thumbnailAlt` dans `content/en/projects.ts` avec sa description
+en anglais. Retire le champ `thumbnail` et sa traduction pour supprimer la
+miniature. La même illustration et le même décor ouvrent la page du projet,
+avec un fondu adapté à la hauteur de son en-tête. La capture `image` reste
+accessible sous la présentation via « Voir l’aperçu ». Sans `thumbnail`,
+la capture reprend sa place dans l’en-tête.
+
+`src` peut être un PNG détouré avec un fond transparent. Le champ facultatif
+`background` contient le décor, importé lui aussi depuis `content/media/`.
+Il couvre la section en transparence et s’efface avec l’illustration. Il est
+plus discret en thème clair. Retire `background` pour garder seulement
+l’illustration ; ce décor purement visuel n’a pas de texte à traduire.
 
 ---
 

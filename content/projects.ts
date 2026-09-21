@@ -14,6 +14,8 @@
 
 import type { StaticImageData } from "next/image";
 import tonecraftShot from "@/content/media/tonecraft.png";
+import tonecraftThumbnail from "@/content/media/tonecraft-guilt.png";
+import tonecraftBackground from "@/content/media/tonecraft-background.png";
 import { checkProjects } from "@/content/check";
 
 export type ProjectStatus = "live" | "archived";
@@ -100,6 +102,11 @@ export type Project = {
    * them: the pages carry their weight in type.
    */
   readonly image: ProjectImage | null;
+  /** Optional artwork beside the title on the home and project pages. */
+  readonly thumbnail?: ProjectImage & {
+    /** Decorative scenery behind the artwork in each opening composition. */
+    readonly background?: StaticImageData;
+  };
   readonly year: number;
   /** `null` renders nothing at all. Never a disabled or placeholder link. */
   readonly repo: string | null;
@@ -122,6 +129,7 @@ export type ProjectTranslation = {
   readonly stackDisclosure?: string;
   /** The capture's description, required when the project has one. */
   readonly imageAlt?: string;
+  readonly thumbnailAlt?: string;
 };
 
 const GH = "https://github.com/";
@@ -129,6 +137,11 @@ const GH = "https://github.com/";
 export const projects: readonly Project[] = [
   {
     slug: "tonecraft",
+    thumbnail: {
+      src: tonecraftThumbnail,
+      background: tonecraftBackground,
+      alt: "L’ampli Guilt de Tonecraft, blanc et orné de vitraux violets, avec ses boutons de réglage.",
+    },
     title: "Tonecraft",
     subtitle: "la guitare, simplement",
     kind: "personnel",

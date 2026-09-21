@@ -86,6 +86,10 @@ function inEnglish(project: Project): Project {
     highlights: text.highlights,
     approach: text.approach,
     stackDisclosure: text.stackDisclosure,
+    thumbnail:
+      project.thumbnail && text.thumbnailAlt
+        ? { ...project.thumbnail, alt: text.thumbnailAlt }
+        : project.thumbnail,
     image:
       project.image && text.imageAlt
         ? { src: project.image.src, alt: text.imageAlt }

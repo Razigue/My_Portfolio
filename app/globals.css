@@ -1163,6 +1163,32 @@
     transform: scale(1.02);
   }
 
+  /* Separate scenery and transparent artwork share a scroll-driven fade.
+     Only the scenery is tinted by opacity; the text stays on its own layer. */
+  .project-atmosphere {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+    opacity: 0.32;
+    mask-image: linear-gradient(
+      to bottom,
+      transparent,
+      black 20%,
+      black 60%,
+      transparent 95%
+    );
+  }
+
+  :root:not(.dark) .project-atmosphere {
+    opacity: 0.1;
+  }
+
+  .shot.project-artwork {
+    background-color: transparent;
+  }
+
   /* --- The capture, folded away behind a word ---
      Same swap as the mobile menu: two labels in the markup, one of them hidden,
      so the control names its own state instead of relying on a chevron nobody

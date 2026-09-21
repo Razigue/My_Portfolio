@@ -19,6 +19,7 @@ export function ProjectShot({
   sizes,
   className,
   priority,
+  placeholder = "blur",
 }: {
   image: ProjectImage;
   sizes: string;
@@ -27,13 +28,15 @@ export function ProjectShot({
    *  fold there, and lazy-loading the element that defines the paint is the
    *  one place the default is the wrong one. */
   priority?: boolean;
+  /** Cutout artwork keeps its transparent surroundings while loading. */
+  placeholder?: "blur" | "empty";
 }) {
   return (
     <span className={`shot block ${className ?? ""}`}>
       <Image
         src={image.src}
         alt={image.alt}
-        placeholder="blur"
+        placeholder={placeholder}
         sizes={sizes}
         priority={priority}
         className="h-auto w-full"

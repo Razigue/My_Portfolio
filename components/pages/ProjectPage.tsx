@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { ProjectDiagram } from "@/components/projects/ProjectDiagram";
-import { ProjectShot } from "@/components/projects/ProjectShot";
+import { ProjectShot, ProjectShotDisclosure } from "@/components/projects/ProjectShot";
+import { ProjectArtwork, ProjectAtmosphere } from "@/components/projects/ProjectVisual";
 import { Stage } from "@/components/motion/Stage";
 import { TransitionLink } from "@/components/motion/TransitionLink";
 import { Reveal } from "@/components/ui/Reveal";
@@ -63,8 +64,22 @@ export function ProjectPage({ locale, slug }: { locale: Locale; slug: string }) 
         eyebrow={String(project.year)}
         title={project.title}
         sub={project.subtitle ?? undefined}
+        backdrop={
+          project.thumbnail?.background ? (
+            <ProjectAtmosphere
+              background={project.thumbnail.background}
+              placement="header"
+            />
+          ) : undefined
+        }
         media={
-          project.image ? (
+          project.thumbnail ? (
+            <ProjectArtwork
+              image={project.thumbnail}
+              sizes="(min-width: 1024px) 40rem, calc(100vw - 48px)"
+              placement="header"
+            />
+          ) : project.image ? (
             <ProjectShot
               image={project.image}
               sizes="(min-width: 1024px) 40rem, 100vw"
@@ -104,6 +119,17 @@ export function ProjectPage({ locale, slug }: { locale: Locale; slug: string }) 
                   ))}
                 </ul>
               </>
+            ) : null}
+
+            {project.thumbnail && project.image ? (
+              <Reveal variant="rise" className="mt-12">
+                <ProjectShotDisclosure
+                  image={project.image}
+                  sizes="(min-width: 1024px) 44rem, calc(100vw - 48px)"
+                  show={copy.shotShow}
+                  hide={copy.shotHide}
+                />
+              </Reveal>
             ) : null}
           </div>
 

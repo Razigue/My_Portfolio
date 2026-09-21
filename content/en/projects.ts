@@ -15,6 +15,7 @@ import {
 
 export const projectTexts: Readonly<Record<string, ProjectTranslation>> = {
   tonecraft: {
+    thumbnailAlt: "Tonecraft’s white Guilt amp with purple stained glass and control knobs.",
     title: "Tonecraft",
     subtitle: "guitar, made simple",
     team: null,

@@ -2,6 +2,7 @@ import { Scrub } from "@/components/motion/Scrub";
 import { Stage } from "@/components/motion/Stage";
 import { TransitionLink } from "@/components/motion/TransitionLink";
 import { ProjectShotDisclosure } from "@/components/projects/ProjectShot";
+import { ProjectArtwork, ProjectAtmosphere } from "@/components/projects/ProjectVisual";
 import { Reveal } from "@/components/ui/Reveal";
 import { ExternalLink, StatusDot, TagList } from "@/components/ui/primitives";
 import type { Project } from "@/content/projects";
@@ -36,6 +37,7 @@ export function FeaturedPanel({
   const titleId = `projet-${project.slug}`;
   const align = flip ? "lg:text-right" : "";
   const context = projectContext(content, project);
+  const background = project.thumbnail?.background;
 
   return (
     <Stage
@@ -45,17 +47,21 @@ export function FeaturedPanel({
       stagger={0.09}
       className={`relative isolate overflow-hidden ${flip ? "" : "band"}`}
     >
-      <div
-        aria-hidden="true"
-        className={`ghost-slot ${flip ? "ghost-slot-left" : "ghost-slot-right"}`}
-      >
-        <Scrub
-          from={{ yPercent: 14, rotate: flip ? 2 : -2 }}
-          to={{ yPercent: -14, rotate: flip ? -2 : 2 }}
+      {background ? (
+        <ProjectAtmosphere background={background} />
+      ) : (
+        <div
+          aria-hidden="true"
+          className={`ghost-slot ${flip ? "ghost-slot-left" : "ghost-slot-right"}`}
         >
-          <span className="ghost-number block">{ordinal}</span>
-        </Scrub>
-      </div>
+          <Scrub
+            from={{ yPercent: 14, rotate: flip ? 2 : -2 }}
+            to={{ yPercent: -14, rotate: flip ? -2 : 2 }}
+          >
+            <span className="ghost-number block">{ordinal}</span>
+          </Scrub>
+        </div>
+      )}
 
       <div className="mx-auto flex min-h-dvh max-w-page flex-col justify-between gap-14 px-6 py-24 lg:px-10 lg:py-28">
         <Reveal
@@ -74,25 +80,40 @@ export function FeaturedPanel({
           </span>
         </Reveal>
 
-        <div className={align}>
-          <Reveal
-            variant="chars"
-            as="h3"
-            order={1}
-            id={titleId}
-            className="block font-display text-h1 leading-display tracking-display text-paper"
-          >
-            {project.title}
-          </Reveal>
-
-          {project.subtitle ? (
+        <div className={project.thumbnail ? "grid items-center gap-8 lg:grid-cols-2 lg:gap-16" : align}>
+          <div className={`${align} ${project.thumbnail && flip ? "lg:order-2" : ""}`}>
             <Reveal
-              variant="fade"
-              as="p"
-              order={2}
-              className="mt-2 font-display text-h3 italic text-paper-3"
+              variant="chars"
+              as="h3"
+              order={1}
+              id={titleId}
+              className="block font-display text-h1 leading-display tracking-display text-paper"
             >
-              {project.subtitle}
+              {project.title}
+            </Reveal>
+
+            {project.subtitle ? (
+              <Reveal
+                variant="fade"
+                as="p"
+                order={2}
+                className="mt-2 font-display text-h3 italic text-paper-3"
+              >
+                {project.subtitle}
+              </Reveal>
+            ) : null}
+          </div>
+
+          {project.thumbnail ? (
+            <Reveal
+              variant="rise"
+              order={2}
+              className={`w-full max-w-96 ${flip ? "lg:order-1" : "justify-self-end"} lg:max-w-[34rem]`}
+            >
+              <ProjectArtwork
+                image={project.thumbnail}
+                sizes="(min-width: 1232px) 34rem, (min-width: 1024px) calc((100vw - 144px) / 2), (min-width: 432px) 24rem, calc(100vw - 48px)"
+              />
             </Reveal>
           ) : null}
         </div>
@@ -154,8 +175,8 @@ export function FeaturedPanel({
               ) : null}
             </Reveal>
 
-            {/* Folded away by default. A panel is one screenful and its subject
-                is the title; a picture pinned open here would outweigh it. */}
+            {/* Keep the full interface capture optional, independently of the
+                small artwork beside the title. */}
             {project.image ? (
               <Reveal
                 variant="rise"
