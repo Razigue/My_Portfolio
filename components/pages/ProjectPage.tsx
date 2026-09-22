@@ -67,6 +67,7 @@ export function ProjectPage({
   const next = index < projects.length - 1 ? projects[index + 1] : null;
   const context = projectContext(content, project);
   const titleHref = project.demo ?? project.repo;
+  const spacious = project.slug === "tonecraft";
 
   return (
     <>
@@ -102,7 +103,7 @@ export function ProjectPage({
       />
 
       <Stage className="band" stagger={0.09}>
-        <div className="section-body-tight mx-auto grid max-w-page gap-14 px-6 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:gap-24 lg:px-10">
+        <div className={`section-body-tight mx-auto grid max-w-page px-6 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:px-10 ${spacious ? "gap-16 lg:gap-x-24 lg:gap-y-28" : "gap-14 lg:gap-24"}`}>
           <div>
             <Reveal
               variant="lines"
@@ -134,7 +135,7 @@ export function ProjectPage({
             ) : null}
           </div>
 
-          <aside className="grid content-start gap-10">
+          <aside className={`grid content-start ${spacious ? "gap-14" : "gap-10"}`}>
             {context ? (
               <Reveal variant="rise">
                 <Eyebrow>{copy.frameLabel}</Eyebrow>
@@ -222,12 +223,12 @@ export function ProjectPage({
               {copy.approachTitle}
             </Reveal>
 
-            <div className="mt-12 grid gap-14 lg:gap-20">
+            <div className={`grid ${spacious ? "mt-16 gap-20 lg:gap-28" : "mt-12 gap-14 lg:gap-20"}`}>
               {project.approach.map((section, sectionIndex) => (
                 <section
                   key={section.title}
                   aria-labelledby={`demarche-section-${sectionIndex}`}
-                  className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] lg:gap-16"
+                  className={`grid lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] ${spacious ? "gap-10 lg:gap-x-16 lg:gap-y-20" : "gap-6 lg:gap-16"}`}
                 >
                   <Reveal
                     variant="rise"
@@ -237,7 +238,7 @@ export function ProjectPage({
                   >
                     {section.title}
                   </Reveal>
-                  <div className="grid max-w-measure gap-6 text-body">
+                  <div className={`grid max-w-measure text-body ${spacious ? "gap-8 leading-[1.8]" : "gap-6"}`}>
                     {section.paragraphs.map((paragraph) => (
                       <p
                         key={paragraph}

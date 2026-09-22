@@ -50,7 +50,7 @@ function Station({
   side?: boolean;
 }) {
   return (
-    <div className="flex min-w-0 items-center gap-4 lg:flex-col lg:gap-4 lg:text-center">
+    <div className="flex w-full min-w-0 items-center gap-4 lg:flex-col lg:gap-5 lg:text-center">
       <span
         className={`flex shrink-0 items-center justify-center lg:size-16 ${
           side ? "size-10 bg-ink-2 text-paper-2" : "size-14 bg-ink-3 text-flare"
@@ -61,7 +61,7 @@ function Station({
           className={`lg:size-8 ${side ? "size-5" : "size-7"}`}
         />
       </span>
-      <div className="min-w-0 break-words hyphens-auto">
+      <div className="w-full min-w-0 break-words hyphens-auto">
         <h4 className="font-display text-body leading-tight text-paper">
           {node.label}
         </h4>
