@@ -37,9 +37,9 @@ export function ContactPage({ locale }: { locale: Locale }) {
 
       <Stage className="band" stagger={0.09}>
         <div className="section-body-tight mx-auto grid max-w-page gap-16 px-6 lg:grid-cols-[minmax(0,1fr)_22rem] lg:gap-24 lg:px-10">
-          <Reveal variant="rise" order={0}>
+          <div>
             <ContactForm locale={locale} form={form} />
-          </Reveal>
+          </div>
 
           <aside className="grid content-start gap-10">
             <Reveal variant="rise" order={1}>

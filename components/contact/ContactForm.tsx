@@ -11,7 +11,13 @@ import type { Locale } from "@/lib/i18n";
 function Submit({ idle, busy }: { idle: string; busy: string }) {
   const { pending } = useFormStatus();
   return (
-    <button type="submit" className="btn btn-solid" disabled={pending}>
+    <button
+      type="submit"
+      className="btn btn-solid"
+      disabled={pending}
+      data-choreo="rise"
+      data-choreo-order="0"
+    >
       <BtnLabel>{pending ? busy : idle}</BtnLabel>
     </button>
   );

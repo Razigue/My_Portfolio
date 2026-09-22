@@ -12,6 +12,10 @@
  * Triggers are `once` and delete themselves, so a page read to the bottom
  * carries no scroll work from any Stage.
  *
+ * Only headings, and elements holding a picture, a stack of technologies or a
+ * button, are animated; every other tagged element is left as it is, visible
+ * from the start.
+ *
  * Content stays in Server Components: a heading says `data-choreo="lines"` and
  * never becomes client code. Nothing is hidden in CSS, so with scripting off
  * the page is complete.
@@ -101,6 +105,12 @@ export function Stage({
        * sentence restated beside it.
        */
       const isHeading = (node: HTMLElement) => /^H[1-6]$/.test(node.tagName);
+      const hasPicture = (node: HTMLElement) =>
+        node.matches("img, video, canvas") ||
+        node.querySelector("img, video, canvas") !== null;
+      const hasStackOrButton = (node: HTMLElement) =>
+        node.matches("[data-stack], .btn") ||
+        node.querySelector("[data-stack], .btn") !== null;
 
       const restate = (target: HTMLElement, text: string) => {
         target.setAttribute("aria-hidden", "true");
@@ -221,7 +231,15 @@ export function Stage({
           .toArray<HTMLElement>("[data-choreo]", el)
           // Ignore anything a nested Stage owns. `data-stage` is in the server
           // markup, so this question is answerable on the very first pass.
-          .filter((node) => node.closest("[data-stage]") === el);
+          .filter((node) => node.closest("[data-stage]") === el)
+          // Only headings, pictures, stacks and buttons move. Running text,
+          // labels, lists and figures are simply there when they are scrolled
+          // to: Razigue found waiting for a paragraph to arrive tiresome. The
+          // tags stay in the markup, so this is the one place that decides.
+          .filter(
+            (node) =>
+              isHeading(node) || hasPicture(node) || hasStackOrButton(node),
+          );
 
         if (!targets.length) return;
 

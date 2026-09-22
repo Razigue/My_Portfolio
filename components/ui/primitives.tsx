@@ -93,7 +93,7 @@ export function TagList({
   className?: string;
 }) {
   return (
-    <ul className={`flex flex-wrap gap-2 ${className ?? ""}`}>
+    <ul data-stack className={`flex flex-wrap gap-2 ${className ?? ""}`}>
       {items.map((item) => (
         <Tag key={item}>{item}</Tag>
       ))}

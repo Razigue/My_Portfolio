@@ -176,6 +176,13 @@ un même lot et joués en cascade, ceux qui arrivent seuls jouent seuls.
 Le bénéfice : le contenu reste dans des Server Components. Un titre n’a pas
 besoin de devenir du code client pour être animé.
 
+**Seuls les titres, les images, les listes de technologies et les boutons
+s’animent.** Les autres éléments marqués (paragraphes, libellés, listes,
+schémas, compteurs) sont affichés tels quels dès leur arrivée : attendre qu’un
+paragraphe apparaisse était pénible à la lecture. Le tri se fait à un seul
+endroit, dans `components/motion/Stage.tsx` ; les attributs restent dans le
+balisage.
+
 Variantes disponibles (`lib/gsap.ts` → `CHOREO`) : `fade` `rise` `fall` `scale`
 `blur` `mask` `wipe` `chars` `words` `lines` `drift` `sweep` `counter`.
 
