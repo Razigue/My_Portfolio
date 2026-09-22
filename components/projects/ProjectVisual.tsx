@@ -36,6 +36,28 @@ export function ProjectAtmosphere({
   );
 }
 
+/**
+ * The project page's own capture, blurred and dimmed behind the title, from
+ * one edge of the screen to the other. Same layer as the scenery on a home
+ * panel: it is tinted by the stylesheet, and the type stays above it, so the
+ * title is read against the page's ground rather than against an interface.
+ */
+export function ProjectBackdrop({ image }: { image: ProjectImage }) {
+  return (
+    <div aria-hidden="true" className="project-atmosphere project-backdrop">
+      <Image
+        src={image.src}
+        alt=""
+        fill
+        sizes="100vw"
+        placeholder="blur"
+        priority
+        className="scale-105 object-cover blur-xl"
+      />
+    </div>
+  );
+}
+
 export function ProjectArtwork({
   image,
   sizes,
@@ -44,11 +66,7 @@ export function ProjectArtwork({
   sizes: string;
 }) {
   return (
-    <Scrub
-      from={{ opacity: 1, y: 0 }}
-      to={{ opacity: 0, y: -24 }}
-      {...motion}
-    >
+    <Scrub from={{ opacity: 1, y: 0 }} to={{ opacity: 0, y: -24 }} {...motion}>
       <ProjectShot
         image={image}
         sizes={sizes}

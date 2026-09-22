@@ -4,6 +4,7 @@ import { PageHeader } from "@/components/layout/PageHeader";
 import { ProjectDiagram } from "@/components/projects/ProjectDiagram";
 import { ProjectMedia } from "@/components/projects/ProjectMedia";
 import { ProjectShot } from "@/components/projects/ProjectShot";
+import { ProjectBackdrop } from "@/components/projects/ProjectVisual";
 import { Stage } from "@/components/motion/Stage";
 import { TransitionLink } from "@/components/motion/TransitionLink";
 import { Reveal } from "@/components/ui/Reveal";
@@ -46,7 +47,13 @@ export function projectMetadata(locale: Locale, slug: string): Metadata {
   };
 }
 
-export function ProjectPage({ locale, slug }: { locale: Locale; slug: string }) {
+export function ProjectPage({
+  locale,
+  slug,
+}: {
+  locale: Locale;
+  slug: string;
+}) {
   const content = getContent(locale);
   const { copy, projects } = content;
   const project = findProject(content, slug);
@@ -64,6 +71,9 @@ export function ProjectPage({ locale, slug }: { locale: Locale; slug: string }) 
         eyebrow={String(project.year)}
         title={project.title}
         sub={project.subtitle ?? undefined}
+        backdrop={
+          project.image ? <ProjectBackdrop image={project.image} /> : undefined
+        }
         media={
           project.image ? (
             <ProjectShot
@@ -106,7 +116,6 @@ export function ProjectPage({ locale, slug }: { locale: Locale; slug: string }) 
                 </ul>
               </>
             ) : null}
-
           </div>
 
           <aside className="grid content-start gap-10">
@@ -217,7 +226,9 @@ export function ProjectPage({ locale, slug }: { locale: Locale; slug: string }) 
                       </p>
                     ))}
                   </div>
-                  {section.media ? <ProjectMedia media={section.media} /> : null}
+                  {section.media ? (
+                    <ProjectMedia media={section.media} />
+                  ) : null}
                   {section.diagram ? (
                     <ProjectDiagram
                       diagram={section.diagram}

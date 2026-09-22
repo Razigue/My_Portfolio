@@ -1185,6 +1185,24 @@
     opacity: 0.1;
   }
 
+  :root:not(.dark) .project-backdrop {
+    opacity: 0.12;
+  }
+
+  /* Behind a project page's title, the capture is its own scenery: it reaches
+     past the page's measure to both edges of the screen, and it fades out at
+     the top so nothing competes with the header bar. */
+  .project-backdrop {
+    opacity: 0.3;
+    mask-image: linear-gradient(
+      to bottom,
+      transparent,
+      black 30%,
+      black 65%,
+      transparent 100%
+    );
+  }
+
   .shot.project-artwork,
   .shot.shot-bare {
     background-color: transparent;

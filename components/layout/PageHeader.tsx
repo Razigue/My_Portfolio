@@ -8,6 +8,7 @@ export function PageHeader({
   title,
   sub,
   media,
+  backdrop,
   children,
 }: {
   eyebrow: string;
@@ -21,10 +22,19 @@ export function PageHeader({
    * the title itself — in practice, a capture of the thing the page is about.
    */
   media?: React.ReactNode;
+  /** Laid behind the whole header, from edge to edge of the screen. */
+  backdrop?: React.ReactNode;
   children?: React.ReactNode;
 }) {
   return (
-    <Stage immediate as="header" delay={0.12} stagger={0.11}>
+    <Stage
+      immediate
+      as="header"
+      delay={0.12}
+      stagger={0.11}
+      className={backdrop ? "relative isolate overflow-hidden" : undefined}
+    >
+      {backdrop}
       <div className="mx-auto max-w-page px-6 pb-20 pt-36 lg:px-10 lg:pb-28 lg:pt-48">
         <div>
           <Reveal variant="fade" as={SectionLabel} ordinal={ordinal} order={0}>

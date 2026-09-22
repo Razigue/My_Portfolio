@@ -296,7 +296,9 @@ La capture s’affiche à deux endroits :
 
 - **Sur la page du projet**, en haut, sous le titre, sur toute la largeur de la
   page. Elle est visible tout de suite : c’est la page du projet, l’image y est
-  chez elle.
+  chez elle. La même capture sert aussi de décor derrière le titre, floutée et
+  en transparence, d’un bord à l’autre de l’écran, comme le décor d’un panneau
+  d’accueil. Rien à renseigner : elle est reprise toute seule.
 - **Sur l’accueil**, si le projet est mis en avant, elle est repliée derrière
   « Voir l’aperçu », sous les liens du panneau. Un panneau d’accueil fait un
   écran de haut et son sujet est le titre ; une image posée là en permanence
