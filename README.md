@@ -365,9 +365,12 @@ et la seule façon d’en trouver d’autres est de regarder les pixels à nouve
 Server Action (`app/contact/actions.ts`) + `useActionState` + `useFormStatus`,
 avec pot de miel et contrôle de délai de saisie.
 
-Sans `RESEND_API_KEY`, le formulaire renvoie un état `unconfigured` explicite qui
-oriente vers l’adresse email. **Il ne simule jamais un envoi réussi.** Voir
-[`TODO.md`](TODO.md) §7 pour l’activer.
+Avec `RESEND_API_KEY`, l’envoi passe par Resend. Sans clé, il passe par
+FormSubmit, qui transmet à `CONTACT_TO_EMAIL` (par défaut `site.email`) sans
+compte ni clé, une fois l’adresse activée par le lien que FormSubmit envoie au
+premier message. Tant que ce n’est pas fait, le formulaire renvoie un état
+`unconfigured` explicite qui oriente vers l’adresse email. **Il ne simule
+jamais un envoi réussi.** Voir [`TODO.md`](TODO.md) §7.
 
 > `app/contact/state.ts` est séparé de `actions.ts` parce qu’un module
 > `"use server"` ne peut exporter que des fonctions asynchrones. Une constante

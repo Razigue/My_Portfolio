@@ -38,7 +38,7 @@ te trompes, elle te dit immédiatement quoi corriger, en français.
 | Fichier | Ce qu’il contient |
 | --- | --- |
 | `content/projects.ts` | Les projets : titre, cadre, description, stack, année, liens, et lesquels sont publiés |
-| `content/site.ts` | Identité, ce que tu cherches, libellés des boutons, navigation, note sur l’IA |
+| `content/site.ts` | Identité, ce que tu cherches, libellés des boutons, navigation |
 | `content/about.ts` | Parcours, expériences, formation, langues, atouts, centres d’intérêt, méthode, compétences |
 | `content/en/site.ts`, `content/en/about.ts`, `content/en/projects.ts` | Les mêmes textes, en anglais. Voir « La version anglaise » |
 | `content/media/razigue.png` | Le portrait |
@@ -168,6 +168,29 @@ une partie, retire son bloc ; pour supprimer tout le récit, mets
 `approach: null`. N’ajoute une partie sur ce qui reste à faire que si le README
 ou les issues du dépôt le documentent.
 
+### Illustrer une partie avec des captures
+
+Une partie peut montrer ce qu’elle raconte, comme la landing de Tonecraft :
+ajoute un champ `media` après ses `paragraphs`, avec **une** capture, ou
+**deux** qui s’affichent côte à côte, à la même hauteur. Les captures sont
+centrées sous le texte, sans cadre, et ne dépassent jamais 36rem de haut.
+Sur téléphone, elles passent l’une sous l’autre.
+
+```ts
+        media: [
+          {
+            src: tonecraftTabs,
+            alt: "Le lecteur de tablatures de Tonecraft\u00A0: …",
+          },
+        ],
+```
+
+Chaque fichier se dépose dans `content/media/` et s’importe en haut de
+`content/projects.ts`, comme la capture principale. Choisis une capture qui
+montre exactement ce que disent les paragraphes au-dessus. En anglais, la
+même partie prend `mediaAlt`, la liste des descriptions dans le même ordre :
+la compilation s’arrête s’il en manque une.
+
 ### Ajouter un schéma à une partie
 
 Dans `approach`, une partie peut aussi avoir un champ `diagram`, après ses
@@ -190,7 +213,7 @@ d’un coup d’œil, sans connaître la musique ni le code. Dans une étape :
 - **`detail`** — facultatif, la technologie, écrite en petit.
 - **`branches`** — facultatif, ce qui est à côté du trajet, affiché sous
   l’étape. `flow` dit comment : `"out"` part du trajet (↓), `"in"` le rejoint
-  (↑), `"loop"` part et revient (↕), `"apart"` travaille à côté, sans flèche.
+  (↑), `"loop"` part et revient (↓↑), `"apart"` travaille à côté, sans flèche.
 
 ```ts
         diagram: {
@@ -365,7 +388,6 @@ Dans `content/site.ts` :
 - `hero`, `presentation` — l’accroche et le paragraphe de présentation
 - `nav` — les noms des entrées du menu ; leurs adresses se calculent seules
 - `sections` — les numéros et noms de chapitre de l’accueil
-- `aiNote` — la note sur l’usage de l’IA, en bas de la section Contact
 - `copy` — les libellés des boutons, « La démarche », « Voir l’aperçu » et les
   messages d’erreur
 - `form` — les libellés du formulaire de contact
@@ -391,9 +413,14 @@ calculer ses dimensions et sa vignette de chargement lui-même.
 
 Le site existe en deux langues. Le français est la langue par défaut, à la
 racine (`/`, `/projets`, `/a-propos`, `/contact`). L’anglais reprend chaque
-page sous `/en` (`/en`, `/en/projects`, `/en/about`, `/en/contact`). Le
-drapeau à côté de l’interrupteur jour/nuit mène à la même page dans l’autre
-langue.
+page sous `/en` (`/en`, `/en/projects`, `/en/about`, `/en/contact`).
+
+La langue se choisit toute seule : un visiteur dont le navigateur est réglé
+en anglais (ou dans une langue qui n’est ni le français ni l’anglais) arrive
+sur la version anglaise, les autres sur la française. Le lien « English » ou
+« Français » en bas de chaque page, à côté de « Paris », mène à la même page
+dans l’autre langue, et ce choix est retenu pour les visites suivantes. Le nom
+affiché vient de `languageName`, dans `copy`.
 
 Les faits ne s’écrivent qu’une fois, dans les fichiers français : liens, stack,
 années, captures, projets publiés, email. Les fichiers anglais ne contiennent
@@ -401,7 +428,7 @@ que les mots.
 
 | Fichier | Ce qu’il traduit |
 | --- | --- |
-| `content/en/site.ts` | `content/site.ts` : rôle, ville, disponibilité, accroche, présentation, menu, chapitres, note sur l’IA, libellés, formulaire |
+| `content/en/site.ts` | `content/site.ts` : rôle, ville, disponibilité, accroche, présentation, menu, chapitres, libellés, formulaire |
 | `content/en/about.ts` | `content/about.ts` : parcours, expériences, formation, langues, atouts, centres d’intérêt, principes, noms des domaines de compétences |
 | `content/en/projects.ts` | les textes des projets publiés : titre, sous-titre, équipe, description, points, récit et schémas, texte des technologies, description de la capture |
 
@@ -436,7 +463,8 @@ Quand tu ajoutes un slug à `featuredSlugs`, ajoute son entrée dans
 ```
 
 Mets `null` là où le français a `null`. Si le projet a une capture, ajoute
-`imageAlt`, sa description en anglais ; s’il a `stackDisclosure`, traduis-le
+`imageAlt`, sa description en anglais (et `mediaAlt` dans chaque partie qui a
+des captures) ; s’il a `stackDisclosure`, traduis-le
 aussi. Dans un schéma, garde les mêmes `icon` et `flow`, et traduis `title`,
 `label`, `hint` et `detail`.
 

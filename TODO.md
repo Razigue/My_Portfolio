@@ -107,9 +107,17 @@ Valeur publiée : celle du **CV**, plus récente. À confirmer.
 
 ## 7. Activer le formulaire de contact
 
-Sans clé, le formulaire fonctionne mais répond honnêtement qu’il n’est pas
-configuré et renvoie vers l’adresse email. Il ne simule **jamais** un envoi
-réussi. Pour l’activer, copier `.env.example` vers `.env.local` :
+Le formulaire est branché sur `razigue.benhmida@epitech.eu` par FormSubmit,
+sans clé ni compte. **Reste une seule action : cliquer sur « Activate Form »
+dans l’email que FormSubmit a envoyé à cette adresse** (objet du type
+« Action Required: Activate FormSubmit »). Pense à regarder les courriers
+indésirables. Tant que ce n’est pas fait, le formulaire répond honnêtement
+qu’il n’est pas configuré et renvoie vers l’adresse email. Il ne simule
+**jamais** un envoi réussi.
+
+Si l’activation ne passe pas, ou pour envoyer depuis ton propre domaine, Resend
+reste possible et prend le dessus dès qu’une clé est présente. Copier
+`.env.example` vers `.env.local` :
 
 ```bash
 RESEND_API_KEY=re_xxxxxxxxxxxx

@@ -181,6 +181,18 @@ export function checkProjects(
         section.paragraphs.forEach((paragraph, j) =>
           checkProse(problems, `${where}.paragraphs[${j}]`, paragraph),
         );
+        if (section.media !== undefined) {
+          if (section.media.length === 0 || section.media.length > 2) {
+            problems.push(
+              `${where}.media contient ${section.media.length} capture(s). ` +
+                `Une partie montre une capture, ou deux côte à côte : ` +
+                `retirer le champ plutôt que de le laisser vide.`,
+            );
+          }
+          section.media.forEach((image, j) =>
+            checkProse(problems, `${where}.media[${j}].alt`, image.alt),
+          );
+        }
         if (section.diagram !== undefined) {
           checkTexts(problems, `${where}.diagram`, section.diagram);
           if (section.diagram.steps.length === 0) {
@@ -515,6 +527,19 @@ export function checkProjectTexts(
           checkTexts(problems, `${where}.diagram`, section.diagram, "en");
         }
         const french = project.approach?.[i];
+        section.mediaAlt?.forEach((alt, j) =>
+          checkProse(problems, `${where}.mediaAlt[${j}]`, alt, "en"),
+        );
+        if (
+          french &&
+          (french.media?.length ?? 0) !== (section.mediaAlt?.length ?? 0)
+        ) {
+          problems.push(
+            `${where} : ${french.media?.length ?? 0} capture(s) en français et ` +
+              `${section.mediaAlt?.length ?? 0} description(s) dans mediaAlt. ` +
+              `Décrire chaque capture en anglais, dans le même ordre.`,
+          );
+        }
         if (
           french &&
           (french.diagram === undefined) !== (section.diagram === undefined)

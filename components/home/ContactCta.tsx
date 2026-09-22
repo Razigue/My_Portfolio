@@ -10,7 +10,7 @@ import { pathFor, type Locale } from "@/lib/i18n";
  * copy of itself, but the target never moves out from under the pointer.
  */
 export function ContactCta({ locale }: { locale: Locale }) {
-  const { aiNote, copy, nav, sections, site } = getContent(locale);
+  const { copy, nav, sections, site } = getContent(locale);
 
   return (
     <Stage
@@ -64,11 +64,6 @@ export function ContactCta({ locale }: { locale: Locale }) {
           <a href={`mailto:${site.email}`} className="btn">
             <BtnLabel>{site.email}</BtnLabel>
           </a>
-        </Reveal>
-
-        <Reveal variant="rise" order={4} className="mt-24 max-w-measure">
-          <p className="eyebrow">{aiNote.label}</p>
-          <p className="mt-4 text-body text-paper-3">{aiNote.body}</p>
         </Reveal>
       </div>
     </Stage>

@@ -3,17 +3,11 @@
 import { useGSAP } from "@gsap/react";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef } from "react";
-import { LocaleSwitch } from "@/components/layout/LocaleSwitch";
 import { TransitionLink } from "@/components/motion/TransitionLink";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { getLenis } from "@/components/motion/SmoothScroll";
 import { gsap, quickSetter, registerGsap, ScrollTrigger } from "@/lib/gsap";
-import {
-  otherLocale,
-  pathFor,
-  translatePath,
-  type Locale,
-} from "@/lib/i18n";
+import { pathFor, type Locale } from "@/lib/i18n";
 
 function isActive(pathname: string, href: string, home: string): boolean {
   if (href === home) return pathname === home;
@@ -50,17 +44,14 @@ export function SiteHeader({
   name,
   links: items,
   labels,
-  switchLabel,
 }: {
   locale: Locale;
   name: string;
   links: readonly { readonly href: string; readonly title: string }[];
   labels: HeaderLabels;
-  switchLabel: string;
 }) {
   const pathname = usePathname();
   const home = pathFor(locale, "home");
-  const other = otherLocale(locale);
   const header = useRef<HTMLElement>(null);
   const menu = useRef<HTMLDetailsElement>(null);
   const rail = useRef<HTMLDivElement>(null);
@@ -291,19 +282,10 @@ export function SiteHeader({
               </details>
             </nav>
 
-            {/* The two page-wide settings sit together, closer to each other
-                than to the navigation. */}
-            <div className="flex items-center gap-3">
-              <LocaleSwitch
-                href={translatePath(pathname, other)}
-                to={other}
-                label={switchLabel}
-              />
-              <ThemeToggle
-                toDay={labels.themeToDay}
-                toNight={labels.themeToNight}
-              />
-            </div>
+            <ThemeToggle
+              toDay={labels.themeToDay}
+              toNight={labels.themeToNight}
+            />
           </div>
         </div>
       </header>

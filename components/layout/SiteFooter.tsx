@@ -1,9 +1,10 @@
+import { LocaleSwitch } from "@/components/layout/LocaleSwitch";
 import { Scrub } from "@/components/motion/Scrub";
 import { Stage } from "@/components/motion/Stage";
 import { Reveal } from "@/components/ui/Reveal";
 import { Eyebrow, ExternalLink } from "@/components/ui/primitives";
 import { getContent } from "@/lib/content";
-import type { Locale } from "@/lib/i18n";
+import { otherLocale, type Locale } from "@/lib/i18n";
 
 export function SiteFooter({ locale }: { locale: Locale }) {
   const { copy, site } = getContent(locale);
@@ -70,8 +71,16 @@ export function SiteFooter({ locale }: { locale: Locale }) {
           <Reveal variant="fade" as="p" order={3}>
             {site.name}
           </Reveal>
-          <Reveal variant="fade" as="p" order={4} className="text-paper-2">
-            {copy.footerPlace}
+          <Reveal
+            variant="fade"
+            order={4}
+            className="flex items-baseline gap-7 text-paper-2"
+          >
+            <p>{copy.footerPlace}</p>
+            <LocaleSwitch
+              locale={locale}
+              label={getContent(otherLocale(locale)).copy.languageName}
+            />
           </Reveal>
         </div>
       </div>

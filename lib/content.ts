@@ -36,7 +36,6 @@ export type Content = {
   readonly sections: Readonly<
     Record<SectionKey, { readonly ordinal: string; readonly label: string }>
   >;
-  readonly aiNote: Localized<typeof frenchSite.aiNote>;
   readonly copy: Copy;
   readonly form: FormCopy;
   readonly parcours: readonly string[];
@@ -59,7 +58,6 @@ const french: Content = {
   presentation: frenchSite.presentation,
   nav: frenchSite.nav,
   sections: frenchSite.sections,
-  aiNote: frenchSite.aiNote,
   copy: frenchSite.copy,
   form: frenchSite.form,
   parcours: frenchAbout.parcours,
@@ -84,7 +82,19 @@ function inEnglish(project: Project): Project {
     team: text.team,
     description: text.description,
     highlights: text.highlights,
-    approach: text.approach,
+    approach:
+      text.approach?.map(({ mediaAlt, ...section }, i) => {
+        const media = project.approach?.[i]?.media;
+        return media
+          ? {
+              ...section,
+              media: media.map((image, j) => ({
+                src: image.src,
+                alt: mediaAlt?.[j] ?? image.alt,
+              })),
+            }
+          : section;
+      }) ?? null,
     stackDisclosure: text.stackDisclosure,
     thumbnail:
       project.thumbnail && text.thumbnailAlt
@@ -118,7 +128,6 @@ const english: Content = {
     parcours: relabel("parcours"),
     contact: relabel("contact"),
   },
-  aiNote: englishSite.aiNote,
   copy: englishSite.copy,
   form: englishSite.form,
   parcours: englishAbout.parcours,

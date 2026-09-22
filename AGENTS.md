@@ -25,7 +25,7 @@ something it covers, do exactly what it says.
 | File | Holds |
 | --- | --- |
 | `content/projects.ts` | the projects, and `featuredSlugs`: the only ones published anywhere; the rest are a reserve with no page |
-| `content/site.ts` | identity, availability, every interface label, the AI note |
+| `content/site.ts` | identity, availability, every interface label |
 | `content/about.ts` | the long-form story, experience, education, languages, strengths, interests, the home page's principles and skill domains |
 | `content/en/site.ts`, `content/en/about.ts` | the English words of the two files above, key for key and entry for entry |
 | `content/en/projects.ts` | the English words of each published project, keyed by slug; facts stay in `content/projects.ts` |
@@ -132,9 +132,12 @@ Leave these alone unless Razigue asks, and say why if you think he should.
 - **Six repository links point at personal mirrors**, not at the
   `EpitechWebAcademiePromo2027` organisation, which 404s for every visitor.
   Repointing them "back" would break them.
-- **The contact form has no success state without a key.** Without
-  `RESEND_API_KEY` it says so and gives the email address. It must never fake a
-  send.
+- **The contact form sends through FormSubmit when there is no Resend key.**
+  With `RESEND_API_KEY` it uses Resend; without it, it posts to FormSubmit's
+  JSON endpoint for `CONTACT_TO_EMAIL`, or `site.email`. FormSubmit forwards
+  nothing until that mailbox has clicked the activation link it mails on the
+  first submission, and until then the form says it is not set up and gives
+  the email address. It must never fake a send.
 - **`site.url` is `https://razigue.com`** and the domain is not wired up yet.
   That is Razigue's to do, outside this project. Do not "fix" it to a localhost
   origin or to whatever host it happens to be deployed on: it feeds
@@ -143,13 +146,16 @@ Leave these alone unless Razigue asks, and say why if you think he should.
 - **There is no `app/layout.tsx`.** Each language has its own root layout,
   `app/(fr)/layout.tsx` and `app/en/layout.tsx`, so that `<html lang>` names
   the language on screen; both render `components/layout/RootDocument.tsx`.
-  Moving between languages is a full page load, which is why the flag is a
-  plain anchor and not a `TransitionLink`. With no single layout, a URL that
+  Moving between languages is a full page load, which is why the language
+  link in the footer is a plain anchor and not a `TransitionLink`. With no single layout, a URL that
   matches nothing is answered by `app/global-not-found.tsx`, in both
   languages, behind `experimental.globalNotFound` in `next.config.ts`.
-- **The flags carry colours outside the palette.** Their blues, reds and white
-  are the flags' own, declared once in `app/globals.css`, the same in both
-  themes. They are not a second accent.
+- **The language is chosen by `proxy.ts`, not by the header.** A visitor is
+  redirected to the language their browser asks for (English when it names
+  neither French nor English); a request with no `Accept-Language`, which is
+  what crawlers send, is never redirected. The footer link, written as the
+  other language's own name, adds `?lang=` so the proxy stores the choice in a
+  cookie that then wins. There is no flag, on purpose.
 - **The English CV buttons say « in French ».** There is only a French CV. Do
   not drop the mention unless an English PDF is added.
 - **The contact email's subject stays French** whichever page it was sent

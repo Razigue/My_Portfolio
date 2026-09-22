@@ -8,7 +8,6 @@
 import { checkCopy } from "@/content/check";
 import {
   site as frenchSite,
-  type aiNote as frenchAiNote,
   type availability as frenchAvailability,
   type copy as frenchCopy,
   type form as frenchForm,
@@ -67,11 +66,6 @@ export const sections: { readonly [K in keyof typeof frenchSections]: string } =
   contact: "Contact",
 };
 
-export const aiNote: Localized<typeof frenchAiNote> = {
-  label: "Use of AI",
-  body: "This portfolio is developed with the help of Claude Code and Codex. I remain responsible for the decisions, review and published content. The information presented is based on my projects and CV.",
-};
-
 export const copy: Localized<typeof frenchCopy> = {
   projectsHeading: "Project index",
   contactHeading: "Get in touch",
@@ -107,7 +101,7 @@ export const copy: Localized<typeof frenchCopy> = {
   toTop: "Back to the top of the page",
   themeToDay: "Switch to day mode",
   themeToNight: "Switch to night mode",
-  switchLanguage: "Read this page in English",
+  languageName: "English",
   newTab: "opens in a new tab",
   portraitAlt: `Portrait of ${frenchSite.name}`,
   scrollCue: "Scroll",
@@ -195,7 +189,7 @@ export const form: Localized<typeof frenchForm> = {
 };
 
 checkCopy(
-  { site, availability, hero, presentation, nav, sections, aiNote, copy, form },
+  { site, availability, hero, presentation, nav, sections, copy, form },
   "content/en/site.ts",
   "en",
 );

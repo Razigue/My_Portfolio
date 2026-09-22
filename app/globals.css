@@ -1185,7 +1185,8 @@
     opacity: 0.1;
   }
 
-  .shot.project-artwork {
+  .shot.project-artwork,
+  .shot.shot-bare {
     background-color: transparent;
   }
 
@@ -1565,68 +1566,6 @@
   :root:not(.dark) .theme-say[data-when="dark"],
   :root.dark .theme-say[data-when="light"] {
     display: none;
-  }
-
-  /* --- The language switch ---
-     The flag of the language the link leads to, beside the light switch and
-     on its measure: the same hit area, a disc a little larger than the moon so
-     the flag stays legible. The one place the site shows colours it does not
-     own, because a flag is not the site's to recolour. They stay the same in
-     both themes, like the photograph does. Nothing is drawn around the disc. */
-  :root {
-    --flag-white: #ffffff;
-    --flag-uk-blue: #012169;
-    --flag-uk-red: #c8102e;
-    --flag-fr-blue: #000091;
-    --flag-fr-red: #e1000f;
-  }
-
-  .langswitch {
-    position: relative;
-    z-index: 2;
-    display: inline-grid;
-    place-items: center;
-    width: 1.6rem;
-    height: 1.6rem;
-  }
-
-  .langswitch-flag {
-    display: block;
-    width: 1.05rem;
-    height: 1.05rem;
-    overflow: hidden;
-    border-radius: var(--radius-pill);
-    transition: transform var(--t) var(--ease-cine);
-  }
-
-  .langswitch-flag svg {
-    display: block;
-    width: 100%;
-    height: 100%;
-  }
-
-  .langswitch:hover .langswitch-flag {
-    transform: scale(1.16);
-  }
-
-  .flag-white {
-    fill: var(--flag-white);
-  }
-
-  .flag-uk-blue {
-    fill: var(--flag-uk-blue);
-  }
-
-  .flag-uk-red {
-    fill: var(--flag-uk-red);
-  }
-
-  .flag-fr-blue {
-    fill: var(--flag-fr-blue);
-  }
-
-  .flag-fr-red {
-    fill: var(--flag-fr-red);
   }
 
   /* --- The outlined name that closes the page ---

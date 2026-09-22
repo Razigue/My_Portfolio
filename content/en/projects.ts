@@ -20,25 +20,58 @@ export const projectTexts: Readonly<Record<string, ProjectTranslation>> = {
     subtitle: "guitar, made simple",
     team: null,
     description:
-      "Tonecraft lets you play guitar in your browser, with a virtual amp and effects. Reading tablature, tuning up, keeping time, looping a passage or recording along with a backing track: it all happens in one place.",
+      "Tonecraft brings everything you need to practise and record a guitar cover onto a single page, with no plugin, no studio software and no account: an amp drawn from a neural capture, a tab reader that has the band play along with you, a backing track, a recorder, a looper, a tuner and a metronome. The sound processing, written in C++ and compiled to WebAssembly, runs in the browser; Tonecraft Engine, an optional program written in Rust, runs it through ASIO for minimal latency.",
     highlights: [
-      "Choose your amp and effects",
-      "Work on a song at your own pace",
-      "Record your guitar with a backing track",
+      "An amp drawn from a neural capture, with its effects chain",
+      "Tab, backing track and recording on the same page",
+      "Sound processing in C++ and WebAssembly, with ASIO as an option",
     ],
     approach: [
       {
-        title: "Less setup, more music",
+        title: "Everything a cover needs, in one place",
         paragraphs: [
-          "On a computer, playing guitar often means installing several programs and getting them to work together. I built Tonecraft to bring the sound and the practice tools together on a single page.",
-          "You plug your guitar into an audio interface, the box that connects it to the computer, then choose your sound. Without a guitar, a demo also lets you hear the result, without turning on the microphone.",
+          "A cover takes several tools: something to read the part, the song to play over, a tone that fits, a way to work on the hard passages, and a recorder. On a computer, that often means installing several programs and getting them to work together. Tonecraft brings them onto a single screen.",
+          "You plug your guitar into an audio interface, the box that connects it to the computer, then choose your sound. Without a guitar, a demo lets you hear the result without turning on the microphone. Your settings stay on your computer, and a tone is shared as a link.",
         ],
       },
       {
-        title: "Learning, and keeping a take",
+        title: "Open the tab, the band plays along",
         paragraphs: [
-          "You can open a tablature, slow it down and loop a passage. The tuner helps tune the guitar, the metronome sets the tempo and the looper repeats what you just played. The player and its instrument sounds only load when you open a score.",
-          "The recorder keeps the DI: the sound of the guitar before the effects. So you can change amps after playing, then download the take with or without effects, on its own or mixed with an imported backing audio file. The tablature player’s audio remains separate and is not included in this export. The looper, for its part, keeps the sound with its effects.",
+          "Guitar Pro, MusicXML and other formats open right in the page, without being sent anywhere. The score scrolls under a fixed playhead, the neck lights up under the notes, and the band plays with you: slowed down, looped on a passage, or with your part muted.",
+          "You can also write your own tabs: type a fret, hear the note. The player and its instrument sounds only load when you open a score.",
+        ],
+        mediaAlt: [
+          "Tonecraft’s tab reader: a study in E, its tablature with the playhead on the first bar, and below it the guitar neck showing the notes of the E minor pentatonic scale.",
+        ],
+      },
+      {
+        title: "Play over the song, keep the take",
+        paragraphs: [
+          "You drop the song in as a backing track and record your part over it. The recorder keeps the DI, the sound of the guitar before the effects: you can change amps after playing, then download the take with or without effects, on its own or mixed with the backing track.",
+          "The tab player’s sound stays separate and is not part of this export. The looper, for its part, records what you hear, effects included, and plays it back in a loop so you can work on a riff.",
+        ],
+        mediaAlt: [
+          "Tonecraft’s session panel: the play and record buttons, the looper, and the guitar and backing tracks, with the waveform of a take, the choice between DI and processed sound, and the WAV export.",
+        ],
+      },
+      {
+        title: "An amp and its chain",
+        paragraphs: [
+          "The main amp, GUILT, is a neural capture of a real high-gain amp head. Four captures from the community sit next to it.",
+          "Around it, a short chain in a fixed order: gate, boost, pitch and reverb. Each capture comes with its cabinet, and you can load your own impulse response from your disk, as WAV, AIFF or FLAC.",
+        ],
+        mediaAlt: [
+          "Tonecraft’s settings bar: input gain, the gate, the GUILT Lead amp and cabinet selectors, the Lead preset, the doubler and the output level.",
+        ],
+      },
+      {
+        title: "Tune up and keep time",
+        paragraphs: [
+          "The tuner is chromatic and accurate to the cent. The metronome sets the tempo and the time signature, and follows a tap. Its click never ends up in a loop or a take.",
+        ],
+        mediaAlt: [
+          "Tonecraft’s tuner showing the note G, 42 cents sharp, with a prompt to tune down.",
+          "Tonecraft’s metronome set to 132 BPM, with the tap button, tab sync and the click volume.",
         ],
       },
       {
@@ -112,13 +145,15 @@ export const projectTexts: Readonly<Record<string, ProjectTranslation>> = {
                 { icon: "screen", label: "The page", hint: "what you see", detail: "Astro, Svelte" },
               ],
               branches: [
-                { flow: "apart", icon: "storage", label: "The memory", hint: "keeps the session", detail: "IndexedDB" },
                 { flow: "apart", icon: "sheet", label: "Tablature", hint: "its own sound", detail: "alphaTab" },
               ],
             },
             {
               nodes: [
                 { icon: "chip", label: "The conductor", hint: "decides the settings", detail: "TypeScript" },
+              ],
+              branches: [
+                { flow: "apart", icon: "storage", label: "The memory", hint: "keeps the session", detail: "IndexedDB" },
               ],
             },
             {
@@ -141,8 +176,11 @@ export const projectTexts: Readonly<Record<string, ProjectTranslation>> = {
       {
         title: "With or without an installed program",
         paragraphs: [
-          "Sound processing runs in the browser. For some audio interfaces, an optional program, Tonecraft Engine, gives direct access to the hardware. The page keeps the same controls and the processing stays the same.",
+          "Sound processing runs in the browser. Tonecraft Engine, a small optional program written in Rust, runs the same chain outside the browser, through ASIO on Windows, CoreAudio on macOS or ALSA on Linux, at the lowest latency the interface allows. It is chosen in the audio settings, and the page keeps the same controls.",
           "The interface waits for confirmation from the engine before showing that the amp has loaded, and reports loading errors. Site deployment runs browser tests that check this loading, the demo without a microphone, tablature playback and recording.",
+        ],
+        mediaAlt: [
+          "Tonecraft’s audio settings: the choice between the browser and the native engine, audio input detection, the input device, the channel and the output device.",
         ],
       },
     ],
@@ -152,6 +190,10 @@ export const projectTexts: Readonly<Record<string, ProjectTranslation>> = {
   },
 
   overkill: {
+    thumbnailAlt:
+      "Overkill’s home page, with its headline about a centralised job search and a quick search form by role, location and contract type.",
+    imageAlt:
+      "Overkill’s list of offers: a search by role and city, filters by offer type and contract, and the recent offers with their company, location, contract and salary.",
     title: "Overkill",
     subtitle: "job offer aggregator",
     team: "team of 5",
@@ -174,6 +216,9 @@ export const projectTexts: Readonly<Record<string, ProjectTranslation>> = {
         paragraphs: [
           "I took the offers and the favourites. The offers controller carries the routes of the domain: filtered reads, reads by identifier, creation and deletion.",
         ],
+        mediaAlt: [
+          "The detail of an offer in Overkill, open next to the list: the title, company, location, working arrangement, salary, publication date, required stack and a summary of the offer.",
+        ],
       },
       {
         title: "Key decisions",
@@ -187,11 +232,18 @@ export const projectTexts: Readonly<Record<string, ProjectTranslation>> = {
           "It is a team project: a Symfony API, a React front end and a PostgreSQL database, all running under Docker. We split the API by domain.",
           "The search accepts criteria that can be combined (free text, city, company, contract, type, remote work, minimum salary, category), paginates them, and only returns offers published in the last thirty days, because an expired listing in an aggregator is worse than no result at all. The favourites controller keeps its own on the logged-in user.",
         ],
+        mediaAlt: [
+          "A search in Overkill for developer roles in Paris, returning seven offers, with the offer type and contract filters on the left.",
+        ],
       },
     ],
   },
 
   corelab: {
+    thumbnailAlt:
+      "Corelab’s home page, with its English headline over a black sphere, followed by the carousel of the latest courses.",
+    imageAlt:
+      "Corelab’s list of courses, as dark cards with their title, their description and a button to open the course.",
     title: "Corelab",
     subtitle: "e-learning platform",
     team: "team of 3",
@@ -220,11 +272,18 @@ export const projectTexts: Readonly<Record<string, ProjectTranslation>> = {
         paragraphs: [
           "The models set the shape of everything else: user, course, lesson, quiz, result, notification. Written with Mongoose, they decide what a student owns, what a course contains, and what a quiz is: a series of multiple-choice questions, each with its right answer, and a threshold above which the exam is passed. A route cannot make up for a badly designed model.",
         ],
+        mediaAlt: [
+          "A quiz in Corelab: the first of three questions, with four answers to choose from and the button to move on to the next one.",
+        ],
       },
       {
         title: "How it runs",
         paragraphs: [
           "The routes follow: the CRUD for courses, lessons and quizzes, saving results, a student’s progress, comparing a score with the pass mark, scheduling a lesson for a date, importing users with generated passwords hashed with bcrypt, and a password chosen at first login. Middleware verifies the JWT, the relevant routes check the user’s role, and Zod validates login data before the user lookup.",
+        ],
+        mediaAlt: [
+          "A student’s progress in Corelab: one bar per quiz, with the score obtained and a mark at the pass threshold.",
+          "Corelab’s admin area: importing a list of students, creating an account and the list of students.",
         ],
       },
     ],

@@ -83,12 +83,6 @@ export const sections = {
   contact: { ordinal: "05", label: "Contact" },
 } as const;
 
-/** La note sur l’usage de l’IA, en bas de la section Contact de l’accueil. */
-export const aiNote = {
-  label: "Usage de l’IA",
-  body: "Ce portfolio est développé avec l’aide de Claude Code et de Codex. Je garde la responsabilité des choix, de la relecture et du contenu publié. Les informations présentées s’appuient sur mes projets et mon CV.",
-} as const;
-
 export const copy = {
   projectsHeading: "Index des projets",
   contactHeading: "Prendre contact",
@@ -125,8 +119,8 @@ export const copy = {
   toTop: "Retour en haut de la page",
   themeToDay: "Passer en mode jour",
   themeToNight: "Passer en mode nuit",
-  /** Lu sur les pages anglaises, par le drapeau qui ramène ici. */
-  switchLanguage: "Lire cette page en français",
+  /** Le nom de la langue, affiché dans le pied de page des pages anglaises pour revenir ici. */
+  languageName: "Français",
   newTab: "nouvel onglet",
   portraitAlt: `Portrait de ${site.name}`,
   scrollCue: "Défiler",
@@ -219,4 +213,4 @@ export const form = {
 
 // Chaque texte affiché passe la relecture, y compris ceux ajoutés plus tard :
 // un nouvel export se déclare simplement dans cet appel.
-checkCopy({ availability, hero, presentation, nav, sections, aiNote, copy, form });
+checkCopy({ availability, hero, presentation, nav, sections, copy, form });

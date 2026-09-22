@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { ProjectDiagram } from "@/components/projects/ProjectDiagram";
+import { ProjectMedia } from "@/components/projects/ProjectMedia";
 import { ProjectShot } from "@/components/projects/ProjectShot";
 import { Stage } from "@/components/motion/Stage";
 import { TransitionLink } from "@/components/motion/TransitionLink";
@@ -216,6 +217,7 @@ export function ProjectPage({ locale, slug }: { locale: Locale; slug: string }) 
                       </p>
                     ))}
                   </div>
+                  {section.media ? <ProjectMedia media={section.media} /> : null}
                   {section.diagram ? (
                     <ProjectDiagram
                       diagram={section.diagram}

@@ -113,8 +113,6 @@ export function RootDocument({
               themeToDay: copy.themeToDay,
               themeToNight: copy.themeToNight,
             }}
-            // Said in the language the flag leads to.
-            switchLabel={getContent(otherLocale(locale)).copy.switchLanguage}
           />
           <main id="contenu" tabIndex={-1}>
             {children}

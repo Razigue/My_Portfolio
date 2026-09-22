@@ -13,29 +13,27 @@ import { DiagramIcon } from "@/components/projects/DiagramIcon";
  * phone it is indented to the station's text, so its arrow is never read as
  * one of the main path's.
  *
- * From a tablet up, every station is a column of one grid, and each step is a
- * subgrid of two rows: the stations, and what hangs under them. Every tile,
- * name and branch therefore sits on the same line as its neighbours'. A step
- * with alternatives spans one column per alternative, with « ou » set in the
- * gutter where an arrow would be.
+ * From a laptop up, the whole path is one row of equal columns, and each step
+ * is a subgrid of two rows: the stations, and what hangs under them. Every
+ * station is centred in its column, so an arrow set in the middle of the
+ * gutter is exactly as far from the station it leaves as from the one it
+ * reaches, and a branch sits on its station's axis. A step with alternatives
+ * spans one column per alternative, with « ou » in the gutter where an arrow
+ * would be.
+ *
+ * Below that, the path is read top to bottom. A row that wrapped halfway
+ * would leave its last line lopsided, so it never wraps.
  */
 const BRANCH_ARROWS: Record<DiagramBranch["flow"], string | null> = {
   out: "↓",
   in: "↑",
-  loop: "↕",
+  loop: "↓↑",
   apart: null,
 };
 
-/**
- * Between a tablet and a wide screen, a short path keeps one row and a long
- * one wraps after this many columns.
- */
-const MD_COLUMNS = 4;
-const MD_ONE_ROW = 5;
-
-/** What sits in the gutter left of a station: an arrow, or « ou ». */
+/** What sits in the gutter left of a station, level with its tile. */
 const GUTTER =
-  "absolute top-0 -left-8 hidden h-16 w-8 items-center justify-center text-body";
+  "absolute top-0 -left-8 hidden h-16 w-8 items-center justify-center lg:flex";
 
 export type DiagramLabels = {
   /** Between two alternatives. */
@@ -52,15 +50,15 @@ function Station({
   side?: boolean;
 }) {
   return (
-    <div className="flex min-w-0 items-center gap-4 md:flex-col md:items-start">
+    <div className="flex min-w-0 items-center gap-4 lg:flex-col lg:gap-4 lg:text-center">
       <span
-        className={`flex shrink-0 items-center justify-center md:size-16 ${
+        className={`flex shrink-0 items-center justify-center lg:size-16 ${
           side ? "size-10 bg-ink-2 text-paper-2" : "size-14 bg-ink-3 text-flare"
         }`}
       >
         <DiagramIcon
           icon={node.icon}
-          className={`md:size-8 ${side ? "size-5" : "size-7"}`}
+          className={`lg:size-8 ${side ? "size-5" : "size-7"}`}
         />
       </span>
       <div className="min-w-0 break-words hyphens-auto">
@@ -81,10 +79,10 @@ function Station({
 function Branch({ branch, apart }: { branch: DiagramBranch; apart: string }) {
   const arrow = BRANCH_ARROWS[branch.flow];
   return (
-    <li className="grid gap-2">
+    <li className="grid gap-2 lg:justify-items-center">
       <span
-        className={`flex h-6 w-10 items-center justify-center whitespace-nowrap font-mono text-flare md:w-16 ${
-          arrow ? "text-body" : "text-micro tracking-meta"
+        className={`flex h-8 w-10 items-center justify-center whitespace-nowrap font-mono text-flare lg:w-16 ${
+          arrow ? "text-lede" : "text-micro tracking-meta"
         }`}
         aria-hidden={arrow ? "true" : undefined}
       >
@@ -95,25 +93,6 @@ function Branch({ branch, apart }: { branch: DiagramBranch; apart: string }) {
   );
 }
 
-/**
- * Where each step lands on a tablet grid: how many columns it takes, whether
- * it opens a row, and whether it sits below the first one.
- */
-function placeSteps(steps: Diagram["steps"], columns: number) {
-  let column = 0;
-  let row = 0;
-  return steps.map((step) => {
-    const span = step.nodes.length;
-    if (column > 0 && column + span > columns) {
-      column = 0;
-      row += 1;
-    }
-    const place = { step, span, startsRow: column === 0, wrapped: row > 0 };
-    column += span;
-    return place;
-  });
-}
-
 export function ProjectDiagram({
   diagram,
   labels,
@@ -122,28 +101,26 @@ export function ProjectDiagram({
   labels: DiagramLabels;
 }) {
   const total = diagram.steps.reduce((sum, step) => sum + step.nodes.length, 0);
-  const mdColumns = total <= MD_ONE_ROW ? total : MD_COLUMNS;
-  const columns = {
-    "--diagram-columns": total,
-    "--diagram-columns-md": mdColumns,
-  } as CSSProperties;
+  const columns = { "--diagram-columns": total } as CSSProperties;
 
   return (
     <figure className="mt-2 min-w-0 lg:col-span-2">
-      <figcaption className="mb-8 text-body text-paper-2" data-choreo="rise">
+      <figcaption
+        className="mb-10 text-body text-paper-2 lg:text-center"
+        data-choreo="rise"
+      >
         {diagram.title}
       </figcaption>
       <ol
-        className="flex flex-col md:grid md:grid-cols-[repeat(var(--diagram-columns-md),minmax(0,1fr))] md:gap-x-8 xl:grid-cols-[repeat(var(--diagram-columns),minmax(0,1fr))]"
+        className="flex flex-col lg:grid lg:grid-cols-[repeat(var(--diagram-columns),minmax(0,1fr))] lg:gap-x-8"
         style={columns}
       >
-        {placeSteps(diagram.steps, mdColumns).map(
-          ({ step, span, startsRow, wrapped }, index) => (
+        {diagram.steps.map((step, index) => {
+          const span = step.nodes.length;
+          return (
             <li
               key={step.nodes.map((node) => node.label).join()}
-              className={`relative flex min-w-0 flex-col md:row-span-2 md:grid md:grid-cols-subgrid md:grid-rows-subgrid md:gap-y-0 ${
-                wrapped ? "md:mt-12 xl:mt-0" : ""
-              }`}
+              className="relative flex min-w-0 flex-col lg:row-span-2 lg:grid lg:grid-cols-subgrid lg:grid-rows-subgrid lg:gap-y-0"
               style={{ gridColumn: `span ${span} / span ${span}` }}
               data-choreo="rise"
             >
@@ -151,30 +128,31 @@ export function ProjectDiagram({
                 <>
                   <span
                     aria-hidden="true"
-                    className="flex h-10 w-14 items-center justify-center font-mono text-body text-flare md:hidden"
+                    className="flex h-10 w-14 items-center justify-center font-mono text-lede text-flare lg:hidden"
                   >
                     ↓
                   </span>
                   <span
                     aria-hidden="true"
-                    className={`${GUTTER} font-mono text-flare ${
-                      startsRow ? "xl:flex" : "md:flex"
-                    }`}
+                    className={`${GUTTER} font-mono text-lede text-flare`}
                   >
                     →
                   </span>
                 </>
               ) : null}
-              <div className="grid content-start gap-3 md:col-span-full md:grid-cols-subgrid md:gap-y-0 md:pb-6">
+              <div className="grid content-start gap-3 lg:col-span-full lg:grid-cols-subgrid lg:gap-y-0 lg:pb-6">
                 {step.nodes.map((node, i) => (
-                  <div key={node.label} className="relative grid min-w-0 gap-3">
+                  <div
+                    key={node.label}
+                    className="relative grid min-w-0 gap-3 lg:justify-items-center"
+                  >
                     {i > 0 ? (
                       <>
-                        <span className="w-14 text-center font-display text-body italic text-paper-3 md:hidden">
+                        <span className="w-14 text-center font-display text-body italic text-paper-3 lg:hidden">
                           {labels.or}
                         </span>
                         <span
-                          className={`${GUTTER} font-display italic text-paper-3 md:flex`}
+                          className={`${GUTTER} font-display text-body italic text-paper-3`}
                         >
                           {labels.or}
                         </span>
@@ -185,17 +163,17 @@ export function ProjectDiagram({
                 ))}
               </div>
               {step.branches ? (
-                <ul className="mt-3 grid content-start gap-6 pl-18 md:col-span-full md:mt-0 md:pl-0">
+                <ul className="mt-3 grid content-start gap-6 pl-18 lg:col-span-full lg:mt-0 lg:pl-0">
                   {step.branches.map((branch) => (
                     <Branch key={branch.label} branch={branch} apart={labels.apart} />
                   ))}
                 </ul>
               ) : (
-                <div aria-hidden="true" className="hidden md:col-span-full md:block" />
+                <div aria-hidden="true" className="hidden lg:col-span-full lg:block" />
               )}
             </li>
-          ),
-        )}
+          );
+        })}
       </ol>
     </figure>
   );

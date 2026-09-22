@@ -64,23 +64,15 @@ export async function sendMessage(
 
   const apiKey = process.env.RESEND_API_KEY;
   const to = process.env.CONTACT_TO_EMAIL ?? site.email;
+  // The subject is read by Razigue, so it stays French, and says which
+  // version of the site the message came from.
+  const subject = `Message de ${name} depuis le portfolio${english ? " (version anglaise)" : ""}`;
 
-  // No key configured: say so honestly and point at the mailbox. Faking a
-  // success toast here is the one failure that would actually cost him a reply.
+  // Without a Resend key, the message goes through FormSubmit, which needs no
+  // account: it forwards to the address in its URL, once that address has
+  // clicked the activation link FormSubmit mails it on the first submission.
   if (!apiKey) {
-    if (process.env.NODE_ENV !== "production") {
-      console.warn("[contact] RESEND_API_KEY absent, message non envoyé :", {
-        name,
-        email,
-        message,
-      });
-    }
-    return {
-      status: "unconfigured",
-      message: form.unconfigured,
-      fieldErrors: {},
-      key,
-    };
+    return sendWithFormSubmit({ to, name, email, message, subject, form, key });
   }
 
   try {
@@ -90,9 +82,7 @@ export async function sendMessage(
         process.env.CONTACT_FROM_EMAIL ?? "Portfolio <onboarding@resend.dev>",
       to,
       replyTo: email,
-      // The subject is read by Razigue, so it stays French, and says which
-      // version of the site the message came from.
-      subject: `Message de ${name} depuis le portfolio${english ? " (version anglaise)" : ""}`,
+      subject,
       text: `${name} <${email}>\n\n${message}`,
     });
 
@@ -104,6 +94,80 @@ export async function sendMessage(
     return { status: "success", message: form.success, fieldErrors: {}, key };
   } catch (cause) {
     console.error("[contact] send failed:", cause);
+    return { status: "error", message: form.error, fieldErrors: {}, key };
+  }
+}
+
+/**
+ * FormSubmit's JSON endpoint. It answers `success: "true"` once the message is
+ * on its way, and `success: "false"` with an explanation otherwise, the first
+ * time included: until the mailbox has activated the form, nothing is
+ * forwarded. That case is answered like a missing key, with the address to
+ * write to, because a message that went nowhere must never read as sent.
+ */
+async function sendWithFormSubmit({
+  to,
+  name,
+  email,
+  message,
+  subject,
+  form,
+  key,
+}: {
+  to: string;
+  name: string;
+  email: string;
+  message: string;
+  subject: string;
+  form: typeof frenchForm | typeof englishForm;
+  key: number;
+}): Promise<ContactState> {
+  try {
+    const response = await fetch(
+      `https://formsubmit.co/ajax/${encodeURIComponent(to)}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          // FormSubmit refuses a submission that names no page it came from.
+          Origin: site.url,
+          Referer: `${site.url}/contact`,
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          message,
+          _subject: subject,
+          _replyto: email,
+          _template: "box",
+          _captcha: "false",
+        }),
+        cache: "no-store",
+      },
+    );
+    const data = (await response.json().catch(() => null)) as {
+      success?: string | boolean;
+      message?: string;
+    } | null;
+
+    if (response.ok && (data?.success === true || data?.success === "true")) {
+      return { status: "success", message: form.success, fieldErrors: {}, key };
+    }
+
+    console.error(
+      "[contact] FormSubmit refused the message:",
+      data?.message ?? response.status,
+    );
+    const pending = /activat/i.test(data?.message ?? "");
+    return {
+      status: pending ? "unconfigured" : "error",
+      message: pending ? form.unconfigured : form.error,
+      fieldErrors: {},
+      key,
+    };
+  } catch (cause) {
+    console.error("[contact] FormSubmit unreachable:", cause);
     return { status: "error", message: form.error, fieldErrors: {}, key };
   }
 }
