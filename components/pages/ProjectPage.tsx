@@ -68,7 +68,7 @@ export function ProjectPage({ locale, slug }: { locale: Locale; slug: string }) 
           project.image ? (
             <ProjectShot
               image={project.image}
-              sizes="(min-width: 1024px) 40rem, calc(100vw - 48px)"
+              sizes="(min-width: 1488px) 83rem, (min-width: 1024px) calc(100vw - 80px), calc(100vw - 48px)"
               priority
             />
           ) : undefined

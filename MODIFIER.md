@@ -294,8 +294,9 @@ chargement.
 
 La capture s’affiche à deux endroits :
 
-- **Sur la page du projet**, en haut, à côté du titre. Elle est visible tout de
-  suite : c’est la page du projet, l’image y est chez elle.
+- **Sur la page du projet**, en haut, sous le titre, sur toute la largeur de la
+  page. Elle est visible tout de suite : c’est la page du projet, l’image y est
+  chez elle.
 - **Sur l’accueil**, si le projet est mis en avant, elle est repliée derrière
   « Voir l’aperçu », sous les liens du panneau. Un panneau d’accueil fait un
   écran de haut et son sujet est le titre ; une image posée là en permanence
