@@ -88,6 +88,7 @@
 
   --radius-*: initial;
   --radius-1: 1px;
+  --radius-shot: 0.75rem;
   --radius-pill: 9999px;
 }
 
@@ -1148,19 +1149,37 @@
      one photograph from pulling the composition off neutral, and a screenshot
      of an interface has to report its own colours. No border and no shadow —
      rule one holds here as everywhere, and the block of pixels is its own
-     edge. The ground behind it only shows through while the image loads. */
+     edge. The ground behind it only shows through while the image loads.
+     Its corners are rounded, as a window on a screen is; a capture cut to a
+     hard rectangle read as a crop. It does not react to the pointer: it is
+     not a control, and nothing happens when it is clicked. */
   .shot {
     position: relative;
     overflow: hidden;
+    border-radius: var(--radius-shot);
     background-color: var(--color-ink-2);
   }
 
-  .shot img {
-    transition: transform var(--t-slow) var(--ease-cine);
+  /* A whole screen sits in a window: a title bar with three dots above it,
+     told apart from the page by its ground, never by a line. It keeps that
+     ground in both themes, and on the transparent variants too. */
+  .shot.shot-window {
+    background-color: var(--color-ink-3);
   }
 
-  .shot:hover img {
-    transform: scale(1.02);
+  .window-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    height: 1.75rem;
+    padding-inline: 0.875rem;
+  }
+
+  .window-bar i {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: var(--radius-pill);
+    background-color: color-mix(in srgb, var(--color-paper-3) 55%, transparent);
   }
 
   /* Separate scenery and transparent artwork share a scroll-driven fade.
@@ -1185,26 +1204,26 @@
     opacity: 0.1;
   }
 
-  :root:not(.dark) .project-backdrop {
-    opacity: 0.12;
-  }
-
-  /* Behind a project page's title, the capture is its own scenery: it reaches
-     past the page's measure to both edges of the screen, and it fades out at
-     the top so nothing competes with the header bar. */
-  .project-backdrop {
-    opacity: 0.3;
+  /* Behind a project page's title the scenery is the opening frame, so it is
+     left brighter than on a home panel, and it fades out under the header bar
+     and into the band that follows. */
+  .project-atmosphere-header {
+    opacity: 0.7;
     mask-image: linear-gradient(
       to bottom,
       transparent,
-      black 30%,
-      black 65%,
-      transparent 100%
+      black 22%,
+      black 70%,
+      transparent
     );
   }
 
-  .shot.project-artwork,
-  .shot.shot-bare {
+  :root:not(.dark) .project-atmosphere-header {
+    opacity: 0.16;
+  }
+
+  .shot.project-artwork:not(.shot-window),
+  .shot.shot-bare:not(.shot-window) {
     background-color: transparent;
   }
 

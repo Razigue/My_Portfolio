@@ -4,7 +4,10 @@ import { PageHeader } from "@/components/layout/PageHeader";
 import { ProjectDiagram } from "@/components/projects/ProjectDiagram";
 import { ProjectMedia } from "@/components/projects/ProjectMedia";
 import { ProjectShot } from "@/components/projects/ProjectShot";
-import { ProjectBackdrop } from "@/components/projects/ProjectVisual";
+import {
+  ProjectArtwork,
+  ProjectAtmosphere,
+} from "@/components/projects/ProjectVisual";
 import { Stage } from "@/components/motion/Stage";
 import { TransitionLink } from "@/components/motion/TransitionLink";
 import { Reveal } from "@/components/ui/Reveal";
@@ -72,13 +75,24 @@ export function ProjectPage({
         title={project.title}
         sub={project.subtitle ?? undefined}
         backdrop={
-          project.image ? <ProjectBackdrop image={project.image} /> : undefined
+          project.thumbnail?.background ? (
+            <ProjectAtmosphere
+              background={project.thumbnail.background}
+              within="header"
+            />
+          ) : undefined
         }
         media={
-          project.image ? (
+          project.thumbnail ? (
+            <ProjectArtwork
+              image={project.thumbnail}
+              sizes="(min-width: 1024px) 40rem, calc(100vw - 48px)"
+              within="header"
+            />
+          ) : project.image ? (
             <ProjectShot
               image={project.image}
-              sizes="(min-width: 1488px) 83rem, (min-width: 1024px) calc(100vw - 80px), calc(100vw - 48px)"
+              sizes="(min-width: 1024px) 40rem, calc(100vw - 48px)"
               priority
             />
           ) : undefined
@@ -181,6 +195,12 @@ export function ProjectPage({
               </Reveal>
             ) : null}
           </aside>
+
+          {/* When the header carries the artwork, the interface itself opens
+              the page's body, across both columns. */}
+          {project.thumbnail && project.image ? (
+            <ProjectMedia media={[project.image]} />
+          ) : null}
         </div>
       </Stage>
 

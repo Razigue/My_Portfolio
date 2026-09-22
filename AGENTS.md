@@ -88,9 +88,13 @@ you are the only check.
 2. **Nothing is set in capitals.** No `uppercase`, no `capitalize`, no small
    caps, anywhere. Acronyms stay acronyms — HTML, PHP, JWT, RNCP. The `RB`
    monogram is the site's mark.
-3. **An image is a block, never a framed one.** `.shot` is the only container a
-   project capture gets: overflow, a ground while it loads, and nothing drawn
-   around it. It deliberately does not carry the portrait's grayscale filter —
+3. **A whole screen sits in a window; a cutout sits bare.** `.shot` is the
+   only container a project capture gets: overflow, rounded corners, a ground
+   while it loads. A capture of a whole screen adds `.shot-window`, a title bar
+   with three dots in the manner of the Tonecraft landing page, told apart by
+   its ground alone — no border, no rule, no shadow. An image marked
+   `cutout: true` in `content/projects.ts` has no screen around it and gets no
+   window. No capture reacts to hover: Razigue asked for that. It deliberately does not carry the portrait's grayscale filter —
    that exists to keep one photograph from pulling the composition off neutral,
    and a screenshot has to report the interface's own colours. On a home panel
    the capture is folded behind a `<details>` rather than pinned open: a panel

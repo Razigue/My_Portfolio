@@ -14,7 +14,7 @@
 
 import type { StaticImageData } from "next/image";
 import tonecraftStudio from "@/content/media/tonecraft-studio.png";
-import tonecraftThumbnail from "@/content/media/tonecraft-guilt.png";
+import tonecraftThumbnail from "@/content/media/tonecraft-guilt-lit.webp";
 import tonecraftBackground from "@/content/media/tonecraft-background.png";
 import tonecraftTabs from "@/content/media/tonecraft-tabs.webp";
 import tonecraftRecorder from "@/content/media/tonecraft-recorder.webp";
@@ -44,6 +44,12 @@ export type ProjectImage = {
   readonly src: StaticImageData;
   /** Read aloud in place of the picture, so it describes it rather than names it. */
   readonly alt: string;
+  /**
+   * `true` on an image cut out of its surroundings, with a transparent
+   * background: it is shown bare. Every other capture is a whole screen, and
+   * is shown in a window.
+   */
+  readonly cutout?: boolean;
 };
 
 /** The pictograms a diagram can use; they are drawn in `DiagramIcon.tsx`. */
@@ -170,6 +176,7 @@ export const projects: readonly Project[] = [
     slug: "tonecraft",
     thumbnail: {
       src: tonecraftThumbnail,
+      cutout: true,
       background: tonecraftBackground,
       alt: "L’ampli Guilt de Tonecraft, blanc et orné de vitraux violets, avec ses boutons de réglage.",
     },
@@ -201,6 +208,7 @@ export const projects: readonly Project[] = [
         media: [
           {
             src: tonecraftTabs,
+            cutout: true,
             alt: "Le lecteur de tablatures de Tonecraft\u00A0: une étude en mi, sa tablature avec la tête de lecture sur la première mesure, et en dessous le manche de la guitare qui montre les notes de la gamme pentatonique mineure de mi.",
           },
         ],
@@ -214,6 +222,7 @@ export const projects: readonly Project[] = [
         media: [
           {
             src: tonecraftRecorder,
+            cutout: true,
             alt: "Le panneau de session de Tonecraft\u00A0: les boutons de lecture et d’enregistrement, le looper, et les pistes guitare et accompagnement, avec la forme d’onde d’une prise, le choix entre DI et son traité, et l’export WAV.",
           },
         ],
@@ -227,6 +236,7 @@ export const projects: readonly Project[] = [
         media: [
           {
             src: tonecraftControls,
+            cutout: true,
             alt: "La barre de réglages de Tonecraft\u00A0: le gain d’entrée, le gate, les sélecteurs d’ampli GUILT Lead et de baffle, le preset Lead, le doubleur et le volume de sortie.",
           },
         ],
@@ -239,10 +249,12 @@ export const projects: readonly Project[] = [
         media: [
           {
             src: tonecraftTuner,
+            cutout: true,
             alt: "L’accordeur de Tonecraft, qui affiche la note sol, trop haute de 42 cents, et indique de descendre.",
           },
           {
             src: tonecraftMetronome,
+            cutout: true,
             alt: "Le métronome de Tonecraft réglé à 132 BPM, avec le bouton tap, la synchronisation avec la tablature et le volume du clic.",
           },
         ],
@@ -355,6 +367,7 @@ export const projects: readonly Project[] = [
         media: [
           {
             src: tonecraftEngine,
+            cutout: true,
             alt: "Les réglages audio de Tonecraft\u00A0: le choix entre le navigateur et le moteur natif, la détection des entrées audio, le périphérique d’entrée, le canal et le périphérique de sortie.",
           },
         ],

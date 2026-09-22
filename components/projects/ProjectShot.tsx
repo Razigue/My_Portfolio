@@ -2,9 +2,11 @@ import Image from "next/image";
 import type { ProjectImage } from "@/content/projects";
 
 /**
- * A capture of a project, in the one frame the site allows itself: a block of
- * pixels with nothing drawn around it. No border, no caption rule, no shadow —
- * the image is the edge.
+ * A capture of a project. A whole screen is shown in a window, the way the
+ * Tonecraft landing page shows its studio: rounded corners and a title bar
+ * with three dots, set off by its ground alone. No border, no rule, no
+ * shadow. An image marked `cutout` has no screen around it, so it is shown
+ * bare.
  *
  * Unlike the portrait on « À propos » it is not desaturated. That filter exists
  * to keep one photograph from pulling the composition off neutral; a screenshot
@@ -31,16 +33,29 @@ export function ProjectShot({
   /** Cutout artwork keeps its transparent surroundings while loading. */
   placeholder?: "blur" | "empty";
 }) {
+  const picture = (
+    <Image
+      src={image.src}
+      alt={image.alt}
+      placeholder={placeholder}
+      sizes={sizes}
+      priority={priority}
+      className="h-auto w-full"
+    />
+  );
+
+  if (image.cutout) {
+    return <span className={`shot block ${className ?? ""}`}>{picture}</span>;
+  }
+
   return (
-    <span className={`shot block ${className ?? ""}`}>
-      <Image
-        src={image.src}
-        alt={image.alt}
-        placeholder={placeholder}
-        sizes={sizes}
-        priority={priority}
-        className="h-auto w-full"
-      />
+    <span className={`shot shot-window block ${className ?? ""}`}>
+      <span className="window-bar" aria-hidden="true">
+        <i />
+        <i />
+        <i />
+      </span>
+      {picture}
     </span>
   );
 }

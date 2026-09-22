@@ -89,7 +89,7 @@ function inEnglish(project: Project): Project {
           ? {
               ...section,
               media: media.map((image, j) => ({
-                src: image.src,
+                ...image,
                 alt: mediaAlt?.[j] ?? image.alt,
               })),
             }
@@ -102,7 +102,7 @@ function inEnglish(project: Project): Project {
         : project.thumbnail,
     image:
       project.image && text.imageAlt
-        ? { src: project.image.src, alt: text.imageAlt }
+        ? { ...project.image, alt: text.imageAlt }
         : project.image,
   };
 }

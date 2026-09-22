@@ -294,11 +294,10 @@ chargement.
 
 La capture s’affiche à deux endroits :
 
-- **Sur la page du projet**, en haut, sous le titre, sur toute la largeur de la
-  page. Elle est visible tout de suite : c’est la page du projet, l’image y est
-  chez elle. La même capture sert aussi de décor derrière le titre, floutée et
-  en transparence, d’un bord à l’autre de l’écran, comme le décor d’un panneau
-  d’accueil. Rien à renseigner : elle est reprise toute seule.
+- **Sur la page du projet**, en haut, à côté du titre. Elle est visible tout de
+  suite : c’est la page du projet, l’image y est chez elle. Si le projet a une
+  illustration (voir plus bas), c’est l’illustration qui prend cette place, et
+  la capture ouvre le texte de présentation, juste sous lui.
 - **Sur l’accueil**, si le projet est mis en avant, elle est repliée derrière
   « Voir l’aperçu », sous les liens du panneau. Un panneau d’accueil fait un
   écran de haut et son sujet est le titre ; une image posée là en permanence
@@ -307,18 +306,25 @@ La capture s’affiche à deux endroits :
 Elle n’apparaît pas dans l’index, dont les treize lignes partagent la même
 hauteur.
 
-Rien n’est encadré ni ombré : l’image est son propre bord, comme le reste du
-site n’a pas un trait. Le repli est un `<details>` du navigateur, donc il
+Une capture d’écran complète s’affiche dans une fenêtre, comme sur la page
+d’accueil de Tonecraft : coins arrondis et barre de titre à trois pastilles,
+sans bordure ni ombre. Une image détourée, sur fond transparent, n’a pas
+d’écran autour d’elle : ajoute `cutout: true` à côté de son `src` et elle
+s’affiche seule, sans fenêtre. C’est le cas de l’ampli et des panneaux de
+Tonecraft. Aucune capture ne réagit au survol de la souris. Le repli est un `<details>` du navigateur, donc il
 fonctionne même si le JavaScript ne se charge pas, comme le menu mobile.
 
 La capture actuelle de Tonecraft montre son
 [studio](https://razigue.github.io/Tonecraft/app/) dans l’onglet Tone, fenêtre
-d’accueil fermée et ampli allumé.
+d’accueil fermée et ampli allumé. Son illustration, `tonecraft-guilt-lit.webp`,
+est l’ampli Guilt allumé, assemblé à partir des images du studio lui-même :
+la tête, la lumière des vitraux, le boost et l’interrupteur en position
+marche.
 
-### Ajouter une illustration sur l’accueil
+### Ajouter une illustration
 
-Une illustration peut aussi occuper l’espace à côté du titre du panneau,
-comme l’ampli Guilt de Tonecraft. Sur téléphone, elle passe sous le titre,
+Une illustration peut aussi occuper l’espace à côté du titre, sur le panneau
+d’accueil et en haut de la page du projet, comme l’ampli Guilt de Tonecraft. Sur téléphone, elle passe sous le titre,
 dans un format plus petit. L’illustration s’efface progressivement au
 défilement pour laisser place à la lecture ; elle revient en remontant.
 Cette miniature est indépendante de la capture `image` et de « Voir l’aperçu ».
@@ -336,13 +342,13 @@ ajoute au projet :
 
 Ajoute aussi `thumbnailAlt` dans `content/en/projects.ts` avec sa description
 en anglais. Retire le champ `thumbnail` et sa traduction pour supprimer la
-miniature. La page du projet utilise la capture `image` ; l’illustration et
-son décor animé restent réservés à l’accueil.
+miniature ; la page du projet remet alors la capture `image` à côté du titre.
 
 `src` peut être un PNG détouré avec un fond transparent. Le champ facultatif
 `background` contient le décor, importé lui aussi depuis `content/media/`.
-Il couvre la section en transparence et s’efface avec l’illustration. Il est
-plus discret en thème clair. Retire `background` pour garder seulement
+Il couvre la section en transparence et s’efface avec l’illustration. Sur la
+page du projet, il va d’un bord à l’autre de l’écran et il est plus présent
+que sur l’accueil. Il est plus discret en thème clair. Retire `background` pour garder seulement
 l’illustration ; ce décor purement visuel n’a pas de texte à traduire.
 
 ---

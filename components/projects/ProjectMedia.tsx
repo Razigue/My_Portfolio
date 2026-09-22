@@ -12,9 +12,9 @@ const GAP_REM = 1.5;
  * They are centred on the page's axis, under both columns of the part, the
  * same way the diagrams are. Two captures share one height whatever their
  * shapes: each takes a share of the width proportional to its own ratio, so
- * their tops and their bottoms line up. Nothing is drawn around them, and
- * they carry no ground, because some of them are panels cut out of the
- * interface with their own rounded corners.
+ * their tops and their bottoms line up. A whole screen gets its window from
+ * `ProjectShot`; a panel cut out of the interface, marked `cutout`, keeps its
+ * own rounded corners and no ground.
  *
  * On a phone they are stacked, each at the full width.
  */

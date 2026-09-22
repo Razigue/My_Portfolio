@@ -17,12 +17,16 @@ export function PageHeader({
   title: string;
   sub?: string;
   /**
-   * Set under the title, across the full width of the page. The header is a
+   * Set beside the title on wide screens, under it otherwise. The header is a
    * page's opening frame, so what goes here has to be worth as much room as
    * the title itself — in practice, a capture of the thing the page is about.
+   *
+   * Its track takes up to 40rem and gives way before the title does: the title
+   * track floors at `min-content`, because a display-size h1 is usually one
+   * word and a single word cannot wrap out of a column too narrow for it.
    */
   media?: React.ReactNode;
-  /** Laid behind the whole header, from edge to edge of the screen. */
+  /** Laid behind the whole header, from one edge of the screen to the other. */
   backdrop?: React.ReactNode;
   children?: React.ReactNode;
 }) {
@@ -36,37 +40,52 @@ export function PageHeader({
     >
       {backdrop}
       <div className="mx-auto max-w-page px-6 pb-20 pt-36 lg:px-10 lg:pb-28 lg:pt-48">
-        <div>
-          <Reveal variant="fade" as={SectionLabel} ordinal={ordinal} order={0}>
-            {eyebrow}
-          </Reveal>
-
-          <Reveal
-            variant="chars"
-            as="h1"
-            order={1}
-            className="mt-8 block font-display text-h1 leading-display tracking-display text-paper"
-          >
-            {title}
-          </Reveal>
-
-          {sub ? (
+        {/* Two tracks only when there is something to put in the second one,
+            so every other page keeps the markup it had. */}
+        <div
+          className={
+            media
+              ? "grid gap-12 lg:grid-cols-[minmax(min-content,1fr)_minmax(0,40rem)] lg:items-end lg:gap-16"
+              : undefined
+          }
+        >
+          <div>
             <Reveal
-              variant="lines"
-              as="p"
-              order={2}
-              className="mt-7 max-w-measure text-lede text-paper-2"
+              variant="fade"
+              as={SectionLabel}
+              ordinal={ordinal}
+              order={0}
             >
-              {sub}
+              {eyebrow}
+            </Reveal>
+
+            <Reveal
+              variant="chars"
+              as="h1"
+              order={1}
+              className="mt-8 block font-display text-h1 leading-display tracking-display text-paper"
+            >
+              {title}
+            </Reveal>
+
+            {sub ? (
+              <Reveal
+                variant="lines"
+                as="p"
+                order={2}
+                className="mt-7 max-w-measure text-lede text-paper-2"
+              >
+                {sub}
+              </Reveal>
+            ) : null}
+          </div>
+
+          {media ? (
+            <Reveal variant="mask" order={3}>
+              {media}
             </Reveal>
           ) : null}
         </div>
-
-        {media ? (
-          <Reveal variant="mask" order={3} className="mt-14 lg:mt-20">
-            {media}
-          </Reveal>
-        ) : null}
 
         {children}
       </div>
