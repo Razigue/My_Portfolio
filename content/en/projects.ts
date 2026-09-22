@@ -77,7 +77,7 @@ export const projectTexts: Readonly<Record<string, ProjectTranslation>> = {
       {
         title: "The path of the sound",
         paragraphs: [
-          "From the guitar to the headphones, the sound goes through a series of steps. Each one changes it a little.",
+          "The sound goes through a series of steps that gradually transform it.",
         ],
         diagram: {
           title: "From the guitar to the headphones",

@@ -82,15 +82,21 @@ export function FeaturedPanel({
 
         <div className={project.thumbnail ? "grid items-center gap-8 lg:grid-cols-2 lg:gap-16" : align}>
           <div className={`${align} ${project.thumbnail && flip ? "lg:order-2" : ""}`}>
-            <Reveal
-              variant="chars"
-              as="h3"
-              order={1}
-              id={titleId}
-              className="block font-display text-h1 leading-display tracking-display text-paper"
+            <TransitionLink
+              href={pathFor(locale, "projects", project.slug)}
+              curtainLabel={project.title}
+              className={`block w-fit ${flip ? "lg:ml-auto" : ""}`}
             >
-              {project.title}
-            </Reveal>
+              <Reveal
+                variant="chars"
+                as="h3"
+                order={1}
+                id={titleId}
+                className="block font-display text-h1 leading-display tracking-display text-paper"
+              >
+                {project.title}
+              </Reveal>
+            </TransitionLink>
 
             {project.subtitle ? (
               <Reveal

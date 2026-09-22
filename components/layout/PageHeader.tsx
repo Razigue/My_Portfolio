@@ -1,11 +1,12 @@
 import { Stage } from "@/components/motion/Stage";
 import { Reveal } from "@/components/ui/Reveal";
-import { SectionLabel } from "@/components/ui/primitives";
+import { ExternalLink, SectionLabel } from "@/components/ui/primitives";
 
 export function PageHeader({
   eyebrow,
   ordinal,
   title,
+  titleLink,
   sub,
   media,
   backdrop,
@@ -15,6 +16,7 @@ export function PageHeader({
   /** Set in gold above the label, when the page has a position in a series. */
   ordinal?: string;
   title: string;
+  titleLink?: { href: string; newTab: string };
   sub?: string;
   /**
    * Set beside the title on wide screens, under it otherwise. The header is a
@@ -30,6 +32,17 @@ export function PageHeader({
   backdrop?: React.ReactNode;
   children?: React.ReactNode;
 }) {
+  const heading = (
+    <Reveal
+      variant="chars"
+      as="h1"
+      order={1}
+      className="mt-8 block font-display text-h1 leading-display tracking-display text-paper"
+    >
+      {title}
+    </Reveal>
+  );
+
   return (
     <Stage
       immediate
@@ -59,14 +72,17 @@ export function PageHeader({
               {eyebrow}
             </Reveal>
 
-            <Reveal
-              variant="chars"
-              as="h1"
-              order={1}
-              className="mt-8 block font-display text-h1 leading-display tracking-display text-paper"
-            >
-              {title}
-            </Reveal>
+            {/* Keep the link outside the split heading so SplitText cannot
+                hide the interactive element from the accessibility tree. */}
+            {titleLink ? (
+              <ExternalLink
+                href={titleLink.href}
+                newTab={titleLink.newTab}
+                className="block w-fit"
+              >
+                {heading}
+              </ExternalLink>
+            ) : heading}
 
             {sub ? (
               <Reveal

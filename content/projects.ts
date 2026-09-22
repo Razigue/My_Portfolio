@@ -262,7 +262,7 @@ export const projects: readonly Project[] = [
       {
         title: "Le trajet du son",
         paragraphs: [
-          "De la guitare au casque, le son traverse une suite d’étapes. Chacune le transforme un peu.",
+          "Le son traverse une suite d’étapes qui le transforment progressivement.",
         ],
         diagram: {
           title: "De la guitare au casque",

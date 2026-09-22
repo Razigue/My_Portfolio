@@ -66,6 +66,7 @@ export function ProjectPage({
   const previous = index > 0 ? projects[index - 1] : null;
   const next = index < projects.length - 1 ? projects[index + 1] : null;
   const context = projectContext(content, project);
+  const titleHref = project.demo ?? project.repo;
 
   return (
     <>
@@ -73,6 +74,7 @@ export function ProjectPage({
         ordinal={projectNumber(index)}
         eyebrow={String(project.year)}
         title={project.title}
+        titleLink={titleHref ? { href: titleHref, newTab: copy.newTab } : undefined}
         sub={project.subtitle ?? undefined}
         backdrop={
           project.thumbnail?.background ? (
