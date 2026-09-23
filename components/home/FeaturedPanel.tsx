@@ -1,4 +1,3 @@
-import { Scrub } from "@/components/motion/Scrub";
 import { Stage } from "@/components/motion/Stage";
 import { TransitionLink } from "@/components/motion/TransitionLink";
 import { ProjectShotDisclosure } from "@/components/projects/ProjectShot";
@@ -12,7 +11,7 @@ import { fill, pathFor, type Locale } from "@/lib/i18n";
 /**
  * One featured project, taking the full viewport: meta pinned to the top, the
  * title holding the middle, everything else weighted to the bottom edge. The
- * ordinal drifts behind it at its own rate.
+ * ordinal sits behind it.
  *
  * Panels alternate ground as well as alignment, so a run of full screens reads
  * as separate frames without anything drawn between them: odd ones sit in a
@@ -54,12 +53,9 @@ export function FeaturedPanel({
           aria-hidden="true"
           className={`ghost-slot ${flip ? "ghost-slot-left" : "ghost-slot-right"}`}
         >
-          <Scrub
-            from={{ yPercent: 14, rotate: flip ? 2 : -2 }}
-            to={{ yPercent: -14, rotate: flip ? -2 : 2 }}
-          >
+          <div>
             <span className="ghost-number block">{ordinal}</span>
-          </Scrub>
+          </div>
         </div>
       )}
 

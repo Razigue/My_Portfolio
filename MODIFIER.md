@@ -325,8 +325,9 @@ marche.
 
 Une illustration peut aussi occuper l’espace à côté du titre, sur le panneau
 d’accueil et en haut de la page du projet, comme l’ampli Guilt de Tonecraft. Sur téléphone, elle passe sous le titre,
-dans un format plus petit. L’illustration s’efface progressivement au
-défilement pour laisser place à la lecture ; elle revient en remontant.
+dans un format plus petit. Sur l’accueil, l’illustration reste visible au
+défilement. Sur la fiche du projet, elle s’efface progressivement pour laisser
+place à la lecture et revient en remontant.
 Cette miniature est indépendante de la capture `image` et de « Voir l’aperçu ».
 
 Dépose le fichier dans `content/media/`, importe-le comme une capture, puis
@@ -346,7 +347,8 @@ miniature ; la page du projet remet alors la capture `image` à côté du titre.
 
 `src` peut être un PNG détouré avec un fond transparent. Le champ facultatif
 `background` contient le décor, importé lui aussi depuis `content/media/`.
-Il couvre la section en transparence et s’efface avec l’illustration. Sur la
+Il couvre la section en transparence ; sur la fiche du projet, il s’efface
+avec l’illustration. Sur la
 page du projet, il va d’un bord à l’autre de l’écran et il est plus présent
 que sur l’accueil. Il est plus discret en thème clair. Retire `background` pour garder seulement
 l’illustration ; ce décor purement visuel n’a pas de texte à traduire.

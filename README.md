@@ -173,15 +173,13 @@ fini d’animer avant même d’être atteint. La page paraissait figée. `batch
 conserve l’effet de groupe : les éléments qui arrivent ensemble sont réunis dans
 un même lot et joués en cascade, ceux qui arrivent seuls jouent seuls.
 
-Le bénéfice : le contenu reste dans des Server Components. Un titre n’a pas
-besoin de devenir du code client pour être animé.
+Le bénéfice : le contenu reste dans des Server Components. Une liste de
+technologies n’a pas besoin de devenir du code client pour être animée.
 
-**Seuls les titres, les images, les listes de technologies et les boutons
-s’animent.** Les autres éléments marqués (paragraphes, libellés, listes,
-schémas, compteurs) sont affichés tels quels dès leur arrivée : attendre qu’un
-paragraphe apparaisse était pénible à la lecture. Le tri se fait à un seul
-endroit, dans `components/motion/Stage.tsx` ; les attributs restent dans le
-balisage.
+**Seules les listes de technologies s’animent à leur apparition.** Les titres,
+paragraphes, images, boutons, libellés, schémas et compteurs restent visibles.
+Le tri se fait dans `components/motion/Stage.tsx` ; les attributs restent dans
+le balisage. L’effet porte sur la liste elle-même, pas sur son libellé.
 
 Variantes disponibles (`lib/gsap.ts` → `CHOREO`) : `fade` `rise` `fall` `scale`
 `blur` `mask` `wipe` `chars` `words` `lines` `drift` `sweep` `counter`.
@@ -192,12 +190,13 @@ Variantes disponibles (`lib/gsap.ts` → `CHOREO`) : `fade` `rise` `fall` `scale
 ```tsx
 <Stage stagger={0.09} start="top 88%">   {/* section entière */}
 <Stage immediate delay={0.12}>           {/* joue au chargement, pas au scroll */}
-<Reveal variant="chars" order={1} />     {/* position explicite dans le lot */}
+<Reveal variant="rise" order={1}><TagList items={stack} /></Reveal>
 ```
 
 Pour du mouvement lié à la position de défilement plutôt qu’au temps,
-`<Scrub from={…} to={…}>` : la sortie du hero, la dérive des ordinaux
-fantômes, le bandeau défilant et le mot du pied de page.
+`<Scrub from={…} to={…}>` conserve le fondu des visuels en tête des fiches
+projets. Sur l’accueil, l’introduction et les visuels restent opaques ; le
+bandeau, les numéros décoratifs et le nom du pied de page restent immobiles.
 
 ### Ce qui protège la page
 

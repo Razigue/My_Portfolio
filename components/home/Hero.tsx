@@ -1,7 +1,6 @@
 import Image from "next/image";
 import portrait from "@/content/media/razigue.png";
 import { ScrollCue } from "@/components/home/ScrollCue";
-import { Scrub } from "@/components/motion/Scrub";
 import { Stage } from "@/components/motion/Stage";
 import { TransitionLink } from "@/components/motion/TransitionLink";
 import { Reveal } from "@/components/ui/Reveal";
@@ -10,9 +9,7 @@ import { getContent } from "@/lib/content";
 import { pathFor, type Locale } from "@/lib/i18n";
 
 /**
- * The opening frame. Everything inside arrives on load, and the whole block
- * then pulls away as you leave it, so the first scroll of the page reads as a
- * camera move rather than as content sliding under a header.
+ * The opening frame stays fully visible as the visitor scrolls past it.
  */
 export function Hero({ locale }: { locale: Locale }) {
   const { copy, hero, nav, site } = getContent(locale);
@@ -26,12 +23,7 @@ export function Hero({ locale }: { locale: Locale }) {
       stagger={0.12}
       className="relative"
     >
-      <Scrub
-        from={{ y: 0, opacity: 1, scale: 1 }}
-        to={{ y: -90, opacity: 0.12, scale: 0.97 }}
-        start="top top"
-        end="bottom top"
-      >
+      <div>
         {/* One grid for the whole screen rather than three stacked rows. The
             photograph and the location line are the only two things in the
             right-hand column, which makes that column exactly as wide as the
@@ -49,9 +41,6 @@ export function Hero({ locale }: { locale: Locale }) {
             {site.role}
           </Reveal>
 
-          {/* The split sits on the heading, not on the two lines inside it:
-              SplitText names what it splits with `aria-label`, which is valid
-              on a heading and prohibited on a span. */}
           <Reveal
             variant="chars"
             as="h1"
@@ -124,7 +113,7 @@ export function Hero({ locale }: { locale: Locale }) {
             {site.location}
           </Reveal>
         </div>
-      </Scrub>
+      </div>
     </Stage>
   );
 }

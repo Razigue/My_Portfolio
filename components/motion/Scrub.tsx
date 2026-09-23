@@ -5,9 +5,8 @@ import { useRef } from "react";
 import { gsap, registerGsap } from "@/lib/gsap";
 
 /**
- * Motion tied to the scroll position rather than to time. Used for the drift of
- * the ghost ordinals, the hero pulling away as you leave it, and the wordmark
- * sliding under the footer.
+ * Motion tied to the scroll position rather than to time. Used for the visual
+ * layers fading out of project page headers.
  *
  * `from` and `to` are plain objects, so a Server Component can hand them across
  * the client boundary without ceremony.

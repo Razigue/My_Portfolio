@@ -12,11 +12,10 @@
  * Triggers are `once` and delete themselves, so a page read to the bottom
  * carries no scroll work from any Stage.
  *
- * Only headings, and elements holding a picture, a stack of technologies or a
- * button, are animated; every other tagged element is left as it is, visible
- * from the start.
+ * Only stacks of technologies are animated; every other tagged element is
+ * left as it is, visible from the start.
  *
- * Content stays in Server Components: a heading says `data-choreo="lines"` and
+ * Content stays in Server Components: a stack says `data-choreo="rise"` and
  * never becomes client code. Nothing is hidden in CSS, so with scripting off
  * the page is complete.
  */
@@ -105,12 +104,10 @@ export function Stage({
        * sentence restated beside it.
        */
       const isHeading = (node: HTMLElement) => /^H[1-6]$/.test(node.tagName);
-      const hasPicture = (node: HTMLElement) =>
-        node.matches("img, video, canvas") ||
-        node.querySelector("img, video, canvas") !== null;
-      const hasStackOrButton = (node: HTMLElement) =>
-        node.matches("[data-stack], .btn") ||
-        node.querySelector("[data-stack], .btn") !== null;
+      const getStack = (node: HTMLElement) =>
+        node.matches("[data-stack]")
+          ? node
+          : node.querySelector<HTMLElement>("[data-stack]");
 
       const restate = (target: HTMLElement, text: string) => {
         target.setAttribute("aria-hidden", "true");
@@ -170,7 +167,8 @@ export function Stage({
           return tl;
         }
 
-        tl.fromTo(target, from, to, 0);
+        // Animate the list itself, leaving its surrounding labels visible.
+        tl.fromTo(getStack(target) ?? target, from, to, 0);
 
         // Numerals count to whatever the server already printed, so the figure
         // is real with scripting off and correct again after a reverse.
@@ -232,14 +230,8 @@ export function Stage({
           // Ignore anything a nested Stage owns. `data-stage` is in the server
           // markup, so this question is answerable on the very first pass.
           .filter((node) => node.closest("[data-stage]") === el)
-          // Only headings, pictures, stacks and buttons move. Running text,
-          // labels, lists and figures are simply there when they are scrolled
-          // to: Razigue found waiting for a paragraph to arrive tiresome. The
-          // tags stay in the markup, so this is the one place that decides.
-          .filter(
-            (node) =>
-              isHeading(node) || hasPicture(node) || hasStackOrButton(node),
-          );
+          // Keep the existing markers, but only animate technology lists.
+          .filter((node) => getStack(node) !== null);
 
         if (!targets.length) return;
 

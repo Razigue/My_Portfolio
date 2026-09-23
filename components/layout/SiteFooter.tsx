@@ -1,5 +1,4 @@
 import { LocaleSwitch } from "@/components/layout/LocaleSwitch";
-import { Scrub } from "@/components/motion/Scrub";
 import { Stage } from "@/components/motion/Stage";
 import { Reveal } from "@/components/ui/Reveal";
 import { Eyebrow, ExternalLink } from "@/components/ui/primitives";
@@ -85,18 +84,11 @@ export function SiteFooter({ locale }: { locale: Locale }) {
         </div>
       </div>
 
-      {/* The name slides sideways under the page as the bottom arrives. */}
-      <Scrub
-        className="wordmark-slot"
-        from={{ xPercent: 5 }}
-        to={{ xPercent: -5 }}
-        start="top bottom"
-        end="bottom bottom"
-      >
+      <div className="wordmark-slot">
         <p className="footer-wordmark" aria-hidden="true">
           {site.name}
         </p>
-      </Scrub>
+      </div>
     </Stage>
   );
 }

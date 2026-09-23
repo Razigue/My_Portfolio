@@ -4,8 +4,7 @@ import { ProjectShot } from "@/components/projects/ProjectShot";
 import type { ProjectImage } from "@/content/projects";
 
 /**
- * Both layers fade over the same reading interval in their containing section:
- * a home panel's `article`, or a project page's `header`.
+ * Home panels stay still. Only project headers fade their visual layers.
  */
 type Within = "article" | "header";
 
@@ -27,27 +26,35 @@ export function ProjectAtmosphere({
   background: StaticImageData;
   within?: Within;
 }) {
+  const picture = (
+    <Image
+      src={background}
+      alt=""
+      fill
+      sizes="100vw"
+      placeholder="blur"
+      priority={within === "header"}
+      className="object-cover"
+    />
+  );
+
   return (
     <div
       aria-hidden="true"
       className={`project-atmosphere ${within === "header" ? "project-atmosphere-header" : ""}`}
     >
-      <Scrub
-        className="absolute inset-0"
-        from={{ opacity: 1, scale: 1.04 }}
-        to={{ opacity: 0, scale: 1 }}
-        {...motion(within)}
-      >
-        <Image
-          src={background}
-          alt=""
-          fill
-          sizes="100vw"
-          placeholder="blur"
-          priority={within === "header"}
-          className="object-cover"
-        />
-      </Scrub>
+      {within === "header" ? (
+        <Scrub
+          className="absolute inset-0"
+          from={{ opacity: 1, scale: 1.04 }}
+          to={{ opacity: 0, scale: 1 }}
+          {...motion(within)}
+        >
+          {picture}
+        </Scrub>
+      ) : (
+        <div className="absolute inset-0">{picture}</div>
+      )}
     </div>
   );
 }
@@ -61,19 +68,25 @@ export function ProjectArtwork({
   sizes: string;
   within?: Within;
 }) {
+  const shot = (
+    <ProjectShot
+      image={image}
+      sizes={sizes}
+      className="project-artwork"
+      placeholder="empty"
+      priority={within === "header"}
+    />
+  );
+
+  if (within === "article") return <div>{shot}</div>;
+
   return (
     <Scrub
       from={{ opacity: 1, y: 0 }}
       to={{ opacity: 0, y: -24 }}
       {...motion(within)}
     >
-      <ProjectShot
-        image={image}
-        sizes={sizes}
-        className="project-artwork"
-        placeholder="empty"
-        priority={within === "header"}
-      />
+      {shot}
     </Scrub>
   );
 }
