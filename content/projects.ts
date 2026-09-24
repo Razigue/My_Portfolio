@@ -185,11 +185,11 @@ export const projects: readonly Project[] = [
     kind: "personnel",
     team: null,
     description:
-      "Tonecraft réunit dans une seule page tout ce qu’il faut pour travailler et enregistrer une cover à la guitare, sans plugin, sans logiciel de studio et sans compte\u00A0: un ampli tiré d’une capture neuronale, un lecteur de tablatures qui fait jouer le groupe avec vous, une piste d’accompagnement, un enregistreur, un looper, un accordeur et un métronome. Le traitement du son, écrit en C++ et compilé en WebAssembly, tourne dans le navigateur\u00A0; Tonecraft Engine, un programme optionnel écrit en Rust, le fait passer par l’ASIO pour une latence minimale.",
+      "Tonecraft est une application web qui réunit sur une seule page tout ce qu’il faut pour apprendre un morceau à la guitare et s’enregistrer en le jouant. On branche sa guitare à l’ordinateur et on ouvre le site, sans rien installer ni créer de compte\u00A0: on choisit son son, on suit la partition pendant que le reste du groupe joue avec soi, puis on enregistre sa version et on la télécharge. Un accordeur et un métronome complètent l’ensemble.",
     highlights: [
-      "Un ampli tiré d’une capture neuronale, et sa chaîne d’effets",
-      "Tablature, accompagnement et enregistrement dans la même page",
-      "Un traitement du son en C++ et WebAssembly, l’ASIO en option",
+      "Tout pour jouer et enregistrer un morceau, sur une seule page",
+      "La partition défile pendant que le groupe joue avec vous",
+      "Rien à installer, aucun compte à créer",
     ],
     approach: [
       {

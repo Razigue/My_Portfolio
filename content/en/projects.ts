@@ -20,11 +20,11 @@ export const projectTexts: Readonly<Record<string, ProjectTranslation>> = {
     subtitle: "guitar, made simple",
     team: null,
     description:
-      "Tonecraft brings everything you need to practise and record a guitar cover onto a single page, with no plugin, no studio software and no account: an amp drawn from a neural capture, a tab reader that has the band play along with you, a backing track, a recorder, a looper, a tuner and a metronome. The sound processing, written in C++ and compiled to WebAssembly, runs in the browser; Tonecraft Engine, an optional program written in Rust, runs it through ASIO for minimal latency.",
+      "Tonecraft is a web application that brings together on a single page everything you need to learn a song on guitar and record yourself playing it. You plug your guitar into the computer and open the site, with nothing to install and no account to create: you pick your sound, follow the sheet music while the rest of the band plays along with you, then record your version and download it. A tuner and a metronome round it out.",
     highlights: [
-      "An amp drawn from a neural capture, with its effects chain",
-      "Tab, backing track and recording on the same page",
-      "Sound processing in C++ and WebAssembly, with ASIO as an option",
+      "Everything to play and record a song, on a single page",
+      "The sheet music scrolls while the band plays along with you",
+      "Nothing to install, no account to create",
     ],
     approach: [
       {
