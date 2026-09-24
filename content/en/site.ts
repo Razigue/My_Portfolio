@@ -33,12 +33,6 @@ export const availability: Localized<typeof frenchAvailability> = {
   schoolLabel: "School",
   diplomaLabel: "Qualification",
   placeLabel: "Location",
-  ticker: [
-    "Available September 2026",
-    "12-month apprenticeship",
-    "6 weeks at the company, 2 weeks in training",
-    "Paris and Île-de-France",
-  ],
 };
 
 export const hero: Localized<typeof frenchHero> = {

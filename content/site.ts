@@ -43,13 +43,6 @@ export const availability = {
   schoolLabel: "École",
   diplomaLabel: "Diplôme préparé",
   placeLabel: "Lieu",
-  /** Le bandeau défilant. Chaque entrée reprend un fait déjà présent ci-dessus. */
-  ticker: [
-    "Disponible septembre 2026",
-    "Alternance 12 mois",
-    "6 semaines en entreprise, 2 semaines en formation",
-    "Paris et Île-de-France",
-  ],
 } as const;
 
 export const hero = {

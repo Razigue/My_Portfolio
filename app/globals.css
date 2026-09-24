@@ -1476,55 +1476,6 @@
     z-index: 1;
   }
 
-  /* --- Availability ticker --- */
-  .ticker {
-    position: relative;
-    overflow: hidden;
-    padding-block: 0.85rem;
-  }
-
-  /* Alpha only. The band keeps its colour edge to edge and the words
-     themselves lose opacity as they reach the ends, so nothing is faded
-     towards a colour that is not there. */
-  .ticker-mask {
-    display: flex;
-    mask-image: linear-gradient(
-      to right,
-      transparent,
-      #000 9%,
-      #000 91%,
-      transparent
-    );
-    -webkit-mask-image: linear-gradient(
-      to right,
-      transparent,
-      #000 9%,
-      #000 91%,
-      transparent
-    );
-  }
-
-  /* The band moves only while you are scrolling, driven by a scrubbed
-     ScrollTrigger rather than a CSS animation. That is a better effect than a
-     marquee running on its own clock, and it sidesteps WCAG 2.2.2 outright:
-     there is no auto-starting motion to provide a pause control for. */
-  .ticker-track {
-    display: flex;
-    flex: none;
-    align-items: center;
-    gap: 3rem;
-    padding-right: 3rem;
-    white-space: nowrap;
-    font-family: var(--font-mono);
-    font-size: var(--text-micro);
-    letter-spacing: var(--tracking-wide);
-    color: var(--color-paper-3);
-  }
-
-  .ticker-track > span:nth-child(even) {
-    color: var(--color-flare);
-  }
-
   /* --- Skip link --- */
   .skip-link {
     position: fixed;
@@ -1884,8 +1835,7 @@
 
   [data-print="hide"],
   .skip-link,
-  .film,
-  .ticker {
+  .film {
     display: none !important;
   }
 
