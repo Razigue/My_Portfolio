@@ -63,19 +63,8 @@ export function SiteFooter({ locale }: { locale: Locale }) {
           </Reveal>
         </div>
 
-        {/* A name at one end and a place at the other. Two plain sentences,
-            since a description list stopped earning its markup once the build
-            figures came out of it. */}
-        <div className="mt-24 flex flex-col gap-6 font-mono text-micro tracking-meta text-paper-3 sm:flex-row sm:items-baseline sm:justify-between">
-          <Reveal variant="fade" as="p" order={3}>
-            {site.name}
-          </Reveal>
-          <Reveal
-            variant="fade"
-            order={4}
-            className="flex items-baseline gap-7 text-paper-2"
-          >
-            <p>{copy.footerPlace}</p>
+        <div className="mt-24 flex font-mono text-micro tracking-meta sm:justify-end">
+          <Reveal variant="fade" order={3} className="text-paper-2">
             <LocaleSwitch
               locale={locale}
               label={getContent(otherLocale(locale)).copy.languageName}

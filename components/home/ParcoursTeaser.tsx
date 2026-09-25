@@ -6,7 +6,7 @@ import { getContent } from "@/lib/content";
 import { pathFor, type Locale } from "@/lib/i18n";
 
 export function ParcoursTeaser({ locale }: { locale: Locale }) {
-  const { copy, experiences, formation, nav, presentation, sections } =
+  const { copy, experiences, nav, presentation, sections } =
     getContent(locale);
 
   return (
@@ -51,19 +51,6 @@ export function ParcoursTeaser({ locale }: { locale: Locale }) {
           <div>
             <dl className="grid gap-12">
               <Reveal variant="rise" order={3}>
-                <dt className="eyebrow">{copy.formationTitle}</dt>
-                <dd className="mt-4 text-body text-paper">
-                  {formation.title}
-                  <span className="mt-2 block text-meta text-paper-3">
-                    {formation.school}
-                  </span>
-                  <span className="tnum block text-meta text-paper-3">
-                    {formation.period}
-                  </span>
-                </dd>
-              </Reveal>
-
-              <Reveal variant="rise" order={4}>
                 <dt className="eyebrow">{copy.experiencesTitle}</dt>
                 <dd className="mt-4">
                   {/* Rows were told apart by a filet under each one. Every

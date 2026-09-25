@@ -38,7 +38,7 @@ export const availability: Localized<typeof frenchAvailability> = {
 export const hero: Localized<typeof frenchHero> = {
   role: site.role,
   tagline:
-    "Studying at Web@cadémie by Epitech, I build web applications and am looking for a full-stack development apprenticeship.",
+    "Studying at Web@cadémie by Epitech, I find solutions and build them into web applications. I am looking for a full-stack development apprenticeship.",
 };
 
 export const presentation =
@@ -69,7 +69,6 @@ export const copy: Localized<typeof frenchCopy> = {
   copyIdle: "copy",
   copyDone: "copied",
   sourceLink: "Source code ↗",
-  footerPlace: "Paris",
   approachTitle: "The approach",
   diagramOr: "or",
   diagramApart: "beside",
@@ -145,7 +144,6 @@ export const copy: Localized<typeof frenchCopy> = {
   pagerLabel: "Previous and next project",
 
   aboutTitle: "About",
-  aboutEyebrow: "Background",
   languagesTitle: "Languages",
   documentTitle: "Document",
   strengthsTitle: "Strengths",

@@ -38,7 +38,6 @@ export function AboutPage({ locale }: { locale: Locale }) {
   return (
     <>
       <PageHeader
-        eyebrow={copy.aboutEyebrow}
         title={copy.aboutTitle}
         sub={presentation}
       />

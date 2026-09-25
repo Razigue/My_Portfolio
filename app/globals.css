@@ -1289,26 +1289,21 @@
   /* ---------------------------------------------------------------------
      The opening screen.
 
-     Two columns. The right one holds the photograph and the location line and
-     nothing else, so it is exactly as wide as the wider of the two, and both
-     are centred in it: their centres coincide at every width with nothing
-     measured. The photograph shares its row with the name alone, so centring
-     it in that row centres it against the name rather than against the name
-     plus the label above it.
+     Two columns. The right one holds the photograph and nothing else, and
+     the photograph shares its row with the name, so it is centred on it.
 
-     Four rows: label, name, sentence, footing. The sentence sits in the one
-     row that takes the leftover height and is centred in it, which is what
-     puts equal air above and below it.
+     Three rows: name, sentence, footing. The sentence sits in the one row
+     that takes the leftover height and is centred in it, which is what puts
+     equal air above and below it.
      --------------------------------------------------------------------- */
   .hero-grid {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
-    grid-template-rows: auto auto 1fr auto;
+    grid-template-rows: auto 1fr auto;
     column-gap: 3.5rem;
     row-gap: 1.75rem;
   }
 
-  .hero-role,
   .hero-name,
   .hero-lede,
   .hero-cue {
@@ -1323,18 +1318,10 @@
     align-self: end;
   }
 
-  .hero-portrait,
-  .hero-place {
+  .hero-portrait {
     grid-column: 2;
     justify-self: center;
-  }
-
-  .hero-portrait {
     align-self: center;
-  }
-
-  .hero-place {
-    align-self: end;
   }
 
   /* Below the small breakpoint the right-hand column is wider than the screen
@@ -1343,17 +1330,13 @@
   @media (max-width: 639px) {
     .hero-grid {
       grid-template-columns: minmax(0, 1fr);
-      grid-template-rows: auto auto auto 1fr auto;
+      grid-template-rows: auto auto 1fr auto;
       row-gap: 2rem;
     }
 
-    .hero-portrait,
-    .hero-place {
+    .hero-portrait {
       grid-column: 1;
       justify-self: start;
-    }
-
-    .hero-portrait {
       align-self: start;
     }
   }

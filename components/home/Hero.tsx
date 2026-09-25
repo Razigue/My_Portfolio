@@ -4,7 +4,7 @@ import { ScrollCue } from "@/components/home/ScrollCue";
 import { Stage } from "@/components/motion/Stage";
 import { TransitionLink } from "@/components/motion/TransitionLink";
 import { Reveal } from "@/components/ui/Reveal";
-import { BtnLabel, Eyebrow } from "@/components/ui/primitives";
+import { BtnLabel } from "@/components/ui/primitives";
 import { getContent } from "@/lib/content";
 import { pathFor, type Locale } from "@/lib/i18n";
 
@@ -25,22 +25,9 @@ export function Hero({ locale }: { locale: Locale }) {
     >
       <div>
         {/* One grid for the whole screen rather than three stacked rows. The
-            photograph and the location line are the only two things in the
-            right-hand column, which makes that column exactly as wide as the
-            wider of them and lets both sit centred in it: their centres line
-            up at any width, without a measurement anywhere. The photograph is
-            on the same grid row as the name, so centring it in that row
-            centres it on the name and not on the label above it. */}
+            photograph is the only thing in the right-hand column and shares
+            its row with the name, so it sits centred on the name. */}
         <div className="hero-grid mx-auto min-h-dvh max-w-page px-6 pb-10 pt-28 lg:px-10 lg:pb-14 lg:pt-36">
-          <Reveal
-            variant="fade"
-            as={Eyebrow}
-            order={0}
-            className="hero-role"
-          >
-            {site.role}
-          </Reveal>
-
           <Reveal
             variant="chars"
             as="h1"
@@ -107,10 +94,6 @@ export function Hero({ locale }: { locale: Locale }) {
 
           <Reveal variant="fade" order={5} className="hero-cue">
             <ScrollCue label={copy.scrollCue} />
-          </Reveal>
-
-          <Reveal variant="fade" as="p" order={6} className="hero-place eyebrow">
-            {site.location}
           </Reveal>
         </div>
       </div>

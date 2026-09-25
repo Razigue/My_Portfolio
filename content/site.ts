@@ -48,7 +48,7 @@ export const availability = {
 export const hero = {
   role: site.role,
   tagline:
-    "En formation à la Web@cadémie by Epitech, je développe des applications web et recherche une alternance en développement full-stack.",
+    "En formation à la Web@cadémie by Epitech, je trouve des solutions et je les développe en applications web. Je recherche une alternance en développement full-stack.",
 } as const;
 
 export const presentation =
@@ -85,7 +85,6 @@ export const copy = {
   copyIdle: "copier",
   copyDone: "copié",
   sourceLink: "Code source ↗",
-  footerPlace: "Paris",
   approachTitle: "La démarche",
   diagramOr: "ou",
   diagramApart: "à côté",
@@ -166,7 +165,6 @@ export const copy = {
 
   // À propos et contact
   aboutTitle: "À propos",
-  aboutEyebrow: "Parcours",
   languagesTitle: "Langues",
   documentTitle: "Document",
   strengthsTitle: "Atouts",

@@ -17,7 +17,7 @@ export const projectTexts: Readonly<Record<string, ProjectTranslation>> = {
   tonecraft: {
     thumbnailAlt: "Tonecraft’s white Guilt amp with purple stained glass and control knobs.",
     title: "Tonecraft",
-    subtitle: "guitar, made simple",
+    subtitle: "guitar in the studio",
     team: null,
     description:
       "Tonecraft is a web application that brings together on a single page everything you need to learn a song on guitar and record yourself playing it. You plug your guitar into the computer and open the site, with nothing to install and no account to create: you pick your sound, follow the sheet music while the rest of the band plays along with you, then record your version and download it. A tuner and a metronome round it out.",

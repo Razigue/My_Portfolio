@@ -49,7 +49,6 @@ export function ProjectsPage({ locale }: { locale: Locale }) {
       <PageHeader
         eyebrow={copy.projectsEyebrow}
         title={copy.projectsHeading}
-        sub={projectsSummary(content)}
       />
 
       {groups.map((group, order) => (

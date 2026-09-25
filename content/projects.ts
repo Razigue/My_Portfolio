@@ -181,7 +181,7 @@ export const projects: readonly Project[] = [
       alt: "L’ampli Guilt de Tonecraft, blanc et orné de vitraux violets, avec ses boutons de réglage.",
     },
     title: "Tonecraft",
-    subtitle: "la guitare, simplement",
+    subtitle: "la guitare en studio",
     kind: "personnel",
     team: null,
     description:

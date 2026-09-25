@@ -12,7 +12,8 @@ export function PageHeader({
   backdrop,
   children,
 }: {
-  eyebrow: string;
+  /** Omitted, the header opens on the title. */
+  eyebrow?: string;
   /** Set in gold above the label, when the page has a position in a series. */
   ordinal?: string;
   title: string;
@@ -37,7 +38,7 @@ export function PageHeader({
       variant="chars"
       as="h1"
       order={1}
-      className="mt-8 block font-display text-h1 leading-display tracking-display text-paper"
+      className={`${eyebrow ? "mt-8 " : ""}block font-display text-h1 leading-display tracking-display text-paper`}
     >
       {title}
     </Reveal>
@@ -63,14 +64,16 @@ export function PageHeader({
           }
         >
           <div>
-            <Reveal
-              variant="fade"
-              as={SectionLabel}
-              ordinal={ordinal}
-              order={0}
-            >
-              {eyebrow}
-            </Reveal>
+            {eyebrow ? (
+              <Reveal
+                variant="fade"
+                as={SectionLabel}
+                ordinal={ordinal}
+                order={0}
+              >
+                {eyebrow}
+              </Reveal>
+            ) : null}
 
             {/* Keep the link outside the split heading so SplitText cannot
                 hide the interactive element from the accessibility tree. */}
