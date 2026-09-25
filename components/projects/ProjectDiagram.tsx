@@ -23,16 +23,18 @@ import { DiagramIcon } from "@/components/projects/DiagramIcon";
  * every diagram on the site keeps the same stride between its stations
  * whatever it counts.
  *
+ * Below that, the path is read top to bottom. A row that wrapped halfway
+ * would leave its last line lopsided, so it never wraps.
+ *
  * A branch that works beside the path (`apart`) has no arrow and no word in
  * its place: it hangs under its station, smaller and on a quieter ground, and
  * that is what ties it to the station rather than to the path.
  *
- * The diagram carries no visible title. The heading and the paragraphs of its
- * part already introduce it, so `title` names the figure for a screen reader
- * only.
- *
- * Below that, the path is read top to bottom. A row that wrapped halfway
- * would leave its last line lopsided, so it never wraps.
+ * The diagram sits on a ground of its own, with the rounded corners of a
+ * capture: that ground, not a frame, is what sets it apart from the
+ * paragraphs above it, the way a capture is set apart by its own pixels. It
+ * carries no visible title. The heading and the paragraphs of its part
+ * already introduce it, so `title` names the figure for a screen reader only.
  */
 const BRANCH_ARROWS: Record<DiagramBranch["flow"], string | null> = {
   out: "↓",
@@ -62,7 +64,7 @@ function Station({
       <span
         className={`flex shrink-0 items-center justify-center ${
           side
-            ? "size-10 bg-ink-2 text-paper-2 lg:size-12"
+            ? "size-10 bg-ink text-paper-2 lg:size-12"
             : "size-14 bg-ink-3 text-flare lg:size-16"
         }`}
       >
@@ -112,9 +114,12 @@ export function ProjectDiagram({
 }) {
   const total = diagram.steps.reduce((sum, step) => sum + step.nodes.length, 0);
   const columns = { "--diagram-columns": total } as CSSProperties;
+  // Room under the stations only when something hangs there, so the ground
+  // keeps the same margin above the path as below it.
+  const branched = diagram.steps.some((step) => step.branches?.length);
 
   return (
-    <figure className="min-w-0 lg:col-span-2">
+    <figure className="min-w-0 rounded-shot bg-ink-2 px-5 py-10 sm:px-8 lg:col-span-2 lg:py-14">
       <figcaption className="sr-only">{diagram.title}</figcaption>
       <ol
         className="flex flex-col lg:grid lg:grid-cols-[repeat(var(--diagram-columns),minmax(0,12rem))] lg:justify-center lg:gap-x-8"
@@ -145,7 +150,11 @@ export function ProjectDiagram({
                   </span>
                 </>
               ) : null}
-              <div className="grid content-start gap-3 lg:col-span-full lg:grid-cols-subgrid lg:gap-y-0 lg:pb-6">
+              <div
+                className={`grid content-start gap-3 lg:col-span-full lg:grid-cols-subgrid lg:gap-y-0 ${
+                  branched ? "lg:pb-6" : ""
+                }`}
+              >
                 {step.nodes.map((node, i) => (
                   <div
                     key={node.label}
