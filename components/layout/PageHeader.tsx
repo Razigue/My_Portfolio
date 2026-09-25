@@ -10,6 +10,7 @@ export function PageHeader({
   sub,
   media,
   backdrop,
+  centered = false,
   children,
 }: {
   /** Omitted, the header opens on the title. */
@@ -31,6 +32,13 @@ export function PageHeader({
   media?: React.ReactNode;
   /** Laid behind the whole header, from one edge of the screen to the other. */
   backdrop?: React.ReactNode;
+  /**
+   * Sets the label and the title halfway down the header, with as much ground
+   * above them, counted from the top of the page, as below them. For a header
+   * that is nothing but its title: the default padding leaves room for a line
+   * under it, and without one the title reads as sitting low.
+   */
+  centered?: boolean;
   children?: React.ReactNode;
 }) {
   const heading = (
@@ -53,7 +61,13 @@ export function PageHeader({
       className={backdrop ? "relative isolate overflow-hidden" : undefined}
     >
       {backdrop}
-      <div className="mx-auto max-w-page px-6 pb-20 pt-36 lg:px-10 lg:pb-28 lg:pt-48">
+      <div
+        className={`mx-auto max-w-page px-6 lg:px-10 ${
+          centered
+            ? "pb-32 pt-32 lg:pb-39 lg:pt-37"
+            : "pb-20 pt-36 lg:pb-28 lg:pt-48"
+        }`}
+      >
         {/* Two tracks only when there is something to put in the second one,
             so every other page keeps the markup it had. */}
         <div

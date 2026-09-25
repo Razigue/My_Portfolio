@@ -31,7 +31,6 @@ export function AboutPage({ locale }: { locale: Locale }) {
     interets,
     langues,
     parcours,
-    presentation,
     site,
   } = getContent(locale);
 
@@ -40,7 +39,7 @@ export function AboutPage({ locale }: { locale: Locale }) {
       <PageHeader
         eyebrow={copy.aboutEyebrow}
         title={copy.aboutTitle}
-        sub={presentation}
+        centered
       />
 
       {/* Portrait + the longer-form story */}
