@@ -21,78 +21,31 @@ export const projectTexts: Readonly<Record<string, ProjectTranslation>> = {
     team: null,
     description:
       "Tonecraft is a web application that brings together on a single page everything you need to learn a song on guitar and record yourself playing it. You plug your guitar into the computer and open the site, with nothing to install and no account to create: you pick your sound, follow the sheet music while the rest of the band plays along with you, then record your version and download it. A tuner and a metronome round it out.",
-    highlights: [
-      "Everything to play and record a song, on a single page",
-      "The sheet music scrolls while the band plays along with you",
-      "Nothing to install, no account to create",
-    ],
+    highlights: [],
     approach: [
       {
-        title: "Everything a cover needs, in one place",
+        title: "The need",
         paragraphs: [
-          "A cover takes several tools: something to read the part, the song to play over, a tone that fits, a way to work on the hard passages, and a recorder. On a computer, that often means installing several programs and getting them to work together. Tonecraft brings them onto a single screen.",
-          "You plug your guitar into an audio interface, the box that connects it to the computer, then choose your sound. Without a guitar, a demo lets you hear the result without turning on the microphone. Your settings stay on your computer, and a tone is shared as a link.",
+          "Working on a cover on guitar takes several tools: something to read your part, the original song to play over, the sound of an amp and a way to record yourself. On a computer, that often means installing several programs and getting them to work together, which is enough to put you off before you have played a single note.",
         ],
       },
       {
-        title: "Open the tab, the band plays along",
+        title: "The sound of a real amp",
         paragraphs: [
-          "Guitar Pro, MusicXML and other formats open right in the page, without being sent anywhere. The score scrolls under a fixed playhead, the neck lights up under the notes, and the band plays with you: slowed down, looped on a passage, or with your part muted.",
-          "You can also write your own tabs: type a fret, hear the note. The player and its instrument sounds only load when you open a score.",
-        ],
-        mediaAlt: [
-          "Tonecraft’s tab reader: a study in E, its tablature with the playhead on the first bar, and below it the guitar neck showing the notes of the E minor pentatonic scale.",
-        ],
-      },
-      {
-        title: "Play over the song, keep the take",
-        paragraphs: [
-          "You drop the song in as a backing track and record your part over it. The recorder keeps the DI, the sound of the guitar before the effects: you can change amps after playing, then download the take with or without effects, on its own or mixed with the backing track.",
-          "The tab player’s sound stays separate and is not part of this export. The looper, for its part, records what you hear, effects included, and plays it back in a loop so you can work on a riff.",
-        ],
-        mediaAlt: [
-          "Tonecraft’s session panel: the play and record buttons, the looper, and the guitar and backing tracks, with the waveform of a take, the choice between DI and processed sound, and the WAV export.",
-        ],
-      },
-      {
-        title: "An amp and its chain",
-        paragraphs: [
-          "The main amp, GUILT, is a neural capture of a real high-gain amp head. Four captures from the community sit next to it.",
-          "Around it, a short chain in a fixed order: gate, boost, pitch and reverb. Each capture comes with its cabinet, and you can load your own impulse response from your disk, as WAV, AIFF or FLAC.",
-        ],
-        mediaAlt: [
-          "Tonecraft’s settings bar: input gain, the gate, the GUILT Lead amp and cabinet selectors, the Lead preset, the doubler and the output level.",
-        ],
-      },
-      {
-        title: "Tune up and keep time",
-        paragraphs: [
-          "The tuner is chromatic and accurate to the cent. The metronome sets the tempo and the time signature, and follows a tap. Its click never ends up in a loop or a take.",
-        ],
-        mediaAlt: [
-          "Tonecraft’s tuner showing the note G, 42 cents sharp, with a prompt to tune down.",
-          "Tonecraft’s metronome set to 132 BPM, with the tap button, tab sync and the click volume.",
-        ],
-      },
-      {
-        title: "The path of the sound",
-        paragraphs: [
-          "The sound goes through a series of steps that gradually transform it.",
+          "Without an amp, an electric guitar is almost silent. The sound people know comes from the gear it is plugged into: the effect pedals, the amp and its speaker. Tonecraft recreates all of it in software.",
+          "The heart of the sound is a capture: a reproduction of a real amp, learned by a neural network, that responds to your playing the way the original does. Tonecraft offers four, shared online by the community. The main one, GUILT, is set up to my own taste: a sound for solos, with a touch of echo to give it an epic feel. That reverb made me think of a guitar played in a church, and I designed stained-glass windows to dress its amp. Without a guitar to hand, one button lets you hear the result on a demo recording.",
         ],
         diagram: {
-          title: "From the guitar to the headphones",
+          title: "The path of the sound, from the guitar to the headphones",
           steps: [
             {
               nodes: [
-                { icon: "guitar", label: "The guitar", hint: "raw sound comes in" },
-              ],
-              branches: [
-                { flow: "out", icon: "record", label: "The recorder", hint: "keeps the raw sound" },
+                { icon: "guitar", label: "The guitar", hint: "the raw sound" },
               ],
             },
             {
               nodes: [
-                { icon: "funnel", label: "Preparation", hint: "cleans and levels" },
+                { icon: "pedal", label: "The pedals", hint: "clean up and push" },
               ],
             },
             {
@@ -102,40 +55,57 @@ export const projectTexts: Readonly<Record<string, ProjectTranslation>> = {
             },
             {
               nodes: [
-                { icon: "speaker", label: "The virtual cabinet", hint: "simulates the speakers" },
+                { icon: "speaker", label: "The speaker", hint: "softens, adds body" },
               ],
             },
             {
               nodes: [
-                { icon: "sliders", label: "The colour", hint: "EQ and reverb" },
-              ],
-              branches: [
-                { flow: "loop", icon: "loop", label: "The looper", hint: "repeats what you play" },
-              ],
-            },
-            {
-              nodes: [
-                { icon: "volume", label: "The volume", hint: "level control and limiter" },
-              ],
-              branches: [
-                { flow: "in", icon: "note", label: "The song", hint: "to play along to" },
+                { icon: "sliders", label: "The finish", hint: "bass, treble, room sound" },
               ],
             },
             {
               nodes: [
                 { icon: "headphones", label: "The headphones", hint: "what you hear" },
               ],
-              branches: [
-                { flow: "in", icon: "metronome", label: "The metronome", hint: "keeps the tempo" },
-              ],
             },
           ],
         },
       },
       {
+        title: "Follow the score",
+        paragraphs: [
+          "Guitarists often learn a song from a tab, a simplified score that shows which string and which fret to play. The file opens in the page without being sent anywhere: the score scrolls in time with the music, the passage being played stays in the middle of the screen, and a guitar neck drawn underneath shows where to put your fingers.",
+          "You can slow the song down, loop a difficult passage or mute the guitar to play its part yourself. You can also write your own tabs, hearing each note as you enter it. So that the page opens quickly, this reader only loads when a score is opened.",
+        ],
+        mediaAlt: [
+          "Tonecraft’s tab reader: a study in E, its tablature with the playhead on the first bar, and below it the guitar neck showing the notes of the E minor pentatonic scale.",
+        ],
+      },
+      {
+        title: "Record your version",
+        paragraphs: [
+          "You add the original song as a backing track, play over it and record yourself. Tonecraft keeps the guitar’s sound as it comes out of the instrument, before the amp, so you can change the sound after playing. The downloaded file holds, as you choose, the raw sound or the amp’s, on its own or mixed with the song.",
+          "The looper, for its part, records a passage as you hear it, then plays it back in a loop so you can practise over it.",
+        ],
+        mediaAlt: [
+          "Tonecraft’s session panel: the play and record buttons, the looper, and the guitar and backing tracks, with the waveform of a take, the choice between DI and processed sound, and the WAV export.",
+        ],
+      },
+      {
+        title: "Tune up and keep time",
+        paragraphs: [
+          "The tuner shows the note being played and whether it is too high or too low, to a hundredth of a semitone. The metronome keeps time at the chosen tempo, which you can also set by tapping the beat on a button. Its click is heard in the headphones, but never ends up in a loop or a recording.",
+        ],
+        mediaAlt: [
+          "Tonecraft’s tuner showing the note G, 42 cents sharp, with a prompt to tune down.",
+          "Tonecraft’s metronome set to 132 BPM, with the tap button, tab sync and the click volume.",
+        ],
+      },
+      {
         title: "Behind the page",
         paragraphs: [
-          "What you see, what decides and what transforms the sound are kept apart.",
+          "The sound is computed by an audio engine that runs right in the browser. For those who want the least possible delay between the note played and the note heard, a small optional program, Tonecraft Engine, runs exactly the same engine outside the browser, without the page changing.",
+          "The interface only says the amp is ready once the engine has confirmed it, and reports the error otherwise. Before each release, automated tests open the site in a real browser and check this loading, the demo without a microphone, score playback and recording.",
         ],
         diagram: {
           title: "The main parts of Tonecraft",
@@ -145,43 +115,30 @@ export const projectTexts: Readonly<Record<string, ProjectTranslation>> = {
                 { icon: "screen", label: "The page", hint: "what you see", detail: "Astro, Svelte" },
               ],
               branches: [
-                { flow: "apart", icon: "sheet", label: "Tablature", hint: "its own sound", detail: "alphaTab" },
+                { flow: "apart", icon: "sheet", label: "The scores", hint: "a separate reader", detail: "alphaTab" },
               ],
             },
             {
               nodes: [
-                { icon: "chip", label: "The conductor", hint: "decides the settings", detail: "TypeScript" },
+                { icon: "chip", label: "The conductor", hint: "coordinates everything", detail: "TypeScript" },
               ],
               branches: [
-                { flow: "apart", icon: "storage", label: "The memory", hint: "keeps the session", detail: "IndexedDB" },
+                { flow: "apart", icon: "storage", label: "The memory", hint: "keeps the settings", detail: "IndexedDB" },
               ],
             },
             {
               nodes: [
-                { icon: "browser", label: "The browser", hint: "nothing to install", detail: "Web Audio API" },
-                { icon: "install", label: "Tonecraft Engine", hint: "optional program", detail: "Rust" },
+                { icon: "browser", label: "The browser", hint: "by default", detail: "Web Audio API" },
+                { icon: "install", label: "Tonecraft Engine", hint: "optional", detail: "Rust" },
               ],
             },
             {
               nodes: [
-                { icon: "wave", label: "Sound processing", hint: "the same in both cases", detail: "C++, WebAssembly" },
-              ],
-              branches: [
-                { flow: "apart", icon: "export", label: "Export", hint: "replays a take" },
+                { icon: "wave", label: "The audio engine", hint: "transforms the sound", detail: "C++, WebAssembly" },
               ],
             },
           ],
         },
-      },
-      {
-        title: "With or without an installed program",
-        paragraphs: [
-          "Sound processing runs in the browser. Tonecraft Engine, a small optional program written in Rust, runs the same chain outside the browser, through ASIO on Windows, CoreAudio on macOS or ALSA on Linux, at the lowest latency the interface allows. It is chosen in the audio settings, and the page keeps the same controls.",
-          "The interface waits for confirmation from the engine before showing that the amp has loaded, and reports loading errors. Site deployment runs browser tests that check this loading, the demo without a microphone, tablature playback and recording.",
-        ],
-        mediaAlt: [
-          "Tonecraft’s audio settings: the choice between the browser and the native engine, audio input detection, the input device, the channel and the output device.",
-        ],
       },
     ],
     stackDisclosure: "Show the technologies used",

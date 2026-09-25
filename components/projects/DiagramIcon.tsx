@@ -16,6 +16,16 @@ const SHAPES: Record<Icon, ReactNode> = {
     </g>
   ),
   funnel: <path d="M3 4h18l-7 8v7l-4 2v-9z" />,
+  pedal: (
+    <>
+      <path
+        fillRule="evenodd"
+        d="M6 2h12v20H6z M8 6.5a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0-3 0z M13 6.5a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0-3 0z M9.6 16a2.4 2.4 0 1 0 4.8 0a2.4 2.4 0 1 0-4.8 0z"
+      />
+      <rect x="3" y="9" width="3" height="2.5" />
+      <rect x="18" y="9" width="3" height="2.5" />
+    </>
+  ),
   amp: (
     <>
       <path

@@ -19,7 +19,17 @@ import { DiagramIcon } from "@/components/projects/DiagramIcon";
  * gutter is exactly as far from the station it leaves as from the one it
  * reaches, and a branch sits on its station's axis. A step with alternatives
  * spans one column per alternative, with « ou » in the gutter where an arrow
- * would be.
+ * would be. A column is never wider than 12rem and the row is centred, so
+ * every diagram on the site keeps the same stride between its stations
+ * whatever it counts.
+ *
+ * A branch that works beside the path (`apart`) has no arrow and no word in
+ * its place: it hangs under its station, smaller and on a quieter ground, and
+ * that is what ties it to the station rather than to the path.
+ *
+ * The diagram carries no visible title. The heading and the paragraphs of its
+ * part already introduce it, so `title` names the figure for a screen reader
+ * only.
  *
  * Below that, the path is read top to bottom. A row that wrapped halfway
  * would leave its last line lopsided, so it never wraps.
@@ -38,8 +48,6 @@ const GUTTER =
 export type DiagramLabels = {
   /** Between two alternatives. */
   readonly or: string;
-  /** Over a branch that works beside the path, where an arrow would be. */
-  readonly apart: string;
 };
 
 function Station({
@@ -52,13 +60,15 @@ function Station({
   return (
     <div className="flex w-full min-w-0 items-center gap-4 lg:flex-col lg:gap-5 lg:text-center">
       <span
-        className={`flex shrink-0 items-center justify-center lg:size-16 ${
-          side ? "size-10 bg-ink-2 text-paper-2" : "size-14 bg-ink-3 text-flare"
+        className={`flex shrink-0 items-center justify-center ${
+          side
+            ? "size-10 bg-ink-2 text-paper-2 lg:size-12"
+            : "size-14 bg-ink-3 text-flare lg:size-16"
         }`}
       >
         <DiagramIcon
           icon={node.icon}
-          className={`lg:size-8 ${side ? "size-5" : "size-7"}`}
+          className={side ? "size-5 lg:size-6" : "size-7 lg:size-8"}
         />
       </span>
       <div className="w-full min-w-0 break-words hyphens-auto">
@@ -76,18 +86,18 @@ function Station({
   );
 }
 
-function Branch({ branch, apart }: { branch: DiagramBranch; apart: string }) {
+function Branch({ branch }: { branch: DiagramBranch }) {
   const arrow = BRANCH_ARROWS[branch.flow];
   return (
     <li className="grid gap-2 lg:justify-items-center">
-      <span
-        className={`flex h-8 w-10 items-center justify-center whitespace-nowrap font-mono text-flare lg:w-16 ${
-          arrow ? "text-lede" : "text-micro tracking-meta"
-        }`}
-        aria-hidden={arrow ? "true" : undefined}
-      >
-        {arrow ?? apart}
-      </span>
+      {arrow ? (
+        <span
+          aria-hidden="true"
+          className="flex h-8 w-10 items-center justify-center whitespace-nowrap font-mono text-lede text-flare lg:w-16"
+        >
+          {arrow}
+        </span>
+      ) : null}
       <Station node={branch} side />
     </li>
   );
@@ -104,15 +114,10 @@ export function ProjectDiagram({
   const columns = { "--diagram-columns": total } as CSSProperties;
 
   return (
-    <figure className="mt-2 min-w-0 lg:col-span-2">
-      <figcaption
-        className="mb-10 text-body text-paper-2 lg:text-center"
-        data-choreo="rise"
-      >
-        {diagram.title}
-      </figcaption>
+    <figure className="min-w-0 lg:col-span-2">
+      <figcaption className="sr-only">{diagram.title}</figcaption>
       <ol
-        className="flex flex-col lg:grid lg:grid-cols-[repeat(var(--diagram-columns),minmax(0,1fr))] lg:gap-x-8"
+        className="flex flex-col lg:grid lg:grid-cols-[repeat(var(--diagram-columns),minmax(0,12rem))] lg:justify-center lg:gap-x-8"
         style={columns}
       >
         {diagram.steps.map((step, index) => {
@@ -165,7 +170,7 @@ export function ProjectDiagram({
               {step.branches ? (
                 <ul className="mt-3 grid content-start gap-6 pl-18 lg:col-span-full lg:mt-0 lg:pl-0">
                   {step.branches.map((branch) => (
-                    <Branch key={branch.label} branch={branch} apart={labels.apart} />
+                    <Branch key={branch.label} branch={branch} />
                   ))}
                 </ul>
               ) : (

@@ -98,7 +98,9 @@ Champ par champ :
 - **`highlights`** — les points listés sous la description. **Ils ne peuvent
   que reformuler ce qui est déjà dans `description` ou `stack`.** Pas de
   chiffre, pas de durée, pas de résultat, pas d’adjectif sur l’impact : rien
-  qu’un recruteur ne puisse vérifier en ouvrant le dépôt.
+  qu’un recruteur ne puisse vérifier en ouvrant le dépôt. Mets `[]` quand la
+  description se lit déjà d’un trait : les points la répéteraient juste en
+  dessous. C’est le cas de Tonecraft.
 - **`approach`** — le texte long, quand le projet mérite d’être raconté :
   d’où vient l’idée, ce que tu cherchais à obtenir, ce qui tourne aujourd’hui.
   Une entrée par partie, avec un titre (`title`) et une liste de paragraphes
@@ -172,9 +174,16 @@ ou les issues du dépôt le documentent.
 
 Une partie peut montrer ce qu’elle raconte, comme la landing de Tonecraft :
 ajoute un champ `media` après ses `paragraphs`, avec **une** capture, ou
-**deux** qui s’affichent côte à côte, à la même hauteur. Les captures sont
-centrées sous le texte, sans cadre, et ne dépassent jamais 36rem de haut.
-Sur téléphone, elles passent l’une sous l’autre.
+**deux** qui s’affichent côte à côte, à la même hauteur. Les captures se
+placent sous le texte, sans cadre, et ne dépassent jamais 36rem de haut :
+centrées sur la page, sauf sur celle de Tonecraft, où elles partent du bord du
+texte et prennent la largeur de sa colonne. Sur téléphone, elles passent l’une
+sous l’autre.
+
+Une capture détourée garde un fond transparent. Si du texte clair de
+l’interface y est posé directement, il disparaît en thème jour : exporte-la
+plutôt sur le fond de l’application, comme le lecteur de tablatures de
+Tonecraft, posé sur le gris de son lecteur.
 
 ```ts
         media: [
@@ -198,12 +207,17 @@ Dans `approach`, une partie peut aussi avoir un champ `diagram`, après ses
 
 Le schéma est un trajet d’étapes reliées par des flèches : de gauche à droite
 sur ordinateur, de haut en bas sur téléphone. Il est fait pour être compris
-d’un coup d’œil, sans connaître la musique ni le code. Dans une étape :
+d’un coup d’œil, sans connaître la musique ni le code.
+
+Il s’affiche sans titre : le titre de la partie et ses paragraphes le
+présentent déjà. Son champ `title` le nomme seulement pour les lecteurs
+d’écran. Pour la même raison, les paragraphes disent ce que le schéma ne
+montre pas, le pourquoi, sans en réciter les étapes. Dans une étape :
 
 - **`nodes`** — l’étape elle-même. Mets-en deux pour dire « l’un ou
   l’autre » : ils s’affichent côte à côte (l’un sous l’autre sur téléphone),
   séparés par « ou ».
-- **`icon`** — le pictogramme. Au choix : `guitar`, `funnel`, `amp`,
+- **`icon`** — le pictogramme. Au choix : `guitar`, `funnel`, `pedal`, `amp`,
   `speaker`, `sliders`, `volume`, `headphones`, `record`, `loop`, `note`,
   `metronome`, `screen`, `chip`, `browser`, `install`, `export`, `wave`,
   `storage`, `sheet`.
@@ -213,7 +227,8 @@ d’un coup d’œil, sans connaître la musique ni le code. Dans une étape :
 - **`detail`** — facultatif, la technologie, écrite en petit.
 - **`branches`** — facultatif, ce qui est à côté du trajet, affiché sous
   l’étape. `flow` dit comment : `"out"` part du trajet (↓), `"in"` le rejoint
-  (↑), `"loop"` part et revient (↓↑), `"apart"` travaille à côté, sans flèche.
+  (↑), `"loop"` part et revient (↓↑), `"apart"` travaille à côté, sans flèche :
+  il pend sous son étape, plus petit et sur un fond plus discret.
 
 ```ts
         diagram: {

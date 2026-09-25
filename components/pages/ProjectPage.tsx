@@ -135,7 +135,7 @@ export function ProjectPage({
             ) : null}
           </div>
 
-          <aside className={`grid content-start ${spacious ? "gap-14" : "gap-10"}`}>
+          <aside className={`grid content-start ${spacious ? "gap-10 lg:gap-14" : "gap-10"}`}>
             {context ? (
               <Reveal variant="rise">
                 <Eyebrow>{copy.frameLabel}</Eyebrow>
@@ -146,7 +146,7 @@ export function ProjectPage({
             <Reveal variant="rise">
               {project.stackDisclosure ? (
                 <details>
-                  <summary className="cursor-pointer font-mono text-meta tracking-meta text-paper-2">
+                  <summary className="link list-none font-mono text-meta tracking-meta text-paper-2 [&::-webkit-details-marker]:hidden">
                     {project.stackDisclosure}
                   </summary>
                   <TagList items={project.stack} className="mt-4" />
@@ -223,39 +223,49 @@ export function ProjectPage({
               {copy.approachTitle}
             </Reveal>
 
-            <div className={`grid ${spacious ? "mt-16 gap-20 lg:gap-28" : "mt-12 gap-14 lg:gap-20"}`}>
+            <div className={`grid ${spacious ? "mt-16 gap-24 lg:gap-32" : "mt-12 gap-14 lg:gap-20"}`}>
               {project.approach.map((section, sectionIndex) => (
                 <section
                   key={section.title}
                   aria-labelledby={`demarche-section-${sectionIndex}`}
-                  className={`grid lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] ${spacious ? "gap-10 lg:gap-x-16 lg:gap-y-20" : "gap-6 lg:gap-16"}`}
+                  className={`grid lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] ${spacious ? "gap-12 lg:gap-x-16 lg:gap-y-14" : "gap-6 lg:gap-16"}`}
                 >
-                  <Reveal
-                    variant="rise"
-                    as="h3"
-                    id={`demarche-section-${sectionIndex}`}
-                    className="font-display text-h3 leading-tight tracking-tight text-paper"
-                  >
-                    {section.title}
-                  </Reveal>
-                  <div className={`grid max-w-measure text-body ${spacious ? "gap-8 leading-[1.8]" : "gap-6"}`}>
-                    {section.paragraphs.map((paragraph) => (
-                      <p
-                        key={paragraph}
-                        data-choreo="lines"
-                        className="prose-fr"
-                      >
-                        {paragraph}
-                      </p>
-                    ))}
+                  {/* The heading and its paragraphs sit on the part's two
+                      columns through a subgrid, so that what illustrates them
+                      can take either the text column or both. On a phone the
+                      heading keeps closer to its text than the text keeps to
+                      its illustration. */}
+                  <div className={`grid lg:col-span-2 lg:grid-cols-subgrid ${spacious ? "gap-5 lg:gap-x-16" : "gap-6 lg:gap-16"}`}>
+                    <Reveal
+                      variant="rise"
+                      as="h3"
+                      id={`demarche-section-${sectionIndex}`}
+                      className="font-display text-h3 leading-tight tracking-tight text-paper"
+                    >
+                      {section.title}
+                    </Reveal>
+                    <div className={`grid text-body ${spacious ? "max-w-[36rem] gap-7 leading-[1.8]" : "max-w-measure gap-6"}`}>
+                      {section.paragraphs.map((paragraph) => (
+                        <p
+                          key={paragraph}
+                          data-choreo="lines"
+                          className="prose-fr"
+                        >
+                          {paragraph}
+                        </p>
+                      ))}
+                    </div>
                   </div>
                   {section.media ? (
-                    <ProjectMedia media={section.media} />
+                    <ProjectMedia
+                      media={section.media}
+                      align={spacious ? "text" : "center"}
+                    />
                   ) : null}
                   {section.diagram ? (
                     <ProjectDiagram
                       diagram={section.diagram}
-                      labels={{ or: copy.diagramOr, apart: copy.diagramApart }}
+                      labels={{ or: copy.diagramOr }}
                     />
                   ) : null}
                 </section>
@@ -268,10 +278,10 @@ export function ProjectPage({
       <Stage stagger={0.1}>
         <nav
           aria-label={copy.pagerLabel}
-          className="section-body-tight mx-auto grid max-w-page gap-6 px-6 sm:grid-cols-2 lg:px-10"
+          className={`section-body-tight mx-auto grid max-w-page gap-6 px-6 sm:grid-cols-2 lg:px-10 ${project.approach ? "pt-0" : ""}`}
         >
-          <Reveal variant="rise">
-            {previous ? (
+          {previous ? (
+            <Reveal variant="rise">
               <TransitionLink
                 href={pathFor(locale, "projects", previous.slug)}
                 curtainLabel={previous.title}
@@ -279,11 +289,11 @@ export function ProjectPage({
               >
                 ← {previous.title}
               </TransitionLink>
-            ) : null}
-          </Reveal>
+            </Reveal>
+          ) : null}
 
-          <Reveal variant="rise" className="sm:text-right">
-            {next ? (
+          {next ? (
+            <Reveal variant="rise" className="sm:col-start-2 sm:text-right">
               <TransitionLink
                 href={pathFor(locale, "projects", next.slug)}
                 curtainLabel={next.title}
@@ -291,8 +301,8 @@ export function ProjectPage({
               >
                 {next.title} →
               </TransitionLink>
-            ) : null}
-          </Reveal>
+            </Reveal>
+          ) : null}
         </nav>
       </Stage>
     </>

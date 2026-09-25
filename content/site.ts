@@ -87,7 +87,6 @@ export const copy = {
   sourceLink: "Code source ↗",
   approachTitle: "La démarche",
   diagramOr: "ou",
-  diagramApart: "à côté",
   shotShow: "Voir l’aperçu",
   shotHide: "Masquer l’aperçu",
   statusLive: "en ligne",

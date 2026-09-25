@@ -18,10 +18,8 @@ import tonecraftThumbnail from "@/content/media/tonecraft-guilt-lit.webp";
 import tonecraftBackground from "@/content/media/tonecraft-background.png";
 import tonecraftTabs from "@/content/media/tonecraft-tabs.webp";
 import tonecraftRecorder from "@/content/media/tonecraft-recorder.webp";
-import tonecraftControls from "@/content/media/tonecraft-controls.webp";
 import tonecraftTuner from "@/content/media/tonecraft-tuner.webp";
 import tonecraftMetronome from "@/content/media/tonecraft-metronome.webp";
-import tonecraftEngine from "@/content/media/tonecraft-engine.webp";
 import overkillHome from "@/content/media/overkill-home.webp";
 import overkillBackground from "@/content/media/overkill-background.webp";
 import overkillFeed from "@/content/media/overkill-feed.webp";
@@ -54,7 +52,7 @@ export type ProjectImage = {
 
 /** The pictograms a diagram can use; they are drawn in `DiagramIcon.tsx`. */
 export type DiagramIcon =
-  | "guitar" | "funnel" | "amp" | "speaker" | "sliders" | "volume"
+  | "guitar" | "funnel" | "pedal" | "amp" | "speaker" | "sliders" | "volume"
   | "headphones" | "record" | "loop" | "note" | "metronome"
   | "screen" | "chip" | "browser" | "install" | "export" | "wave"
   | "storage" | "sheet";
@@ -186,24 +184,61 @@ export const projects: readonly Project[] = [
     team: null,
     description:
       "Tonecraft est une application web qui réunit sur une seule page tout ce qu’il faut pour apprendre un morceau à la guitare et s’enregistrer en le jouant. On branche sa guitare à l’ordinateur et on ouvre le site, sans rien installer ni créer de compte\u00A0: on choisit son son, on suit la partition pendant que le reste du groupe joue avec soi, puis on enregistre sa version et on la télécharge. Un accordeur et un métronome complètent l’ensemble.",
-    highlights: [
-      "Tout pour jouer et enregistrer un morceau, sur une seule page",
-      "La partition défile pendant que le groupe joue avec vous",
-      "Rien à installer, aucun compte à créer",
-    ],
+    highlights: [],
     approach: [
       {
-        title: "Tout pour une cover, au même endroit",
+        title: "Le besoin",
         paragraphs: [
-          "Une cover demande plusieurs outils\u00A0: de quoi lire la partie, le morceau sur lequel jouer, un son qui colle, de quoi travailler les passages difficiles et un enregistreur. Sur ordinateur, cela veut souvent dire installer plusieurs logiciels et les faire fonctionner ensemble. Tonecraft les réunit sur un seul écran.",
-          "On branche sa guitare à une interface audio, le boîtier qui la relie à l’ordinateur, puis on choisit son son. Sans guitare, une démonstration permet d’écouter le résultat sans activer le micro. Les réglages restent sur l’ordinateur, et un son se partage par un lien.",
+          "Travailler une reprise à la guitare demande plusieurs outils\u00A0: de quoi lire sa partie, le morceau original pour jouer dessus, le son d’un ampli et de quoi s’enregistrer. Sur ordinateur, cela veut souvent dire installer plusieurs logiciels et réussir à les faire fonctionner ensemble, de quoi décourager avant même d’avoir joué une note.",
         ],
       },
       {
-        title: "Ouvrir la tab, le groupe joue avec vous",
+        title: "Le son d’un vrai ampli",
         paragraphs: [
-          "Les fichiers Guitar Pro, MusicXML et d’autres formats s’ouvrent directement dans la page, sans être envoyés nulle part. La partition défile sous une tête de lecture fixe, le manche s’allume sous les notes, et le groupe joue avec vous\u00A0: ralenti, en boucle sur un passage, ou sans votre partie.",
-          "On peut aussi écrire ses propres tablatures\u00A0: on tape une case, on entend la note. Le lecteur et ses sons d’instruments ne se chargent que lorsqu’on ouvre une partition.",
+          "Sans ampli, une guitare électrique est presque muette. Le son qu’on lui connaît vient du matériel auquel on la branche\u00A0: les pédales d’effet, l’ampli et son haut-parleur. Tonecraft recrée tout cela par logiciel.",
+          "Le cœur du son est une capture\u00A0: la reproduction d’un vrai ampli, apprise par un réseau de neurones, qui réagit au jeu comme l’original. Tonecraft en propose quatre, partagées en ligne par la communauté. La principale, GUILT, est réglée selon mes préférences\u00A0: un son pour les solos, avec un peu d’écho pour lui donner un côté épique. Cette réverbération m’a fait penser à une guitare qui joue dans une église, et j’ai dessiné des vitraux pour habiller son ampli. Sans guitare sous la main, un bouton fait entendre le résultat sur un enregistrement de démonstration.",
+        ],
+        diagram: {
+          title: "Le trajet du son, de la guitare au casque",
+          steps: [
+            {
+              nodes: [
+                { icon: "guitar", label: "La guitare", hint: "le son brut" },
+              ],
+            },
+            {
+              nodes: [
+                { icon: "pedal", label: "Les pédales", hint: "nettoient et renforcent" },
+              ],
+            },
+            {
+              nodes: [
+                { icon: "amp", label: "L’ampli", hint: "donne le caractère" },
+              ],
+            },
+            {
+              nodes: [
+                { icon: "speaker", label: "Le haut-parleur", hint: "adoucit, donne du corps" },
+              ],
+            },
+            {
+              nodes: [
+                { icon: "sliders", label: "Les finitions", hint: "graves, aigus, effet de salle" },
+              ],
+            },
+            {
+              nodes: [
+                { icon: "headphones", label: "Le casque", hint: "ce qu’on entend" },
+              ],
+            },
+          ],
+        },
+      },
+      {
+        title: "Suivre la partition",
+        paragraphs: [
+          "Les guitaristes apprennent souvent un morceau sur une tablature, une partition simplifiée qui indique quelle corde et quelle case jouer. Le fichier s’ouvre dans la page sans être envoyé nulle part\u00A0: la partition défile au rythme de la musique, le passage joué reste au centre de l’écran, et un manche de guitare dessiné en dessous montre où poser les doigts.",
+          "On peut ralentir le morceau, répéter un passage difficile en boucle ou couper la guitare pour jouer sa partie à sa place. Il est aussi possible d’écrire ses propres tablatures, en entendant chaque note au moment où on la saisit. Pour que la page s’ouvre vite, ce lecteur ne se charge qu’à l’ouverture d’une partition.",
         ],
         media: [
           {
@@ -214,10 +249,10 @@ export const projects: readonly Project[] = [
         ],
       },
       {
-        title: "Jouer sur le morceau, garder la prise",
+        title: "Enregistrer sa version",
         paragraphs: [
-          "On glisse le morceau en piste d’accompagnement et on enregistre sa partie dessus. L’enregistreur conserve la DI, le son de la guitare avant les effets\u00A0: on peut changer d’ampli après avoir joué, puis télécharger la prise avec ou sans effets, seule ou mixée avec l’accompagnement.",
-          "Le son du lecteur de tablatures reste séparé et n’entre pas dans cet export. Le looper, lui, enregistre ce qu’on entend, effets compris, et le rejoue en boucle pour travailler un riff.",
+          "On ajoute le morceau original en fond, on joue par-dessus et on s’enregistre. Tonecraft garde le son de la guitare tel qu’il en sort, avant l’ampli\u00A0: on peut donc changer de son après avoir joué. Le fichier téléchargé contient, au choix, le son brut ou celui de l’ampli, seul ou mêlé au morceau.",
+          "Le looper, lui, enregistre un passage tel qu’on l’entend, puis le rejoue en boucle pour s’exercer dessus.",
         ],
         media: [
           {
@@ -228,23 +263,9 @@ export const projects: readonly Project[] = [
         ],
       },
       {
-        title: "Un ampli et sa chaîne",
-        paragraphs: [
-          "L’ampli principal, GUILT, est une capture neuronale d’une vraie tête d’ampli high gain. Quatre captures venues de la communauté l’accompagnent.",
-          "Autour de lui, une chaîne courte dans un ordre fixe\u00A0: gate, boost, pitch et réverbération. Chaque capture a son baffle, et l’on peut charger sa propre réponse impulsionnelle depuis son disque, en WAV, AIFF ou FLAC.",
-        ],
-        media: [
-          {
-            src: tonecraftControls,
-            cutout: true,
-            alt: "La barre de réglages de Tonecraft\u00A0: le gain d’entrée, le gate, les sélecteurs d’ampli GUILT Lead et de baffle, le preset Lead, le doubleur et le volume de sortie.",
-          },
-        ],
-      },
-      {
         title: "S’accorder et garder le tempo",
         paragraphs: [
-          "L’accordeur est chromatique et précis au cent près. Le métronome règle le tempo et la signature, et se cale au tap. Son clic n’entre jamais dans une boucle ni dans une prise.",
+          "L’accordeur indique la note jouée et si elle est trop haute ou trop basse, au centième de demi-ton près. Le métronome bat la mesure au tempo choisi, que l’on peut aussi donner en tapant le rythme sur un bouton. Son clic s’entend au casque, mais ne se retrouve jamais dans une boucle ni dans un enregistrement.",
         ],
         media: [
           {
@@ -260,67 +281,10 @@ export const projects: readonly Project[] = [
         ],
       },
       {
-        title: "Le trajet du son",
-        paragraphs: [
-          "Le son traverse une suite d’étapes qui le transforment progressivement.",
-        ],
-        diagram: {
-          title: "De la guitare au casque",
-          steps: [
-            {
-              nodes: [
-                { icon: "guitar", label: "La guitare", hint: "le son brut entre" },
-              ],
-              branches: [
-                { flow: "out", icon: "record", label: "L’enregistreur", hint: "garde le son brut" },
-              ],
-            },
-            {
-              nodes: [
-                { icon: "funnel", label: "La préparation", hint: "nettoie et dose" },
-              ],
-            },
-            {
-              nodes: [
-                { icon: "amp", label: "L’ampli", hint: "donne le caractère" },
-              ],
-            },
-            {
-              nodes: [
-                { icon: "speaker", label: "Le baffle virtuel", hint: "simule les haut-parleurs" },
-              ],
-            },
-            {
-              nodes: [
-                { icon: "sliders", label: "La couleur", hint: "égalisation, réverbération" },
-              ],
-              branches: [
-                { flow: "loop", icon: "loop", label: "Le looper", hint: "répète ce qu’on joue" },
-              ],
-            },
-            {
-              nodes: [
-                { icon: "volume", label: "Le volume", hint: "réglage et limiteur" },
-              ],
-              branches: [
-                { flow: "in", icon: "note", label: "Le morceau", hint: "pour jouer dessus" },
-              ],
-            },
-            {
-              nodes: [
-                { icon: "headphones", label: "Le casque", hint: "ce qu’on entend" },
-              ],
-              branches: [
-                { flow: "in", icon: "metronome", label: "Le métronome", hint: "donne le tempo" },
-              ],
-            },
-          ],
-        },
-      },
-      {
         title: "Derrière la page",
         paragraphs: [
-          "Ce que l’on voit, ce qui décide et ce qui transforme le son sont séparés.",
+          "Le son est calculé par un moteur audio qui tourne directement dans le navigateur. Pour ceux qui veulent le moins de décalage possible entre la note jouée et la note entendue, un petit programme à installer en option, Tonecraft Engine, fait tourner exactement le même moteur hors du navigateur, sans que la page change.",
+          "L’interface n’annonce l’ampli prêt qu’une fois que le moteur l’a confirmé, et signale l’erreur sinon. Avant chaque mise en ligne, des tests automatiques ouvrent le site dans un vrai navigateur et vérifient ce chargement, la démonstration sans micro, la lecture des partitions et l’enregistrement.",
         ],
         diagram: {
           title: "Les grandes parties de Tonecraft",
@@ -330,47 +294,30 @@ export const projects: readonly Project[] = [
                 { icon: "screen", label: "La page", hint: "ce qu’on voit", detail: "Astro, Svelte" },
               ],
               branches: [
-                { flow: "apart", icon: "sheet", label: "Les tablatures", hint: "leur propre son", detail: "alphaTab" },
+                { flow: "apart", icon: "sheet", label: "Les partitions", hint: "un lecteur à part", detail: "alphaTab" },
               ],
             },
             {
               nodes: [
-                { icon: "chip", label: "Le chef d’orchestre", hint: "décide des réglages", detail: "TypeScript" },
+                { icon: "chip", label: "Le chef d’orchestre", hint: "coordonne l’ensemble", detail: "TypeScript" },
               ],
               branches: [
-                { flow: "apart", icon: "storage", label: "La mémoire", hint: "garde la session", detail: "IndexedDB" },
+                { flow: "apart", icon: "storage", label: "La mémoire", hint: "garde les réglages", detail: "IndexedDB" },
               ],
             },
             {
               nodes: [
-                { icon: "browser", label: "Le navigateur", hint: "rien à installer", detail: "Web Audio API" },
-                { icon: "install", label: "Tonecraft Engine", hint: "programme en option", detail: "Rust" },
+                { icon: "browser", label: "Le navigateur", hint: "par défaut", detail: "Web Audio API" },
+                { icon: "install", label: "Tonecraft Engine", hint: "en option", detail: "Rust" },
               ],
             },
             {
               nodes: [
-                { icon: "wave", label: "Le traitement du son", hint: "le même dans les deux cas", detail: "C++, WebAssembly" },
-              ],
-              branches: [
-                { flow: "apart", icon: "export", label: "L’export", hint: "rejoue une prise" },
+                { icon: "wave", label: "Le moteur audio", hint: "transforme le son", detail: "C++, WebAssembly" },
               ],
             },
           ],
         },
-      },
-      {
-        title: "Avec ou sans programme installé",
-        paragraphs: [
-          "Le traitement du son fonctionne dans le navigateur. Tonecraft Engine, un petit programme optionnel écrit en Rust, fait tourner la même chaîne hors du navigateur, par l’ASIO sous Windows, CoreAudio sous macOS ou ALSA sous Linux, à la latence la plus basse que permet l’interface. Il se choisit dans les réglages audio, et la page garde les mêmes commandes.",
-          "L’interface attend la confirmation du moteur avant d’indiquer que l’ampli est chargé et signale les erreurs de chargement. Le déploiement du site passe par des tests en navigateur qui vérifient ce chargement, la démonstration sans micro, la lecture des tablatures et l’enregistrement.",
-        ],
-        media: [
-          {
-            src: tonecraftEngine,
-            cutout: true,
-            alt: "Les réglages audio de Tonecraft\u00A0: le choix entre le navigateur et le moteur natif, la détection des entrées audio, le périphérique d’entrée, le canal et le périphérique de sortie.",
-          },
-        ],
       },
     ],
     stackDisclosure: "Voir les technologies utilisées",
