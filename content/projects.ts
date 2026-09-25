@@ -189,14 +189,14 @@ export const projects: readonly Project[] = [
       {
         title: "Le besoin",
         paragraphs: [
-          "Travailler une reprise à la guitare demande plusieurs outils\u00A0: de quoi lire sa partie, le morceau original pour jouer dessus, le son d’un ampli et de quoi s’enregistrer. Sur ordinateur, cela veut souvent dire installer plusieurs logiciels et réussir à les faire fonctionner ensemble, de quoi décourager avant même d’avoir joué une note.",
+          "Travailler une reprise à la guitare demande plusieurs outils\u00A0: de quoi lire sa partie, le morceau original pour jouer dessus, le son d’un ampli et de quoi s’enregistrer. Sur ordinateur, cela veut souvent dire installer plusieurs logiciels, payer leurs licences, réussir à les faire fonctionner ensemble et jongler entre leurs fenêtres ouvertes en même temps, de quoi décourager avant même d’avoir joué une note.",
         ],
       },
       {
         title: "Le son d’un vrai ampli",
         paragraphs: [
           "Sans ampli, une guitare électrique est presque muette. Le son qu’on lui connaît vient du matériel auquel on la branche\u00A0: les pédales d’effet, l’ampli et son haut-parleur. Tonecraft recrée tout cela par logiciel.",
-          "Le cœur du son est une capture\u00A0: la reproduction d’un vrai ampli, apprise par un réseau de neurones, qui réagit au jeu comme l’original. Tonecraft en propose quatre, partagées en ligne par la communauté. La principale, GUILT, est réglée selon mes préférences\u00A0: un son pour les solos, avec un peu d’écho pour lui donner un côté épique. Cette réverbération m’a fait penser à une guitare qui joue dans une église, et j’ai dessiné des vitraux pour habiller son ampli. Sans guitare sous la main, un bouton fait entendre le résultat sur un enregistrement de démonstration.",
+          "Le cœur du son est une capture\u00A0: la reproduction d’un vrai ampli, apprise par un réseau de neurones, qui réagit au jeu comme l’original. Tonecraft en propose quatre, partagées en ligne par la communauté. La principale, GUILT, est réglée selon mes préférences\u00A0: un son pour les solos, avec un peu d’écho pour lui donner un côté épique. Cette réverbération m’a fait penser à une guitare qui joue dans une église, et j’ai dessiné des vitraux pour habiller son ampli. Sans guitare, on peut tout de même l’essayer grâce à une démo que j’ai enregistrée à l’avance.",
         ],
         diagram: {
           title: "Le trajet du son, de la guitare au casque",

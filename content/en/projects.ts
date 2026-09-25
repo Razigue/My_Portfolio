@@ -26,14 +26,14 @@ export const projectTexts: Readonly<Record<string, ProjectTranslation>> = {
       {
         title: "The need",
         paragraphs: [
-          "Working on a cover on guitar takes several tools: something to read your part, the original song to play over, the sound of an amp and a way to record yourself. On a computer, that often means installing several programs and getting them to work together, which is enough to put you off before you have played a single note.",
+          "Working on a cover on guitar takes several tools: something to read your part, the original song to play over, the sound of an amp and a way to record yourself. On a computer, that often means installing several programs, paying for their licences, getting them to work together and juggling all their windows open at once, which is enough to put you off before you have played a single note.",
         ],
       },
       {
         title: "The sound of a real amp",
         paragraphs: [
           "Without an amp, an electric guitar is almost silent. The sound people know comes from the gear it is plugged into: the effect pedals, the amp and its speaker. Tonecraft recreates all of it in software.",
-          "The heart of the sound is a capture: a reproduction of a real amp, learned by a neural network, that responds to your playing the way the original does. Tonecraft offers four, shared online by the community. The main one, GUILT, is set up to my own taste: a sound for solos, with a touch of echo to give it an epic feel. That reverb made me think of a guitar played in a church, and I designed stained-glass windows to dress its amp. Without a guitar to hand, one button lets you hear the result on a demo recording.",
+          "The heart of the sound is a capture: a reproduction of a real amp, learned by a neural network, that responds to your playing the way the original does. Tonecraft offers four, shared online by the community. The main one, GUILT, is set up to my own taste: a sound for solos, with a touch of echo to give it an epic feel. That reverb made me think of a guitar played in a church, and I designed stained-glass windows to dress its amp. Without a guitar, you can still try it out with a demo I recorded in advance.",
         ],
         diagram: {
           title: "The path of the sound, from the guitar to the headphones",
