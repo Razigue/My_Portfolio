@@ -30,7 +30,7 @@ export function ErrorPage({
     <div className="mx-auto flex min-h-dvh max-w-page flex-col justify-center px-6 page-head lg:px-10">
       <p className="eyebrow">{copy.errorEyebrow}</p>
 
-      <h1 className="mt-block font-display text-h1 leading-display tracking-display text-paper">
+      <h1 className="mt-block font-display text-h2 leading-display tracking-display text-paper">
         {copy.errorTitle}
       </h1>
 

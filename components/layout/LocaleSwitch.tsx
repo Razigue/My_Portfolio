@@ -13,7 +13,7 @@ import { LANGUAGE_TAGS, otherLocale, translatePath, type Locale } from "@/lib/i1
  * The parameter tells `proxy.ts` that the visitor chose, so the choice is kept
  * for the next visits instead of being overruled by the browser again.
  *
- * A plain anchor rather than a TransitionLink: each language has its own root
+ * A plain anchor rather than a Next <Link>: each language has its own root
  * layout, and the browser loads the other one in full whatever the link does.
  */
 export function LocaleSwitch({

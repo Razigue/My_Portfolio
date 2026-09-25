@@ -79,7 +79,7 @@ function Station({
         </h4>
         <p className="mt-1.5 text-meta text-paper-2">{node.hint}</p>
         {node.detail ? (
-          <p className="mt-1 font-mono text-micro tracking-meta text-paper-3">
+          <p className="mt-1 font-mono text-meta tracking-meta text-paper-3">
             {node.detail}
           </p>
         ) : null}

@@ -34,7 +34,7 @@ export default function GlobalNotFound() {
         <main className="mx-auto flex min-h-dvh max-w-page flex-col justify-center px-6 page-head lg:px-10">
           <p className="eyebrow">{frenchCopy.notFoundEyebrow}</p>
 
-          <h1 className="mt-block font-display text-h1 leading-display tracking-display text-paper">
+          <h1 className="mt-block font-display text-h2 leading-display tracking-display text-paper">
             {frenchCopy.notFoundTitle}
           </h1>
 

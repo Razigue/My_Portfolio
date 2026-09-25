@@ -86,10 +86,10 @@ export function AboutPage({ locale }: { locale: Locale }) {
                 className="grid gap-3 px-5 py-9 lg:grid-cols-[14rem_minmax(0,1fr)] lg:gap-x-gutter"
               >
                 <div>
-                  <p className="tnum font-mono text-micro tracking-meta text-paper-3">
+                  <p className="tnum text-meta text-paper-2">
                     {experience.period}
                   </p>
-                  <p className="mt-2 font-mono text-micro tracking-meta text-paper-3">
+                  <p className="mt-1 text-meta text-paper-3">
                     {experience.context}
                   </p>
                 </div>
@@ -128,7 +128,7 @@ export function AboutPage({ locale }: { locale: Locale }) {
               <p className="mt-2 text-body text-paper-2">
                 {formation.credential}
               </p>
-              <ul className="mt-label grid gap-1 font-mono text-micro tracking-meta text-paper-3">
+              <ul className="mt-label grid gap-1 text-meta text-paper-3">
                 <li>{formation.school}</li>
                 <li>{formation.place}</li>
                 <li className="tnum">{formation.period}</li>
@@ -149,9 +149,7 @@ export function AboutPage({ locale }: { locale: Locale }) {
                     className="flex items-baseline justify-between gap-4 px-4 py-3"
                   >
                     <dt className="text-body text-paper">{langue.name}</dt>
-                    <dd className="font-mono text-micro tracking-meta text-paper-3">
-                      {langue.level}
-                    </dd>
+                    <dd className="text-meta text-paper-3">{langue.level}</dd>
                   </div>
                 ))}
               </dl>

@@ -21,8 +21,6 @@ import { fill, type Locale, type Localized } from "@/lib/i18n";
 export type Copy = Localized<typeof frenchSite.copy>;
 export type FormCopy = Localized<typeof frenchSite.form>;
 
-type SectionKey = keyof typeof frenchSite.sections;
-
 export type Content = {
   readonly locale: Locale;
   readonly site: Omit<typeof frenchSite.site, "role" | "location"> & {
@@ -33,9 +31,7 @@ export type Content = {
   readonly hero: Localized<typeof frenchSite.hero>;
   readonly presentation: string;
   readonly nav: Localized<typeof frenchSite.nav>;
-  readonly sections: Readonly<
-    Record<SectionKey, { readonly ordinal: string; readonly label: string }>
-  >;
+  readonly sections: Localized<typeof frenchSite.sections>;
   readonly copy: Copy;
   readonly form: FormCopy;
   readonly parcours: readonly string[];
@@ -107,13 +103,6 @@ function inEnglish(project: Project): Project {
   };
 }
 
-function relabel(key: SectionKey) {
-  return {
-    ordinal: frenchSite.sections[key].ordinal,
-    label: englishSite.sections[key],
-  };
-}
-
 const english: Content = {
   locale: "en",
   site: { ...frenchSite.site, ...englishSite.site },
@@ -121,13 +110,7 @@ const english: Content = {
   hero: englishSite.hero,
   presentation: englishSite.presentation,
   nav: englishSite.nav,
-  sections: {
-    selection: relabel("selection"),
-    methode: relabel("methode"),
-    competences: relabel("competences"),
-    parcours: relabel("parcours"),
-    contact: relabel("contact"),
-  },
+  sections: englishSite.sections,
   copy: englishSite.copy,
   form: englishSite.form,
   parcours: englishAbout.parcours,
@@ -154,6 +137,14 @@ export function getContent(locale: Locale): Content {
 /** « Trois », “Three”: a count written out, to open a sentence. */
 export function countWord(locale: Locale, n: number): string {
   return capitalise(locale === "en" ? englishCardinal(n) : frenchCardinal(n));
+}
+
+/**
+ * The first sentence of a text: what a project is, before what he did on it.
+ * The index sets it under each title, so the description is never retyped.
+ */
+export function leadSentence(text: string): string {
+  return /^.+?[.!?](?=\s|$)/.exec(text)?.[0] ?? text;
 }
 
 export function findProject(content: Content, slug: string): Project | undefined {

@@ -1,7 +1,4 @@
-import { Stage } from "@/components/motion/Stage";
-import { TransitionLink } from "@/components/motion/TransitionLink";
-import { Reveal } from "@/components/ui/Reveal";
-import { SectionLabel } from "@/components/ui/primitives";
+import Link from "next/link";
 import { getContent } from "@/lib/content";
 import { pathFor, type Locale } from "@/lib/i18n";
 
@@ -11,47 +8,22 @@ import { pathFor, type Locale } from "@/lib/i18n";
  * `checkMethod` refuses a principle citing a project that is not published.
  */
 export function Method({ locale }: { locale: Locale }) {
-  const { copy, principes, projects, sections } = getContent(locale);
+  const { principes, projects, sections } = getContent(locale);
 
   return (
-    <Stage
-      as="section"
-      aria-labelledby="methode-title"
-      stagger={0.08}
-      start="top 88%"
-    >
+    <section aria-labelledby="methode-title">
       <div className="section-body mx-auto max-w-page px-6 lg:px-10">
-        <Reveal
-          variant="fade"
-          as={SectionLabel}
-          ordinal={sections.methode.ordinal}
-          order={0}
-        >
-          {sections.methode.label}
-        </Reveal>
-
-        <Reveal
-          variant="words"
-          as="h2"
-          order={1}
+        <h2
           id="methode-title"
-          className="mt-title max-w-measure font-display text-h2 leading-tight tracking-display text-paper"
+          className="font-display text-h3 leading-tight tracking-tight text-paper"
         >
-          {copy.methodTitle}
-        </Reveal>
+          {sections.methode}
+        </h2>
 
-        <ol className="mt-block grid gap-x-gutter gap-y-block lg:grid-cols-2">
-          {principes.map((principe, index) => (
-            <li
-              key={principe.title}
-              data-choreo="rise"
-              className="grid content-start gap-4"
-            >
-              <span className="tnum font-mono text-micro tracking-meta text-flare">
-                {String(index + 1).padStart(2, "0")}
-              </span>
-
-              <h3 className="font-display text-h3 leading-tight tracking-tight text-paper">
+        <ul className="mt-block grid gap-x-gutter gap-y-block lg:grid-cols-2">
+          {principes.map((principe) => (
+            <li key={principe.title} className="grid content-start gap-label">
+              <h3 className="font-display text-lede leading-tight tracking-tight text-paper">
                 {principe.title}
               </h3>
 
@@ -59,25 +31,24 @@ export function Method({ locale }: { locale: Locale }) {
                 {principe.body}
               </p>
 
-              <ul className="mt-2 flex flex-wrap gap-x-8 gap-y-3">
+              <ul className="flex flex-wrap gap-x-8 gap-y-3">
                 {projects
                   .filter((project) => principe.projects.includes(project.slug))
                   .map((project) => (
                     <li key={project.slug}>
-                      <TransitionLink
+                      <Link
                         href={pathFor(locale, "projects", project.slug)}
-                        curtainLabel={project.title}
                         className="link font-mono text-meta tracking-meta text-paper-3"
                       >
                         {project.title} →
-                      </TransitionLink>
+                      </Link>
                     </li>
                   ))}
               </ul>
             </li>
           ))}
-        </ol>
+        </ul>
       </div>
-    </Stage>
+    </section>
   );
 }

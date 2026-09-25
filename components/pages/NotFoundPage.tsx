@@ -1,5 +1,5 @@
+import Link from "next/link";
 import { Stage } from "@/components/motion/Stage";
-import { TransitionLink } from "@/components/motion/TransitionLink";
 import { Reveal } from "@/components/ui/Reveal";
 import { BtnLabel, Eyebrow } from "@/components/ui/primitives";
 import { getContent } from "@/lib/content";
@@ -7,7 +7,7 @@ import { pathFor, type Locale } from "@/lib/i18n";
 
 /** A 404 inside one language's layout, for a `notFound()` raised by a page. */
 export function NotFoundPage({ locale }: { locale: Locale }) {
-  const { copy, nav } = getContent(locale);
+  const { copy } = getContent(locale);
 
   return (
     <Stage immediate delay={0.1} stagger={0.11}>
@@ -20,7 +20,7 @@ export function NotFoundPage({ locale }: { locale: Locale }) {
           variant="chars"
           as="h1"
           order={1}
-          className="mt-block block font-display text-h1 leading-display tracking-display text-paper"
+          className="mt-block block font-display text-h2 leading-display tracking-display text-paper"
         >
           {copy.notFoundTitle}
         </Reveal>
@@ -35,13 +35,9 @@ export function NotFoundPage({ locale }: { locale: Locale }) {
         </Reveal>
 
         <Reveal variant="rise" order={3} className="mt-block">
-          <TransitionLink
-            href={pathFor(locale, "home")}
-            curtainLabel={nav.home}
-            className="btn"
-          >
+          <Link href={pathFor(locale, "home")} className="btn">
             <BtnLabel>{copy.notFoundLink}</BtnLabel>
-          </TransitionLink>
+          </Link>
         </Reveal>
       </div>
     </Stage>

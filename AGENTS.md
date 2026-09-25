@@ -88,16 +88,17 @@ you are the only check.
 2. **Nothing is set in capitals.** No `uppercase`, no `capitalize`, no small
    caps, anywhere. Acronyms stay acronyms — HTML, PHP, JWT, RNCP. The `RB`
    monogram is the site's mark.
-3. **A whole screen sits in a window; a cutout sits bare.** `.shot` is the
-   only container a project capture gets: overflow, rounded corners, a ground
-   while it loads. A capture of a whole screen adds `.shot-window`, a title bar
-   with three dots in the manner of the Tonecraft landing page, told apart by
-   its ground alone — no border, no rule, no shadow. An image marked
-   `cutout: true` in `content/projects.ts` has no screen around it and gets no
-   window. No capture reacts to hover: Razigue asked for that. It deliberately does not carry the portrait's grayscale filter —
+3. **A capture is shown as it is.** `.shot` is the only container a project
+   capture gets: overflow, rounded corners, a ground while it loads. No window,
+   no title bar, no border, no shadow: the title bar with three dots that used
+   to sit above each screen was removed at Razigue's request as a mockup
+   trope, so do not bring it back. An image marked `cutout: true` in
+   `content/projects.ts` has no ground behind it. No capture reacts to hover:
+   Razigue asked for that. It deliberately does not carry the portrait's grayscale filter —
    that exists to keep one photograph from pulling the composition off neutral,
-   and a screenshot has to report the interface's own colours. A home panel
-   shows no capture at all: Razigue removed the « Voir l’aperçu » disclosure.
+   and a screenshot has to report the interface's own colours. On the home
+   page each project shows its interface (`image`, or `thumbnail` when it has
+   none) beside its summary; the artwork and the scenery open its own page.
 4. **One accent, and the two themes do not share it.** Pale gold at night, dark
    orange by day. The daylight value is capped by contrast arithmetic against
    `--ink-3`; see the README before touching it.
@@ -113,7 +114,8 @@ you are the only check.
    still held to the same rule: a recruiter opening the repo has to find what
    the page claims.
 7. **Nothing that can be counted is typed.** The project count, the years the
-   index spans, the per-technology counters, the row numbers — all derived. If
+   index spans, the projects named beside each technology, the sentence the
+   index quotes from each description — all derived. If
    you find yourself typing a number that describes the data, you are about to
    make it wrong at the next edit.
 8. **`null` renders nothing.** Never a disabled link, a `mailto:#`, a greyed
@@ -140,6 +142,11 @@ Leave these alone unless Razigue asks, and say why if you think he should.
   out of the markup deliberately, to avoid scraping.
 - **`prefers-reduced-motion` is not honoured.** Removed on purpose. Do not
   reintroduce it as a courtesy.
+- **There is no loader, no route curtain, no smooth scrolling, no film grain,
+  no footer watermark and no numbered sections.** Razigue had them removed so
+  the site reads as information rather than a showcase. Only a technology
+  list still animates, as it arrives on screen. Do not bring the others back
+  as polish.
 - **The native scrollbar is hidden**, and the gold mark in the right margin
   replaces it. It is a display, not a control: nothing to grab, nothing to drag.
 - **Six repository links point at personal mirrors**, not at the
@@ -160,7 +167,7 @@ Leave these alone unless Razigue asks, and say why if you think he should.
   `app/(fr)/layout.tsx` and `app/en/layout.tsx`, so that `<html lang>` names
   the language on screen; both render `components/layout/RootDocument.tsx`.
   Moving between languages is a full page load, which is why the language
-  link in the footer is a plain anchor and not a `TransitionLink`. With no single layout, a URL that
+  link in the footer is a plain anchor and not a Next `<Link>`. With no single layout, a URL that
   matches nothing is answered by `app/global-not-found.tsx`, in both
   languages, behind `experimental.globalNotFound` in `next.config.ts`.
 - **The language is chosen by `proxy.ts`, not by the header.** A visitor is

@@ -109,17 +109,17 @@ export const principes: readonly {
   readonly projects: readonly string[];
 }[] = [
   {
-    title: "Valider à l’entrée, jamais après",
+    title: "Valider les données entrantes",
     body: "Sur Overkill, un DTO définit les contraintes des offres reçues du collecteur et Symfony les valide avant l’écriture en base. Sur Corelab, Zod valide les données de connexion avant la recherche de l’utilisateur.",
     projects: ["overkill", "corelab"],
   },
   {
-    title: "Contrôler qui a le droit",
+    title: "Contrôler les accès",
     body: "Sur Corelab, un middleware vérifie le jeton JWT et les routes concernées contrôlent le rôle de l’utilisateur. Les mots de passe générés à l’import des utilisateurs sont hachés avec bcrypt.",
     projects: ["corelab"],
   },
   {
-    title: "Dire ce qui échoue en silence",
+    title: "Signaler les échecs de chargement",
     body: "Quand une capture d’ampli ne se charge pas dans Tonecraft, entendre du son ne prouve pas qu’elle fonctionne. L’interface attend une confirmation du moteur et signale l’échec. Les tests en navigateur vérifient ce chargement avant la publication.",
     projects: ["tonecraft"],
   },

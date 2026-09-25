@@ -1,5 +1,3 @@
-import type { ElementType } from "react";
-
 export function Eyebrow({
   children,
   className,
@@ -12,34 +10,6 @@ export function Eyebrow({
     <p className={`eyebrow ${className ?? ""}`} {...rest}>
       {children}
     </p>
-  );
-}
-
-/**
- * A chapter mark: the ordinal set large in gold, the name in mono directly
- * under it, and nothing between the two. Stacked rather than set on one line,
- * so that position does the separating and every section gets an opening heavy
- * enough to register while scrolling past.
- */
-export function SectionLabel({
-  ordinal,
-  children,
-  as: Tag = "p",
-  className,
-  ...rest
-}: {
-  ordinal?: string;
-  children: React.ReactNode;
-  as?: ElementType;
-  className?: string;
-} & Record<string, unknown>) {
-  return (
-    <Tag className={`chapter ${className ?? ""}`} {...rest}>
-      {ordinal ? (
-        <span className="chapter-ordinal tnum">{ordinal}</span>
-      ) : null}
-      <span className="chapter-name">{children}</span>
-    </Tag>
   );
 }
 
@@ -70,7 +40,7 @@ export function StatusDot({
         className={`dot ${status === "live" ? "dot-live" : "dot-archived"}`}
         aria-hidden="true"
       />
-      <span className="font-mono text-micro tracking-meta text-paper-3">
+      <span className="font-mono text-meta tracking-meta text-paper-3">
         {status === "live" ? labels.statusLive : labels.statusArchived}
       </span>
     </span>
@@ -79,7 +49,7 @@ export function StatusDot({
 
 export function Tag({ children }: { children: React.ReactNode }) {
   return (
-    <li className="bg-ink-3 px-3 py-1.5 font-mono text-micro tracking-meta text-paper-2 transition-colors duration-300 hover:bg-flare hover:text-ink">
+    <li className="bg-ink-3 px-3 py-1.5 font-mono text-meta tracking-meta text-paper-2 transition-colors duration-300 hover:bg-flare hover:text-ink">
       {children}
     </li>
   );

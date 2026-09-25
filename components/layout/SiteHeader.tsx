@@ -3,9 +3,8 @@
 import { useGSAP } from "@gsap/react";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef } from "react";
-import { TransitionLink } from "@/components/motion/TransitionLink";
+import Link from "next/link";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
-import { getLenis } from "@/components/motion/SmoothScroll";
 import { gsap, quickSetter, registerGsap, ScrollTrigger } from "@/lib/gsap";
 import { pathFor, type Locale } from "@/lib/i18n";
 
@@ -61,9 +60,7 @@ export function SiteHeader({
   const travel = useRef(0);
 
   function backToTop() {
-    const lenis = getLenis();
-    if (lenis) lenis.scrollTo(0, { duration: 1.2 });
-    else window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   const measure = useCallback(() => {
@@ -213,7 +210,7 @@ export function SiteHeader({
     const active = isActive(pathname, item.href, home);
     return (
       <li key={item.href}>
-        <TransitionLink
+        <Link
           href={item.href}
           aria-current={active ? "page" : undefined}
           className={`navlink ${active ? "is-active" : ""}`}
@@ -240,7 +237,7 @@ export function SiteHeader({
             ))}
           </span>
           <span className="sr-only">{item.title}</span>
-        </TransitionLink>
+        </Link>
       </li>
     );
   });
@@ -256,10 +253,10 @@ export function SiteHeader({
         <div className="site-header-bar mx-auto flex max-w-page items-center justify-between gap-6 px-6 lg:px-10">
           {/* The accessible name starts with the two letters actually on
               screen, so that a spoken « RB » still matches what is visible. */}
-          <TransitionLink href={home} className="wordmark">
+          <Link href={home} className="wordmark">
             <span aria-hidden="true">RB</span>
             <span className="sr-only">RB, {name}</span>
-          </TransitionLink>
+          </Link>
 
           <div className="flex items-center gap-6 lg:gap-9">
             <nav aria-label={labels.navLabel} className="hidden lg:block">

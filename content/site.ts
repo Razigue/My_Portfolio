@@ -48,11 +48,11 @@ export const availability = {
 export const hero = {
   role: site.role,
   tagline:
-    "En formation à la Web@cadémie by Epitech, je conçois des solutions et leur donne forme en applications web. Je recherche une alternance en développement full-stack.",
+    "Développeur web full-stack en formation à la Web@cadémie by Epitech, je cherche une alternance de 12 mois à partir de septembre 2026.",
 } as const;
 
 export const presentation =
-  "Développeur web full-stack formé sur le terrain : c’est en créant mon site e-commerce en auto-entrepreneur que j’ai découvert le code. Aujourd’hui à la Web@cadémie by Epitech Paris (2025 à 2027), je conçois des applications avec PHP et Laravel, Java et Spring Boot, React, et je recherche une alternance de 12 mois dès septembre 2026, à raison de 6 semaines en entreprise pour 2 semaines en formation.";
+  "J’ai découvert le code en créant le site e-commerce de mon auto-entreprise. Je suis aujourd’hui en formation à la Web@cadémie by Epitech Paris (2025 à 2027), où je développe des applications avec PHP et Laravel, Java et Spring Boot, et React.";
 
 /** Les entrées du menu. Les adresses se calculent dans `lib/i18n.ts`. */
 export const nav = {
@@ -62,24 +62,19 @@ export const nav = {
   contact: "Contact",
 } as const;
 
-/**
- * Les chapitres de la page d’accueil. L’ordinal et le libellé sont deux champs
- * distincts plutôt qu’une seule chaîne ponctuée : la mise en page les compose
- * elle-même en les empilant, sans rien entre les deux, et chacun peut être
- * affiché sans l’autre.
- */
+/** Les titres des sections de la page d’accueil, dans l’ordre où elles viennent. */
 export const sections = {
-  selection: { ordinal: "01", label: "Sélection" },
-  methode: { ordinal: "02", label: "Méthode" },
-  competences: { ordinal: "03", label: "Compétences" },
-  parcours: { ordinal: "04", label: "Parcours" },
-  contact: { ordinal: "05", label: "Contact" },
+  projets: "Projets",
+  methode: "Méthode",
+  competences: "Compétences",
+  parcours: "Parcours",
+  contact: "Contact",
 } as const;
 
 export const copy = {
   projectsHeading: "Index des projets",
   contactHeading: "Prendre contact",
-  contactSub: "Une opportunité\u00A0? N’hésitez pas à me contacter.",
+  contactSub: "Pour une offre d’alternance ou une question sur un projet, écrivez-moi.",
   cvButton: "Télécharger le CV (PDF)",
   heroContact: "Me contacter",
   copyIdle: "copier",
@@ -112,27 +107,15 @@ export const copy = {
   languageName: "Français",
   newTab: "nouvel onglet",
   portraitAlt: `Portrait de ${site.name}`,
-  scrollCue: "Défiler",
-  footerWrite: "Écrivez-moi",
   cvShort: "CV (PDF)",
   writeMessage: "Écrire un message",
   copyAction: "Copier l’adresse email",
   copyConfirm: "Adresse copiée",
 
-  // Accueil. `{count}` est remplacé par le nombre écrit en toutes lettres.
+  // Accueil
   availabilityTitle: "Disponibilité",
-  selectionOne: "Un projet récent",
-  selectionMany: "{count} projets récents",
-  selectionSub: "Les plus récents et les plus substantiels.",
   selectionIndex: "Voir l’index des projets",
-  panelOf: "sur",
   viewProject: "Voir le projet",
-  methodTitle: "Les principes que j’applique",
-  skillsTitle: "Ce que j’utilise, et où le voir",
-  skillsTechnologies: "technologies",
-  skillsDomains: "domaines",
-  skillsProjectOne: "projet publié",
-  skillsProjectMany: "projets publiés",
   parcoursLink: "Parcours complet",
   formationTitle: "Formation",
   experiencesTitle: "Expériences",
@@ -166,7 +149,7 @@ export const copy = {
   languagesTitle: "Langues",
   documentTitle: "Document",
   strengthsTitle: "Atouts",
-  interestsTitle: "Au-delà du code",
+  interestsTitle: "Centres d’intérêt",
   contactEyebrow: "Contact",
   emailLabel: "Email",
   elsewhereLabel: "Ailleurs",

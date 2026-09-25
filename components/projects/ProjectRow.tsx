@@ -1,7 +1,7 @@
-import { TransitionLink } from "@/components/motion/TransitionLink";
+import Link from "next/link";
 import { ExternalLink, StatusDot } from "@/components/ui/primitives";
 import type { Project } from "@/content/projects";
-import type { Copy } from "@/lib/content";
+import { leadSentence, type Copy } from "@/lib/content";
 import { fill, pathFor, type Locale } from "@/lib/i18n";
 
 /**
@@ -15,56 +15,46 @@ import { fill, pathFor, type Locale } from "@/lib/i18n";
  */
 export function ProjectRow({
   project,
-  ordinal,
   locale,
   copy,
 }: {
   project: Project;
-  ordinal: string;
   locale: Locale;
   copy: Copy;
 }) {
   return (
-    <li data-choreo="rise" className="index-row">
-      <span className="index-ordinal tnum font-mono text-micro tracking-meta text-paper-3">
-        {ordinal}
-      </span>
-
+    <li className="index-row">
       <div>
         <h3 className="index-title font-display text-h3 leading-tight tracking-tight text-paper">
-          <TransitionLink
+          <Link
             href={pathFor(locale, "projects", project.slug)}
-            curtainLabel={project.title}
             className="stretch-link"
           >
             {project.title}
-          </TransitionLink>
+          </Link>
           <span className="index-arrow ml-3 align-middle text-body" aria-hidden="true">
             →
           </span>
         </h3>
         {project.subtitle ? (
-          <p className="index-sub mt-1 font-display text-body italic text-paper-3">
-            {project.subtitle}
-          </p>
+          <p className="mt-1 text-body text-paper-3">{project.subtitle}</p>
         ) : null}
+        <p className="mt-label max-w-measure text-body text-paper-2">
+          {leadSentence(project.description)}
+        </p>
         {/* The group heading already names the kind; only the team is new. */}
         {project.team ? (
-          <p className="mt-2 font-mono text-micro tracking-meta text-paper-3">
-            {project.team}
-          </p>
+          <p className="mt-2 text-meta text-paper-3">{project.team}</p>
         ) : null}
       </div>
 
-      <ul className="flex flex-wrap gap-x-4 gap-y-1 font-mono text-micro tracking-meta text-paper-2">
+      <ul className="flex flex-wrap gap-x-4 gap-y-1 font-mono text-meta tracking-meta text-paper-2">
         {project.stack.map((technology) => (
           <li key={technology}>{technology}</li>
         ))}
       </ul>
 
-      <span className="tnum font-mono text-micro tracking-meta text-paper-3">
-        {project.year}
-      </span>
+      <span className="tnum text-meta text-paper-3">{project.year}</span>
 
       <div className="relative z-10 flex flex-wrap items-center gap-x-6 gap-y-3">
         <StatusDot status={project.status} labels={copy} />
@@ -74,7 +64,7 @@ export function ProjectRow({
             href={project.repo}
             label={fill(copy.repoLabel, { title: project.title })}
             newTab={copy.newTab}
-            className="link font-mono text-micro tracking-meta text-paper-3"
+            className="link font-mono text-meta tracking-meta text-paper-3"
           >
             {copy.repoShort} ↗
           </ExternalLink>
@@ -85,7 +75,7 @@ export function ProjectRow({
             href={project.demo}
             label={fill(copy.demoLabel, { title: project.title })}
             newTab={copy.newTab}
-            className="link font-mono text-micro tracking-meta text-live"
+            className="link font-mono text-meta tracking-meta text-live"
           >
             {copy.demoShort} ↗
           </ExternalLink>

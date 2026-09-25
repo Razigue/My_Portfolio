@@ -38,11 +38,11 @@ export const availability: Localized<typeof frenchAvailability> = {
 export const hero: Localized<typeof frenchHero> = {
   role: site.role,
   tagline:
-    "Studying at Web@cadémie by Epitech, I design solutions and shape them into web applications. I am looking for a full-stack development apprenticeship.",
+    "Full-stack web developer in training at Web@cadémie by Epitech, looking for a 12-month apprenticeship from September 2026.",
 };
 
 export const presentation =
-  "A full-stack web developer who learned on the job: I discovered code while building my own e-commerce site as a sole trader. Now at Web@cadémie by Epitech Paris (2025 to 2027), I build applications with PHP and Laravel, Java and Spring Boot, and React, and I am looking for a 12-month apprenticeship from September 2026, working 6 weeks at the company for every 2 weeks in training.";
+  "I discovered code while building the e-commerce site of my own business as a sole trader. I am now training at Web@cadémie by Epitech Paris (2025 to 2027), where I build applications with PHP and Laravel, Java and Spring Boot, and React.";
 
 export const nav: Localized<typeof frenchNav> = {
   home: "Home",
@@ -51,9 +51,9 @@ export const nav: Localized<typeof frenchNav> = {
   contact: "Contact",
 };
 
-/** The chapter names of the home page. The ordinals are taken from the French file. */
-export const sections: { readonly [K in keyof typeof frenchSections]: string } = {
-  selection: "Selected work",
+/** The section titles of the home page, in the order they come. */
+export const sections: Localized<typeof frenchSections> = {
+  projets: "Projects",
   methode: "Method",
   competences: "Skills",
   parcours: "Background",
@@ -63,7 +63,7 @@ export const sections: { readonly [K in keyof typeof frenchSections]: string } =
 export const copy: Localized<typeof frenchCopy> = {
   projectsHeading: "Project index",
   contactHeading: "Get in touch",
-  contactSub: "An opportunity? Feel free to reach out.",
+  contactSub: "For an apprenticeship offer or a question about a project, write to me.",
   cvButton: "Download the CV (PDF, in French)",
   heroContact: "Contact me",
   copyIdle: "copy",
@@ -94,26 +94,14 @@ export const copy: Localized<typeof frenchCopy> = {
   languageName: "English",
   newTab: "opens in a new tab",
   portraitAlt: `Portrait of ${frenchSite.name}`,
-  scrollCue: "Scroll",
-  footerWrite: "Write to me",
   cvShort: "CV (PDF, in French)",
   writeMessage: "Write a message",
   copyAction: "Copy the email address",
   copyConfirm: "Address copied",
 
   availabilityTitle: "Availability",
-  selectionOne: "One recent project",
-  selectionMany: "{count} recent projects",
-  selectionSub: "The most recent and the most substantial.",
   selectionIndex: "See the project index",
-  panelOf: "of",
   viewProject: "View the project",
-  methodTitle: "The principles I apply",
-  skillsTitle: "What I use, and where to see it",
-  skillsTechnologies: "technologies",
-  skillsDomains: "domains",
-  skillsProjectOne: "published project",
-  skillsProjectMany: "published projects",
   parcoursLink: "Full background",
   formationTitle: "Education",
   experiencesTitle: "Experience",
@@ -145,7 +133,7 @@ export const copy: Localized<typeof frenchCopy> = {
   languagesTitle: "Languages",
   documentTitle: "Document",
   strengthsTitle: "Strengths",
-  interestsTitle: "Beyond code",
+  interestsTitle: "Interests",
   contactEyebrow: "Contact",
   emailLabel: "Email",
   elsewhereLabel: "Elsewhere",

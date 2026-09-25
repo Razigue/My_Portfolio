@@ -1,10 +1,9 @@
 import { Stage } from "@/components/motion/Stage";
 import { Reveal } from "@/components/ui/Reveal";
-import { ExternalLink, SectionLabel } from "@/components/ui/primitives";
+import { Eyebrow, ExternalLink } from "@/components/ui/primitives";
 
 export function PageHeader({
   eyebrow,
-  ordinal,
   title,
   titleLink,
   sub,
@@ -15,8 +14,6 @@ export function PageHeader({
 }: {
   /** Omitted, the header opens on the title. */
   eyebrow?: string;
-  /** Set in gold above the label, when the page has a position in a series. */
-  ordinal?: string;
   title: string;
   titleLink?: { href: string; newTab: string };
   sub?: string;
@@ -26,8 +23,8 @@ export function PageHeader({
    * the title itself — in practice, a capture of the thing the page is about.
    *
    * Its track takes up to 40rem and gives way before the title does: the title
-   * track floors at `min-content`, because a display-size h1 is usually one
-   * word and a single word cannot wrap out of a column too narrow for it.
+   * track floors at `min-content`, because a page title is usually one or two
+   * words and a word cannot wrap out of a column too narrow for it.
    */
   media?: React.ReactNode;
   /** Laid behind the whole header, from one edge of the screen to the other. */
@@ -46,7 +43,7 @@ export function PageHeader({
       variant="chars"
       as="h1"
       order={1}
-      className={`${eyebrow ? "mt-block " : ""}block font-display text-h1 leading-display tracking-display text-paper`}
+      className={`${eyebrow ? "mt-block " : ""}block font-display text-h2 leading-display tracking-display text-paper`}
     >
       {title}
     </Reveal>
@@ -76,16 +73,7 @@ export function PageHeader({
           }
         >
           <div>
-            {eyebrow ? (
-              <Reveal
-                variant="fade"
-                as={SectionLabel}
-                ordinal={ordinal}
-                order={0}
-              >
-                {eyebrow}
-              </Reveal>
-            ) : null}
+            {eyebrow ? <Eyebrow>{eyebrow}</Eyebrow> : null}
 
             {/* Keep the link outside the split heading so SplitText cannot
                 hide the interactive element from the accessibility tree. */}

@@ -96,15 +96,15 @@ export const principes: readonly {
   readonly body: string;
 }[] = [
   {
-    title: "Validate on the way in, never after",
+    title: "Validate incoming data",
     body: "On Overkill, a DTO defines the constraints for offers received from the collector, and Symfony validates them before writing to the database. On Corelab, Zod validates login data before the user lookup.",
   },
   {
-    title: "Control who is allowed",
+    title: "Control access",
     body: "On Corelab, middleware verifies the JWT, and the relevant routes check the user’s role. Passwords generated when users are imported are hashed with bcrypt.",
   },
   {
-    title: "Report what fails silently",
+    title: "Report loading failures",
     body: "When an amp capture fails to load in Tonecraft, hearing sound does not prove it works. The interface waits for the engine to confirm and reports the failure. Browser tests check this loading before each release.",
   },
   {

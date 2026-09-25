@@ -3,9 +3,7 @@ import "@/app/globals.css";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SkipLink } from "@/components/layout/SkipLink";
-import { Loader } from "@/components/motion/Loader";
-import { SmoothScroll } from "@/components/motion/SmoothScroll";
-import { TransitionProvider } from "@/components/motion/TransitionProvider";
+import { RouteFocus } from "@/components/motion/RouteFocus";
 import { getContent } from "@/lib/content";
 import { fontVariables } from "@/lib/fonts";
 import { LANGUAGE_TAGS, otherLocale, pathFor, type Locale } from "@/lib/i18n";
@@ -74,9 +72,6 @@ export function RootDocument({
     { href: pathFor(locale, "about"), title: nav.about },
     { href: pathFor(locale, "contact"), title: nav.contact },
   ];
-  const curtainLabels = Object.fromEntries(
-    links.map((link) => [link.href, link.title]),
-  );
 
   return (
     <html
@@ -96,31 +91,25 @@ export function RootDocument({
         />
       </head>
       <body>
-        <SmoothScroll />
-        <Loader name={site.name} />
-
-        <TransitionProvider labels={curtainLabels}>
-          <SkipLink label={copy.skipLink} />
-          <SiteHeader
-            locale={locale}
-            name={site.name}
-            links={links}
-            labels={{
-              navLabel: copy.navLabel,
-              menuOpen: copy.menuOpen,
-              menuClose: copy.menuClose,
-              toTop: copy.toTop,
-              themeToDay: copy.themeToDay,
-              themeToNight: copy.themeToNight,
-            }}
-          />
-          <main id="contenu" tabIndex={-1}>
-            {children}
-          </main>
-          <SiteFooter locale={locale} />
-        </TransitionProvider>
-
-        <div className="film" aria-hidden="true" />
+        <RouteFocus />
+        <SkipLink label={copy.skipLink} />
+        <SiteHeader
+          locale={locale}
+          name={site.name}
+          links={links}
+          labels={{
+            navLabel: copy.navLabel,
+            menuOpen: copy.menuOpen,
+            menuClose: copy.menuClose,
+            toTop: copy.toTop,
+            themeToDay: copy.themeToDay,
+            themeToNight: copy.themeToNight,
+          }}
+        />
+        <main id="contenu" tabIndex={-1}>
+          {children}
+        </main>
+        <SiteFooter locale={locale} />
       </body>
     </html>
   );

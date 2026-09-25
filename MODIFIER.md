@@ -112,14 +112,14 @@ Champ par champ :
   il reste soumis à la même règle de fond : rien qu’un recruteur ne puisse
   retrouver en ouvrant le dépôt.
 - **`stack`** — les technologies, une par entrée. Sur l’accueil, chacune
-  s’affiche dans son domaine de compétences avec le nom des projets qui
-  l’utilisent. Une technologie qu’aucun domaine ne liste arrête la compilation :
+  s’affiche dans son domaine de compétences, suivie entre parenthèses du nom
+  des projets qui l’utilisent. Une technologie qu’aucun domaine ne liste arrête la compilation :
   ajoute-la dans `competences`, dans `content/about.ts`.
 - **`image`** — une capture du projet, ou `null`. Voir la section suivante.
 - **`primaryStack`** — facultatif, les technologies principales à afficher dans
-  le panneau d’accueil, par exemple `["Astro", "Svelte", "TypeScript", "C++", "WebAssembly"]`.
+  le résumé du projet sur l’accueil, par exemple `["Astro", "Svelte", "TypeScript", "C++", "WebAssembly"]`.
   Choisis des noms déjà présents dans `stack`. La page du projet et les
-  compétences gardent la liste complète. Sans ce champ, le panneau utilise `stack`.
+  compétences gardent la liste complète. Sans ce champ, le résumé utilise `stack`.
 - **`stackDisclosure`** — facultatif, le texte à cliquer pour ouvrir la liste
   des technologies sur la page du projet, par exemple
   `"Voir les technologies utilisées"`. Sans ce champ, la liste reste visible.
@@ -267,9 +267,9 @@ export const featuredSlugs = ["tonecraft", "overkill", "corelab"] as const;
 l’index, avec leur page et dans le `sitemap.xml`. Les autres restent dans la
 liste `projects`, en réserve, et leur adresse répond « Page introuvable ».
 
-Remplace un slug, ou ajoutes-en un. Le titre « Trois projets récents », la
-phrase « Trois projets, en 2026 », les flèches précédent/suivant et les
-compteurs des compétences se réécrivent d’après la liste. Un slug qui ne
+Remplace un slug, ou ajoutes-en un. La phrase « Trois projets, en 2026 », les
+flèches précédent/suivant et les projets cités à côté des compétences se
+réécrivent d’après la liste. Un slug qui ne
 correspond à aucun projet arrête la compilation et te dit lesquels sont
 disponibles.
 
@@ -307,19 +307,23 @@ chargement.
   autres, apostrophes et espaces insécables comprises, et un champ vide arrête
   la compilation.
 
-La capture s’affiche sur la page du projet, en haut, à côté du titre. Si le
-projet a une illustration (voir plus bas), c’est l’illustration qui prend cette
-place, et la capture ouvre le texte de présentation, juste sous lui.
+La capture s’affiche à deux endroits :
 
-Elle n’apparaît ni sur l’accueil ni dans l’index, dont les treize lignes partagent la même
-hauteur.
+- **Sur l’accueil**, à côté du résumé du projet. C’est ce qui montre le mieux
+  l’interface, donc elle passe avant l’illustration. Sans capture, le résumé
+  prend l’illustration.
+- **Sur la page du projet**, en haut, à côté du titre. Si le projet a une
+  illustration (voir plus bas), c’est l’illustration qui prend cette place, et
+  la capture ouvre le texte de présentation, juste sous lui.
 
-Une capture d’écran complète s’affiche dans une fenêtre, comme sur la page
-d’accueil de Tonecraft : coins arrondis et barre de titre à trois pastilles,
-sans bordure ni ombre. Une image détourée, sur fond transparent, n’a pas
-d’écran autour d’elle : ajoute `cutout: true` à côté de son `src` et elle
-s’affiche seule, sans fenêtre. C’est le cas de l’ampli et des panneaux de
-Tonecraft. Aucune capture ne réagit au survol de la souris.
+Elle n’apparaît pas dans l’index, qui montre la première phrase de la
+description à la place.
+
+Une capture s’affiche telle quelle : coins arrondis, sans cadre, sans barre de
+fenêtre, sans bordure ni ombre. Une image détourée, sur fond transparent, prend
+`cutout: true` à côté de son `src` : rien ne s’affiche derrière ses parties
+transparentes. C’est le cas de l’ampli et des panneaux de Tonecraft. Aucune
+capture ne réagit au survol de la souris.
 
 La capture actuelle de Tonecraft montre son
 [studio](https://razigue.github.io/Tonecraft/app/) dans l’onglet Tone, fenêtre
@@ -330,11 +334,10 @@ marche.
 
 ### Ajouter une illustration
 
-Une illustration peut aussi occuper l’espace à côté du titre, sur le panneau
-d’accueil et en haut de la page du projet, comme l’ampli Guilt de Tonecraft. Sur téléphone, elle passe sous le titre,
-dans un format plus petit. Sur l’accueil, l’illustration reste visible au
-défilement. Sur la fiche du projet, elle s’efface progressivement pour laisser
-place à la lecture et revient en remontant.
+Une illustration peut aussi occuper l’espace à côté du titre, en haut de la
+page du projet, comme l’ampli Guilt de Tonecraft. Sur téléphone, elle passe
+sous le titre, dans un format plus petit. Elle s’efface progressivement au
+défilement pour laisser place à la lecture, et revient en remontant.
 Cette miniature est indépendante de la capture `image`.
 
 Dépose le fichier dans `content/media/`, importe-le comme une capture, puis
@@ -354,11 +357,10 @@ miniature ; la page du projet remet alors la capture `image` à côté du titre.
 
 `src` peut être un PNG détouré avec un fond transparent. Le champ facultatif
 `background` contient le décor, importé lui aussi depuis `content/media/`.
-Il couvre la section en transparence ; sur la fiche du projet, il s’efface
-avec l’illustration. Sur la
-page du projet, il va d’un bord à l’autre de l’écran et il est plus présent
-que sur l’accueil. Il est plus discret en thème clair. Retire `background` pour garder seulement
-l’illustration ; ce décor purement visuel n’a pas de texte à traduire.
+Il couvre l’en-tête de la page du projet d’un bord à l’autre de l’écran, en
+transparence, et s’efface avec l’illustration. Il est plus discret en thème
+clair. Retire `background` pour garder seulement l’illustration ; ce décor
+purement visuel n’a pas de texte à traduire.
 
 ---
 
@@ -400,12 +402,15 @@ une espace mal placée arrête la compilation avec le même genre de message.
 Dans `content/site.ts` :
 
 - `site` — nom, rôle, ville, email, GitHub, adresse du CV
-- `availability` — la recherche d’alternance, la période, le rythme, le poste
-  visé, et le bandeau qui défile. L’école, le diplôme et le lieu affichés à côté
-  sont lus dans `formation` et `site.location`, ne les retape pas.
-- `hero`, `presentation` — l’accroche et le paragraphe de présentation
+- `availability` — la recherche d’alternance, la période, le rythme et le
+  poste visé, affichés sous l’accroche de l’accueil. Le diplôme et le lieu
+  affichés avec eux sont lus dans `formation` et `site.location`, ne les
+  retape pas.
+- `hero`, `presentation` — l’accroche de l’accueil et le paragraphe de
+  présentation. L’accroche redit la durée et le début de l’alternance : si
+  `availability` change, mets-la à jour aussi.
 - `nav` — les noms des entrées du menu ; leurs adresses se calculent seules
-- `sections` — les numéros et noms de chapitre de l’accueil
+- `sections` — les titres des sections de l’accueil
 - `copy` — les libellés des boutons, « La démarche » et les
   messages d’erreur
 - `form` — les libellés du formulaire de contact
@@ -446,7 +451,7 @@ que les mots.
 
 | Fichier | Ce qu’il traduit |
 | --- | --- |
-| `content/en/site.ts` | `content/site.ts` : rôle, ville, disponibilité, accroche, présentation, menu, chapitres, libellés, formulaire |
+| `content/en/site.ts` | `content/site.ts` : rôle, ville, disponibilité, accroche, présentation, menu, titres de section, libellés, formulaire |
 | `content/en/about.ts` | `content/about.ts` : parcours, expériences, formation, langues, atouts, centres d’intérêt, principes, noms des domaines de compétences |
 | `content/en/projects.ts` | les textes des projets publiés : titre, sous-titre, équipe, description, points, récit et schémas, texte des technologies, description de la capture |
 
@@ -552,8 +557,8 @@ c’est garantir qu’ils seront faux au prochain projet ajouté :
 
 - le nombre de projets, partout où il apparaît
 - les années couvertes par l’index
-- le nombre de projets par technologie, dans la matrice de compétences
-- la numérotation des projets, en tête de ligne et sur les pages
+- les projets cités à côté de chaque technologie, dans les compétences
+- la phrase de description reprise dans l’index
 
 ---
 

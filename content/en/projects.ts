@@ -26,7 +26,7 @@ export const projectTexts: Readonly<Record<string, ProjectTranslation>> = {
       {
         title: "The need",
         paragraphs: [
-          "Working on a cover on guitar takes several tools: something to read your part, the original song to play over, the sound of an amp and a way to record yourself. On a computer, that often means installing several programs, paying for their licences, getting them to work together and juggling all their windows open at once, which is enough to put you off before you have played a single note.",
+          "Working on a cover on guitar takes several tools: something to read your part, the original song to play over, the sound of an amp and a way to record yourself. On a computer, that often means installing several programs, paying for their licences, getting them to work together and juggling all their windows open at once.",
         ],
       },
       {
@@ -180,14 +180,14 @@ export const projectTexts: Readonly<Record<string, ProjectTranslation>> = {
       {
         title: "Key decisions",
         paragraphs: [
-          "The DTO is the boundary of the domain. The offers do not come from a form but from a collector, so nobody reviews what comes in: the title is required and bounded, the type can only take three values, the country is a two-letter code, and the coordinates must stay within their ranges. The JSON is validated before it reaches the database, never after.",
+          "The offers do not come from a form but from a collector, so nobody reviews what comes in. The DTO sets their constraints: the title is required and bounded, the type can only take three values, the country is a two-letter code, and the coordinates must stay within their ranges. The JSON is validated before it reaches the database.",
         ],
       },
       {
         title: "How it runs",
         paragraphs: [
           "It is a team project: a Symfony API, a React front end and a PostgreSQL database, all running under Docker. We split the API by domain.",
-          "The search accepts criteria that can be combined (free text, city, company, contract, type, remote work, minimum salary, category), paginates them, and only returns offers published in the last thirty days, because an expired listing in an aggregator is worse than no result at all. The favourites controller keeps its own on the logged-in user.",
+          "The search accepts criteria that can be combined (free text, city, company, contract, type, remote work, minimum salary, category), paginates the results and only returns offers published in the last thirty days, so that no expired listing is shown. The favourites controller keeps its own on the logged-in user.",
         ],
         mediaAlt: [
           "A search in Overkill for developer roles in Paris, returning seven offers, with the offer type and contract filters on the left.",
@@ -227,7 +227,7 @@ export const projectTexts: Readonly<Record<string, ProjectTranslation>> = {
       {
         title: "Key decisions",
         paragraphs: [
-          "The models set the shape of everything else: user, course, lesson, quiz, result, notification. Written with Mongoose, they decide what a student owns, what a course contains, and what a quiz is: a series of multiple-choice questions, each with its right answer, and a threshold above which the exam is passed. A route cannot make up for a badly designed model.",
+          "The models, written with Mongoose, set the shape of the data: user, course, lesson, quiz, result, notification. They decide what a student owns, what a course contains and what a quiz is: a series of multiple-choice questions, each with its right answer, and a threshold above which the exam is passed.",
         ],
         mediaAlt: [
           "A quiz in Corelab: the first of three questions, with four answers to choose from and the button to move on to the next one.",

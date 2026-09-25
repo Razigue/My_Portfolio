@@ -6,7 +6,6 @@ import { CopyButton } from "@/components/ui/CopyButton";
 import { Reveal } from "@/components/ui/Reveal";
 import { Eyebrow, ExternalLink } from "@/components/ui/primitives";
 import { getContent } from "@/lib/content";
-import { searchCriteria } from "@/lib/criteria";
 import { alternates, pathFor, type Locale } from "@/lib/i18n";
 
 export function contactMetadata(locale: Locale): Metadata {
@@ -26,8 +25,7 @@ export function contactMetadata(locale: Locale): Metadata {
 }
 
 export function ContactPage({ locale }: { locale: Locale }) {
-  const content = getContent(locale);
-  const { availability, copy, form, site } = content;
+  const { availability, copy, form, site } = getContent(locale);
 
   return (
     <>
@@ -102,18 +100,10 @@ export function ContactPage({ locale }: { locale: Locale }) {
               <Eyebrow>{copy.availabilityTitle}</Eyebrow>
               <p className="mt-label flex items-baseline gap-3 text-body text-paper">
                 <span className="mark-flare dot-baseline" aria-hidden="true" />
-                {availability.headline}
+                <span>
+                  {availability.headline}, {availability.window}
+                </span>
               </p>
-              <dl className="zebra -mx-4 mt-label grid">
-                {searchCriteria(content).map((criterion) => (
-                  <div key={criterion.label} className="grid gap-1 px-4 py-3">
-                    <dt className="font-mono text-micro tracking-meta text-paper-3">
-                      {criterion.label}
-                    </dt>
-                    <dd className="text-meta text-paper">{criterion.value}</dd>
-                  </div>
-                ))}
-              </dl>
             </Reveal>
           </aside>
         </div>

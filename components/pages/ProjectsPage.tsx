@@ -3,7 +3,7 @@ import { PageHeader } from "@/components/layout/PageHeader";
 import { Stage } from "@/components/motion/Stage";
 import { ProjectRow } from "@/components/projects/ProjectRow";
 import { Reveal } from "@/components/ui/Reveal";
-import { projectNumber, type ProjectKind } from "@/content/projects";
+import type { ProjectKind } from "@/content/projects";
 import { getContent, kindLabel, projectsSummary } from "@/lib/content";
 import { alternates, pathFor, type Locale } from "@/lib/i18n";
 
@@ -35,13 +35,10 @@ export function ProjectsPage({ locale }: { locale: Locale }) {
     ecole: copy.groupSchool,
   };
 
-  // Grouped by kind. The ordinal stays the project's position in the
-  // published list, so it matches the home page.
+  // Grouped by kind, each group in the order of the published list.
   const groups = KINDS.map((kind) => ({
     kind,
-    entries: projects
-      .map((project, index) => ({ project, index }))
-      .filter(({ project }) => project.kind === kind),
+    entries: projects.filter((project) => project.kind === kind),
   })).filter((group) => group.entries.length > 0);
 
   return (
@@ -74,11 +71,10 @@ export function ProjectsPage({ locale }: { locale: Locale }) {
           </div>
 
           <ol className="index mx-auto mt-label max-w-page px-6 lg:px-10">
-            {group.entries.map(({ project, index }) => (
+            {group.entries.map((project) => (
               <ProjectRow
                 key={project.slug}
                 project={project}
-                ordinal={projectNumber(index)}
                 locale={locale}
                 copy={copy}
               />

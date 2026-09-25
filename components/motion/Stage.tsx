@@ -30,14 +30,13 @@ import {
   ScrollTrigger,
   SplitText,
 } from "@/lib/gsap";
-import { stageReady } from "@/lib/ready";
 
 type StageProps = {
   children: React.ReactNode;
   as?: ElementType;
   className?: string;
   id?: string;
-  /** Play on load (once the opening curtain has lifted) rather than on scroll. */
+  /** Play on load rather than on scroll. */
   immediate?: boolean;
   /** Seconds before the first element moves. */
   delay?: number;
@@ -266,16 +265,14 @@ export function Stage({
         el.addEventListener("focusin", onFocusIn);
 
         if (immediate) {
-          await stageReady;
-          if (disposed) return;
           run(targets);
           return;
         }
 
         // Anything already at or above the trigger line has no enter event
         // coming, whether it is on screen or the browser restored the scroll
-        // position below it. Those arrive as soon as the curtain is out of the
-        // way; only the ones still to come get a trigger.
+        // position below it. Those play at once; only the ones still to come
+        // get a trigger.
         const line = window.innerHeight * 0.94;
         const arrived: HTMLElement[] = [];
         const pending: HTMLElement[] = [];
@@ -296,8 +293,6 @@ export function Stage({
         }
 
         if (arrived.length) {
-          await stageReady;
-          if (disposed) return;
           run(arrived);
         }
       };

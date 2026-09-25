@@ -8,8 +8,8 @@ import {
   ProjectArtwork,
   ProjectAtmosphere,
 } from "@/components/projects/ProjectVisual";
+import Link from "next/link";
 import { Stage } from "@/components/motion/Stage";
-import { TransitionLink } from "@/components/motion/TransitionLink";
 import { Reveal } from "@/components/ui/Reveal";
 import {
   Eyebrow,
@@ -17,7 +17,7 @@ import {
   StatusDot,
   TagList,
 } from "@/components/ui/primitives";
-import { featuredProjects, projectNumber } from "@/content/projects";
+import { featuredProjects } from "@/content/projects";
 import { findProject, getContent, projectContext } from "@/lib/content";
 import { alternates, fill, pathFor, type Locale } from "@/lib/i18n";
 
@@ -71,17 +71,13 @@ export function ProjectPage({
   return (
     <>
       <PageHeader
-        ordinal={projectNumber(index)}
         eyebrow={String(project.year)}
         title={project.title}
         titleLink={titleHref ? { href: titleHref, newTab: copy.newTab } : undefined}
         sub={project.subtitle ?? undefined}
         backdrop={
           project.thumbnail?.background ? (
-            <ProjectAtmosphere
-              background={project.thumbnail.background}
-              within="header"
-            />
+            <ProjectAtmosphere background={project.thumbnail.background} />
           ) : undefined
         }
         media={
@@ -89,7 +85,6 @@ export function ProjectPage({
             <ProjectArtwork
               image={project.thumbnail}
               sizes="(min-width: 1024px) 40rem, calc(100vw - 48px)"
-              within="header"
             />
           ) : project.image ? (
             <ProjectShot
@@ -281,25 +276,23 @@ export function ProjectPage({
         >
           {previous ? (
             <Reveal variant="rise">
-              <TransitionLink
+              <Link
                 href={pathFor(locale, "projects", previous.slug)}
-                curtainLabel={previous.title}
                 className="link font-mono text-meta tracking-meta text-paper-2"
               >
                 ← {previous.title}
-              </TransitionLink>
+              </Link>
             </Reveal>
           ) : null}
 
           {next ? (
             <Reveal variant="rise" className="sm:col-start-2 sm:text-right">
-              <TransitionLink
+              <Link
                 href={pathFor(locale, "projects", next.slug)}
-                curtainLabel={next.title}
                 className="link font-mono text-meta tracking-meta text-paper-2"
               >
                 {next.title} →
-              </TransitionLink>
+              </Link>
             </Reveal>
           ) : null}
         </nav>

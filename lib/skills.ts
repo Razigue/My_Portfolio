@@ -27,7 +27,3 @@ export function skillDomains(content: Content): readonly SkillDomain[] {
     })),
   }));
 }
-
-export function technologyCount(content: Content): number {
-  return new Set(content.competences.flatMap((group) => group.technologies)).size;
-}

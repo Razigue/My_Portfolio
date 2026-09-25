@@ -88,9 +88,9 @@ moins. Aucun lien mort n’est possible.
 Valeur publiée : **PHP, Laravel, MySQL**, la lecture GitHub étant la seule
 vérifiable. À confirmer.
 
-Cela a un effet mesurable : la matrice de compétences est *calculée* à partir de
-ces stacks, donc corriger cette ligne change les compteurs affichés sur
-`/#competences`.
+Cela a un effet visible : les compétences de l’accueil citent les projets
+d’après ces stacks, donc corriger cette ligne change les projets affichés à côté
+de chaque technologie.
 
 ---
 

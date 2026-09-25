@@ -44,8 +44,8 @@ export type ProjectImage = {
   readonly alt: string;
   /**
    * `true` on an image cut out of its surroundings, with a transparent
-   * background: it is shown bare. Every other capture is a whole screen, and
-   * is shown in a window.
+   * background: nothing is shown behind it. Every other capture is a whole
+   * screen, shown on a ground while it loads.
    */
   readonly cutout?: boolean;
 };
@@ -110,7 +110,7 @@ export type ProjectSectionText = Omit<ProjectSection, "media"> & {
 export type Project = {
   readonly slug: string;
   readonly title: string;
-  /** The qualifier set in italics under the title, when the project has one. */
+  /** The qualifier set under the title, when the project has one. */
   readonly subtitle: string | null;
   /**
    * Personal or school. Required on every published project, since `/projets`
@@ -128,7 +128,7 @@ export type Project = {
   readonly approach: readonly ProjectSection[] | null;
   readonly stack: readonly string[];
   readonly stackDisclosure?: string;
-  /** Optional selection for the home panel; the project page keeps the full stack. */
+  /** Optional selection for the home summary; the project page keeps the full stack. */
   readonly primaryStack?: readonly string[];
   /**
    * A capture of the project, imported as a module rather than served from
@@ -137,9 +137,9 @@ export type Project = {
    * them: the pages carry their weight in type.
    */
   readonly image: ProjectImage | null;
-  /** Optional artwork beside the title on the home page. */
+  /** Optional artwork beside the title, at the top of the project page. */
   readonly thumbnail?: ProjectImage & {
-    /** Decorative scenery behind the artwork on the home page. */
+    /** Decorative scenery behind the project page's header. */
     readonly background?: StaticImageData;
   };
   readonly year: number;
@@ -189,7 +189,7 @@ export const projects: readonly Project[] = [
       {
         title: "Le besoin",
         paragraphs: [
-          "Travailler une reprise à la guitare demande plusieurs outils\u00A0: de quoi lire sa partie, le morceau original pour jouer dessus, le son d’un ampli et de quoi s’enregistrer. Sur ordinateur, cela veut souvent dire installer plusieurs logiciels, payer leurs licences, réussir à les faire fonctionner ensemble et jongler entre leurs fenêtres ouvertes en même temps, de quoi décourager avant même d’avoir joué une note.",
+          "Travailler une reprise à la guitare demande plusieurs outils\u00A0: de quoi lire sa partie, le morceau original pour jouer dessus, le son d’un ampli et de quoi s’enregistrer. Sur ordinateur, cela veut souvent dire installer plusieurs logiciels, payer leurs licences, réussir à les faire fonctionner ensemble et jongler entre leurs fenêtres ouvertes en même temps.",
         ],
       },
       {
@@ -375,14 +375,14 @@ export const projects: readonly Project[] = [
       {
         title: "Choix importants",
         paragraphs: [
-          "Le DTO est la frontière du domaine. Les offres n’arrivent pas d’un formulaire mais d’un collecteur, donc personne ne relit ce qui entre\u00A0: le titre est obligatoire et borné, le type ne peut valoir que trois valeurs, le pays est un code à deux lettres, les coordonnées doivent tenir dans leurs plages. Le JSON est validé avant d’atteindre la base, jamais après.",
+          "Les offres n’arrivent pas d’un formulaire mais d’un collecteur, donc personne ne relit ce qui entre. Le DTO en fixe les contraintes\u00A0: le titre est obligatoire et borné, le type ne peut valoir que trois valeurs, le pays est un code à deux lettres, les coordonnées doivent tenir dans leurs plages. Le JSON est validé avant d’atteindre la base.",
         ],
       },
       {
         title: "Comment ça tourne",
         paragraphs: [
           "C’est un projet d’équipe\u00A0: une API Symfony, un front React, une base PostgreSQL, le tout monté sous Docker. On s’est réparti l’API par domaine.",
-          "La recherche accepte des critères cumulables — texte libre, ville, entreprise, contrat, type, télétravail, salaire minimum, catégorie —, les pagine, et ne remonte que les offres publiées dans les trente derniers jours, parce qu’une annonce périmée dans un agrégateur est pire qu’une absence de résultat. Le contrôleur des favoris tient les siennes sur l’utilisateur connecté.",
+          "La recherche accepte des critères cumulables (texte libre, ville, entreprise, contrat, type, télétravail, salaire minimum, catégorie), pagine les résultats et ne remonte que les offres publiées dans les trente derniers jours, pour ne pas montrer d’annonces périmées. Le contrôleur des favoris tient les siennes sur l’utilisateur connecté.",
         ],
         media: [
           {
@@ -436,7 +436,7 @@ export const projects: readonly Project[] = [
       {
         title: "Choix importants",
         paragraphs: [
-          "Les modèles fixent la forme de tout le reste\u00A0: utilisateur, cours, leçon, quiz, résultat, notification. Écrits avec Mongoose, ce sont eux qui décident ce qu’un élève possède, ce qu’un cours contient, et ce qu’est un quiz\u00A0: une suite de questions à choix, chacune avec sa bonne réponse, et un seuil au-delà duquel l’examen est réussi. Une route ne rattrape pas un modèle mal posé.",
+          "Les modèles, écrits avec Mongoose, fixent la forme des données\u00A0: utilisateur, cours, leçon, quiz, résultat, notification. Ils décident ce qu’un élève possède, ce qu’un cours contient et ce qu’est un quiz\u00A0: une suite de questions à choix, chacune avec sa bonne réponse, et un seuil au-delà duquel l’examen est réussi.",
         ],
         media: [
           {
@@ -690,8 +690,3 @@ export const featuredProjects: readonly Project[] = featuredSlugs.map((slug) => 
   if (!project) throw new Error(`Projet mis en avant introuvable : ${slug}`);
   return project;
 });
-
-/** Index sur deux chiffres, tel qu'affiché en tête de ligne. */
-export function projectNumber(index: number): string {
-  return String(index + 1).padStart(2, "0");
-}

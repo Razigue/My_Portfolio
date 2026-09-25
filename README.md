@@ -3,11 +3,11 @@
 Portfolio bilingue d’un développeur web full-stack en recherche d’alternance :
 français par défaut à la racine, anglais sous `/en`.
 Next.js 16 (App Router, Turbopack), React 19, TypeScript strict, Tailwind
-CSS v4, GSAP ScrollTrigger et Lenis.
+CSS v4 et GSAP ScrollTrigger.
 
-Direction artistique : **« Cinématique éditoriale »**. Neutres froids et
-profonds, un seul or clair, titrage serif, et une chorégraphie au
-scroll où chaque élément a une entrée *et* une sortie.
+Direction artistique : neutres froids et profonds, un seul accent, titrage
+serif. Le site se lit comme un document : les faits d’abord, aucun effet de mise
+en scène, et le mouvement réduit aux listes de technologies qui apparaissent.
 
 ---
 
@@ -40,9 +40,9 @@ l’écrire, il se remarque à côté d’une page qui n’en a aucun.
    couleur propre ni épaisseur. Un bord adouci par un dégradé a été essayé, et
    rejeté : une limite qui se fond se lit comme un flou plutôt que comme une
    décision.
-3. **Le chapitre.** Chaque section s’ouvre sur son ordinal en gros, en serif,
-   en `--flare`, et son libellé en mono juste dessous. Assez lourd pour
-   annoncer un nouveau mouvement en défilant.
+3. **Le titre.** Chaque section s’ouvre sur son nom, dans la face de
+   titrage, à la taille d’un intertitre : assez pour le repérer en défilant,
+   jamais plus que ce qu’il annonce.
 
 Les listes qui étaient tenues par un filet sous chaque ligne, l’index des
 projets, les expériences, les langues, alternent désormais de fond une ligne
@@ -115,11 +115,10 @@ ajouté. Tout ce qui se déduit des données est déduit des données :
 
 - le nombre de projets et les années couvertes, dans le titre de l’index comme
   dans sa méta-description (`projectsSummary()`)
-- le titre de la sélection de l’accueil et la phrase qui la suit, d’après la
-  longueur de `featuredSlugs`
-- les compteurs de la matrice de compétences, comptés sur les `stack`
+- les projets cités à côté de chaque technologie, lus dans les `stack`
   (`lib/skills.ts`)
-- la numérotation des lignes et des pages projet
+- la phrase de description reprise dans chaque ligne de l’index
+  (`leadSentence()`)
 
 `lib/french.ts` écrit ces nombres en toutes lettres, parce qu’un chiffre en
 tête de phrase se lit mal en français.
@@ -181,7 +180,7 @@ Le bénéfice : le contenu reste dans des Server Components. Une liste de
 technologies n’a pas besoin de devenir du code client pour être animée.
 
 **Seules les listes de technologies s’animent à leur apparition.** Les titres,
-paragraphes, images, boutons, libellés, schémas et compteurs restent visibles.
+paragraphes, images, boutons, libellés et schémas restent visibles.
 Le tri se fait dans `components/motion/Stage.tsx` ; les attributs restent dans
 le balisage. L’effet porte sur la liste elle-même, pas sur son libellé.
 
@@ -199,17 +198,17 @@ Variantes disponibles (`lib/gsap.ts` → `CHOREO`) : `fade` `rise` `fall` `scale
 
 Pour du mouvement lié à la position de défilement plutôt qu’au temps,
 `<Scrub from={…} to={…}>` conserve le fondu des visuels en tête des fiches
-projets. Sur l’accueil, l’introduction et les visuels restent opaques ; le
-bandeau, les numéros décoratifs et le nom du pied de page restent immobiles.
+projets. Rien d’autre ne bouge avec le défilement.
+
+Il n’y a ni écran de chargement, ni rideau entre les pages, ni défilement
+lissé, ni grain de film, ni nom en filigrane au pied des pages, ni sections
+numérotées : tout cela a été retiré pour que le site se lise comme une source
+d’information plutôt que comme une vitrine.
 
 ### Ce qui protège la page
 
 - **Rien n’est masqué en CSS.** L’état caché est posé par GSAP après le montage
   du `Stage`. Sans JavaScript, la page s’affiche complète, et c’est vérifié.
-- **Le rideau d’ouverture** (`components/motion/Loader.tsx`) n’est affiché que
-  sous `html.js`, une classe posée par le script bloquant du `<head>`. Sans
-  JavaScript il n’apparaît jamais. Une animation CSS l’escamote au bout de 5 s
-  si le bundle ne s’hydrate pas.
 - **Le focus force l’entrée.** Entrer au clavier dans une section joue toute sa
   chorégraphie d’un coup, sans cascade : impossible d’atterrir sur un élément
   transparent.
@@ -224,9 +223,8 @@ remplissage qui part du haut est une barre de progression, et une barre de
 progression ne dit jamais qu’une chose : la fraction déjà parcourue. Une marque
 a une longueur en plus d’une position, donc elle en dit deux : quelle part de
 la page tient à l’écran d’un coup, c’est-à-dire la longueur de la page, et où
-l’on se trouve dedans. Sur une page dont trois des parties font un écran plein
-chacune, la première de ces deux informations est la plus utile, et le
-remplissage ne la portait pas du tout.
+l’on se trouve dedans. Sur une page longue, la première de ces deux
+informations est la plus utile, et le remplissage ne la portait pas du tout.
 
 Sa longueur est donc la part de la fenêtre dans la page, mesurée et non
 choisie, avec un minimum de 26 px pour qu’elle reste trouvable sur une page
@@ -278,13 +276,6 @@ même monogramme, en creux dans un carré doré plein ; elle portait auparavant 
 filet doré de 5 px en pied, c’est-à-dire un trait dans la seule marque qui
 représente le site.
 
-**Le repère de défilement.** En bas de l’écran d’ouverture, le mot « Défiler »
-était seul et n’indiquait rien. Deux corrections. Une flèche tombe hors de sa
-boîte et rentre par le haut, ce qui est le mécanisme des lettres de la
-navigation tourné vers le bas : l’indication vient du vocabulaire du site.
-Et le mot est devenu un vrai bouton, qui amène la page au bloc suivant, donc le
-libellé décrit quelque chose qui arrive.
-
 **Le retour en haut.** Un bloc doré plein, en bas à droite, à gauche de la
 position de lecture pour que les deux ne se recouvrent jamais. Il n’apparaît
 qu’au-delà d’un écran et demi, et il est `visibility: hidden` tant qu’il n’est
@@ -299,13 +290,13 @@ WCAG 2.5.8.
 > sur 1832 recalculs. C’est exactement la sensation d’une page à quinze images
 > par seconde.
 
-### Transitions de route
+### Navigation
 
-`TransitionLink` → `TransitionProvider` : la page sortante est couverte par cinq
-panneaux qui montent en cascade, la route change derrière le rideau, puis les
-panneaux poursuivent leur course vers le haut. Un `<Link>` réel en dessous, donc
-un clic milieu, un Ctrl-clic ou l’absence de JavaScript se comportent
-normalement.
+Les liens internes sont des `<Link>` de Next, sans transition. Après un
+changement de page, `components/motion/RouteFocus.tsx` place le focus sur le
+contenu principal, pour qu’une personne au clavier ou au lecteur d’écran
+reparte du début de la nouvelle page, et fait remesurer la page à
+ScrollTrigger.
 
 ---
 
@@ -406,12 +397,12 @@ modification ».
 - **Alignement de l’en-tête**, deux thèmes → monogramme, mot de navigation et
   interrupteur à 0,33 px les uns des autres au pire, mesurés sur les pixels
   peints
-- **Colonnes de l’index**, 1920 / 1440 / 1024 → dérive nulle sur les cinq
-  colonnes, sur des lignes portant 0, 1 et 2 liens
+- **Colonnes de l’index**, 1920 / 1440 / 1024 → dérive nulle, sur des lignes
+  portant 0, 1 et 2 liens (mesuré avec la colonne des numéros, retirée depuis)
 - **Contenu**, 11 erreurs injectées → le build refuse les 11, avec un message
   qui nomme le champ
-- **Mobilier fixe**, 1440 et 390 → 32 contrôles verts : monogramme, repère de
-  défilement, retour en haut, curseur de chaque bouton, marque qui s’étire
+- **Mobilier fixe**, 1440 et 390 → contrôles verts : monogramme, retour en
+  haut, curseur de chaque bouton, marque qui s’étire
 - **Sectionnement**, deux thèmes → les fonds alternent, 144 px d’air au plus
   serré, écart de teinte 8/255 la nuit et 12/255 le jour
 - `tsc --noEmit`, `eslint`, `build` → 0 erreur, 0 avertissement
@@ -427,9 +418,8 @@ modification ».
   seule qui continue de tourner
 - **Thème au premier rendu**, 4 combinaisons préférence × système → correct,
   aucun flash
-- **Transition de route** → rideau refermé, focus déplacé, aucun élément resté
-  transparent
-- **Chorégraphie** → en mouvement à chaque palier de défilement
+- **Navigation interne** → arrivée en haut de la page, focus sur le contenu,
+  retour arrière qui rend la position, aucune erreur en console
 - **Coût au défilement** → 444 ms de recalcul de style sur cinq secondes
 
 Une modification de contenu ne remet en cause aucune de ces mesures : elles
