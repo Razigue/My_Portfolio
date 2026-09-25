@@ -106,7 +106,7 @@ export function ContactForm({
   }, [state.status, state.key]);
 
   return (
-    <form ref={formRef} action={action} noValidate className="grid gap-7">
+    <form ref={formRef} action={action} noValidate className="grid gap-title">
       {/* Honeypot, off-screen rather than hidden, so bots that check for
           display:none still fill it in. Never announced, never focusable. */}
       <div className="sr-only" aria-hidden="true">

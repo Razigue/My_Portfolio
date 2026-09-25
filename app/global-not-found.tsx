@@ -31,22 +31,22 @@ export default function GlobalNotFound() {
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body>
-        <main className="mx-auto flex min-h-dvh max-w-page flex-col justify-center px-6 py-32 lg:px-10">
+        <main className="mx-auto flex min-h-dvh max-w-page flex-col justify-center px-6 page-head lg:px-10">
           <p className="eyebrow">{frenchCopy.notFoundEyebrow}</p>
 
-          <h1 className="mt-6 font-display text-h1 leading-display tracking-display text-paper">
+          <h1 className="mt-block font-display text-h1 leading-display tracking-display text-paper">
             {frenchCopy.notFoundTitle}
           </h1>
 
-          <p className="mt-7 max-w-measure text-lede text-paper-2">
+          <p className="mt-title max-w-measure text-lede text-paper-2">
             {frenchCopy.notFoundBody}
           </p>
 
-          <p lang={english} className="mt-4 max-w-measure text-body text-paper-3">
+          <p lang={english} className="mt-label max-w-measure text-body text-paper-3">
             {englishCopy.notFoundTitle}. {englishCopy.notFoundBody}
           </p>
 
-          <div className="mt-12 flex flex-wrap gap-5">
+          <div className="mt-block flex flex-wrap gap-5">
             <a href={pathFor("fr", "home")} className="btn btn-solid">
               <BtnLabel>{frenchCopy.notFoundLink}</BtnLabel>
             </a>

@@ -31,16 +31,16 @@ export function Availability({ locale }: { locale: Locale }) {
           as="h2"
           order={1}
           id="dispo-title"
-          className="mt-8 max-w-measure font-display text-h2 leading-tight tracking-display text-paper"
+          className="mt-title max-w-measure font-display text-h2 leading-tight tracking-display text-paper"
         >
           {availability.headline}
         </Reveal>
 
-        <dl className="mt-16 grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+        <dl className="mt-block grid gap-x-gutter gap-y-block sm:grid-cols-2 lg:grid-cols-3">
           {searchCriteria(content).map((criterion, index) => (
             <Reveal key={criterion.label} variant="rise" order={2 + index}>
               <dt className="eyebrow">{criterion.label}</dt>
-              <dd className="mt-3 text-lede text-paper">{criterion.value}</dd>
+              <dd className="mt-label text-lede text-paper">{criterion.value}</dd>
             </Reveal>
           ))}
         </dl>

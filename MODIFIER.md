@@ -307,18 +307,11 @@ chargement.
   autres, apostrophes et espaces insécables comprises, et un champ vide arrête
   la compilation.
 
-La capture s’affiche à deux endroits :
+La capture s’affiche sur la page du projet, en haut, à côté du titre. Si le
+projet a une illustration (voir plus bas), c’est l’illustration qui prend cette
+place, et la capture ouvre le texte de présentation, juste sous lui.
 
-- **Sur la page du projet**, en haut, à côté du titre. Elle est visible tout de
-  suite : c’est la page du projet, l’image y est chez elle. Si le projet a une
-  illustration (voir plus bas), c’est l’illustration qui prend cette place, et
-  la capture ouvre le texte de présentation, juste sous lui.
-- **Sur l’accueil**, si le projet est mis en avant, elle est repliée derrière
-  « Voir l’aperçu », sous les liens du panneau. Un panneau d’accueil fait un
-  écran de haut et son sujet est le titre ; une image posée là en permanence
-  pèserait plus lourd que lui. Le visiteur l’ouvre s’il en a envie.
-
-Elle n’apparaît pas dans l’index, dont les treize lignes partagent la même
+Elle n’apparaît ni sur l’accueil ni dans l’index, dont les treize lignes partagent la même
 hauteur.
 
 Une capture d’écran complète s’affiche dans une fenêtre, comme sur la page
@@ -326,8 +319,7 @@ d’accueil de Tonecraft : coins arrondis et barre de titre à trois pastilles,
 sans bordure ni ombre. Une image détourée, sur fond transparent, n’a pas
 d’écran autour d’elle : ajoute `cutout: true` à côté de son `src` et elle
 s’affiche seule, sans fenêtre. C’est le cas de l’ampli et des panneaux de
-Tonecraft. Aucune capture ne réagit au survol de la souris. Le repli est un `<details>` du navigateur, donc il
-fonctionne même si le JavaScript ne se charge pas, comme le menu mobile.
+Tonecraft. Aucune capture ne réagit au survol de la souris.
 
 La capture actuelle de Tonecraft montre son
 [studio](https://razigue.github.io/Tonecraft/app/) dans l’onglet Tone, fenêtre
@@ -343,7 +335,7 @@ d’accueil et en haut de la page du projet, comme l’ampli Guilt de Tonecraft.
 dans un format plus petit. Sur l’accueil, l’illustration reste visible au
 défilement. Sur la fiche du projet, elle s’efface progressivement pour laisser
 place à la lecture et revient en remontant.
-Cette miniature est indépendante de la capture `image` et de « Voir l’aperçu ».
+Cette miniature est indépendante de la capture `image`.
 
 Dépose le fichier dans `content/media/`, importe-le comme une capture, puis
 ajoute au projet :
@@ -414,7 +406,7 @@ Dans `content/site.ts` :
 - `hero`, `presentation` — l’accroche et le paragraphe de présentation
 - `nav` — les noms des entrées du menu ; leurs adresses se calculent seules
 - `sections` — les numéros et noms de chapitre de l’accueil
-- `copy` — les libellés des boutons, « La démarche », « Voir l’aperçu » et les
+- `copy` — les libellés des boutons, « La démarche » et les
   messages d’erreur
 - `form` — les libellés du formulaire de contact
 
@@ -562,6 +554,25 @@ c’est garantir qu’ils seront faux au prochain projet ajouté :
 - les années couvertes par l’index
 - le nombre de projets par technologie, dans la matrice de compétences
 - la numérotation des projets, en tête de ligne et sur les pages
+
+---
+
+## Les espacements
+
+Tous les écarts du site viennent de cinq réglages, en haut de
+`app/globals.css`. Chacun sert à séparer une chose précise :
+
+| Réglage | Sépare |
+| --- | --- |
+| `--spacing-label` | un petit libellé et ce qu’il désigne |
+| `--spacing-title` | un titre et le texte qui le suit |
+| `--spacing-block` | deux blocs d’une même section |
+| `--spacing-gutter` | deux colonnes côte à côte |
+| `--spacing-section` | deux sections |
+
+Pour aérer ou resserrer tout le site d’un coup, change la valeur du réglage :
+chaque page suit. N’ajoute pas un écart à la main sur un seul élément : c’est ce
+qui rend les pages incohérentes entre elles.
 
 ---
 

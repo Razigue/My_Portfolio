@@ -17,8 +17,8 @@ export function SiteFooter({ locale }: { locale: Locale }) {
     >
       {/* The watermark name is absolutely placed at the bottom edge, so the
           bottom padding here is what keeps the metadata clear of it. */}
-      <div className="mx-auto max-w-page px-6 pb-32 pt-28 sm:pb-40 lg:px-10 lg:pb-56 lg:pt-40">
-        <div className="grid gap-12 md:grid-cols-[1fr_auto] md:items-end">
+      <div className="footer-body mx-auto max-w-page px-6 lg:px-10">
+        <div className="grid gap-x-gutter gap-y-block md:grid-cols-[1fr_auto] md:items-end">
           <div>
             <Reveal variant="fade" as={Eyebrow} order={0}>
               {copy.footerWrite}
@@ -27,7 +27,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
               variant="chars"
               as="p"
               order={1}
-              className="mt-5 font-display text-h3 tracking-tight text-paper"
+              className="mt-label font-display text-h3 tracking-tight text-paper"
             >
               {site.email}
             </Reveal>
@@ -63,7 +63,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
           </Reveal>
         </div>
 
-        <div className="mt-24 flex font-mono text-micro tracking-meta sm:justify-end">
+        <div className="mt-block flex font-mono text-micro tracking-meta sm:justify-end">
           <Reveal variant="fade" order={3} className="text-paper-2">
             <LocaleSwitch
               locale={locale}

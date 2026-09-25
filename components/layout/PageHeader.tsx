@@ -46,7 +46,7 @@ export function PageHeader({
       variant="chars"
       as="h1"
       order={1}
-      className={`${eyebrow ? "mt-12 lg:mt-16 " : ""}block font-display text-h1 leading-display tracking-display text-paper`}
+      className={`${eyebrow ? "mt-block " : ""}block font-display text-h1 leading-display tracking-display text-paper`}
     >
       {title}
     </Reveal>
@@ -62,10 +62,8 @@ export function PageHeader({
     >
       {backdrop}
       <div
-        className={`mx-auto max-w-page px-6 lg:px-10 ${
-          centered
-            ? "pb-32 pt-32 lg:pb-39 lg:pt-37"
-            : "pb-20 pt-36 lg:pb-28 lg:pt-48"
+        className={`page-head mx-auto max-w-page px-6 lg:px-10 ${
+          centered ? "page-head-centered" : ""
         }`}
       >
         {/* Two tracks only when there is something to put in the second one,
@@ -73,7 +71,7 @@ export function PageHeader({
         <div
           className={
             media
-              ? "grid gap-12 lg:grid-cols-[minmax(min-content,1fr)_minmax(0,40rem)] lg:items-end lg:gap-16"
+              ? "grid gap-x-gutter gap-y-block lg:grid-cols-[minmax(min-content,1fr)_minmax(0,40rem)] lg:items-end"
               : undefined
           }
         >
@@ -106,7 +104,7 @@ export function PageHeader({
                 variant="lines"
                 as="p"
                 order={2}
-                className="mt-7 max-w-measure text-lede text-paper-2"
+                className="mt-title max-w-measure text-lede text-paper-2"
               >
                 {sub}
               </Reveal>

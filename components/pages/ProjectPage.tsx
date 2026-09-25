@@ -67,7 +67,6 @@ export function ProjectPage({
   const next = index < projects.length - 1 ? projects[index + 1] : null;
   const context = projectContext(content, project);
   const titleHref = project.demo ?? project.repo;
-  const spacious = project.slug === "tonecraft";
 
   return (
     <>
@@ -103,7 +102,7 @@ export function ProjectPage({
       />
 
       <Stage className="band" stagger={0.09}>
-        <div className={`section-body-tight mx-auto grid max-w-page px-6 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:px-10 ${spacious ? "gap-16 lg:gap-x-24 lg:gap-y-28" : "gap-14 lg:gap-24"}`}>
+        <div className="section-body mx-auto grid max-w-page gap-x-gutter gap-y-block px-6 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:px-10">
           <div>
             <Reveal
               variant="lines"
@@ -116,7 +115,7 @@ export function ProjectPage({
 
             {project.highlights.length > 0 ? (
               <>
-                <ul className="mt-14 grid gap-5">
+                <ul className="mt-block grid gap-label">
                   {project.highlights.map((highlight) => (
                     <li
                       key={highlight}
@@ -135,11 +134,11 @@ export function ProjectPage({
             ) : null}
           </div>
 
-          <aside className={`grid content-start ${spacious ? "gap-10 lg:gap-14" : "gap-10"}`}>
+          <aside className="grid content-start gap-block">
             {context ? (
               <Reveal variant="rise">
                 <Eyebrow>{copy.frameLabel}</Eyebrow>
-                <p className="mt-4 text-body text-paper">{context}</p>
+                <p className="mt-label text-body text-paper">{context}</p>
               </Reveal>
             ) : null}
 
@@ -149,19 +148,19 @@ export function ProjectPage({
                   <summary className="link list-none font-mono text-meta tracking-meta text-paper-2 [&::-webkit-details-marker]:hidden">
                     {project.stackDisclosure}
                   </summary>
-                  <TagList items={project.stack} className="mt-4" />
+                  <TagList items={project.stack} className="mt-label" />
                 </details>
               ) : (
                 <>
                   <Eyebrow>{copy.stackLabel}</Eyebrow>
-                  <TagList items={project.stack} className="mt-4" />
+                  <TagList items={project.stack} className="mt-label" />
                 </>
               )}
             </Reveal>
 
             <Reveal variant="rise">
               <Eyebrow>{copy.statusLabel}</Eyebrow>
-              <div className="mt-4">
+              <div className="mt-label">
                 <StatusDot status={project.status} labels={copy} />
               </div>
             </Reveal>
@@ -169,7 +168,7 @@ export function ProjectPage({
             {project.repo || project.demo ? (
               <Reveal variant="rise">
                 <Eyebrow>{copy.linksLabel}</Eyebrow>
-                <ul className="mt-4 grid gap-3">
+                <ul className="mt-label grid gap-3">
                   {project.repo ? (
                     <li>
                       <ExternalLink
@@ -212,7 +211,7 @@ export function ProjectPage({
           the one that revealed the summary two screens earlier. */}
       {project.approach ? (
         <Stage aria-labelledby="demarche-title" stagger={0.08}>
-          <div className="section-body-tight mx-auto max-w-page px-6 lg:px-10">
+          <div className="section-body mx-auto max-w-page px-6 lg:px-10">
             <Reveal
               variant="fade"
               as="h2"
@@ -223,19 +222,22 @@ export function ProjectPage({
               {copy.approachTitle}
             </Reveal>
 
-            <div className={`grid ${spacious ? "mt-16 gap-24 lg:gap-32" : "mt-12 gap-14 lg:gap-20"}`}>
+            {/* A part is a section of its own inside the account, so parts
+                are a section apart: further from each other than anything
+                within one part is from the rest of it. */}
+            <div className="mt-block grid gap-section">
               {project.approach.map((section, sectionIndex) => (
                 <section
                   key={section.title}
                   aria-labelledby={`demarche-section-${sectionIndex}`}
-                  className={`grid lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] ${spacious ? "gap-12 lg:gap-x-16 lg:gap-y-14" : "gap-6 lg:gap-16"}`}
+                  className="grid gap-x-gutter gap-y-block lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)]"
                 >
                   {/* The heading and its paragraphs sit on the part's two
                       columns through a subgrid, so that what illustrates them
                       can take either the text column or both. On a phone the
                       heading keeps closer to its text than the text keeps to
                       its illustration. */}
-                  <div className={`grid lg:col-span-2 lg:grid-cols-subgrid ${spacious ? "gap-5 lg:gap-x-16" : "gap-6 lg:gap-16"}`}>
+                  <div className="grid gap-x-gutter gap-y-title lg:col-span-2 lg:grid-cols-subgrid">
                     <Reveal
                       variant="rise"
                       as="h3"
@@ -244,7 +246,7 @@ export function ProjectPage({
                     >
                       {section.title}
                     </Reveal>
-                    <div className={`grid text-body ${spacious ? "max-w-[36rem] gap-7 leading-[1.8]" : "max-w-measure gap-6"}`}>
+                    <div className="grid max-w-measure gap-title text-body">
                       {section.paragraphs.map((paragraph) => (
                         <p
                           key={paragraph}
@@ -257,10 +259,7 @@ export function ProjectPage({
                     </div>
                   </div>
                   {section.media ? (
-                    <ProjectMedia
-                      media={section.media}
-                      align={spacious ? "text" : "center"}
-                    />
+                    <ProjectMedia media={section.media} align="text" />
                   ) : null}
                   {section.diagram ? (
                     <ProjectDiagram
@@ -278,7 +277,7 @@ export function ProjectPage({
       <Stage stagger={0.1}>
         <nav
           aria-label={copy.pagerLabel}
-          className={`section-body-tight mx-auto grid max-w-page gap-6 px-6 sm:grid-cols-2 lg:px-10 ${project.approach ? "pt-0" : ""}`}
+          className={`section-body mx-auto grid max-w-page gap-title px-6 sm:grid-cols-2 lg:px-10 ${project.approach ? "pt-0" : ""}`}
         >
           {previous ? (
             <Reveal variant="rise">

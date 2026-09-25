@@ -71,8 +71,6 @@ export const copy: Localized<typeof frenchCopy> = {
   sourceLink: "Source code ↗",
   approachTitle: "The approach",
   diagramOr: "or",
-  shotShow: "Show the preview",
-  shotHide: "Hide the preview",
   statusLive: "live",
   statusArchived: "archived",
   skipLink: "Skip to content",

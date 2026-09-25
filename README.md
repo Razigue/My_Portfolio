@@ -6,7 +6,7 @@ Next.js 16 (App Router, Turbopack), React 19, TypeScript strict, Tailwind
 CSS v4, GSAP ScrollTrigger et Lenis.
 
 Direction artistique : **« Cinématique éditoriale »**. Neutres froids et
-profonds, un seul or clair, titrage serif surdimensionné, et une chorégraphie au
+profonds, un seul or clair, titrage serif, et une chorégraphie au
 scroll où chaque élément a une entrée *et* une sortie.
 
 ---
@@ -27,10 +27,14 @@ l’écrire, il se remarque à côté d’une page qui n’en a aucun.
 
 **Ce qui sépare les sections à la place :**
 
-1. **Le vide.** `.section-body` pose `clamp(6rem, 12vw, 11rem)` de marge
-   verticale. Mesuré sur la page d’accueil, il reste entre 168 et 313 px de
-   page vide entre la dernière ligne d’une section et la première de la
-   suivante. La proximité groupe toute seule.
+1. **Le vide.** Cinq pas d’espacement, définis en tête de
+   `app/globals.css` (`--spacing-label`, `-title`, `-block`, `-gutter`,
+   `-section`), et chaque écart du site est l’un d’eux, choisi selon ce qu’il
+   sépare. `.section-body` pose un pas `section` en haut et en bas, soit
+   `clamp(4.5rem, 3rem + 4.5vw, 7.5rem)` : deux sections voisines sont à
+   144 px l’une de l’autre sur un téléphone de 390 px, à 226 px sur un écran
+   de 1440 px. Chaque pas est plus grand que le précédent, donc la proximité
+   groupe toute seule.
 2. **Le fond.** `.band` pose une section sur deux sur `--ink-2`, et la teinte
    change net au bord. Ce bord est la limite entre deux aplats : il n’a ni
    couleur propre ni épaisseur. Un bord adouci par un dégradé a été essayé, et
@@ -408,7 +412,7 @@ modification ».
   qui nomme le champ
 - **Mobilier fixe**, 1440 et 390 → 32 contrôles verts : monogramme, repère de
   défilement, retour en haut, curseur de chaque bouton, marque qui s’étire
-- **Sectionnement**, deux thèmes → les fonds alternent, 168 px d’air au plus
+- **Sectionnement**, deux thèmes → les fonds alternent, 144 px d’air au plus
   serré, écart de teinte 8/255 la nuit et 12/255 le jour
 - `tsc --noEmit`, `eslint`, `build` → 0 erreur, 0 avertissement
 - **Routes** → 25, toutes statiques

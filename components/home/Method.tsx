@@ -35,12 +35,12 @@ export function Method({ locale }: { locale: Locale }) {
           as="h2"
           order={1}
           id="methode-title"
-          className="mt-8 max-w-measure font-display text-h2 leading-tight tracking-display text-paper"
+          className="mt-title max-w-measure font-display text-h2 leading-tight tracking-display text-paper"
         >
           {copy.methodTitle}
         </Reveal>
 
-        <ol className="mt-16 grid gap-x-16 gap-y-14 lg:grid-cols-2">
+        <ol className="mt-block grid gap-x-gutter gap-y-block lg:grid-cols-2">
           {principes.map((principe, index) => (
             <li
               key={principe.title}

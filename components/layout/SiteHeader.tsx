@@ -253,7 +253,7 @@ export function SiteHeader({
         data-scrolled="false"
         className="site-header fixed inset-x-0 top-0 z-50"
       >
-        <div className="site-header-bar mx-auto flex max-w-page items-center justify-between gap-6 px-4 sm:px-6 lg:px-10">
+        <div className="site-header-bar mx-auto flex max-w-page items-center justify-between gap-6 px-6 lg:px-10">
           {/* The accessible name starts with the two letters actually on
               screen, so that a spoken « RB » still matches what is visible. */}
           <TransitionLink href={home} className="wordmark">

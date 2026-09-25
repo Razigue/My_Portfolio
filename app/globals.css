@@ -4,7 +4,7 @@
 
 /* ---------------------------------------------------------------------------
    « Cinématique éditoriale »
-   Cool near-black, a single light gold, oversized editorial serif.
+   Cool near-black, a single light gold, an editorial serif.
 
    The neutrals are deliberately cool. The gold is the only warm thing on the
    page, which is what makes it register as an accent rather than as a tint.
@@ -58,8 +58,6 @@
   --text-h2--line-height: 1.02;
   --text-h1: clamp(3rem, 2rem + 5vw, 6.5rem);
   --text-h1--line-height: 0.98;
-  --text-display: clamp(3.25rem, 12vw, 11rem);
-  --text-display--line-height: 0.86;
 
   --tracking-*: initial;
   --tracking-display: -0.035em;
@@ -81,6 +79,21 @@
   --container-measure: 62ch;
   --container-page: 88rem;
   --container-text: 46rem;
+
+  /* Five steps of space. A gap is chosen by what it separates, never by eye:
+     a label and what it names; a heading and the text under it; one block and
+     the next inside a section; two columns side by side; one section and the
+     next. Each step is larger than the one before, so whatever sits closer
+     reads as belonging together. Anything tighter than `label` is inside a
+     single component, a tag or a dot and its word, and keeps the numeric
+     scale. */
+  --spacing-label: 1rem;
+  --spacing-title: 1.5rem;
+  --spacing-block: clamp(2.5rem, 1.75rem + 2vw, 4rem);
+  --spacing-gutter: clamp(2rem, 0.5rem + 4.5vw, 6rem);
+  --spacing-section: clamp(4.5rem, 3rem + 4.5vw, 7.5rem);
+  /* The height the fixed header bar covers at the top of every page. */
+  --spacing-header: 5rem;
 
   --ease-*: initial;
   --ease-cine: cubic-bezier(0.16, 1, 0.3, 1);
@@ -158,6 +171,8 @@
      position and the back-to-top. Static, evaluated once, never written to at
      runtime. */
   --inset: 1rem;
+  /* The name set as a watermark along the foot of every page. */
+  --wordmark: clamp(3.5rem, 15vw, 14rem);
 
   /* Optical centring, per typeface.
 
@@ -915,14 +930,8 @@
     align-content: center;
     /* Same inline padding as the header bar, so the menu's left edge lands on
        the same line as the name above it. */
-    padding: 7rem 1rem 3rem;
+    padding: 7rem 1.5rem 3rem;
     background-color: var(--color-ink);
-  }
-
-  @media (min-width: 640px) {
-    .disclosure[open] .menu-panel {
-      padding-inline: 1.5rem;
-    }
   }
 
   .disclosure[open] .menu-panel > * {
@@ -1227,42 +1236,6 @@
     background-color: transparent;
   }
 
-  /* --- The capture, folded away behind a word ---
-     Same swap as the mobile menu: two labels in the markup, one of them hidden,
-     so the control names its own state instead of relying on a chevron nobody
-     reads. No marker triangle: it is a shape the site does not draw. */
-  .shot-summary {
-    list-style: none;
-  }
-
-  .shot-summary::-webkit-details-marker {
-    display: none;
-  }
-
-  .shot-word[data-shot-word="open"],
-  .shot-toggle[open] .shot-word[data-shot-word="closed"] {
-    display: none;
-  }
-
-  .shot-toggle[open] .shot-word[data-shot-word="open"] {
-    display: inline;
-  }
-
-  /* The picture arrives the way every other image on the site does — uncovered
-     from the bottom edge — rather than appearing between two frames. */
-  .shot-toggle[open] .shot-panel {
-    animation: shot-open 0.72s var(--ease-cine) both;
-  }
-
-  @keyframes shot-open {
-    from {
-      clip-path: inset(100% 0% 0% 0%);
-    }
-    to {
-      clip-path: inset(0% 0% 0% 0%);
-    }
-  }
-
   /* A gold sliver that travels across the frame once, as it is uncovered. */
   .sheen {
     position: absolute;
@@ -1314,6 +1287,21 @@
     align-self: center;
   }
 
+  /* The name and the project titles on the home page were set a step
+     smaller, and each keeps the height the larger size used to take, centred
+     in it, so the screen around it is laid out as before. Section titles do
+     not: they follow the spacing steps like every other heading. Padding
+     rather than flex: the titles are split into characters for their
+     entrance, and a flex container would turn every character into an item
+     of its own. */
+  .hero-name {
+    padding-block: max(0px, calc((2 * 0.86 * clamp(3.25rem, 12vw, 11rem) - 2lh) / 2));
+  }
+
+  .title-slot {
+    padding-block: max(0px, calc((0.98 * var(--text-h1) - 1lh) / 2));
+  }
+
   .hero-cue {
     align-self: end;
   }
@@ -1361,13 +1349,26 @@
      --------------------------------------------------------------------- */
 
   .section-body {
-    padding-block: clamp(6rem, 12vw, 11rem);
+    padding-block: var(--spacing-section);
   }
 
-  /* Where a page header has already opened the page, the first section under
-     it does not need the full measure again. */
-  .section-body-tight {
-    padding-block: clamp(4rem, 8vw, 7rem);
+  /* The footer sits on the page's own ground. A last section on that same
+     ground leaves the gap to the footer, so the two are one section apart and
+     not two. */
+  main > :last-child:not(.band) > .section-body {
+    padding-bottom: 0;
+  }
+
+  /* A page header clears the fixed bar, then opens with the same ground as
+     any section. Centred, it takes as much below the title as above it,
+     counted from the top of the page. */
+  .page-head {
+    padding-top: calc(var(--spacing-header) + var(--spacing-section));
+    padding-bottom: var(--spacing-section);
+  }
+
+  .page-head-centered {
+    padding-bottom: calc(var(--spacing-header) + var(--spacing-section));
   }
 
   .band {
@@ -1539,6 +1540,13 @@
     display: none;
   }
 
+  /* The footer's own ground, and under it, room for the watermark: one block
+     of air above the name, whatever size the window sets it at. */
+  .footer-body {
+    padding-top: var(--spacing-section);
+    padding-bottom: calc(var(--spacing-block) + 0.78 * var(--wordmark));
+  }
+
   /* --- The outlined name that closes the page ---
      The slot carries the positioning and the scrubbed transform. Putting the
      transform on the wordmark itself would make it its own containing block
@@ -1560,7 +1568,7 @@
      cheaper to paint at fourteen rem while moving. */
   .footer-wordmark {
     font-family: var(--font-display);
-    font-size: clamp(3.5rem, 15vw, 14rem);
+    font-size: var(--wordmark);
     line-height: 0.78;
     letter-spacing: var(--tracking-display);
     text-align: center;
@@ -1640,7 +1648,7 @@
   }
 
   .prose-fr > p + p {
-    margin-top: 1.25em;
+    margin-top: var(--spacing-title);
   }
 
   /* No drop cap. A floated `::first-letter` three and a half times the body

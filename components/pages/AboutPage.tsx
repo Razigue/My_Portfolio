@@ -44,7 +44,7 @@ export function AboutPage({ locale }: { locale: Locale }) {
 
       {/* Portrait + the longer-form story */}
       <Stage className="band" stagger={0.09}>
-        <div className="section-body-tight mx-auto grid max-w-page gap-14 px-6 lg:grid-cols-[minmax(0,1fr)_22rem] lg:gap-24 lg:px-10">
+        <div className="section-body mx-auto grid max-w-page gap-x-gutter gap-y-block px-6 lg:grid-cols-[minmax(0,1fr)_22rem] lg:px-10">
           <div className="prose-fr max-w-measure text-body">
             {parcours.map((paragraph, index) => (
               <p key={paragraph} data-choreo="lines" data-choreo-order={index}>
@@ -67,7 +67,7 @@ export function AboutPage({ locale }: { locale: Locale }) {
 
       {/* Experience */}
       <Stage aria-labelledby="experiences-title" stagger={0.08}>
-        <div className="section-body-tight mx-auto max-w-page px-6 lg:px-10">
+        <div className="section-body mx-auto max-w-page px-6 lg:px-10">
           <Reveal
             variant="fade"
             as="h2"
@@ -78,12 +78,12 @@ export function AboutPage({ locale }: { locale: Locale }) {
             {copy.experiencesTitle}
           </Reveal>
 
-          <ol className="zebra -mx-5 mt-12 grid">
+          <ol className="zebra -mx-5 mt-label grid">
             {experiences.map((experience) => (
               <li
                 key={experience.role}
                 data-choreo="rise"
-                className="grid gap-3 px-5 py-9 lg:grid-cols-[14rem_minmax(0,1fr)] lg:gap-12"
+                className="grid gap-3 px-5 py-9 lg:grid-cols-[14rem_minmax(0,1fr)] lg:gap-x-gutter"
               >
                 <div>
                   <p className="tnum font-mono text-micro tracking-meta text-paper-3">
@@ -110,7 +110,7 @@ export function AboutPage({ locale }: { locale: Locale }) {
 
       {/* Education, languages, CV */}
       <Stage aria-labelledby="formation-title" className="band" stagger={0.08}>
-        <div className="section-body-tight mx-auto grid max-w-page gap-14 px-6 lg:grid-cols-3 lg:gap-16 lg:px-10">
+        <div className="section-body mx-auto grid max-w-page gap-x-gutter gap-y-block px-6 lg:grid-cols-3 lg:px-10">
           <div>
             <Reveal
               variant="fade"
@@ -121,14 +121,14 @@ export function AboutPage({ locale }: { locale: Locale }) {
             >
               {copy.formationTitle}
             </Reveal>
-            <Reveal variant="rise" order={1} className="mt-6">
+            <Reveal variant="rise" order={1} className="mt-label">
               <p className="font-display text-h3 leading-tight tracking-tight text-paper">
                 {formation.title}
               </p>
-              <p className="mt-3 text-body text-paper-2">
+              <p className="mt-2 text-body text-paper-2">
                 {formation.credential}
               </p>
-              <ul className="mt-5 grid gap-1 font-mono text-micro tracking-meta text-paper-3">
+              <ul className="mt-label grid gap-1 font-mono text-micro tracking-meta text-paper-3">
                 <li>{formation.school}</li>
                 <li>{formation.place}</li>
                 <li className="tnum">{formation.period}</li>
@@ -141,7 +141,7 @@ export function AboutPage({ locale }: { locale: Locale }) {
             <Reveal variant="fade" as="h2" order={2} className="eyebrow">
               {copy.languagesTitle}
             </Reveal>
-            <Reveal variant="rise" order={3} className="mt-6">
+            <Reveal variant="rise" order={3} className="mt-label">
               <dl className="zebra -mx-4 grid">
                 {langues.map((langue) => (
                   <div
@@ -162,7 +162,7 @@ export function AboutPage({ locale }: { locale: Locale }) {
             <Reveal variant="fade" as="h2" order={4} className="eyebrow">
               {copy.documentTitle}
             </Reveal>
-            <Reveal variant="rise" order={5} className="mt-6">
+            <Reveal variant="rise" order={5} className="mt-label">
               <a href={site.cvUrl} download className="btn">
                 <BtnLabel>{copy.cvButton}</BtnLabel>
               </a>
@@ -173,7 +173,7 @@ export function AboutPage({ locale }: { locale: Locale }) {
 
       {/* Strengths, and what fills the rest of the time */}
       <Stage aria-labelledby="atouts-title" stagger={0.08}>
-        <div className="section-body-tight mx-auto grid max-w-page gap-14 px-6 lg:grid-cols-2 lg:gap-16 lg:px-10">
+        <div className="section-body mx-auto grid max-w-page gap-x-gutter gap-y-block px-6 lg:grid-cols-2 lg:px-10">
           {[
             { id: "atouts-title", title: copy.strengthsTitle, items: atouts },
             { id: "interets-title", title: copy.interestsTitle, items: interets },
@@ -188,7 +188,7 @@ export function AboutPage({ locale }: { locale: Locale }) {
               >
                 {column.title}
               </Reveal>
-              <Reveal variant="rise" order={columnIndex * 2 + 1} className="mt-6">
+              <Reveal variant="rise" order={columnIndex * 2 + 1} className="mt-label">
                 <dl className="zebra -mx-4 grid">
                   {column.items.map((item) => (
                     <div key={item.name} className="grid gap-1 px-4 py-4">

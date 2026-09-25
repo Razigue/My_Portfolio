@@ -96,10 +96,8 @@ you are the only check.
    `cutout: true` in `content/projects.ts` has no screen around it and gets no
    window. No capture reacts to hover: Razigue asked for that. It deliberately does not carry the portrait's grayscale filter —
    that exists to keep one photograph from pulling the composition off neutral,
-   and a screenshot has to report the interface's own colours. On a home panel
-   the capture is folded behind a `<details>` rather than pinned open: a panel
-   is one screenful whose subject is the title. That disclosure is markup, not
-   state, for the same reason the mobile menu is.
+   and a screenshot has to report the interface's own colours. A home panel
+   shows no capture at all: Razigue removed the « Voir l’aperçu » disclosure.
 4. **One accent, and the two themes do not share it.** Pale gold at night, dark
    orange by day. The daylight value is capped by contrast arithmetic against
    `--ink-3`; see the README before touching it.
@@ -120,6 +118,17 @@ you are the only check.
    make it wrong at the next edit.
 8. **`null` renders nothing.** Never a disabled link, a `mailto:#`, a greyed
    button or « bientôt ». An absence has to read as a decision.
+9. **Every gap is one of five steps.** `app/globals.css` defines them as
+   `--spacing-label`, `-title`, `-block`, `-gutter` and `-section`, and
+   Tailwind turns them into `mt-label`, `mt-title`, `mt-block`,
+   `gap-x-gutter`, `py-section` and so on. Choose the step by what the gap
+   separates: a label and what it names, a heading and its text, two blocks
+   of one section, two columns, two sections. Numeric utilities are only for
+   the inside of a component, a tag or a dot and its word. Every page opens
+   with `.page-head`, every section is padded by `.section-body`, and a last
+   section on the page's own ground drops its bottom padding so the footer
+   sits one section away, not two. No project gets a rhythm of its own:
+   Razigue asked for one spacing everywhere.
 
 ---
 

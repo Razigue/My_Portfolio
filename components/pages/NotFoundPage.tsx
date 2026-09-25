@@ -11,7 +11,7 @@ export function NotFoundPage({ locale }: { locale: Locale }) {
 
   return (
     <Stage immediate delay={0.1} stagger={0.11}>
-      <div className="mx-auto flex min-h-dvh max-w-page flex-col justify-center px-6 py-32 lg:px-10">
+      <div className="mx-auto flex min-h-dvh max-w-page flex-col justify-center px-6 page-head lg:px-10">
         <Reveal variant="fade" as={Eyebrow} order={0}>
           {copy.notFoundEyebrow}
         </Reveal>
@@ -20,7 +20,7 @@ export function NotFoundPage({ locale }: { locale: Locale }) {
           variant="chars"
           as="h1"
           order={1}
-          className="mt-6 block font-display text-h1 leading-display tracking-display text-paper"
+          className="mt-block block font-display text-h1 leading-display tracking-display text-paper"
         >
           {copy.notFoundTitle}
         </Reveal>
@@ -29,12 +29,12 @@ export function NotFoundPage({ locale }: { locale: Locale }) {
           variant="lines"
           as="p"
           order={2}
-          className="mt-7 max-w-measure text-lede text-paper-2"
+          className="mt-title max-w-measure text-lede text-paper-2"
         >
           {copy.notFoundBody}
         </Reveal>
 
-        <Reveal variant="rise" order={3} className="mt-12">
+        <Reveal variant="rise" order={3} className="mt-block">
           <TransitionLink
             href={pathFor(locale, "home")}
             curtainLabel={nav.home}

@@ -32,7 +32,7 @@ export function Selection({ locale }: { locale: Locale }) {
             as="h2"
             order={1}
             id="selection-title"
-            className="mt-8 max-w-measure font-display text-h2 leading-tight tracking-display text-paper"
+            className="mt-title max-w-measure font-display text-h2 leading-tight tracking-display text-paper"
           >
             {count === 1
               ? copy.selectionOne
@@ -43,7 +43,7 @@ export function Selection({ locale }: { locale: Locale }) {
             variant="rise"
             as="p"
             order={2}
-            className="mt-6 max-w-measure text-body text-paper-3"
+            className="mt-title max-w-measure text-body text-paper-3"
           >
             {copy.selectionSub}
           </Reveal>
@@ -61,7 +61,7 @@ export function Selection({ locale }: { locale: Locale }) {
       ))}
 
       <Stage stagger={0.08}>
-        <div className="section-body-tight mx-auto max-w-page px-6 lg:px-10">
+        <div className="mx-auto max-w-page px-6 pt-section lg:px-10">
           <Reveal variant="rise">
             <TransitionLink
               href={pathFor(locale, "projects")}

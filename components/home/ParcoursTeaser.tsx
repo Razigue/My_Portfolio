@@ -26,7 +26,7 @@ export function ParcoursTeaser({ locale }: { locale: Locale }) {
           {sections.parcours.label}
         </Reveal>
 
-        <div className="mt-14 grid gap-16 lg:grid-cols-[1.15fr_0.85fr] lg:gap-20">
+        <div className="mt-title grid gap-x-gutter gap-y-block lg:grid-cols-[1.15fr_0.85fr]">
           <div>
             <Reveal
               variant="lines"
@@ -37,7 +37,7 @@ export function ParcoursTeaser({ locale }: { locale: Locale }) {
               {presentation}
             </Reveal>
 
-            <Reveal variant="rise" order={2} className="mt-10">
+            <Reveal variant="rise" order={2} className="mt-title">
               <TransitionLink
                 href={pathFor(locale, "about")}
                 curtainLabel={nav.about}
@@ -49,10 +49,10 @@ export function ParcoursTeaser({ locale }: { locale: Locale }) {
           </div>
 
           <div>
-            <dl className="grid gap-12">
+            <dl className="grid gap-block">
               <Reveal variant="rise" order={3}>
                 <dt className="eyebrow">{copy.experiencesTitle}</dt>
-                <dd className="mt-4">
+                <dd className="mt-label">
                   {/* Rows were told apart by a filet under each one. Every
                       other row is lifted instead, which separates them the way
                       a table without rules does. The list is then pulled left

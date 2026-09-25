@@ -34,7 +34,7 @@ export function ContactCta({ locale }: { locale: Locale }) {
           as="h2"
           order={1}
           id="contact-title"
-          className="mt-8 block font-display text-h1 leading-display tracking-display text-paper"
+          className="mt-title max-w-measure font-display text-h2 leading-tight tracking-display text-paper"
         >
           {copy.contactHeading}
         </Reveal>
@@ -43,7 +43,7 @@ export function ContactCta({ locale }: { locale: Locale }) {
           variant="lines"
           as="p"
           order={2}
-          className="mt-8 max-w-measure text-lede text-paper-2"
+          className="mt-title max-w-measure text-lede text-paper-2"
         >
           {copy.contactSub}
         </Reveal>
@@ -51,7 +51,7 @@ export function ContactCta({ locale }: { locale: Locale }) {
         <Reveal
           variant="rise"
           order={3}
-          className="mt-12 flex flex-wrap items-center gap-5"
+          className="mt-block flex flex-wrap items-center gap-5"
         >
           <TransitionLink
             href={pathFor(locale, "contact")}

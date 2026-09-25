@@ -38,15 +38,15 @@ export function ContactPage({ locale }: { locale: Locale }) {
       />
 
       <Stage className="band" stagger={0.09}>
-        <div className="section-body-tight mx-auto grid max-w-page gap-16 px-6 lg:grid-cols-[minmax(0,1fr)_22rem] lg:gap-24 lg:px-10">
+        <div className="section-body mx-auto grid max-w-page gap-x-gutter gap-y-block px-6 lg:grid-cols-[minmax(0,1fr)_22rem] lg:px-10">
           <div>
             <ContactForm locale={locale} form={form} />
           </div>
 
-          <aside className="grid content-start gap-10">
+          <aside className="grid content-start gap-block">
             <Reveal variant="rise" order={1}>
               <Eyebrow>{copy.emailLabel}</Eyebrow>
-              <div className="mt-4 flex flex-wrap items-center gap-4">
+              <div className="mt-label flex flex-wrap items-center gap-4">
                 <a
                   href={`mailto:${site.email}`}
                   className="link text-body text-paper"
@@ -65,7 +65,7 @@ export function ContactPage({ locale }: { locale: Locale }) {
 
             <Reveal variant="rise" order={2}>
               <Eyebrow>{copy.elsewhereLabel}</Eyebrow>
-              <ul className="mt-4 grid gap-3">
+              <ul className="mt-label grid gap-3">
                 <li>
                   <ExternalLink
                     href={site.github}
@@ -100,11 +100,11 @@ export function ContactPage({ locale }: { locale: Locale }) {
 
             <Reveal variant="rise" order={3}>
               <Eyebrow>{copy.availabilityTitle}</Eyebrow>
-              <p className="mt-4 flex items-baseline gap-3 text-body text-paper">
+              <p className="mt-label flex items-baseline gap-3 text-body text-paper">
                 <span className="mark-flare dot-baseline" aria-hidden="true" />
                 {availability.headline}
               </p>
-              <dl className="zebra -mx-4 mt-5 grid">
+              <dl className="zebra -mx-4 mt-label grid">
                 {searchCriteria(content).map((criterion) => (
                   <div key={criterion.label} className="grid gap-1 px-4 py-3">
                     <dt className="font-mono text-micro tracking-meta text-paper-3">

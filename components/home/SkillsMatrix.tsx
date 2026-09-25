@@ -42,12 +42,12 @@ export function SkillsMatrix({ locale }: { locale: Locale }) {
           as="h2"
           order={1}
           id="competences-title"
-          className="mt-8 max-w-measure font-display text-h2 leading-tight tracking-display text-paper"
+          className="mt-title max-w-measure font-display text-h2 leading-tight tracking-display text-paper"
         >
           {copy.skillsTitle}
         </Reveal>
 
-        <div className="mt-12 flex flex-wrap items-end gap-x-14 gap-y-6">
+        <div className="mt-block flex flex-wrap items-end gap-x-gutter gap-y-title">
           <p className="flex items-end gap-4">
             <span
               data-choreo="counter"
@@ -102,14 +102,14 @@ export function SkillsMatrix({ locale }: { locale: Locale }) {
           </p>
         </div>
 
-        <div className="mt-16 grid gap-x-12 gap-y-16 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-block grid gap-x-gutter gap-y-block sm:grid-cols-2 lg:grid-cols-4">
           {domains.map((domain) => (
             <div key={domain.domain}>
               <h3 data-choreo="fade" className="eyebrow">
                 {domain.domain}
               </h3>
 
-              <ul className="mt-6 grid gap-y-5">
+              <ul className="mt-label grid gap-y-5">
                 {domain.skills.map((skill) => (
                   <li key={skill.name} data-choreo="rise" className="skill-row">
                     <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">

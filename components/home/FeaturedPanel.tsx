@@ -1,6 +1,5 @@
 import { Stage } from "@/components/motion/Stage";
 import { TransitionLink } from "@/components/motion/TransitionLink";
-import { ProjectShotDisclosure } from "@/components/projects/ProjectShot";
 import { ProjectArtwork, ProjectAtmosphere } from "@/components/projects/ProjectVisual";
 import { Reveal } from "@/components/ui/Reveal";
 import { ExternalLink, StatusDot, TagList } from "@/components/ui/primitives";
@@ -59,7 +58,7 @@ export function FeaturedPanel({
         </div>
       )}
 
-      <div className="mx-auto flex min-h-dvh max-w-page flex-col justify-between gap-14 px-6 py-24 lg:px-10 lg:py-28">
+      <div className="mx-auto flex min-h-dvh max-w-page flex-col justify-between gap-block px-6 py-section lg:px-10">
         <Reveal
           variant="fade"
           order={0}
@@ -76,7 +75,7 @@ export function FeaturedPanel({
           </span>
         </Reveal>
 
-        <div className={project.thumbnail ? "grid items-center gap-8 lg:grid-cols-2 lg:gap-16" : align}>
+        <div className={project.thumbnail ? "grid items-center gap-x-gutter gap-y-block lg:grid-cols-2" : align}>
           <div className={`${align} ${project.thumbnail && flip ? "lg:order-2" : ""}`}>
             <TransitionLink
               href={pathFor(locale, "projects", project.slug)}
@@ -88,7 +87,7 @@ export function FeaturedPanel({
                 as="h3"
                 order={1}
                 id={titleId}
-                className="block font-display text-h1 leading-display tracking-display text-paper"
+                className="title-slot block font-display text-h2 leading-display tracking-display text-paper"
               >
                 {project.title}
               </Reveal>
@@ -120,7 +119,7 @@ export function FeaturedPanel({
           ) : null}
         </div>
 
-        <div className="grid gap-10 lg:grid-cols-2 lg:items-end lg:gap-16">
+        <div className="grid gap-x-gutter gap-y-block lg:grid-cols-2 lg:items-end">
           <Reveal
             variant="lines"
             as="p"
@@ -142,7 +141,7 @@ export function FeaturedPanel({
             <Reveal
               variant="rise"
               order={5}
-              className={`mt-8 flex flex-wrap items-center gap-x-8 gap-y-4 ${
+              className={`mt-title flex flex-wrap items-center gap-x-8 gap-y-4 ${
                 flip ? "" : "lg:justify-end"
               }`}
             >
@@ -177,23 +176,6 @@ export function FeaturedPanel({
               ) : null}
             </Reveal>
 
-            {/* Keep the full interface capture optional, independently of the
-                small artwork beside the title. */}
-            {project.image ? (
-              <Reveal
-                variant="rise"
-                order={6}
-                className={`mt-8 ${flip ? "" : "lg:flex lg:flex-col lg:items-end"}`}
-              >
-                <ProjectShotDisclosure
-                  image={project.image}
-                  sizes="(min-width: 1024px) 22rem, 100vw"
-                  className="max-w-[22rem]"
-                  show={copy.shotShow}
-                  hide={copy.shotHide}
-                />
-              </Reveal>
-            ) : null}
           </div>
         </div>
       </div>

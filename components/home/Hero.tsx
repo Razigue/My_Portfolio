@@ -27,13 +27,13 @@ export function Hero({ locale }: { locale: Locale }) {
         {/* One grid for the whole screen rather than three stacked rows. The
             photograph is the only thing in the right-hand column and shares
             its row with the name, so it sits centred on the name. */}
-        <div className="hero-grid mx-auto min-h-dvh max-w-page px-6 pb-10 pt-28 lg:px-10 lg:pb-14 lg:pt-36">
+        <div className="hero-grid mx-auto min-h-dvh max-w-page px-6 pb-10 pt-32 lg:px-10 lg:pb-14 lg:pt-[clamp(9rem,40dvh-9rem,14rem)]">
           <Reveal
             variant="chars"
             as="h1"
             order={2}
             id="hero-title"
-            className="hero-name font-display text-display leading-display tracking-display text-paper"
+            className="hero-name font-display text-h1 leading-display tracking-display text-paper"
           >
             {/* The space is load-bearing: the two lines are block spans, so it
                 collapses visually, but without it the heading's accessible
@@ -76,7 +76,7 @@ export function Hero({ locale }: { locale: Locale }) {
             <Reveal
               variant="rise"
               order={4}
-              className="mt-10 flex flex-wrap items-center gap-5"
+              className="mt-block flex flex-wrap items-center gap-5"
             >
               <TransitionLink
                 href={pathFor(locale, "contact")}

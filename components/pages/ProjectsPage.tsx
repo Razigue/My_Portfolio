@@ -58,7 +58,7 @@ export function ProjectsPage({ locale }: { locale: Locale }) {
           aria-labelledby={`groupe-${group.kind}`}
           stagger={0.045}
           start="top 90%"
-          className={order > 0 ? "pt-20" : undefined}
+          className={order > 0 ? "pt-block" : undefined}
         >
           <div className="mx-auto max-w-page px-6 lg:px-10">
             <Reveal
@@ -73,7 +73,7 @@ export function ProjectsPage({ locale }: { locale: Locale }) {
             </Reveal>
           </div>
 
-          <ol className="index mx-auto mt-4 max-w-page px-6 lg:px-10">
+          <ol className="index mx-auto mt-label max-w-page px-6 lg:px-10">
             {group.entries.map(({ project, index }) => (
               <ProjectRow
                 key={project.slug}
