@@ -63,7 +63,6 @@ export const sections: { readonly [K in keyof typeof frenchSections]: string } =
 export const copy: Localized<typeof frenchCopy> = {
   projectsHeading: "Project index",
   contactHeading: "Get in touch",
-  contactSub: "A question, an opportunity? I reply within 24 hours.",
   cvButton: "Download the CV (PDF, in French)",
   heroContact: "Contact me",
   copyIdle: "copy",
@@ -147,7 +146,6 @@ export const copy: Localized<typeof frenchCopy> = {
   documentTitle: "Document",
   strengthsTitle: "Strengths",
   interestsTitle: "Beyond code",
-  contactEyebrow: "Contact",
   emailLabel: "Email",
   elsewhereLabel: "Elsewhere",
 

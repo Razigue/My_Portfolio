@@ -79,7 +79,6 @@ export const sections = {
 export const copy = {
   projectsHeading: "Index des projets",
   contactHeading: "Prendre contact",
-  contactSub: "Une question, une opportunité ? Je réponds sous 24 h.",
   cvButton: "Télécharger le CV (PDF)",
   heroContact: "Me contacter",
   copyIdle: "copier",
@@ -168,7 +167,6 @@ export const copy = {
   documentTitle: "Document",
   strengthsTitle: "Atouts",
   interestsTitle: "Au-delà du code",
-  contactEyebrow: "Contact",
   emailLabel: "Email",
   elsewhereLabel: "Ailleurs",
 

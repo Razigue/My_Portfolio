@@ -40,15 +40,6 @@ export function ContactCta({ locale }: { locale: Locale }) {
         </Reveal>
 
         <Reveal
-          variant="lines"
-          as="p"
-          order={2}
-          className="mt-8 max-w-measure text-lede text-paper-2"
-        >
-          {copy.contactSub}
-        </Reveal>
-
-        <Reveal
           variant="rise"
           order={3}
           className="mt-12 flex flex-wrap items-center gap-5"

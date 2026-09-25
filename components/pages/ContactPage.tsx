@@ -10,14 +10,16 @@ import { searchCriteria } from "@/lib/criteria";
 import { alternates, pathFor, type Locale } from "@/lib/i18n";
 
 export function contactMetadata(locale: Locale): Metadata {
-  const { copy } = getContent(locale);
+  const { availability, copy } = getContent(locale);
+  // What the page is for, read from the search itself rather than typed.
+  const description = `${availability.headline}, ${availability.window}.`;
   return {
     title: copy.contactHeading,
-    description: copy.contactSub,
+    description,
     alternates: alternates(locale, "contact"),
     openGraph: {
       title: copy.contactHeading,
-      description: copy.contactSub,
+      description,
       url: pathFor(locale, "contact"),
     },
   };
@@ -29,11 +31,7 @@ export function ContactPage({ locale }: { locale: Locale }) {
 
   return (
     <>
-      <PageHeader
-        eyebrow={copy.contactEyebrow}
-        title={copy.contactHeading}
-        sub={copy.contactSub}
-      />
+      <PageHeader title={copy.contactHeading} />
 
       <Stage className="band" stagger={0.09}>
         <div className="section-body-tight mx-auto grid max-w-page gap-16 px-6 lg:grid-cols-[minmax(0,1fr)_22rem] lg:gap-24 lg:px-10">
