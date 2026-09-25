@@ -38,7 +38,7 @@ export function PageHeader({
       variant="chars"
       as="h1"
       order={1}
-      className={`${eyebrow ? "mt-8 " : ""}block font-display text-h1 leading-display tracking-display text-paper`}
+      className={`${eyebrow ? "mt-12 lg:mt-16 " : ""}block font-display text-h1 leading-display tracking-display text-paper`}
     >
       {title}
     </Reveal>

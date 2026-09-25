@@ -31,7 +31,11 @@ export function ContactPage({ locale }: { locale: Locale }) {
 
   return (
     <>
-      <PageHeader title={copy.contactHeading} />
+      <PageHeader
+        eyebrow={copy.contactEyebrow}
+        title={copy.contactHeading}
+        sub={copy.contactSub}
+      />
 
       <Stage className="band" stagger={0.09}>
         <div className="section-body-tight mx-auto grid max-w-page gap-16 px-6 lg:grid-cols-[minmax(0,1fr)_22rem] lg:gap-24 lg:px-10">
