@@ -38,7 +38,7 @@ export const availability: Localized<typeof frenchAvailability> = {
 export const hero: Localized<typeof frenchHero> = {
   role: site.role,
   tagline:
-    "Studying at Web@cadémie by Epitech, I find solutions and build them into web applications. I am looking for a full-stack development apprenticeship.",
+    "Studying at Web@cadémie by Epitech, I design solutions and shape them into web applications. I am looking for a full-stack development apprenticeship.",
 };
 
 export const presentation =

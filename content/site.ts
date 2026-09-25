@@ -48,7 +48,7 @@ export const availability = {
 export const hero = {
   role: site.role,
   tagline:
-    "En formation à la Web@cadémie by Epitech, je trouve des solutions et je les développe en applications web. Je recherche une alternance en développement full-stack.",
+    "En formation à la Web@cadémie by Epitech, je conçois des solutions et leur donne forme en applications web. Je recherche une alternance en développement full-stack.",
 } as const;
 
 export const presentation =
