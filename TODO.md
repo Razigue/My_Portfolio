@@ -34,10 +34,10 @@ Rien ne casse en local ni à la compilation entre-temps. Si le domaine finit par
 **`content/site.ts` → `site.linkedin`**, désormais
 `https://www.linkedin.com/in/benhmida-razigue`.
 
-Reprise du CV actuel. Elle n’a pas pu être vérifiée depuis le projet : LinkedIn
-refuse les requêtes automatiques. À ouvrir une fois dans un navigateur. Si elle
-ne mène pas au bon profil, la remettre à `null` : le lien disparaît du pied de
-page, de `/contact` et du `sameAs` du JSON-LD.
+Reprise du CV actuel, et **confirmée par Razigue le 27 septembre 2026** : elle
+mène au bon profil. Si elle change un jour, la mettre à jour ici ; la remettre
+à `null` fait disparaître le lien du pied de page, de `/contact` et du `sameAs`
+du JSON-LD.
 
 ---
 
@@ -136,10 +136,11 @@ fichier.
 
 ## 8. Polices : aucun repli utilisé
 
-Instrument Serif, Geist et Geist Mono se sont toutes chargées via
-`next/font/google`, sous-ensembles `latin` et `latin-ext` (donc `É À Ê Î Ç œ`
-sont couverts). Aucune substitution à signaler. Cette entrée existe seulement
-pour documenter la vérification.
+Geist, la police de tout le site, se charge via `next/font/google` en
+sous-ensembles `latin` et `latin-ext` (donc `É À Ê Î Ç œ` sont couverts).
+Newsreader ne sert plus qu’au monogramme `RB` et ne charge que `latin`. Aucune
+substitution à signaler. Cette entrée existe seulement pour documenter la
+vérification.
 
 ---
 

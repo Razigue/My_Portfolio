@@ -22,15 +22,40 @@ export function aboutMetadata(locale: Locale): Metadata {
   };
 }
 
+/** The items of a list, each behind a small square in the accent. */
+function Points({ items }: { items: readonly string[] }) {
+  return (
+    <ul className="mt-label grid gap-label">
+      {items.map((item) => (
+        <li
+          key={item}
+          className="flex items-baseline gap-4 text-body text-paper-2"
+        >
+          <span className="mark-flare dot-baseline" aria-hidden="true" />
+          <span className="max-w-measure">{item}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+/**
+ * The CV, set as a page: the story, what he can take on as an apprentice and
+ * what he wants to learn, the experience, the education and the languages,
+ * then what he brings and what he does besides. Grounds alternate from the
+ * story on.
+ */
 export function AboutPage({ locale }: { locale: Locale }) {
   const {
     atouts,
     copy,
+    devise,
     experiences,
     formation,
     interets,
     langues,
     parcours,
+    recherche,
     site,
   } = getContent(locale);
 
@@ -39,7 +64,7 @@ export function AboutPage({ locale }: { locale: Locale }) {
       <PageHeader
         eyebrow={copy.aboutEyebrow}
         title={copy.aboutTitle}
-        centered
+        sub={devise}
       />
 
       {/* Portrait + the longer-form story */}
@@ -65,8 +90,39 @@ export function AboutPage({ locale }: { locale: Locale }) {
         </div>
       </Stage>
 
+      {/* As an apprentice: what he can take on, and what he wants to learn */}
+      <Stage aria-labelledby="recherche-title" stagger={0.08}>
+        <div className="section-body mx-auto max-w-page px-6 lg:px-10">
+          <Reveal
+            variant="fade"
+            as="h2"
+            order={0}
+            id="recherche-title"
+            className="eyebrow"
+          >
+            {recherche.title}
+          </Reveal>
+
+          <div className="mt-label grid gap-x-gutter gap-y-block lg:grid-cols-2">
+            <div>
+              <h3 className="font-display text-lede leading-tight tracking-tight text-paper">
+                {recherche.firstMonthTitle}
+              </h3>
+              <Points items={recherche.firstMonth} />
+            </div>
+
+            <div>
+              <h3 className="font-display text-lede leading-tight tracking-tight text-paper">
+                {recherche.learnTitle}
+              </h3>
+              <Points items={recherche.learn} />
+            </div>
+          </div>
+        </div>
+      </Stage>
+
       {/* Experience */}
-      <Stage aria-labelledby="experiences-title" stagger={0.08}>
+      <Stage aria-labelledby="experiences-title" className="band" stagger={0.08}>
         <div className="section-body mx-auto max-w-page px-6 lg:px-10">
           <Reveal
             variant="fade"
@@ -78,12 +134,12 @@ export function AboutPage({ locale }: { locale: Locale }) {
             {copy.experiencesTitle}
           </Reveal>
 
-          <ol className="zebra -mx-5 mt-label grid">
+          <ol className="mt-label grid gap-block">
             {experiences.map((experience) => (
               <li
                 key={experience.role}
                 data-choreo="rise"
-                className="grid gap-3 px-5 py-9 lg:grid-cols-[14rem_minmax(0,1fr)] lg:gap-x-gutter"
+                className="grid gap-3 lg:grid-cols-[14rem_minmax(0,1fr)] lg:gap-x-gutter"
               >
                 <div>
                   <p className="tnum text-meta text-paper-2">
@@ -109,9 +165,9 @@ export function AboutPage({ locale }: { locale: Locale }) {
       </Stage>
 
       {/* Education, languages, CV */}
-      <Stage aria-labelledby="formation-title" className="band" stagger={0.08}>
+      <Stage aria-labelledby="formation-title" stagger={0.08}>
         <div className="section-body mx-auto grid max-w-page gap-x-gutter gap-y-block px-6 lg:grid-cols-3 lg:px-10">
-          <div>
+          <div className="lg:col-span-2 lg:row-span-2">
             <Reveal
               variant="fade"
               as="h2"
@@ -135,6 +191,11 @@ export function AboutPage({ locale }: { locale: Locale }) {
                 <li className="tnum">{formation.detail}</li>
               </ul>
             </Reveal>
+            <div className="mt-title grid max-w-measure gap-label text-body text-paper-2">
+              <p>{formation.firstYear}</p>
+              <p>{formation.cycle}</p>
+              <p>{formation.proudest}</p>
+            </div>
           </div>
 
           <div>
@@ -144,10 +205,7 @@ export function AboutPage({ locale }: { locale: Locale }) {
             <Reveal variant="rise" order={3} className="mt-label">
               <dl className="zebra -mx-4 grid">
                 {langues.map((langue) => (
-                  <div
-                    key={langue.name}
-                    className="flex items-baseline justify-between gap-4 px-4 py-3"
-                  >
+                  <div key={langue.name} className="grid gap-1 px-4 py-3">
                     <dt className="text-body text-paper">{langue.name}</dt>
                     <dd className="text-meta text-paper-3">{langue.level}</dd>
                   </div>
@@ -170,7 +228,7 @@ export function AboutPage({ locale }: { locale: Locale }) {
       </Stage>
 
       {/* Strengths, and what fills the rest of the time */}
-      <Stage aria-labelledby="atouts-title" stagger={0.08}>
+      <Stage aria-labelledby="atouts-title" className="band" stagger={0.08}>
         <div className="section-body mx-auto grid max-w-page gap-x-gutter gap-y-block px-6 lg:grid-cols-2 lg:px-10">
           {[
             { id: "atouts-title", title: copy.strengthsTitle, items: atouts },
@@ -187,11 +245,13 @@ export function AboutPage({ locale }: { locale: Locale }) {
                 {column.title}
               </Reveal>
               <Reveal variant="rise" order={columnIndex * 2 + 1} className="mt-label">
-                <dl className="zebra -mx-4 grid">
+                <dl className="grid gap-title">
                   {column.items.map((item) => (
-                    <div key={item.name} className="grid gap-1 px-4 py-4">
+                    <div key={item.name}>
                       <dt className="text-body text-paper">{item.name}</dt>
-                      <dd className="text-meta text-paper-3">{item.detail}</dd>
+                      <dd className="mt-1 max-w-measure text-body text-paper-2">
+                        {item.detail}
+                      </dd>
                     </div>
                   ))}
                 </dl>

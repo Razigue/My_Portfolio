@@ -4,7 +4,10 @@ import { Stage } from "@/components/motion/Stage";
 import { getContent } from "@/lib/content";
 import { pathFor, type Locale } from "@/lib/i18n";
 
-/** The published projects, in the order of `featuredSlugs`. */
+/**
+ * The published projects, in the order of `featuredSlugs`, side by side from
+ * a laptop up so the three can be compared at a glance.
+ */
 export function Projects({ locale }: { locale: Locale }) {
   const { copy, projects, sections } = getContent(locale);
 
@@ -32,7 +35,7 @@ export function Projects({ locale }: { locale: Locale }) {
           </Link>
         </div>
 
-        <ol className="mt-block grid gap-block">
+        <ol className="mt-block grid gap-x-gutter gap-y-block lg:grid-cols-3">
           {projects.map((project) => (
             <ProjectSummary
               key={project.slug}

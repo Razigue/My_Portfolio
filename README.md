@@ -5,8 +5,9 @@ français par défaut à la racine, anglais sous `/en`.
 Next.js 16 (App Router, Turbopack), React 19, TypeScript strict, Tailwind
 CSS v4 et GSAP ScrollTrigger.
 
-Direction artistique : neutres froids et profonds, un seul accent, titrage
-serif. Le site se lit comme un document : les faits d’abord, aucun effet de mise
+Direction artistique : neutres froids et profonds, un seul accent, une seule
+police, Geist, pour les titres comme pour le texte ; seul le monogramme
+`RB` reste en Newsreader. Le site se lit comme un document : les faits d’abord, aucun effet de mise
 en scène, et le mouvement réduit aux listes de technologies qui apparaissent.
 
 ---
@@ -40,8 +41,8 @@ l’écrire, il se remarque à côté d’une page qui n’en a aucun.
    couleur propre ni épaisseur. Un bord adouci par un dégradé a été essayé, et
    rejeté : une limite qui se fond se lit comme un flou plutôt que comme une
    décision.
-3. **Le titre.** Chaque section s’ouvre sur son nom, dans la face de
-   titrage, à la taille d’un intertitre : assez pour le repérer en défilant,
+3. **Le titre.** Chaque section s’ouvre sur son nom, en Geist comme
+   tout le reste, à la taille d’un intertitre : assez pour le repérer en défilant,
    jamais plus que ce qu’il annonce.
 
 Les listes qui étaient tenues par un filet sous chaque ligne, l’index des
@@ -267,8 +268,8 @@ dans le texte rendu, seuil qui laisse passer un sigle et arrête un mot crié.
 
 ### Le mobilier fixe
 
-**Le monogramme.** L’en-tête porte `RB` dans la face de titrage, pas le nom
-complet en mono. Le nom complet reste dans l’arbre d’accessibilité, précédé des
+**Le monogramme.** L’en-tête porte `RB` en Newsreader, la seule chose du site
+qui ne soit pas en Geist, plutôt que le nom complet. Le nom complet reste dans l’arbre d’accessibilité, précédé des
 deux lettres réellement affichées, pour que le nom accessible contienne le
 libellé visible (WCAG 2.5.3). Le monogramme est calé juste sous la hauteur de
 l’interrupteur, donc la barre n’a pas changé de hauteur. La favicone est le
@@ -356,8 +357,11 @@ rangées peintes, jusqu’à ce que le monogramme, un mot de navigation et
 l’interrupteur tombent à un tiers de pixel les uns des autres : 0,17 px la
 nuit, 0,33 px le jour.
 
-Ces deux valeurs appartiennent à ces trois fontes. Changer de fonte les invalide,
-et la seule façon d’en trouver d’autres est de regarder les pixels à nouveau.
+Ces deux valeurs appartiennent aux fontes sur lesquelles elles ont été
+mesurées : Newsreader pour le monogramme, et Geist Mono pour la navigation, qui
+est depuis passée en Geist. `--trim-mono` peut donc être faux d’une fraction de
+pixel ; la seule façon d’en trouver une valeur juste est de regarder les pixels
+à nouveau.
 
 ---
 

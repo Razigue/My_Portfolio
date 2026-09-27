@@ -156,6 +156,9 @@ export function checkProjects(
     checkProse(problems, `« ${name} » : title`, project.title);
     checkProse(problems, `« ${name} » : subtitle`, project.subtitle);
     checkProse(problems, `« ${name} » : description`, project.description);
+    if (project.summary !== undefined) {
+      checkProse(problems, `« ${name} » : summary`, project.summary);
+    }
     project.highlights.forEach((h, i) =>
       checkProse(problems, `« ${name} » : highlights[${i}]`, h),
     );
@@ -293,6 +296,14 @@ export function checkProjects(
       );
     }
     if (project) checkProse(problems, `« ${slug} » : team`, project.team);
+    // Les listes de projets montrent cette phrase : sans elle, la carte
+    // n'aurait rien pour dire ce qu'est le projet.
+    if (project && project.summary === undefined) {
+      problems.push(
+        `« ${slug} » est publié mais n'a pas de summary. Écrire en une phrase ` +
+          `ce qu'est le projet, en reprenant sa description.`,
+      );
+    }
   }
 
   report("content/projects.ts", problems);
@@ -310,6 +321,9 @@ export function checkAbout(about: {
   readonly langues: readonly Texts[];
   readonly atouts: readonly Texts[];
   readonly interets: readonly Texts[];
+  readonly ia: Texts;
+  readonly devise: string;
+  readonly recherche: Texts;
 }): void {
   const problems: string[] = [];
 
@@ -326,6 +340,9 @@ export function checkAbout(about: {
   checkTexts(problems, "langues", about.langues);
   checkTexts(problems, "atouts", about.atouts);
   checkTexts(problems, "interets", about.interets);
+  checkTexts(problems, "ia", about.ia);
+  checkTexts(problems, "devise", about.devise);
+  checkTexts(problems, "recherche", about.recherche);
 
   report("content/about.ts", problems);
 }
@@ -469,6 +486,9 @@ export function checkProjectTexts(
     checkProse(problems, `${name} : subtitle`, text.subtitle, "en");
     checkProse(problems, `${name} : team`, text.team, "en");
     checkProse(problems, `${name} : description`, text.description, "en");
+    if (text.summary !== undefined) {
+      checkProse(problems, `${name} : summary`, text.summary, "en");
+    }
     text.highlights.forEach((h, i) =>
       checkProse(problems, `${name} : highlights[${i}]`, h, "en"),
     );
@@ -485,6 +505,7 @@ export function checkProjectTexts(
     const pairs: readonly (readonly [string, boolean, boolean])[] = [
       ["subtitle", project.subtitle !== null, text.subtitle !== null],
       ["team", project.team !== null, text.team !== null],
+      ["summary", project.summary !== undefined, text.summary !== undefined],
       ["approach", project.approach !== null, text.approach !== null],
       [
         "stackDisclosure",
@@ -568,6 +589,9 @@ export function checkAboutTranslation(
     readonly interets: number;
     readonly principes: number;
     readonly competences: number;
+    readonly firstMonth: number;
+    readonly learn: number;
+    readonly iaParagraphs: number;
   },
   english: {
     readonly parcours: readonly string[];
@@ -578,6 +602,12 @@ export function checkAboutTranslation(
     readonly interets: readonly Texts[];
     readonly principes: readonly Texts[];
     readonly competenceDomains: readonly string[];
+    readonly ia: { readonly paragraphs: readonly string[] } & Texts;
+    readonly devise: string;
+    readonly recherche: {
+      readonly firstMonth: readonly string[];
+      readonly learn: readonly string[];
+    } & Texts;
   },
 ): void {
   const problems: string[] = [];
@@ -593,6 +623,9 @@ export function checkAboutTranslation(
     ["interets", english.interets.length, french.interets],
     ["principes", english.principes.length, french.principes],
     ["competenceDomains", english.competenceDomains.length, french.competences],
+    ["recherche.firstMonth", english.recherche.firstMonth.length, french.firstMonth],
+    ["recherche.learn", english.recherche.learn.length, french.learn],
+    ["ia.paragraphs", english.ia.paragraphs.length, french.iaParagraphs],
   ];
   for (const [field, en, fr] of counts) {
     if (en !== fr) {

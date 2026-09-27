@@ -21,6 +21,8 @@ export const projectTexts: Readonly<Record<string, ProjectTranslation>> = {
     team: null,
     description:
       "Tonecraft is a web application that brings together on a single page everything you need to learn a song on guitar and record yourself playing it. You plug your guitar into the computer and open the site, with nothing to install and no account to create: you pick your sound, follow the sheet music while the rest of the band plays along with you, then record your version and download it. A tuner and a metronome round it out.",
+    summary:
+      "A web application for learning a song on guitar and recording yourself playing it, with nothing to install.",
     highlights: [],
     approach: [
       {
@@ -33,7 +35,7 @@ export const projectTexts: Readonly<Record<string, ProjectTranslation>> = {
         title: "The sound of a real amp",
         paragraphs: [
           "Without an amp, an electric guitar is almost silent. The sound people know comes from the gear it is plugged into: the effect pedals, the amp and its speaker. Tonecraft recreates all of it in software.",
-          "The heart of the sound is a capture: a reproduction of a real amp, learned by a neural network, that responds to your playing the way the original does. Tonecraft offers four, shared online by the community. The main one, GUILT, is set up to my own taste: a sound for solos, with a touch of echo to give it an epic feel. That reverb made me think of a guitar played in a church, and I designed stained-glass windows to dress its amp. Without a guitar, you can still try it out with a demo I recorded in advance.",
+          "The heart of the sound is a capture: a reproduction of a real amp, learned by a neural network, that responds to your playing the way the original does. Tonecraft offers four, shared online by the community. The main one, GUILT, is set up to my own taste: a sound for solos, with a touch of echo to give it an epic feel. That reverb made me think of a guitar played in a church, hence the stained glass dressing its amp. Without a guitar, you can still try it out with a demo I recorded in advance.",
         ],
         diagram: {
           title: "The path of the sound, from the guitar to the headphones",
@@ -70,6 +72,13 @@ export const projectTexts: Readonly<Record<string, ProjectTranslation>> = {
             },
           ],
         },
+      },
+      {
+        title: "Making the amp sound real",
+        paragraphs: [
+          "This was the hardest part of the project. I first explored building an amp of my own, and hit a wall: without a sound bank to train an AI on, there was no way to get a convincing simulation.",
+          "So I chose to start from captures shared by the community, and to build everything around them: the cabinet, the boost, the correction and the reverb. That is where my experience as a guitarist made the difference: I recorded my guitar without an amp and compared, by ear, what Tonecraft produced with renders made using the best simulations on the market, such as Neural DSP’s, until the sound pleased as many players as possible. That is how I finished the first version.",
+        ],
       },
       {
         title: "Follow the score",
@@ -140,6 +149,19 @@ export const projectTexts: Readonly<Record<string, ProjectTranslation>> = {
           ],
         },
       },
+      {
+        title: "How I built it",
+        paragraphs: [
+          "I designed it on my own, and built it with Claude Code and the Opus 5 model working as an agent, from specifications I put together with the BMAD method. I test everything it produces and decide what goes into the repository. A first working version took me two weeks, then one more week for v1, mostly about design and accessibility. Since then, it has kept evolving.",
+        ],
+      },
+      {
+        title: "What guitarists tell me",
+        paragraphs: [
+          "I use it myself to work on my songs, which is also how it evolves, towards the tool I would have wanted. Other guitarists try it and send me feedback every day: they like having everything on one page and enjoy trying out the amps and settings on offer, and they tell me what they miss or what they could not find at first glance. That feedback is what I use to decide what to add, what to rework and what to leave as it is.",
+          "For now, Tonecraft mostly offers distorted tones; I am working on clean and acoustic ones. Also planned: a space where guitarists can share their settings, on the platform or through a link. Today no account is needed; that will be revisited to make these exchanges possible, without ever requiring one to play.",
+        ],
+      },
     ],
     stackDisclosure: "Show the technologies used",
     imageAlt:
@@ -155,7 +177,9 @@ export const projectTexts: Readonly<Record<string, ProjectTranslation>> = {
     subtitle: "job offer aggregator",
     team: "team of 5",
     description:
-      "An aggregator of job, internship and apprenticeship offers, built as a team: a Symfony API, a React front end and a PostgreSQL database. My part covers the offers and the favourites: controllers, validation DTOs, filtered search and pagination.",
+      "An aggregator of job, internship and apprenticeship offers, built by five of us in three weeks: a Symfony API, a React front end and a PostgreSQL database. My part covers the offers and the favourites: controllers, validation DTOs, filtered search and pagination.",
+    summary:
+      "An aggregator of job, internship and apprenticeship offers, built by five of us in three weeks.",
     highlights: [
       "Controllers for the offers and the favourites",
       "Validation DTOs for incoming data",
@@ -171,10 +195,17 @@ export const projectTexts: Readonly<Record<string, ProjectTranslation>> = {
       {
         title: "My part",
         paragraphs: [
-          "I took the offers and the favourites. The offers controller carries the routes of the domain: filtered reads, reads by identifier, creation and deletion.",
+          "I handled the offers and the favourites. The offers controller carries the routes of the domain: filtered reads, reads by identifier, creation and deletion.",
         ],
         mediaAlt: [
           "The detail of an offer in Overkill, open next to the list: the title, company, location, working arrangement, salary, publication date, required stack and a summary of the offer.",
+        ],
+      },
+      {
+        title: "Working as five",
+        paragraphs: [
+          "We started with a Trello board listing every user story and everything there was to do, split into weekly goals. Tasks were handed out according to each person’s affinities and clearly assigned, so that no two people ever worked on the same thing. Every day, a check-in to say what was done, what worked or not, and what was left. A single person approved the pull requests.",
+          "Above all, I learned to communicate: I helped my teammates with their parts in my free time, and I read every approved pull request to keep a consistent way of coding across the project. If I did it again, I would put more things in writing, with decisions recorded on Trello rather than made out loud.",
         ],
       },
       {
@@ -188,6 +219,7 @@ export const projectTexts: Readonly<Record<string, ProjectTranslation>> = {
         paragraphs: [
           "It is a team project: a Symfony API, a React front end and a PostgreSQL database, all running under Docker. We split the API by domain.",
           "The search accepts criteria that can be combined (free text, city, company, contract, type, remote work, minimum salary, category), paginates the results and only returns offers published in the last thirty days, so that no expired listing is shown. The favourites controller keeps its own on the logged-in user.",
+          "The demo is hosted by a classmate from my year.",
         ],
         mediaAlt: [
           "A search in Overkill for developer roles in Paris, returning seven offers, with the offer type and contract filters on the left.",
@@ -205,7 +237,9 @@ export const projectTexts: Readonly<Record<string, ProjectTranslation>> = {
     subtitle: "e-learning platform",
     team: "team of 3",
     description:
-      "A platform for learning development, with courses and multiple-choice exams, built as a team with an Express API and a MongoDB database. My part covers the data models and the routes: JWT authentication, role-based access control, and the CRUD for courses, lessons, quizzes and results.",
+      "A platform for learning development, with courses and multiple-choice exams, built as a team with an Express API and a MongoDB database. Planned for three, it was done by two. My part covers the data models and the routes: JWT authentication, role-based access control, and the CRUD for courses, lessons, quizzes and results.",
+    summary:
+      "A platform for learning development, with courses, multiple-choice exams and an admin area, planned for three and carried by two.",
     highlights: [
       "Data models and API routes",
       "JWT authentication and role-based access control",
@@ -222,6 +256,7 @@ export const projectTexts: Readonly<Record<string, ProjectTranslation>> = {
         title: "My part",
         paragraphs: [
           "It is a team project, and I took care of the server: the data models and the routes.",
+          "Planned for three, the project was done by two, with several unexpected problems to deal with. I learned a lot on the code side, about controllers, field validation and models with Express, and on the organisation side, about my ability to adapt.",
         ],
       },
       {

@@ -16,6 +16,8 @@ export type SkillUse = {
 export type SkillDomain = {
   readonly domain: string;
   readonly skills: readonly SkillUse[];
+  /** The published projects using any of the domain's technologies, in their published order. */
+  readonly projects: readonly Project[];
 };
 
 export function skillDomains(content: Content): readonly SkillDomain[] {
@@ -25,5 +27,8 @@ export function skillDomains(content: Content): readonly SkillDomain[] {
       name,
       projects: content.projects.filter((p) => p.stack.includes(name)),
     })),
+    projects: content.projects.filter((p) =>
+      p.stack.some((technology) => group.technologies.includes(technology)),
+    ),
   }));
 }

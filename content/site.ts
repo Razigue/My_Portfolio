@@ -12,7 +12,7 @@ import { checkCopy, checkSite } from "@/content/check";
 export const site = {
   name: "Razigue Benhmida",
   role: "Développeur web full-stack",
-  location: "Paris, mobilité Île-de-France",
+  location: "Paris et toute l’Île-de-France, télétravail accepté",
   email: "razigue.benhmida@epitech.eu",
   github: "https://github.com/Razigue",
   cvUrl: "/cv-razigue-benhmida.pdf",
@@ -37,7 +37,7 @@ export const availability = {
   rhythmLabel: "Rythme",
   rhythm: "6 semaines en entreprise, 2 semaines en formation",
   targetLabel: "Poste visé",
-  target: "Développeur web full-stack, PHP / Laravel et React",
+  target: "Développeur web full-stack, PHP / Symfony et React / TypeScript",
   // L’école, le diplôme et le lieu ne se saisissent pas ici : ils sont lus
   // dans `formation` (content/about.ts) et dans `site.location`.
   schoolLabel: "École",
@@ -52,7 +52,7 @@ export const hero = {
 } as const;
 
 export const presentation =
-  "J’ai découvert le code en créant le site e-commerce de mon auto-entreprise. Je suis aujourd’hui en formation à la Web@cadémie by Epitech Paris (2025 à 2027), où je développe des applications avec PHP et Laravel, Java et Spring Boot, et React.";
+  "J’ai découvert le code en commençant le site e-commerce de mon auto-entreprise. Je suis aujourd’hui en formation à la Web@cadémie by Epitech Paris (2025 à 2027), où je développe surtout en PHP avec Symfony, et en React avec TypeScript.";
 
 /** Les entrées du menu. Les adresses se calculent dans `lib/i18n.ts`. */
 export const nav = {
@@ -119,6 +119,7 @@ export const copy = {
   parcoursLink: "Parcours complet",
   formationTitle: "Formation",
   experiencesTitle: "Expériences",
+  skillsUsedIn: "Utilisé dans\u00A0:",
 
   // Projets. `{years}`, `{year}`, `{first}`, `{last}` et `{title}` se calculent.
   projectsEyebrow: "Index",
@@ -161,8 +162,8 @@ export const copy = {
     "alternance",
     "Paris",
     "React",
-    "Laravel",
-    "Spring Boot",
+    "Symfony",
+    "TypeScript",
   ],
 } as const;
 
@@ -172,7 +173,7 @@ export const form = {
   message: "Message",
   submit: "Envoyer",
   pending: "Envoi…",
-  success: "Message envoyé. Je réponds sous 24 h.",
+  success: "Message envoyé, merci. Je vous répondrai personnellement, par email.",
   error: "Une erreur est survenue. Réessayez ou écrivez-moi directement.",
   unconfigured: `Le formulaire n’est pas encore configuré. Écrivez-moi directement à ${site.email}.`,
   invalid: "Corrigez les champs signalés.",

@@ -26,7 +26,7 @@ something it covers, do exactly what it says.
 | --- | --- |
 | `content/projects.ts` | the projects, and `featuredSlugs`: the only ones published anywhere; the rest are a reserve with no page |
 | `content/site.ts` | identity, availability, every interface label |
-| `content/about.ts` | the long-form story, experience, education, languages, strengths, interests, the home page's principles and skill domains |
+| `content/about.ts` | the long-form story, the About page's motto (`devise`) and apprenticeship section (`recherche`), experience, education, languages, strengths, interests, the home page's principles, skill domains and AI note (`ia`) |
 | `content/en/site.ts`, `content/en/about.ts` | the English words of the two files above, key for key and entry for entry |
 | `content/en/projects.ts` | the English words of each published project, keyed by slug; facts stay in `content/projects.ts` |
 | `content/check.ts` | the rules that stop a bad edit; read before editing content |
@@ -97,8 +97,9 @@ you are the only check.
    Razigue asked for that. It deliberately does not carry the portrait's grayscale filter —
    that exists to keep one photograph from pulling the composition off neutral,
    and a screenshot has to report the interface's own colours. On the home
-   page each project shows its interface (`image`, or `thumbnail` when it has
-   none) beside its summary; the artwork and the scenery open its own page.
+   page the projects sit side by side, each with its interface (`image`, or
+   `thumbnail` when it has none) above its one-sentence `summary`; the artwork
+   and the scenery open its own page.
 4. **One accent, and the two themes do not share it.** Pale gold at night, dark
    orange by day. The daylight value is capped by contrast arithmetic against
    `--ink-3`; see the README before touching it.
@@ -107,14 +108,17 @@ you are the only check.
    surfaces that render without a stylesheet.
 6. **No invented facts.** No metric, date, duration, team size, client name or
    outcome that is not already in the CV, on GitHub, or in the existing content.
-   A project's `highlights` may only restate what its `description` or `stack`
-   already says. `approach`, the long-form account rendered under « La
+   A project's `highlights` and its `summary` may only restate what its
+   `description` or `stack` already says. The AI note (`ia`), the About
+   page's `devise` and the apprenticeship section (`recherche`), all in
+   `content/about.ts`, hold only what Razigue said on 2026-09-27, in his words
+   or close to them: add to them only from him. `approach`, the long-form account rendered under « La
    démarche » as titled sections (`title`, `paragraphs`), is the one place a
    choice may be explained at length — it is
    still held to the same rule: a recruiter opening the repo has to find what
    the page claims.
 7. **Nothing that can be counted is typed.** The project count, the years the
-   index spans, the projects named beside each technology, the sentence the
+   index spans, the projects named under each skill domain, the sentence the
    index quotes from each description — all derived. If
    you find yourself typing a number that describes the data, you are about to
    make it wrong at the next edit.
@@ -131,6 +135,14 @@ you are the only check.
    section on the page's own ground drops its bottom padding so the footer
    sits one section away, not two. No project gets a rhythm of its own:
    Razigue asked for one spacing everywhere.
+10. **One face: Geist.** Headings, reading text, labels, buttons and the
+    social cards are all set in Geist, a sans-serif; `font-display`,
+    `font-sans` and `font-mono` all name it. The `RB` monogram, in the header
+    and in the favicon, is the one thing set in Newsreader. When Razigue asked
+    for a "mono font" he meant one single font, not a monospace: he wants it
+    readable and professional, "pas quelque chose de fantaisie juste pour
+    respecter un thème". Do not add a second face, never an expressive one,
+    and no monospace. Nothing is set in italics.
 
 ---
 

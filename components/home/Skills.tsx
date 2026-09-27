@@ -1,15 +1,18 @@
+import Link from "next/link";
 import { Fragment } from "react";
 import { getContent } from "@/lib/content";
-import type { Locale } from "@/lib/i18n";
+import { pathFor, type Locale } from "@/lib/i18n";
 import { skillDomains } from "@/lib/skills";
 
 /**
- * One line per domain. A technology that a published project uses carries
- * that project's name beside it, derived from `content/projects.ts`, so the
- * list also says where to see it. See `lib/skills.ts`.
+ * One block per domain: its technologies on one line, and under them the
+ * published projects that use any of them, derived from `content/projects.ts`
+ * and linked, so the list also says where to see it. A domain no published
+ * project uses shows its technologies alone. See `lib/skills.ts`.
  */
 export function Skills({ locale }: { locale: Locale }) {
   const content = getContent(locale);
+  const { copy, sections } = content;
   const domains = skillDomains(content);
 
   return (
@@ -19,35 +22,39 @@ export function Skills({ locale }: { locale: Locale }) {
           id="competences-title"
           className="font-display text-h3 leading-tight tracking-tight text-paper"
         >
-          {content.sections.competences}
+          {sections.competences}
         </h2>
 
-        <dl className="mt-block grid gap-y-title">
+        <ul className="mt-block grid gap-x-gutter gap-y-block lg:grid-cols-2">
           {domains.map((domain) => (
-            <div
-              key={domain.domain}
-              className="grid gap-y-2 sm:grid-cols-[12rem_minmax(0,1fr)] sm:items-baseline sm:gap-x-gutter"
-            >
-              <dt className="eyebrow">{domain.domain}</dt>
-              <dd className="max-w-[60rem] text-body text-paper">
-                {domain.skills.map((skill, index) => (
-                  <Fragment key={skill.name}>
-                    {index > 0 ? ", " : null}
-                    <span className="whitespace-nowrap">
-                      {skill.name}
-                      {skill.projects.length > 0 ? (
-                        <span className="text-paper-3">
-                          {" "}
-                          ({skill.projects.map((p) => p.title).join(", ")})
-                        </span>
-                      ) : null}
-                    </span>
-                  </Fragment>
-                ))}
-              </dd>
-            </div>
+            <li key={domain.domain}>
+              <h3 className="font-display text-lede leading-tight tracking-tight text-paper">
+                {domain.domain}
+              </h3>
+
+              <p className="mt-label max-w-measure text-body text-paper">
+                {domain.skills.map((skill) => skill.name).join(", ")}
+              </p>
+
+              {domain.projects.length > 0 ? (
+                <p className="mt-label text-meta text-paper-3">
+                  {copy.skillsUsedIn}{" "}
+                  {domain.projects.map((project, index) => (
+                    <Fragment key={project.slug}>
+                      {index > 0 ? ", " : null}
+                      <Link
+                        href={pathFor(locale, "projects", project.slug)}
+                        className="link text-paper-2"
+                      >
+                        {project.title}
+                      </Link>
+                    </Fragment>
+                  ))}
+                </p>
+              ) : null}
+            </li>
           ))}
-        </dl>
+        </ul>
       </div>
     </section>
   );

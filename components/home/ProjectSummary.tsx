@@ -7,10 +7,10 @@ import { getContent, projectContext } from "@/lib/content";
 import { fill, pathFor, type Locale } from "@/lib/i18n";
 
 /**
- * One published project on the home page: its interface beside what it is,
- * the frame and the year, what he did on it, the stack and the links. Enough
- * to decide whether to open the page, without scrolling through a screen of
- * scenery first.
+ * One published project on the home page, as a column: its interface, its
+ * name and state, the frame and the year, what it is in one sentence, the
+ * main technologies and the links. The full description waits on the
+ * project's page.
  */
 export function ProjectSummary({
   project,
@@ -30,67 +30,51 @@ export function ProjectSummary({
 
   return (
     <li>
-      <article
-        aria-labelledby={titleId}
-        className="grid items-start gap-x-gutter gap-y-title lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]"
-      >
+      <article aria-labelledby={titleId} className="grid content-start gap-y-title">
         {visual ? (
           <ProjectShot
             image={visual}
-            sizes="(min-width: 1024px) 33rem, calc(100vw - 48px)"
+            sizes="(min-width: 1024px) 25rem, calc(100vw - 48px)"
             placeholder={visual.cutout ? "empty" : "blur"}
           />
         ) : null}
 
-        <div className={visual ? undefined : "lg:col-start-2"}>
-          <h3
-            id={titleId}
-            className="font-display text-h3 leading-tight tracking-tight text-paper"
-          >
-            <Link
-              href={href}
-              className="transition-colors duration-300 hover:text-flare"
+        <div>
+          <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+            <h3
+              id={titleId}
+              className="font-display text-h3 leading-tight tracking-tight text-paper"
             >
-              {project.title}
-            </Link>
-          </h3>
+              <Link
+                href={href}
+                className="transition-colors duration-300 hover:text-flare"
+              >
+                {project.title}
+              </Link>
+            </h3>
+            <StatusDot status={project.status} labels={copy} />
+          </div>
 
-          {project.subtitle ? (
-            <p className="mt-1 text-body text-paper-3">{project.subtitle}</p>
-          ) : null}
-
-          <p className="mt-label flex flex-wrap items-center gap-x-5 gap-y-1 text-meta text-paper-3">
+          <p className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-meta text-paper-3">
             {context ? <span>{context}</span> : null}
             <span className="tnum">{project.year}</span>
-            <StatusDot status={project.status} labels={copy} />
           </p>
 
           <p className="mt-title max-w-measure text-body text-paper-2">
-            {project.description}
+            {project.summary ?? project.description}
           </p>
 
           <Reveal variant="rise" className="mt-title">
             <TagList items={project.primaryStack ?? project.stack} />
           </Reveal>
 
-          <p className="mt-title flex flex-wrap items-center gap-x-8 gap-y-3">
+          <p className="mt-title flex flex-wrap items-center gap-x-6 gap-y-3">
             <Link
               href={href}
               className="link font-mono text-meta tracking-meta text-paper"
             >
               {copy.viewProject} →
             </Link>
-
-            {project.repo ? (
-              <ExternalLink
-                href={project.repo}
-                label={fill(copy.repoLabel, { title: project.title })}
-                newTab={copy.newTab}
-                className="link font-mono text-meta tracking-meta text-paper-3"
-              >
-                {copy.repoShort} ↗
-              </ExternalLink>
-            ) : null}
 
             {project.demo ? (
               <ExternalLink
@@ -100,6 +84,17 @@ export function ProjectSummary({
                 className="link font-mono text-meta tracking-meta text-paper-3"
               >
                 {copy.demoShort} ↗
+              </ExternalLink>
+            ) : null}
+
+            {project.repo ? (
+              <ExternalLink
+                href={project.repo}
+                label={fill(copy.repoLabel, { title: project.title })}
+                newTab={copy.newTab}
+                className="link font-mono text-meta tracking-meta text-paper-3"
+              >
+                {copy.repoShort} ↗
               </ExternalLink>
             ) : null}
           </p>

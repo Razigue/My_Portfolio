@@ -42,6 +42,9 @@ export type Content = {
   readonly interets: Localized<typeof frenchAbout.interets>;
   readonly principes: typeof frenchAbout.principes;
   readonly competences: typeof frenchAbout.competences;
+  readonly ia: Localized<typeof frenchAbout.ia>;
+  readonly devise: string;
+  readonly recherche: Localized<typeof frenchAbout.recherche>;
   /** The published projects, in the order of `featuredSlugs`. */
   readonly projects: readonly Project[];
 };
@@ -64,6 +67,9 @@ const french: Content = {
   interets: frenchAbout.interets,
   principes: frenchAbout.principes,
   competences: frenchAbout.competences,
+  ia: frenchAbout.ia,
+  devise: frenchAbout.devise,
+  recherche: frenchAbout.recherche,
   projects: featuredProjects,
 };
 
@@ -77,6 +83,7 @@ function inEnglish(project: Project): Project {
     subtitle: text.subtitle,
     team: text.team,
     description: text.description,
+    summary: text.summary,
     highlights: text.highlights,
     approach:
       text.approach?.map(({ mediaAlt, ...section }, i) => {
@@ -127,6 +134,9 @@ const english: Content = {
     domain: englishAbout.competenceDomains[index] ?? group.domain,
     technologies: group.technologies,
   })),
+  ia: englishAbout.ia,
+  devise: englishAbout.devise,
+  recherche: englishAbout.recherche,
   projects: featuredProjects.map(inEnglish),
 };
 

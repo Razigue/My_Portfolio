@@ -17,7 +17,7 @@ export function ParcoursTeaser({ locale }: { locale: Locale }) {
 
         <div className="mt-block grid gap-x-gutter gap-y-block lg:grid-cols-[1.15fr_0.85fr]">
           <div>
-            <p className="max-w-measure text-lede text-paper-2">{presentation}</p>
+            <p className="max-w-measure text-body text-paper-2">{presentation}</p>
 
             <p className="mt-title">
               <Link

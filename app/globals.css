@@ -34,10 +34,16 @@
   --color-flare: #ecdcb0;
   --color-live: #4ed9a4;
 
+  /* One face for the whole site, headings, reading text, labels and buttons:
+     Geist, a sans-serif drawn for screens. Razigue asked for a single font
+     that reads easily and looks professional, rather than one chosen to fit a
+     theme. `font-display`, `font-sans` and `font-mono` all name it, so the
+     markup did not have to change. The `RB` monogram alone keeps Newsreader,
+     set directly on `.wordmark`: it is the site's mark, not its text. */
   --font-*: initial;
-  --font-display: var(--font-newsreader), Georgia, "Times New Roman", serif;
+  --font-display: var(--font-geist), system-ui, -apple-system, sans-serif;
   --font-sans: var(--font-geist), system-ui, -apple-system, sans-serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-mono: var(--font-geist), system-ui, -apple-system, sans-serif;
 
   --text-*: initial;
   --text-micro: clamp(0.6875rem, 0.67rem + 0.08vw, 0.75rem);
@@ -58,11 +64,12 @@
   --tracking-*: initial;
   --tracking-display: -0.035em;
   --tracking-tight: -0.02em;
-  /* Meta is set in lowercase, so the tracking comes down with it. Wide letter
-     spacing is a capital's convention: it opens up the gaps between forms that
-     are all the same height, and on lowercase, where the ascenders and
-     descenders already do that work, the same value reads as holes. */
-  --tracking-meta: 0.045em;
+  /* Meta is set in lowercase, so the tracking stays close to the face's own.
+     Wide letter spacing is a capital's convention: it opens up the gaps
+     between forms that are all the same height, and on lowercase, where the
+     ascenders and descenders already do that work, it reads as holes. Geist
+     is spaced for small sizes already; this only opens it a hair. */
+  --tracking-meta: 0.01em;
   --tracking-wide: 0.09em;
 
   --leading-*: initial;
@@ -581,7 +588,8 @@
        nowhere near the name. */
     justify-self: start;
     align-items: center;
-    font-family: var(--font-display);
+    /* The one thing on the site not set in Geist. */
+    font-family: var(--font-newsreader), Georgia, "Times New Roman", serif;
     font-size: 1.55rem;
     line-height: 1;
     letter-spacing: -0.04em;

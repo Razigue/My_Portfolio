@@ -19,7 +19,7 @@ import type { Localized } from "@/lib/i18n";
 
 export const site: Localized<Pick<typeof frenchSite, "role" | "location">> = {
   role: "Full-stack web developer",
-  location: "Paris, open to anywhere in Île-de-France",
+  location: "Paris and all of Île-de-France, remote work welcome",
 };
 
 export const availability: Localized<typeof frenchAvailability> = {
@@ -29,7 +29,7 @@ export const availability: Localized<typeof frenchAvailability> = {
   rhythmLabel: "Schedule",
   rhythm: "6 weeks at the company, 2 weeks in training",
   targetLabel: "Target role",
-  target: "Full-stack web developer, PHP / Laravel and React",
+  target: "Full-stack web developer, PHP / Symfony and React / TypeScript",
   schoolLabel: "School",
   diplomaLabel: "Qualification",
   placeLabel: "Location",
@@ -42,7 +42,7 @@ export const hero: Localized<typeof frenchHero> = {
 };
 
 export const presentation =
-  "I discovered code while building the e-commerce site of my own business as a sole trader. I am now training at Web@cadémie by Epitech Paris (2025 to 2027), where I build applications with PHP and Laravel, Java and Spring Boot, and React.";
+  "I discovered code while starting the e-commerce site of my own business as a sole trader. I am now training at Web@cadémie by Epitech Paris (2025 to 2027), where I mostly build with PHP and Symfony, and with React and TypeScript.";
 
 export const nav: Localized<typeof frenchNav> = {
   home: "Home",
@@ -105,6 +105,7 @@ export const copy: Localized<typeof frenchCopy> = {
   parcoursLink: "Full background",
   formationTitle: "Education",
   experiencesTitle: "Experience",
+  skillsUsedIn: "Used in:",
 
   projectsEyebrow: "Index",
   projectsDescription: "Full-stack web applications, built solo and in teams.",
@@ -144,8 +145,8 @@ export const copy: Localized<typeof frenchCopy> = {
     "apprenticeship",
     "Paris",
     "React",
-    "Laravel",
-    "Spring Boot",
+    "Symfony",
+    "TypeScript",
   ],
 };
 
@@ -155,7 +156,7 @@ export const form: Localized<typeof frenchForm> = {
   message: "Message",
   submit: "Send",
   pending: "Sending…",
-  success: "Message sent. I reply within 24 hours.",
+  success: "Message sent, thank you. I will reply to you personally, by email.",
   error: "Something went wrong. Try again or write to me directly.",
   unconfigured: `The form is not set up yet. Write to me directly at ${frenchSite.email}.`,
   invalid: "Please correct the fields marked below.",

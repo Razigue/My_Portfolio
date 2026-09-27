@@ -4,7 +4,7 @@ import type { Locale } from "@/lib/i18n";
 import {
   FLARE,
   INK,
-  loadDisplayFont,
+  loadTextFont,
   OG_SIZE,
   PAPER,
   PAPER_3,
@@ -18,7 +18,14 @@ export function ogAlt(locale: Locale): string {
 /** The social card of one language. Each root layout has its own. */
 export async function renderOgImage(locale: Locale): Promise<ImageResponse> {
   const { availability, hero, site } = getContent(locale);
-  const font = await loadDisplayFont(site.name);
+  // Subset to every character the card draws, since all of it is set in the
+  // site's one face; the name alone takes the heavier weight.
+  const [font, heavy] = await Promise.all([
+    loadTextFont(
+      [site.role, hero.tagline, availability.headline, availability.window].join(""),
+    ),
+    loadTextFont(site.name, 500),
+  ]);
 
   return new ImageResponse(
     (
@@ -31,6 +38,7 @@ export async function renderOgImage(locale: Locale): Promise<ImageResponse> {
           justifyContent: "space-between",
           background: INK,
           color: PAPER,
+          fontFamily: font ? "Text" : "sans-serif",
           padding: "72px 80px",
         }}
       >
@@ -46,7 +54,7 @@ export async function renderOgImage(locale: Locale): Promise<ImageResponse> {
           <div
             style={{
               fontSize: 24,
-              letterSpacing: "0.06em",
+              letterSpacing: "0.01em",
               color: PAPER_3,
             }}
           >
@@ -57,10 +65,10 @@ export async function renderOgImage(locale: Locale): Promise<ImageResponse> {
         <div
           style={{
             display: "flex",
-            fontSize: 132,
+            fontSize: 112,
+            fontWeight: 500,
             lineHeight: 1,
-            letterSpacing: "-0.04em",
-            fontFamily: font ? "Display" : "serif",
+            letterSpacing: "-0.03em",
           }}
         >
           {site.name}
@@ -82,7 +90,7 @@ export async function renderOgImage(locale: Locale): Promise<ImageResponse> {
             style={{
               display: "flex",
               fontSize: 24,
-              letterSpacing: "0.045em",
+              letterSpacing: "0.01em",
               color: FLARE,
             }}
           >
@@ -92,7 +100,7 @@ export async function renderOgImage(locale: Locale): Promise<ImageResponse> {
             style={{
               display: "flex",
               fontSize: 24,
-              letterSpacing: "0.045em",
+              letterSpacing: "0.01em",
               color: PAPER_3,
             }}
           >
@@ -103,8 +111,15 @@ export async function renderOgImage(locale: Locale): Promise<ImageResponse> {
     ),
     {
       ...OG_SIZE,
+      // No font at all when both fetches failed: `next/og` then falls back
+      // to its own default rather than to an empty list.
       fonts: font
-        ? [{ name: "Display", data: font, style: "normal", weight: 400 }]
+        ? [
+            { name: "Text", data: font, style: "normal", weight: 400 },
+            ...(heavy
+              ? [{ name: "Text", data: heavy, style: "normal", weight: 500 } as const]
+              : []),
+          ]
         : undefined,
     },
   );

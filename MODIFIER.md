@@ -64,6 +64,8 @@ plus récent au plus ancien.
     team: "équipe de 4",
     description:
       "Une phrase ou deux, au présent, sur ce que fait le projet.",
+    summary:
+      "Ce qu’est le projet, en une seule phrase.",
     highlights: [
       "Un point technique",
       "Un autre",
@@ -95,6 +97,10 @@ Champ par champ :
   si tu as travaillé seul.
 - **`description`** — le texte principal de la page du projet. Une ou deux
   phrases suffisent ; une page courte est une page juste.
+- **`summary`** — ce qu’est le projet, en une seule phrase. C’est elle que
+  montre la carte du projet sur l’accueil, à la place de la description. Elle
+  reprend la description sans rien y ajouter. Obligatoire sur un projet
+  publié (la compilation le rappelle) ; un projet en réserve peut s’en passer.
 - **`highlights`** — les points listés sous la description. **Ils ne peuvent
   que reformuler ce qui est déjà dans `description` ou `stack`.** Pas de
   chiffre, pas de durée, pas de résultat, pas d’adjectif sur l’impact : rien
@@ -111,10 +117,11 @@ Champ par champ :
   n’a pas la contrainte des `highlights` — tu peux y expliquer un choix — mais
   il reste soumis à la même règle de fond : rien qu’un recruteur ne puisse
   retrouver en ouvrant le dépôt.
-- **`stack`** — les technologies, une par entrée. Sur l’accueil, chacune
-  s’affiche dans son domaine de compétences, suivie entre parenthèses du nom
-  des projets qui l’utilisent. Une technologie qu’aucun domaine ne liste arrête la compilation :
-  ajoute-la dans `competences`, dans `content/about.ts`.
+- **`stack`** — les technologies, une par entrée. Sur l’accueil, chaque domaine
+  de compétences liste ses technologies, puis « Utilisé dans » et les projets
+  qui en utilisent au moins une, calculés d’après ce champ. Une technologie
+  qu’aucun domaine ne liste arrête la compilation : ajoute-la dans
+  `competences`, dans `content/about.ts`.
 - **`image`** — une capture du projet, ou `null`. Voir la section suivante.
 - **`primaryStack`** — facultatif, les technologies principales à afficher dans
   le résumé du projet sur l’accueil, par exemple `["Astro", "Svelte", "TypeScript", "C++", "WebAssembly"]`.
@@ -380,17 +387,31 @@ la liste est l’ordre affiché, du plus récent au plus ancien.
 
 `parcours` est le texte long de la page « À propos » : une entrée par
 paragraphe. `formation`, `langues`, `atouts` et `interets` se modifient sur
-place.
+place. La page « À propos » lit aussi :
 
-Deux listes du même fichier alimentent l’accueil :
+- **`devise`**, la phrase affichée sous le titre de la page.
+- **`recherche`**, la partie « En alternance » : un titre, puis deux listes,
+  chacune avec son titre : `firstMonth`, ce que tu peux prendre en charge dès le
+  premier mois, et `learn`, ce que tu veux apprendre en entreprise. Une entrée
+  par point. Aucune préférence de type d’entreprise n’y figure : elle
+  fermerait des portes.
+- **`formation.firstYear`**, **`formation.cycle`** et **`formation.proudest`**,
+  les trois paragraphes sous ta formation : ta première année en chiffres, le
+  déroulé d’un projet à l’école, et le projet qui t’a le plus appris.
+
+Trois éléments du même fichier alimentent l’accueil :
 
 - **`principes`**, la section « Méthode ». Chaque principe a un titre, un
   texte, et la liste des slugs des projets qui le montrent. Un slug qui n’est
   pas publié arrête la compilation, pour qu’un principe ne renvoie jamais vers
   une page introuvable. Le texte ne dit rien que « La démarche » de ces projets
   ne dise déjà.
-- **`competences`**, les domaines et leurs technologies. Le nom des projets
-  affiché à côté de chaque technologie se calcule tout seul.
+- **`competences`**, les domaines et leurs technologies. La ligne « Utilisé
+  dans » sous chaque domaine se calcule toute seule d’après la stack des
+  projets publiés.
+- **`ia`**, l’encadré « Mon usage de l’IA » à la fin de « Méthode » : un titre
+  (`title`) et ses paragraphes (`paragraphs`), un par entrée. N’y écris que ce
+  qui est vrai de ta façon de travailler.
 
 Ce fichier est relu comme les projets : un texte vide, une apostrophe droite ou
 une espace mal placée arrête la compilation avec le même genre de message.
@@ -452,8 +473,8 @@ que les mots.
 | Fichier | Ce qu’il traduit |
 | --- | --- |
 | `content/en/site.ts` | `content/site.ts` : rôle, ville, disponibilité, accroche, présentation, menu, titres de section, libellés, formulaire |
-| `content/en/about.ts` | `content/about.ts` : parcours, expériences, formation, langues, atouts, centres d’intérêt, principes, noms des domaines de compétences |
-| `content/en/projects.ts` | les textes des projets publiés : titre, sous-titre, équipe, description, points, récit et schémas, texte des technologies, description de la capture |
+| `content/en/about.ts` | `content/about.ts` : parcours, devise, alternance cherchée, expériences, formation, langues, atouts, centres d’intérêt, principes, noms des domaines de compétences, encadré sur l’IA |
+| `content/en/projects.ts` | les textes des projets publiés : titre, sous-titre, équipe, description, résumé, points, récit et schémas, texte des technologies, description de la capture |
 
 **Quand tu modifies un texte en français, modifie aussi sa version anglaise.**
 Rien ne peut vérifier que les deux disent la même chose. En revanche, la
@@ -461,7 +482,8 @@ compilation s’arrête si :
 
 - une clé existe dans une langue et pas dans l’autre (`content/en/site.ts`) ;
 - une liste n’a pas le même nombre d’entrées dans les deux langues
-  (expériences, langues, atouts, centres d’intérêt, principes, domaines) ;
+  (expériences, langues, atouts, centres d’intérêt, principes, domaines, les
+  deux listes de l’alternance cherchée, les paragraphes sur l’IA) ;
 - un projet publié n’a pas d’entrée dans `content/en/projects.ts`, ou un champ
   (sous-titre, équipe, récit, schéma, description de la capture) n’existe que
   dans une des deux langues.
@@ -480,6 +502,7 @@ Quand tu ajoutes un slug à `featuredSlugs`, ajoute son entrée dans
     subtitle: "subtitle in italics",
     team: "team of 4",
     description: "One or two sentences, in the present tense, on what the project does.",
+    summary: "What the project is, in one sentence.",
     highlights: ["A technical point", "Another one"],
     approach: null,
   },

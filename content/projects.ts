@@ -120,6 +120,12 @@ export type Project = {
   /** The team as the CV states it, `équipe de 5`. `null` when he worked alone or it is unknown. */
   readonly team: string | null;
   readonly description: string;
+  /**
+   * What the project is, in one sentence, for the lists: the home page and
+   * `/projets`. It restates `description` and adds nothing to it. Required on
+   * every published project; the ones kept in reserve can do without.
+   */
+  readonly summary?: string;
   readonly highlights: readonly string[];
   /**
    * The long-form account, grouped into titled sections on the project page.
@@ -159,6 +165,7 @@ export type ProjectTranslation = {
   readonly subtitle: string | null;
   readonly team: string | null;
   readonly description: string;
+  readonly summary?: string;
   readonly highlights: readonly string[];
   readonly approach: readonly ProjectSectionText[] | null;
   readonly stackDisclosure?: string;
@@ -184,6 +191,8 @@ export const projects: readonly Project[] = [
     team: null,
     description:
       "Tonecraft est une application web qui réunit sur une seule page tout ce qu’il faut pour apprendre un morceau à la guitare et s’enregistrer en le jouant. On branche sa guitare à l’ordinateur et on ouvre le site, sans rien installer ni créer de compte\u00A0: on choisit son son, on suit la partition pendant que le reste du groupe joue avec soi, puis on enregistre sa version et on la télécharge. Un accordeur et un métronome complètent l’ensemble.",
+    summary:
+      "Une application web pour apprendre un morceau à la guitare et s’enregistrer en le jouant, sans rien installer.",
     highlights: [],
     approach: [
       {
@@ -196,7 +205,7 @@ export const projects: readonly Project[] = [
         title: "Le son d’un vrai ampli",
         paragraphs: [
           "Sans ampli, une guitare électrique est presque muette. Le son qu’on lui connaît vient du matériel auquel on la branche\u00A0: les pédales d’effet, l’ampli et son haut-parleur. Tonecraft recrée tout cela par logiciel.",
-          "Le cœur du son est une capture\u00A0: la reproduction d’un vrai ampli, apprise par un réseau de neurones, qui réagit au jeu comme l’original. Tonecraft en propose quatre, partagées en ligne par la communauté. La principale, GUILT, est réglée selon mes préférences\u00A0: un son pour les solos, avec un peu d’écho pour lui donner un côté épique. Cette réverbération m’a fait penser à une guitare qui joue dans une église, et j’ai dessiné des vitraux pour habiller son ampli. Sans guitare, on peut tout de même l’essayer grâce à une démo que j’ai enregistrée à l’avance.",
+          "Le cœur du son est une capture\u00A0: la reproduction d’un vrai ampli, apprise par un réseau de neurones, qui réagit au jeu comme l’original. Tonecraft en propose quatre, partagées en ligne par la communauté. La principale, GUILT, est réglée selon mes préférences\u00A0: un son pour les solos, avec un peu d’écho pour lui donner un côté épique. Cette réverbération m’a fait penser à une guitare qui joue dans une église, d’où les vitraux qui habillent son ampli. Sans guitare, on peut tout de même l’essayer grâce à une démo que j’ai enregistrée à l’avance.",
         ],
         diagram: {
           title: "Le trajet du son, de la guitare au casque",
@@ -233,6 +242,13 @@ export const projects: readonly Project[] = [
             },
           ],
         },
+      },
+      {
+        title: "Faire sonner l’ampli comme un vrai",
+        paragraphs: [
+          "C’est la partie la plus difficile du projet. J’ai d’abord exploré la création d’un ampli maison, et je me suis heurté à un mur\u00A0: sans banque de sons sur laquelle entraîner une IA, impossible d’obtenir une simulation crédible.",
+          "J’ai donc choisi de partir des captures partagées par la communauté, et de construire tout ce qui les entoure\u00A0: le baffle, le boost, la correction et la réverbération. C’est là que ma pratique de guitariste a fait la différence\u00A0: j’ai enregistré ma guitare sans ampli et comparé, à l’oreille, ce que donnait Tonecraft à des rendus faits avec les meilleures simulations du marché, comme celles de Neural DSP, jusqu’à un son qui plaise au plus grand nombre. C’est ainsi que j’ai terminé la première version.",
+        ],
       },
       {
         title: "Suivre la partition",
@@ -319,6 +335,19 @@ export const projects: readonly Project[] = [
           ],
         },
       },
+      {
+        title: "Comment je l’ai construit",
+        paragraphs: [
+          "Je l’ai conçu seul, et développé avec Claude Code et le modèle Opus 5 travaillant en agent, à partir de spécifications que j’ai construites avec la méthode BMAD. Je teste tout ce qui en sort et je décide de ce qui entre dans le dépôt. Une première version fonctionnelle m’a pris deux semaines, puis une semaine de plus pour la v1, surtout consacrée au design et à l’accessibilité. Depuis, il évolue en continu.",
+        ],
+      },
+      {
+        title: "Les retours des guitaristes",
+        paragraphs: [
+          "Je l’utilise moi-même pour travailler mes morceaux, et c’est aussi comme ça qu’il évolue, vers l’outil que j’aurais voulu avoir. D’autres guitaristes l’essaient et m’envoient chaque jour leurs retours\u00A0: ils apprécient que tout tienne sur une page et prennent plaisir à essayer les amplis et les réglages proposés, et ils me disent ce qui leur manque ou ce qu’ils n’ont pas trouvé du premier coup d’œil. C’est à partir de ces retours que je décide de ce qu’il faut ajouter, retravailler ou laisser tel quel.",
+          "Pour l’instant, Tonecraft propose surtout des sons saturés\u00A0; je travaille à des sons clean et acoustiques. Au programme aussi, un espace où les guitaristes pourront partager leurs réglages, sur la plateforme ou par un lien. Aujourd’hui, aucun compte n’est nécessaire\u00A0: ce sera revu pour permettre ces échanges, sans jamais l’imposer pour jouer.",
+        ],
+      },
     ],
     stackDisclosure: "Voir les technologies utilisées",
     stack: [
@@ -347,7 +376,9 @@ export const projects: readonly Project[] = [
     kind: "ecole",
     team: "équipe de 5",
     description:
-      "Agrégateur d’offres d’emploi, de stage et d’alternance construit en équipe\u00A0: API Symfony, front React, base PostgreSQL. Ma part couvre les offres et les favoris\u00A0: contrôleurs, DTO de validation, recherche filtrée et pagination.",
+      "Agrégateur d’offres d’emploi, de stage et d’alternance construit à cinq en trois semaines\u00A0: API Symfony, front React, base PostgreSQL. Ma part couvre les offres et les favoris\u00A0: contrôleurs, DTO de validation, recherche filtrée et pagination.",
+    summary:
+      "Un agrégateur d’offres d’emploi, de stage et d’alternance, construit à cinq en trois semaines.",
     highlights: [
       "Contrôleurs des offres et des favoris",
       "DTO de validation des données entrantes",
@@ -363,13 +394,20 @@ export const projects: readonly Project[] = [
       {
         title: "Ma part",
         paragraphs: [
-          "J’ai eu les offres et les favoris. Le contrôleur des offres porte les routes du domaine\u00A0: lecture filtrée, lecture par identifiant, création, suppression.",
+          "Je me suis occupé des offres et des favoris. Le contrôleur des offres porte les routes du domaine\u00A0: lecture filtrée, lecture par identifiant, création, suppression.",
         ],
         media: [
           {
             src: overkillDetail,
             alt: "Le détail d’une offre dans Overkill, ouvert à côté de la liste\u00A0: le titre, l’entreprise, le lieu, l’organisation du travail, le salaire, la date de publication, la stack demandée et le résumé de l’offre.",
           },
+        ],
+      },
+      {
+        title: "Travailler à cinq",
+        paragraphs: [
+          "On a commencé par un tableau Trello listant toutes les user stories et tout ce qu’il y avait à faire, découpé en objectifs par semaine. Les tâches étaient attribuées selon les affinités de chacun et clairement assignées, pour que deux personnes ne travaillent jamais sur la même chose. Chaque jour, un point pour dire ce qui était fait, ce qui marchait ou non, et ce qui restait. Une seule personne validait les pull requests.",
+          "J’y ai surtout appris à communiquer\u00A0: j’aidais mes camarades sur leur partie sur mon temps libre, et je relisais chaque pull request validée pour garder une façon de coder cohérente sur tout le projet. Si c’était à refaire, je ferais passer davantage de choses par l’écrit, avec les décisions notées sur Trello plutôt que prises à l’oral.",
         ],
       },
       {
@@ -383,6 +421,7 @@ export const projects: readonly Project[] = [
         paragraphs: [
           "C’est un projet d’équipe\u00A0: une API Symfony, un front React, une base PostgreSQL, le tout monté sous Docker. On s’est réparti l’API par domaine.",
           "La recherche accepte des critères cumulables (texte libre, ville, entreprise, contrat, type, télétravail, salaire minimum, catégorie), pagine les résultats et ne remonte que les offres publiées dans les trente derniers jours, pour ne pas montrer d’annonces périmées. Le contrôleur des favoris tient les siennes sur l’utilisateur connecté.",
+          "La démo est hébergée par un camarade de promotion.",
         ],
         media: [
           {
@@ -414,7 +453,9 @@ export const projects: readonly Project[] = [
     kind: "ecole",
     team: "équipe de 3",
     description:
-      "Plateforme de formation au développement, cours et examens en QCM, construite en équipe avec une API Express et une base MongoDB. Ma part couvre les modèles de données et les routes\u00A0: authentification JWT, contrôle d’accès par rôles, et le CRUD des cours, leçons, quiz et résultats.",
+      "Plateforme de formation au développement, cours et examens en QCM, construite en équipe avec une API Express et une base MongoDB. Prévue à trois, elle s’est faite à deux. Ma part couvre les modèles de données et les routes\u00A0: authentification JWT, contrôle d’accès par rôles, et le CRUD des cours, leçons, quiz et résultats.",
+    summary:
+      "Une plateforme pour apprendre le développement, avec des cours, des examens en QCM et un espace d’administration, prévue à trois et menée à deux.",
     highlights: [
       "Modèles de données et routes de l’API",
       "Authentification JWT et contrôle d’accès par rôles",
@@ -431,6 +472,7 @@ export const projects: readonly Project[] = [
         title: "Ma part",
         paragraphs: [
           "C’est un projet d’équipe, et je m’y suis occupé du serveur\u00A0: les modèles de données et les routes.",
+          "Prévu à trois, le projet s’est fait à deux, avec plusieurs imprévus à gérer. J’y ai beaucoup appris côté code, sur les contrôleurs, la validation des champs et les modèles avec Express, et côté organisation, sur ma capacité à m’adapter.",
         ],
       },
       {

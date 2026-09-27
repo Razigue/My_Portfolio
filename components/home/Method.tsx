@@ -8,7 +8,7 @@ import { pathFor, type Locale } from "@/lib/i18n";
  * `checkMethod` refuses a principle citing a project that is not published.
  */
 export function Method({ locale }: { locale: Locale }) {
-  const { principes, projects, sections } = getContent(locale);
+  const { ia, principes, projects, sections } = getContent(locale);
 
   return (
     <section aria-labelledby="methode-title">
@@ -48,6 +48,19 @@ export function Method({ locale }: { locale: Locale }) {
             </li>
           ))}
         </ul>
+
+        {/* Set apart on a ground of its own: it says which tool he works
+            with, where the principles above say how. */}
+        <div className="mt-block max-w-[52rem] rounded-shot bg-ink-2 p-6 sm:p-8">
+          <h3 className="font-display text-lede leading-tight tracking-tight text-paper">
+            {ia.title}
+          </h3>
+          <div className="mt-label grid max-w-measure gap-label text-body text-paper-2">
+            {ia.paragraphs.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );

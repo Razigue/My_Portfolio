@@ -162,11 +162,11 @@ export function ProjectDiagram({
                   >
                     {i > 0 ? (
                       <>
-                        <span className="w-14 text-center font-display text-body italic text-paper-3 lg:hidden">
+                        <span className="w-14 text-center font-display text-body text-paper-3 lg:hidden">
                           {labels.or}
                         </span>
                         <span
-                          className={`${GUTTER} font-display text-body italic text-paper-3`}
+                          className={`${GUTTER} font-display text-body text-paper-3`}
                         >
                           {labels.or}
                         </span>
