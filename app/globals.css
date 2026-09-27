@@ -935,8 +935,12 @@
     );
   }
 
+  /* Not by day. On a near-white ground the blurred scenery could only be
+     laid in at a fraction of its strength, and there it read as a grey smudge
+     behind the title rather than as a room. The header keeps its artwork or
+     its capture; the page's own ground does the rest. */
   :root:not(.dark) .project-atmosphere {
-    opacity: 0.16;
+    display: none;
   }
 
   /* ---------------------------------------------------------------------
