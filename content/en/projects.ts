@@ -204,8 +204,8 @@ export const projectTexts: Readonly<Record<string, ProjectTranslation>> = {
       {
         title: "Working as five",
         paragraphs: [
-          "We started with a Trello board listing every user story and everything there was to do, split into weekly goals. Tasks were handed out according to each person’s affinities and clearly assigned, so that no two people ever worked on the same thing. Every day, a check-in to say what was done, what worked or not, and what was left. A single person approved the pull requests.",
-          "Above all, I learned to communicate: I made myself available, beyond my own tasks, to help my teammates move their parts forward, and I read every approved pull request to keep a consistent way of coding across the project. If I did it again, I would put more things in writing, with decisions recorded on Trello rather than made out loud.",
+          "We first split the three weeks into three one-week sprints, each with its own goal, then broke each sprint down into user stories, gathered in a backlog on Trello. Each user story was assigned according to people’s strengths and clearly owned, so that no two people ever worked on the same thing. Every day, a stand-up to say what was finished, what was causing problems and what was left to do. A single person approved the pull requests.",
+          "I read every approved pull request to keep a consistent way of coding across the project. Above all, I learned to communicate: if I did it again, I would put more things in writing, with decisions recorded on Trello rather than made out loud.",
         ],
       },
       {
@@ -237,9 +237,9 @@ export const projectTexts: Readonly<Record<string, ProjectTranslation>> = {
     subtitle: "e-learning platform",
     team: "team of 3",
     description:
-      "A platform for learning development, with courses and multiple-choice exams, built as a team with an Express API and a MongoDB database. Planned for three, it was done by two. My part covers the data models and the routes: JWT authentication, role-based access control, and the CRUD for courses, lessons, quizzes and results.",
+      "A platform for learning development, with courses and multiple-choice exams, built by three with an Express API and a MongoDB database. My part covers the data models and the routes: JWT authentication, role-based access control, and the CRUD for courses, lessons, quizzes and results.",
     summary:
-      "A platform for learning development, with courses, multiple-choice exams and an admin area, planned for three and carried by two.",
+      "A platform for learning development, with courses, multiple-choice exams and an admin area, built by three.",
     highlights: [
       "Data models and API routes",
       "JWT authentication and role-based access control",
@@ -256,7 +256,7 @@ export const projectTexts: Readonly<Record<string, ProjectTranslation>> = {
         title: "My part",
         paragraphs: [
           "It is a team project, and I took care of the server: the data models and the routes.",
-          "Planned for three, the project was done by two, with several unexpected problems to deal with. I learned a lot on the code side, about controllers, field validation and models with Express, and on the organisation side, about my ability to adapt.",
+          "I learned a lot there about controllers, field validation and models with Express.",
         ],
       },
       {

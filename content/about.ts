@@ -105,7 +105,7 @@ export const atouts: readonly {
   {
     name: "Travail en équipe",
     detail:
-      "Sur Overkill, à cinq, je relisais chaque pull request validée pour garder un code cohérent, et je me rendais disponible, au-delà de mes propres tâches, pour aider mes coéquipiers à débloquer leur partie.",
+      "Sur Overkill, à cinq, je relisais chaque pull request validée pour garder un code cohérent.",
   },
   {
     name: "Fiabilité",

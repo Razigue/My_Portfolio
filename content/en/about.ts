@@ -101,7 +101,7 @@ export const atouts: Localized<typeof frenchAtouts> = [
   {
     name: "Teamwork",
     detail:
-      "On Overkill, as five, I read every approved pull request to keep the code consistent, and made myself available, beyond my own tasks, to help my teammates move their parts forward.",
+      "On Overkill, as five, I read every approved pull request to keep the code consistent.",
   },
   {
     name: "Reliability",

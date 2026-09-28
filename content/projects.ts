@@ -406,8 +406,8 @@ export const projects: readonly Project[] = [
       {
         title: "Travailler à cinq",
         paragraphs: [
-          "On a commencé par un tableau Trello listant toutes les user stories et tout ce qu’il y avait à faire, découpé en objectifs par semaine. Les tâches étaient attribuées selon les affinités de chacun et clairement assignées, pour que deux personnes ne travaillent jamais sur la même chose. Chaque jour, un point pour dire ce qui était fait, ce qui marchait ou non, et ce qui restait. Une seule personne validait les pull requests.",
-          "J’y ai surtout appris à communiquer\u00A0: je me rendais disponible, au-delà de mes propres tâches, pour aider mes coéquipiers à débloquer leur partie, et je relisais chaque pull request validée pour garder une façon de coder cohérente sur tout le projet. Si c’était à refaire, je ferais passer davantage de choses par l’écrit, avec les décisions notées sur Trello plutôt que prises à l’oral.",
+          "On a d’abord découpé les trois semaines en trois sprints d’une semaine, chacun avec son objectif, puis décliné chaque sprint en user stories, rassemblées dans un backlog sur Trello. Chaque user story était attribuée selon les affinités de chacun et clairement assignée, pour que deux personnes ne travaillent jamais sur la même chose. Chaque jour, un point quotidien pour dire ce qui était terminé, ce qui posait problème et ce qui restait à faire. Une seule personne validait les pull requests.",
+          "Je relisais chaque pull request validée pour garder une façon de coder cohérente sur tout le projet. J’y ai surtout appris à communiquer\u00A0: si c’était à refaire, je ferais passer davantage de choses par l’écrit, avec les décisions notées sur Trello plutôt que prises à l’oral.",
         ],
       },
       {
@@ -453,9 +453,9 @@ export const projects: readonly Project[] = [
     kind: "ecole",
     team: "équipe de 3",
     description:
-      "Plateforme de formation au développement, cours et examens en QCM, construite en équipe avec une API Express et une base MongoDB. Prévue à trois, elle s’est faite à deux. Ma part couvre les modèles de données et les routes\u00A0: authentification JWT, contrôle d’accès par rôles, et le CRUD des cours, leçons, quiz et résultats.",
+      "Plateforme de formation au développement, cours et examens en QCM, construite à trois avec une API Express et une base MongoDB. Ma part couvre les modèles de données et les routes\u00A0: authentification JWT, contrôle d’accès par rôles, et le CRUD des cours, leçons, quiz et résultats.",
     summary:
-      "Une plateforme pour apprendre le développement, avec des cours, des examens en QCM et un espace d’administration, prévue à trois et menée à deux.",
+      "Une plateforme pour apprendre le développement, avec des cours, des examens en QCM et un espace d’administration, construite à trois.",
     highlights: [
       "Modèles de données et routes de l’API",
       "Authentification JWT et contrôle d’accès par rôles",
@@ -472,7 +472,7 @@ export const projects: readonly Project[] = [
         title: "Ma part",
         paragraphs: [
           "C’est un projet d’équipe, et je m’y suis occupé du serveur\u00A0: les modèles de données et les routes.",
-          "Prévu à trois, le projet s’est fait à deux, avec plusieurs imprévus à gérer. J’y ai beaucoup appris côté code, sur les contrôleurs, la validation des champs et les modèles avec Express, et côté organisation, sur ma capacité à m’adapter.",
+          "J’y ai beaucoup appris sur les contrôleurs, la validation des champs et les modèles avec Express.",
         ],
       },
       {
