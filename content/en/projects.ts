@@ -163,7 +163,7 @@ export const projectTexts: Readonly<Record<string, ProjectTranslation>> = {
         ],
       },
     ],
-    stackDisclosure: "Show the technologies used",
+    stackDisclosure: "Show the other technologies",
     imageAlt:
       "Tonecraft’s studio in the Tone tab, with the amp switched on: the settings bar at the top, with input, gate, amp, cabinet and the Lead preset, the Guilt amp with its lit purple stained glass in the middle, and the tab player, the looper and the guitar and backing tracks at the bottom.",
   },
@@ -205,7 +205,7 @@ export const projectTexts: Readonly<Record<string, ProjectTranslation>> = {
         title: "Working as five",
         paragraphs: [
           "We started with a Trello board listing every user story and everything there was to do, split into weekly goals. Tasks were handed out according to each person’s affinities and clearly assigned, so that no two people ever worked on the same thing. Every day, a check-in to say what was done, what worked or not, and what was left. A single person approved the pull requests.",
-          "Above all, I learned to communicate: I helped my teammates with their parts in my free time, and I read every approved pull request to keep a consistent way of coding across the project. If I did it again, I would put more things in writing, with decisions recorded on Trello rather than made out loud.",
+          "Above all, I learned to communicate: I made myself available, beyond my own tasks, to help my teammates move their parts forward, and I read every approved pull request to keep a consistent way of coding across the project. If I did it again, I would put more things in writing, with decisions recorded on Trello rather than made out loud.",
         ],
       },
       {

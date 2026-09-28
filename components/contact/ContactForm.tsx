@@ -10,7 +10,6 @@ import {
   type ReactNode,
 } from "react";
 import { useFormStatus } from "react-dom";
-import { BtnLabel } from "@/components/ui/primitives";
 import { sendMessage } from "@/lib/contact/actions";
 import {
   initialContactState,
@@ -42,7 +41,7 @@ function Submit({ idle, busy }: { idle: string; busy: string }) {
       className="btn btn-solid"
       disabled={pending}
     >
-      <BtnLabel>{pending ? busy : idle}</BtnLabel>
+      {pending ? busy : idle}
     </button>
   );
 }
@@ -85,7 +84,7 @@ function Field({
     <p>
       <label
         htmlFor={id}
-        className="font-mono text-meta tracking-meta text-paper-3"
+        className="type-label text-paper-3"
       >
         {label}
       </label>
@@ -189,6 +188,9 @@ function Form({
       {/* So the server answers in the language the visitor wrote in. */}
       <input type="hidden" name="locale" value={locale} />
 
+      {/* Said once, before anything is typed, rather than after a refusal. */}
+      <p className="text-meta text-paper-3">{form.required}</p>
+
       <Field
         key={`name-${state.key}`}
         id={`${base}-name`}
@@ -287,7 +289,7 @@ function Interrupted({
         onClick={onRetry}
         className="btn btn-solid"
       >
-        <BtnLabel>{retry}</BtnLabel>
+        {retry}
       </button>
     </div>
   );

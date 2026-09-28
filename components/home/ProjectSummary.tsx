@@ -43,7 +43,7 @@ export function ProjectSummary({
           <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
             <h3
               id={titleId}
-              className="font-display text-h3 leading-tight tracking-tight text-paper"
+              className="section-title"
             >
               <Link
                 href={href}
@@ -72,7 +72,7 @@ export function ProjectSummary({
           <p className="mt-title flex flex-wrap items-center gap-x-6 gap-y-3">
             <Link
               href={href}
-              className="link font-mono text-meta tracking-meta text-paper"
+              className="link type-label text-paper"
             >
               {copy.viewProject} →
             </Link>
@@ -82,7 +82,7 @@ export function ProjectSummary({
                 href={project.demo}
                 label={fill(copy.demoLabel, { title: project.title })}
                 newTab={copy.newTab}
-                className="link font-mono text-meta tracking-meta text-paper-3"
+                className="link type-label text-paper-3"
               >
                 {copy.demoShort} ↗
               </ExternalLink>
@@ -93,7 +93,7 @@ export function ProjectSummary({
                 href={project.repo}
                 label={fill(copy.repoLabel, { title: project.title })}
                 newTab={copy.newTab}
-                className="link font-mono text-meta tracking-meta text-paper-3"
+                className="link type-label text-paper-3"
               >
                 {copy.repoShort} ↗
               </ExternalLink>

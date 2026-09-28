@@ -12,10 +12,10 @@ export function Method({ locale }: { locale: Locale }) {
 
   return (
     <section aria-labelledby="methode-title">
-      <div className="section-body mx-auto max-w-page px-6 lg:px-10">
+      <div className="section-body page-width">
         <h2
           id="methode-title"
-          className="font-display text-h3 leading-tight tracking-tight text-paper"
+          className="section-title"
         >
           {sections.methode}
         </h2>
@@ -23,7 +23,7 @@ export function Method({ locale }: { locale: Locale }) {
         <ul className="mt-block grid gap-x-gutter gap-y-block lg:grid-cols-2">
           {principes.map((principe) => (
             <li key={principe.title} className="grid content-start gap-label">
-              <h3 className="font-display text-lede leading-tight tracking-tight text-paper">
+              <h3 className="part-title">
                 {principe.title}
               </h3>
 
@@ -38,7 +38,7 @@ export function Method({ locale }: { locale: Locale }) {
                     <li key={project.slug}>
                       <Link
                         href={pathFor(locale, "projects", project.slug)}
-                        className="link font-mono text-meta tracking-meta text-paper-3"
+                        className="link type-label text-paper-3"
                       >
                         {project.title} →
                       </Link>
@@ -50,9 +50,11 @@ export function Method({ locale }: { locale: Locale }) {
         </ul>
 
         {/* Set apart on a ground of its own: it says which tool he works
-            with, where the principles above say how. */}
-        <div className="mt-block max-w-[52rem] rounded-shot bg-ink-2 p-6 sm:p-8">
-          <h3 className="font-display text-lede leading-tight tracking-tight text-paper">
+            with, where the principles above say how. The ground fits the
+            text, whose width the reading measure sets, so no empty band is
+            left beside it. */}
+        <div className="mt-block w-fit max-w-full rounded-shot bg-ink-2 p-6 sm:p-8">
+          <h3 className="part-title">
             {ia.title}
           </h3>
           <div className="mt-label grid max-w-measure gap-label text-body text-paper-2">

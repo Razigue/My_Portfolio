@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { BtnLabel } from "@/components/ui/primitives";
 import { getContent } from "@/lib/content";
 import { pathFor, type Locale } from "@/lib/i18n";
 
@@ -9,10 +8,10 @@ export function ContactCta({ locale }: { locale: Locale }) {
 
   return (
     <section aria-labelledby="contact-title" className="band">
-      <div className="section-body mx-auto max-w-page px-6 lg:px-10">
+      <div className="section-body page-width">
         <h2
           id="contact-title"
-          className="font-display text-h3 leading-tight tracking-tight text-paper"
+          className="section-title"
         >
           {sections.contact}
         </h2>
@@ -23,11 +22,11 @@ export function ContactCta({ locale }: { locale: Locale }) {
 
         <div className="mt-block flex flex-wrap items-center gap-5">
           <Link href={pathFor(locale, "contact")} className="btn btn-solid">
-            <BtnLabel>{copy.writeMessage}</BtnLabel>
+            {copy.writeMessage}
           </Link>
 
           <a href={`mailto:${site.email}`} className="btn">
-            <BtnLabel>{site.email}</BtnLabel>
+            {site.email}
           </a>
         </div>
       </div>

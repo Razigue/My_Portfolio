@@ -349,7 +349,7 @@ export const projects: readonly Project[] = [
         ],
       },
     ],
-    stackDisclosure: "Voir les technologies utilisées",
+    stackDisclosure: "Voir les autres technologies",
     stack: [
       "Astro", "Svelte", "TypeScript", "C++", "Rust", "WebAssembly",
       "Web Audio API", "alphaTab", "IndexedDB", "Playwright", "GitHub Actions",
@@ -407,7 +407,7 @@ export const projects: readonly Project[] = [
         title: "Travailler à cinq",
         paragraphs: [
           "On a commencé par un tableau Trello listant toutes les user stories et tout ce qu’il y avait à faire, découpé en objectifs par semaine. Les tâches étaient attribuées selon les affinités de chacun et clairement assignées, pour que deux personnes ne travaillent jamais sur la même chose. Chaque jour, un point pour dire ce qui était fait, ce qui marchait ou non, et ce qui restait. Une seule personne validait les pull requests.",
-          "J’y ai surtout appris à communiquer\u00A0: j’aidais mes camarades sur leur partie sur mon temps libre, et je relisais chaque pull request validée pour garder une façon de coder cohérente sur tout le projet. Si c’était à refaire, je ferais passer davantage de choses par l’écrit, avec les décisions notées sur Trello plutôt que prises à l’oral.",
+          "J’y ai surtout appris à communiquer\u00A0: je me rendais disponible, au-delà de mes propres tâches, pour aider mes coéquipiers à débloquer leur partie, et je relisais chaque pull request validée pour garder une façon de coder cohérente sur tout le projet. Si c’était à refaire, je ferais passer davantage de choses par l’écrit, avec les décisions notées sur Trello plutôt que prises à l’oral.",
         ],
       },
       {

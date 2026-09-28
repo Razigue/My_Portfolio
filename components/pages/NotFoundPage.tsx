@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { BtnLabel, Eyebrow } from "@/components/ui/primitives";
+import { Eyebrow } from "@/components/ui/primitives";
 import { getContent } from "@/lib/content";
 import { pathFor, type Locale } from "@/lib/i18n";
 
@@ -9,7 +9,7 @@ export function NotFoundPage({ locale }: { locale: Locale }) {
 
   return (
     <section>
-      <div className="mx-auto flex min-h-dvh max-w-page flex-col justify-center px-6 page-head lg:px-10">
+      <div className="page-width flex min-h-dvh flex-col justify-center page-head">
         <Eyebrow>{copy.notFoundEyebrow}</Eyebrow>
 
         <h1 className="mt-block block font-display text-h2 leading-display tracking-display text-paper">
@@ -22,7 +22,7 @@ export function NotFoundPage({ locale }: { locale: Locale }) {
 
         <div className="mt-block">
           <Link href={pathFor(locale, "home")} className="btn">
-            <BtnLabel>{copy.notFoundLink}</BtnLabel>
+            {copy.notFoundLink}
           </Link>
         </div>
       </div>

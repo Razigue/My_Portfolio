@@ -125,11 +125,13 @@ Champ par champ :
 - **`image`** — une capture du projet, ou `null`. Voir la section suivante.
 - **`primaryStack`** — facultatif, les technologies principales à afficher dans
   le résumé du projet sur l’accueil, par exemple `["Astro", "Svelte", "TypeScript", "C++", "WebAssembly"]`.
-  Choisis des noms déjà présents dans `stack`. La page du projet et les
-  compétences gardent la liste complète. Sans ce champ, le résumé utilise `stack`.
-- **`stackDisclosure`** — facultatif, le texte à cliquer pour ouvrir la liste
-  des technologies sur la page du projet, par exemple
-  `"Voir les technologies utilisées"`. Sans ce champ, la liste reste visible.
+  Choisis des noms déjà présents dans `stack`. Les compétences gardent la liste
+  complète. Sans ce champ, le résumé utilise `stack`.
+- **`stackDisclosure`** — facultatif, le texte à cliquer, sur la page du projet,
+  pour ouvrir les technologies qui ne sont pas dans `primaryStack`, par exemple
+  `"Voir les autres technologies"`. La page montre alors `primaryStack` et
+  cache le reste derrière ce lien ; ouvert, il dit « Masquer les autres
+  technologies ». Sans ce champ, la liste complète reste visible.
 - **`year`** — l’année sur quatre chiffres.
 - **`repo`** — l’adresse GitHub complète, ou `null` s’il n’y a pas de dépôt
   public.

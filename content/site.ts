@@ -65,9 +65,9 @@ export const nav = {
 /** Les titres des sections de la page d’accueil, dans l’ordre où elles viennent. */
 export const sections = {
   projets: "Projets",
-  methode: "Méthode",
-  competences: "Compétences",
   parcours: "Parcours",
+  competences: "Compétences",
+  methode: "Méthode",
   contact: "Contact",
 } as const;
 
@@ -133,6 +133,8 @@ export const copy = {
   groupSchool: "Projets d’école",
   frameLabel: "Cadre",
   stackLabel: "Stack",
+  /** Ce que dit le lien des autres technologies d’un projet une fois ouvert. */
+  stackHide: "Masquer les autres technologies",
   statusLabel: "État",
   linksLabel: "Liens",
   repoShort: "Dépôt",
@@ -165,22 +167,24 @@ export const copy = {
 } as const;
 
 export const form = {
+  /** Au-dessus des champs : tous sont obligatoires. */
+  required: "Tous les champs sont nécessaires.",
   name: "Nom",
   email: "Email",
   message: "Message",
   submit: "Envoyer",
   pending: "Envoi…",
   success: "Message envoyé, merci. Je vous répondrai personnellement, par email.",
-  error: "Une erreur est survenue. Réessayez ou écrivez-moi directement.",
+  error: "Le message n’est pas parti, à cause d’une erreur de mon côté. Réessayez, ou écrivez-moi directement.",
   // Quand la connexion coupe pendant l’envoi : le texte tapé est gardé.
   interrupted:
     "Le message n’est pas parti, la connexion a été interrompue. Votre texte est conservé : réessayez, ou écrivez-moi directement.",
   unconfigured: `Le formulaire n’est pas encore configuré. Écrivez-moi directement à ${site.email}.`,
   invalid: "Corrigez les champs signalés.",
   nameMissing: "Indiquez votre nom.",
-  emailInvalid: "Adresse email invalide.",
-  messageShort: "Votre message est un peu court.",
-  messageLong: "Votre message dépasse 5 000 caractères.",
+  emailInvalid: "Vérifiez l’adresse email, du type nom@entreprise.fr.",
+  messageShort: "Votre message est un peu court, ajoutez quelques mots.",
+  messageLong: "Votre message dépasse 5 000 caractères, raccourcissez-le.",
   honeypot: "Ne pas remplir",
 } as const;
 

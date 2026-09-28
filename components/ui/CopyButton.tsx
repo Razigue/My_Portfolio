@@ -37,7 +37,7 @@ export function CopyButton({
       <button
         type="button"
         onClick={() => void copy()}
-        className="bg-ink-3 px-3 py-1.5 font-mono text-meta tracking-meta text-paper-2 transition-colors duration-200 hover:bg-flare hover:text-ink"
+        className="bg-ink-3 px-3 py-1.5 type-label text-paper-2 transition-colors duration-200 hover:bg-flare hover:text-ink"
       >
         <span aria-hidden="true">{copied ? done : idle}</span>
         <span className="sr-only">{action}</span>

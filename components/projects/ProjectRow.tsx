@@ -25,7 +25,7 @@ export function ProjectRow({
   return (
     <li className="index-row">
       <div>
-        <h3 className="index-title font-display text-h3 leading-tight tracking-tight text-paper">
+        <h3 className="index-title section-title">
           <Link
             href={pathFor(locale, "projects", project.slug)}
             className="stretch-link"
@@ -48,7 +48,7 @@ export function ProjectRow({
         ) : null}
       </div>
 
-      <ul className="flex flex-wrap gap-x-4 gap-y-1 font-mono text-meta tracking-meta text-paper-2">
+      <ul className="flex flex-wrap gap-x-4 gap-y-1 type-label text-paper-2">
         {project.stack.map((technology) => (
           <li key={technology}>{technology}</li>
         ))}
@@ -64,7 +64,7 @@ export function ProjectRow({
             href={project.repo}
             label={fill(copy.repoLabel, { title: project.title })}
             newTab={copy.newTab}
-            className="link font-mono text-meta tracking-meta text-paper-3"
+            className="link type-label text-paper-3"
           >
             {copy.repoShort} ↗
           </ExternalLink>
@@ -75,7 +75,7 @@ export function ProjectRow({
             href={project.demo}
             label={fill(copy.demoLabel, { title: project.title })}
             newTab={copy.newTab}
-            className="link font-mono text-meta tracking-meta text-live"
+            className="link type-label text-live"
           >
             {copy.demoShort} ↗
           </ExternalLink>

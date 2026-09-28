@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import portrait from "@/content/media/razigue.png";
-import { BtnLabel } from "@/components/ui/primitives";
 import { getContent } from "@/lib/content";
 import { searchCriteria } from "@/lib/criteria";
 import { pathFor, type Locale } from "@/lib/i18n";
@@ -27,7 +26,7 @@ export function Hero({ locale }: { locale: Locale }) {
 
   return (
     <section aria-labelledby="hero-title">
-      <div className="page-head mx-auto max-w-page px-6 lg:px-10">
+      <div className="page-head page-width">
         <div className="hero-grid">
           <h1
             id="hero-title"
@@ -53,11 +52,11 @@ export function Hero({ locale }: { locale: Locale }) {
 
             <div className="mt-block flex flex-wrap items-center gap-5">
               <Link href={pathFor(locale, "contact")} className="btn btn-solid">
-                <BtnLabel>{copy.heroContact}</BtnLabel>
+                {copy.heroContact}
               </Link>
 
               <a href={site.cvUrl} download className="btn">
-                <BtnLabel>{copy.cvButton}</BtnLabel>
+                {copy.cvButton}
               </a>
             </div>
           </div>
@@ -66,7 +65,7 @@ export function Hero({ locale }: { locale: Locale }) {
         {/* The practical facts, on a ground of their own: it is what sets
             them apart from the sentence above, not a frame. */}
         <div className="mt-section rounded-shot bg-ink-2 p-6 sm:p-10">
-          <h2 className="font-display text-lede leading-tight tracking-tight text-paper">
+          <h2 className="part-title">
             {copy.availabilityTitle}
           </h2>
 

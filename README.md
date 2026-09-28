@@ -157,7 +157,7 @@ Trois choses bougent sur le site, et aucune n’a besoin d’une bibliothèque.
 
 **Les listes de technologies montent à leur première apparition**
 (`components/ui/TagList.tsx`). Une liste encore sous la ligne de flottaison est
-tenue sur sa première image, invisible et 56 px plus bas, par l’API
+tenue sur sa première image, invisible et 16 px plus bas, par l’API
 d’animation du navigateur ; un `IntersectionObserver` la fait jouer quand son
 haut passe à 12 % du bas de la fenêtre. Les listes qui arrivent ensemble, les
 trois cartes de l’accueil côte à côte, se suivent à 90 ms d’écart. Une liste
@@ -172,6 +172,13 @@ image est écrite par le serveur, donc la page s’ouvre dessus au lieu d’y
 sauter à l’arrivée du script.
 
 **La marque de lecture** dans la marge droite, décrite plus bas.
+
+Au survol, rien ne tourne : un mot du menu prend l’accent, un bouton se
+remplit depuis son bord bas, un lien se couvre d’un aplat. Les lettres du menu
+qui se retournaient une à une, le libellé des boutons qui cédait la place à sa
+copie et la flèche du retour en haut qui roulait ont été retirés : ils
+doublaient chaque mot dans la page, qu’on retrouvait en double dans un texte
+copié ou traduit (« AAccccuueeiill »).
 
 Il n’y a ni écran de chargement, ni rideau entre les pages, ni défilement
 lissé, ni grain de film, ni nom en filigrane au pied des pages, ni sections
@@ -213,12 +220,9 @@ petit que la gouttière de la page, donc la marque reste dans la marge et ne
 passe jamais sur le texte. C’est un affichage et non un contrôle : rien à
 saisir, rien à faire glisser.
 
-Elle s’étire quand la page va vite, et par l’arrière : c’est le bord qui suit
-qui prend du retard. Au repos elle revient à sa longueur exacte, celle qui
-porte le sens. Un minuteur de 140 ms la ramène, parce qu’un glissement décroît
-tout seul mais pas un saut : la page arrive en une image, les mises à jour
-s’arrêtent, et sans cela la marque garderait la longueur à laquelle le saut
-l’avait tirée.
+Elle ne s’étire plus quand la page va vite : elle garde toujours sa longueur
+exacte, celle qui porte le sens. L’étirement était un effet de plus, et il a
+été retiré avec les autres (voir « Le mouvement »).
 
 > Une version découpée en tranches, une par partie de la page, a été construite
 > puis abandonnée : sur un site dont on venait de retirer chaque filet, une
@@ -380,7 +384,7 @@ modification ».
 - **Contenu**, 11 erreurs injectées → le build refuse les 11, avec un message
   qui nomme le champ
 - **Mobilier fixe**, 1440 et 390 → contrôles verts : monogramme, retour en
-  haut, curseur de chaque bouton, marque qui s’étire
+  haut, curseur de chaque bouton, marque de lecture
 - **Sectionnement**, deux thèmes → les fonds alternent, 144 px d’air au plus
   serré, écart de teinte 8/255 la nuit et 12/255 le jour
 - `tsc --noEmit`, `eslint`, `build` → 0 erreur, 0 avertissement

@@ -105,7 +105,7 @@ export const atouts: readonly {
   {
     name: "Travail en équipe",
     detail:
-      "Sur Overkill, à cinq, je relisais chaque pull request validée pour garder un code cohérent, et j’aidais mes camarades sur leur partie sur mon temps libre.",
+      "Sur Overkill, à cinq, je relisais chaque pull request validée pour garder un code cohérent, et je me rendais disponible, au-delà de mes propres tâches, pour aider mes coéquipiers à débloquer leur partie.",
   },
   {
     name: "Fiabilité",
@@ -132,7 +132,7 @@ export const interets: readonly {
   {
     name: "Technologie",
     detail:
-      "Je suis surtout la façon dont l’IA transforme ce qui existe déjà : l’automobile, la robotique et, plus récemment, la santé.",
+      "Je suis surtout la façon dont l’IA transforme ce qui existe déjà : l’automobile, la robotique et, plus récemment, la recherche médicale.",
   },
 ];
 
@@ -175,22 +175,22 @@ export const principes: readonly {
 }[] = [
   {
     title: "Valider les données entrantes",
-    body: "Sur Overkill, un DTO définit les contraintes des offres reçues du collecteur et Symfony les valide avant l’écriture en base. Sur Corelab, Zod valide les données de connexion avant la recherche de l’utilisateur.",
+    body: "Ce qui arrive de l’extérieur est vérifié avant d’être utilisé. Sur Overkill, un DTO définit les contraintes des offres reçues du collecteur et Symfony les valide avant l’écriture en base. Sur Corelab, Zod valide les données de connexion avant la recherche de l’utilisateur.",
     projects: ["overkill", "corelab"],
   },
   {
     title: "Contrôler les accès",
-    body: "Sur Corelab, un middleware vérifie le jeton JWT et les routes concernées contrôlent le rôle de l’utilisateur. Les mots de passe générés à l’import des utilisateurs sont hachés avec bcrypt.",
+    body: "Chacun n’accède qu’à ce que son rôle lui permet. Sur Corelab, un middleware vérifie le jeton JWT et les routes concernées contrôlent le rôle de l’utilisateur. Les mots de passe générés à l’import des utilisateurs sont hachés avec bcrypt.",
     projects: ["corelab"],
   },
   {
     title: "Signaler les échecs de chargement",
-    body: "Quand une capture d’ampli ne se charge pas dans Tonecraft, entendre du son ne prouve pas qu’elle fonctionne. L’interface attend une confirmation du moteur et signale l’échec. Les tests en navigateur vérifient ce chargement avant la publication.",
+    body: "Ce qui échoue est signalé, jamais passé sous silence. Quand une capture d’ampli ne se charge pas dans Tonecraft, entendre du son ne prouve pas qu’elle fonctionne. L’interface attend une confirmation du moteur et signale l’échec. Les tests en navigateur vérifient ce chargement avant la publication.",
     projects: ["tonecraft"],
   },
   {
     title: "Simplifier le parcours",
-    body: "Tonecraft réunit simulation guitare, tablatures et outils de pratique dans la même page. Le lecteur et ses instruments ne sont chargés qu’à l’ouverture d’une partition. Un visiteur peut écouter la démonstration sans activer le micro.",
+    body: "Le moins d’étapes possible pour le visiteur. Tonecraft réunit simulation guitare, tablatures et outils de pratique dans la même page. Le lecteur et ses instruments ne sont chargés qu’à l’ouverture d’une partition. Un visiteur peut écouter la démonstration sans activer le micro.",
     projects: ["tonecraft"],
   },
 ];

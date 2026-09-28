@@ -9,7 +9,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
 
   return (
     <footer data-print="hide">
-      <div className="site-footer-bar mx-auto flex max-w-page flex-wrap items-baseline justify-between gap-x-gutter gap-y-label px-6 font-mono text-meta tracking-meta pointer-coarse:gap-y-6 lg:px-10">
+      <div className="site-footer-bar page-width flex flex-wrap items-baseline justify-between gap-x-gutter gap-y-label type-label pointer-coarse:gap-y-6">
         <ul className="flex flex-wrap gap-x-7 gap-y-3 text-paper-3 pointer-coarse:gap-y-6">
           <li>
             <a href={`mailto:${site.email}`} className="link tap-area">

@@ -49,7 +49,7 @@ export function ProjectsPage({ locale }: { locale: Locale }) {
           aria-labelledby={`groupe-${group.kind}`}
           className={order > 0 ? "pt-block" : undefined}
         >
-          <div className="mx-auto max-w-page px-6 lg:px-10">
+          <div className="page-width">
             <h2 id={`groupe-${group.kind}`} className="eyebrow">
               {group.entries.length > 1
                 ? plural[group.kind]
@@ -57,7 +57,7 @@ export function ProjectsPage({ locale }: { locale: Locale }) {
             </h2>
           </div>
 
-          <ol className="index mx-auto mt-label max-w-page px-6 lg:px-10">
+          <ol className="index page-width mt-label">
             {group.entries.map((project) => (
               <ProjectRow
                 key={project.slug}

@@ -12,18 +12,18 @@ export function Projects({ locale }: { locale: Locale }) {
 
   return (
     <section aria-labelledby="projets-title" className="band">
-      <div className="section-body mx-auto max-w-page px-6 lg:px-10">
+      <div className="section-body page-width">
         <div className="flex flex-wrap items-baseline justify-between gap-x-gutter gap-y-label">
           <h2
             id="projets-title"
-            className="font-display text-h3 leading-tight tracking-tight text-paper"
+            className="section-title"
           >
             {sections.projets}
           </h2>
 
           <Link
             href={pathFor(locale, "projects")}
-            className="link font-mono text-meta tracking-meta text-paper-2"
+            className="link type-label text-paper-2"
           >
             {copy.selectionIndex} →
           </Link>

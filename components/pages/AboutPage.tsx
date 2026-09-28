@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import portrait from "@/content/media/razigue.png";
 import { PageHeader } from "@/components/layout/PageHeader";
-import { BtnLabel } from "@/components/ui/primitives";
 import { getContent } from "@/lib/content";
 import { alternates, pathFor, type Locale } from "@/lib/i18n";
 
@@ -66,7 +65,7 @@ export function AboutPage({ locale }: { locale: Locale }) {
 
       {/* Portrait + the longer-form story */}
       <section className="band">
-        <div className="section-body mx-auto grid max-w-page gap-x-gutter gap-y-block px-6 lg:grid-cols-[minmax(0,1fr)_22rem] lg:px-10">
+        <div className="section-body page-width grid gap-x-gutter gap-y-block lg:grid-cols-[minmax(0,1fr)_22rem]">
           <div className="prose-fr max-w-measure text-body">
             {parcours.map((paragraph) => (
               <p key={paragraph}>
@@ -89,21 +88,21 @@ export function AboutPage({ locale }: { locale: Locale }) {
 
       {/* As an apprentice: what he can take on, and what he wants to learn */}
       <section aria-labelledby="recherche-title">
-        <div className="section-body mx-auto max-w-page px-6 lg:px-10">
-          <h2 id="recherche-title" className="eyebrow">
+        <div className="section-body page-width">
+          <h2 id="recherche-title" className="section-title">
             {recherche.title}
           </h2>
 
-          <div className="mt-label grid gap-x-gutter gap-y-block lg:grid-cols-2">
+          <div className="mt-block grid gap-x-gutter gap-y-block lg:grid-cols-2">
             <div>
-              <h3 className="font-display text-lede leading-tight tracking-tight text-paper">
+              <h3 className="part-title">
                 {recherche.firstMonthTitle}
               </h3>
               <Points items={recherche.firstMonth} />
             </div>
 
             <div>
-              <h3 className="font-display text-lede leading-tight tracking-tight text-paper">
+              <h3 className="part-title">
                 {recherche.learnTitle}
               </h3>
               <Points items={recherche.learn} />
@@ -114,12 +113,12 @@ export function AboutPage({ locale }: { locale: Locale }) {
 
       {/* Experience */}
       <section aria-labelledby="experiences-title" className="band">
-        <div className="section-body mx-auto max-w-page px-6 lg:px-10">
-          <h2 id="experiences-title" className="eyebrow">
+        <div className="section-body page-width">
+          <h2 id="experiences-title" className="section-title">
             {copy.experiencesTitle}
           </h2>
 
-          <ol className="mt-label grid gap-block">
+          <ol className="mt-block grid gap-block">
             {experiences.map((experience) => (
               <li
                 key={experience.role}
@@ -135,7 +134,7 @@ export function AboutPage({ locale }: { locale: Locale }) {
                 </div>
 
                 <div>
-                  <h3 className="font-display text-h3 leading-tight tracking-tight text-paper">
+                  <h3 className="part-title">
                     {experience.role}
                   </h3>
                   <p className="prose-fr mt-3 max-w-measure text-body">
@@ -150,13 +149,13 @@ export function AboutPage({ locale }: { locale: Locale }) {
 
       {/* Education, languages, CV */}
       <section aria-labelledby="formation-title">
-        <div className="section-body mx-auto grid max-w-page gap-x-gutter gap-y-block px-6 lg:grid-cols-3 lg:px-10">
+        <div className="section-body page-width grid gap-x-gutter gap-y-block lg:grid-cols-3">
           <div className="lg:col-span-2 lg:row-span-2">
-            <h2 id="formation-title" className="eyebrow">
+            <h2 id="formation-title" className="section-title">
               {copy.formationTitle}
             </h2>
-            <div className="mt-label">
-              <p className="font-display text-h3 leading-tight tracking-tight text-paper">
+            <div className="mt-title">
+              <p className="part-title">
                 {formation.title}
               </p>
               <p className="mt-2 text-body text-paper-2">
@@ -177,10 +176,10 @@ export function AboutPage({ locale }: { locale: Locale }) {
           </div>
 
           <div>
-            <h2 className="eyebrow">
+            <h2 className="section-title">
               {copy.languagesTitle}
             </h2>
-            <div className="mt-label">
+            <div className="mt-title">
               <dl className="zebra -mx-4 grid">
                 {langues.map((langue) => (
                   <div key={langue.name} className="grid gap-1 px-4 py-3">
@@ -193,12 +192,12 @@ export function AboutPage({ locale }: { locale: Locale }) {
           </div>
 
           <div data-print="hide">
-            <h2 className="eyebrow">
+            <h2 className="section-title">
               {copy.documentTitle}
             </h2>
-            <div className="mt-label">
+            <div className="mt-title">
               <a href={site.cvUrl} download className="btn">
-                <BtnLabel>{copy.cvButton}</BtnLabel>
+                {copy.cvButton}
               </a>
             </div>
           </div>
@@ -207,16 +206,16 @@ export function AboutPage({ locale }: { locale: Locale }) {
 
       {/* Strengths, and what fills the rest of the time */}
       <section aria-labelledby="atouts-title" className="band">
-        <div className="section-body mx-auto grid max-w-page gap-x-gutter gap-y-block px-6 lg:grid-cols-2 lg:px-10">
+        <div className="section-body page-width grid gap-x-gutter gap-y-block lg:grid-cols-2">
           {[
             { id: "atouts-title", title: copy.strengthsTitle, items: atouts },
             { id: "interets-title", title: copy.interestsTitle, items: interets },
           ].map((column) => (
             <div key={column.id}>
-              <h2 id={column.id} className="eyebrow">
+              <h2 id={column.id} className="section-title">
                 {column.title}
               </h2>
-              <div className="mt-label">
+              <div className="mt-title">
                 <dl className="grid gap-title">
                   {column.items.map((item) => (
                     <div key={item.name}>

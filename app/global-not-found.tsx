@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import "@/app/globals.css";
-import { BtnLabel } from "@/components/ui/primitives";
 import { copy as englishCopy } from "@/content/en/site";
 import { copy as frenchCopy } from "@/content/site";
 import { fontVariables } from "@/lib/fonts";
@@ -31,7 +30,7 @@ export default function GlobalNotFound() {
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body>
-        <main className="mx-auto flex min-h-dvh max-w-page flex-col justify-center px-6 page-head lg:px-10">
+        <main className="page-width flex min-h-dvh flex-col justify-center page-head">
           <p className="eyebrow">{frenchCopy.notFoundEyebrow}</p>
 
           <h1 className="mt-block font-display text-h2 leading-display tracking-display text-paper">
@@ -48,7 +47,7 @@ export default function GlobalNotFound() {
 
           <div className="mt-block flex flex-wrap gap-5">
             <a href={pathFor("fr", "home")} className="btn btn-solid">
-              <BtnLabel>{frenchCopy.notFoundLink}</BtnLabel>
+              {frenchCopy.notFoundLink}
             </a>
             <a
               href={pathFor("en", "home")}
@@ -56,7 +55,7 @@ export default function GlobalNotFound() {
               lang={english}
               className="btn"
             >
-              <BtnLabel>{englishCopy.notFoundLink}</BtnLabel>
+              {englishCopy.notFoundLink}
             </a>
           </div>
         </main>

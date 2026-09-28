@@ -2,51 +2,48 @@ import Link from "next/link";
 import { getContent } from "@/lib/content";
 import { pathFor, type Locale } from "@/lib/i18n";
 
+/**
+ * The path in one column: the presentation first, at lede size, then the
+ * experiences side by side, each with its period and context, then the way to
+ * the full account. Chosen by Razigue among three layouts on 2026-09-28.
+ */
 export function ParcoursTeaser({ locale }: { locale: Locale }) {
   const { copy, experiences, presentation, sections } = getContent(locale);
 
   return (
     <section aria-labelledby="parcours-title">
-      <div className="section-body mx-auto max-w-page px-6 lg:px-10">
-        <h2
-          id="parcours-title"
-          className="font-display text-h3 leading-tight tracking-tight text-paper"
-        >
+      <div className="section-body page-width">
+        <h2 id="parcours-title" className="section-title">
           {sections.parcours}
         </h2>
 
-        <div className="mt-block grid gap-x-gutter gap-y-block lg:grid-cols-[1.15fr_0.85fr]">
-          <div>
-            <p className="max-w-measure text-body text-paper-2">{presentation}</p>
+        <p className="mt-title max-w-measure text-lede text-paper-2">
+          {presentation}
+        </p>
 
-            <p className="mt-title">
-              <Link
-                href={pathFor(locale, "about")}
-                className="link font-mono text-meta tracking-meta text-paper"
-              >
-                {copy.parcoursLink} →
-              </Link>
-            </p>
-          </div>
+        <h3 className="eyebrow mt-block">{copy.experiencesTitle}</h3>
+        <ul className="mt-label grid gap-x-gutter gap-y-title sm:grid-cols-2">
+          {experiences.map((experience) => (
+            <li key={experience.role}>
+              <p className="part-title">{experience.role}</p>
+              <p className="mt-2 type-label tnum text-paper-2">
+                {experience.period}
+              </p>
+              <p className="mt-1 type-label text-paper-3">
+                {experience.context}
+              </p>
+            </li>
+          ))}
+        </ul>
 
-          <div>
-            <h3 className="eyebrow">{copy.experiencesTitle}</h3>
-            {/* Every other row is lifted rather than ruled off, and the list
-                is pulled out by its own padding so the roles line up with the
-                label above them. */}
-            <ul className="zebra -mx-4 mt-label grid">
-              {experiences.map((experience) => (
-                <li
-                  key={experience.role}
-                  className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 px-4 py-3 text-meta"
-                >
-                  <span className="text-paper">{experience.role}</span>
-                  <span className="tnum text-paper-3">{experience.period}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
+        <p className="mt-block">
+          <Link
+            href={pathFor(locale, "about")}
+            className="link type-label text-paper"
+          >
+            {copy.parcoursLink} →
+          </Link>
+        </p>
       </div>
     </section>
   );

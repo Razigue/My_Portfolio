@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useEffect } from "react";
-import { BtnLabel } from "@/components/ui/primitives";
 import type { Copy } from "@/lib/content";
 
 export type ErrorCopy = Pick<
@@ -27,7 +26,7 @@ export function ErrorPage({
   }, [error]);
 
   return (
-    <div className="mx-auto flex min-h-dvh max-w-page flex-col justify-center px-6 page-head lg:px-10">
+    <div className="page-width flex min-h-dvh flex-col justify-center page-head">
       <p className="eyebrow">{copy.errorEyebrow}</p>
 
       <h1 className="mt-block font-display text-h2 leading-display tracking-display text-paper">
@@ -40,15 +39,15 @@ export function ErrorPage({
 
       <div className="mt-block flex flex-wrap gap-5">
         <button type="button" onClick={reset} className="btn btn-solid">
-          <BtnLabel>{copy.errorRetry}</BtnLabel>
+          {copy.errorRetry}
         </button>
         <Link href={home} className="btn">
-          <BtnLabel>{copy.notFoundLink}</BtnLabel>
+          {copy.notFoundLink}
         </Link>
       </div>
 
       {error.digest ? (
-        <p className="mt-block font-mono text-meta tracking-meta text-paper-3">
+        <p className="mt-block type-label text-paper-3">
           {copy.errorRef} {error.digest}
         </p>
       ) : null}

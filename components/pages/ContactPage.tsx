@@ -33,7 +33,7 @@ export function ContactPage({ locale }: { locale: Locale }) {
       />
 
       <section className="band">
-        <div className="section-body mx-auto grid max-w-page gap-x-gutter gap-y-block px-6 lg:grid-cols-[minmax(0,1fr)_22rem] lg:px-10">
+        <div className="section-body page-width grid gap-x-gutter gap-y-block lg:grid-cols-[minmax(0,1fr)_22rem]">
           <div>
             <ContactForm locale={locale} form={form} retry={copy.errorRetry} />
           </div>
@@ -65,7 +65,7 @@ export function ContactPage({ locale }: { locale: Locale }) {
                   <ExternalLink
                     href={site.github}
                     newTab={copy.newTab}
-                    className="link font-mono text-meta tracking-meta text-paper-2"
+                    className="link type-label text-paper-2"
                   >
                     GitHub ↗
                   </ExternalLink>
@@ -75,7 +75,7 @@ export function ContactPage({ locale }: { locale: Locale }) {
                     <ExternalLink
                       href={site.linkedin}
                       newTab={copy.newTab}
-                      className="link font-mono text-meta tracking-meta text-paper-2"
+                      className="link type-label text-paper-2"
                     >
                       LinkedIn ↗
                     </ExternalLink>
@@ -85,7 +85,7 @@ export function ContactPage({ locale }: { locale: Locale }) {
                   <a
                     href={site.cvUrl}
                     download
-                    className="link font-mono text-meta tracking-meta text-paper-2"
+                    className="link type-label text-paper-2"
                   >
                     {copy.cvButton} ↓
                   </a>

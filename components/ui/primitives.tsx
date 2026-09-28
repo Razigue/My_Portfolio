@@ -13,20 +13,6 @@ export function Eyebrow({
   );
 }
 
-/**
- * The two stacked copies of a button label. The first is the real text, the
- * second is `aria-hidden`, so the accessible name is exactly one copy of the
- * words no matter what the hover state is doing.
- */
-export function BtnLabel({ children }: { children: string }) {
-  return (
-    <span className="btn-swap">
-      <span>{children}</span>
-      <span aria-hidden="true">{children}</span>
-    </span>
-  );
-}
-
 export function StatusDot({
   status,
   labels,
@@ -40,7 +26,7 @@ export function StatusDot({
         className={`dot ${status === "live" ? "dot-live" : "dot-archived"}`}
         aria-hidden="true"
       />
-      <span className="font-mono text-meta tracking-meta text-paper-3">
+      <span className="type-label text-paper-3">
         {status === "live" ? labels.statusLive : labels.statusArchived}
       </span>
     </span>
@@ -49,7 +35,7 @@ export function StatusDot({
 
 export function Tag({ children }: { children: React.ReactNode }) {
   return (
-    <li className="bg-ink-3 px-3 py-1.5 font-mono text-meta tracking-meta text-paper-2">
+    <li className="bg-ink-3 px-3 py-1.5 type-label text-paper-2">
       {children}
     </li>
   );

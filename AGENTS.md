@@ -77,7 +77,9 @@ Existing content uses the literal character in places. Both work. Do not
 
 These are the art direction, and nothing enforces them. The verification harness
 that used to was instrumentation, and it was not shipped. If you change styling,
-you are the only check.
+you are the only check. `DESIGN.md`, at the root, records the same visual system
+for design tools, with its tokens; change a rule here or a token in
+`app/globals.css`, and update it too.
 
 1. **There is not one line on this site.** No border, no rule, no divider, no
    underline, no text-stroke, no frame around a button or a field. No hyphen,
@@ -133,7 +135,12 @@ you are the only check.
    separates: a label and what it names, a heading and its text, two blocks
    of one section, two columns, two sections. Numeric utilities are only for
    the inside of a component, a tag or a dot and its word. Every page opens
-   with `.page-head`, every section is padded by `.section-body`, and a last
+   with `.page-head`, every section is padded by `.section-body` and held to
+   the page's width and gutter by `.page-width`; a section's heading is
+   `.section-title`, a heading inside a section is `.part-title`, and the
+   label role (labels, metadata, small links) is `.type-label`. Do not name a
+   new class `block-…` or `inline-…`: Tailwind reads those as logical sizes
+   (`block-title` became `block-size: 1.5rem`). And a last
    section on the page's own ground drops its bottom padding so the footer
    sits one section away, not two. No project gets a rhythm of its own:
    Razigue asked for one spacing everywhere.

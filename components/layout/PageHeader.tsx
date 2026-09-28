@@ -50,7 +50,7 @@ export function PageHeader({
     >
       {backdrop}
       <div
-        className={`page-head mx-auto max-w-page px-6 lg:px-10 ${
+        className={`page-head page-width ${
           centered ? "page-head-centered" : ""
         }`}
       >

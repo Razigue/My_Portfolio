@@ -424,15 +424,13 @@
     opacity: 1;
   }
 
-  /* Position is written straight to `translate` on every frame; the stretch
-     a fast scroll draws out eases back through `scale`. Two properties, so
-     the one never interrupts the other. */
+  /* Its position is written straight to `translate`, once per frame while
+     the page moves. */
   .site-progress-thumb {
     display: block;
     width: 100%;
     background-color: var(--color-flare);
-    will-change: translate, scale;
-    transition: scale 500ms cubic-bezier(0.215, 0.61, 0.355, 1);
+    will-change: translate;
   }
 
   /* --- Back to the top ---
@@ -487,37 +485,6 @@
   .to-top:hover::before,
   .to-top:focus-visible::before {
     transform: scaleY(1);
-  }
-
-  .to-top-roll {
-    position: relative;
-    display: block;
-    width: 1em;
-    height: 1.25em;
-    overflow: hidden;
-  }
-
-  .to-top-face {
-    display: block;
-    text-align: center;
-    transition: transform var(--t) var(--ease-cine);
-  }
-
-  .to-top-face-alt {
-    position: absolute;
-    inset-inline: 0;
-    top: 0;
-    transform: translateY(125%);
-  }
-
-  .to-top:hover .to-top-face,
-  .to-top:focus-visible .to-top-face {
-    transform: translateY(-125%);
-  }
-
-  .to-top:hover .to-top-face-alt,
-  .to-top:focus-visible .to-top-face-alt {
-    transform: translateY(0);
   }
 
   /* --- The monogram, at the left end ---
@@ -592,10 +559,8 @@
   /* ---------------------------------------------------------------------
      Navigation: bare type at the right end, no frame.
 
-     Each letter is its own column carrying the letter twice, grey above and
-     gold below. Pointing at a word turns the columns over one after another,
-     left to right. The page you are on is that same mechanism left in its
-     finished state, so nothing has to be drawn under it to mark it.
+     Pointing at a word turns it to the accent, and the page you are on keeps
+     that colour, so nothing has to be drawn under it to mark it.
      --------------------------------------------------------------------- */
   .navrow {
     display: flex;
@@ -603,76 +568,30 @@
     gap: 1.9rem;
   }
 
-  /* Flex rather than block so the link box is the masked window and nothing
-     else. As a block it carried a strut at the inherited body leading, and a
-     column that hides its overflow sits on the baseline by its bottom edge —
-     so the strut's descent hung below the window while nothing balanced it
-     above, and centring the link in the bar left every letter riding high. */
+  /* Flex rather than block, so the link box is the line box and nothing
+     else: as a block it carried a strut at the inherited body leading, and
+     centring the link in the bar left the word riding high. */
   .navlink {
     display: flex;
     align-items: center;
     color: var(--color-paper-3);
+    transition: color var(--t-fast) var(--ease-swift);
+  }
+
+  .navlink:hover,
+  .navlink:focus-visible,
+  .navlink.is-active {
+    color: var(--color-flare);
   }
 
   .navrow .navlink {
     font-family: var(--font-mono);
     font-size: var(--text-meta);
+    line-height: 1.35;
     letter-spacing: var(--tracking-meta);
     /* The words are capitals-and-lowercase against a circle, so the same
        correction the monogram needs applies here too. */
     transform: translateY(var(--trim-mono));
-  }
-
-  .navlink-kinetic {
-    display: inline-flex;
-  }
-
-  /* The mask is the line box and nothing more, and the roll is exactly its
-     height. Headroom for the accent on "À" comes from the line box itself
-     rather than from padding: padding would enlarge the window the letters
-     travel through, and a letter half way through its turn would be seen
-     floating above the row instead of disappearing into the edge. */
-  .navlink-col {
-    --roll: 1.35em;
-    position: relative;
-    display: inline-block;
-    overflow: hidden;
-    line-height: 1.35;
-  }
-
-  .navlink-face {
-    display: block;
-    transition: transform var(--t) var(--ease-cine);
-    transition-delay: calc(var(--i) * 24ms);
-  }
-
-  .navlink-face-alt {
-    position: absolute;
-    inset-inline: 0;
-    top: 0;
-    transform: translateY(var(--roll));
-    color: var(--color-flare);
-  }
-
-  .navlink:hover .navlink-face,
-  .navlink:focus-visible .navlink-face {
-    transform: translateY(calc(var(--roll) * -1));
-  }
-
-  .navlink:hover .navlink-face-alt,
-  .navlink:focus-visible .navlink-face-alt {
-    transform: translateY(0);
-  }
-
-  /* The current page: the same turn, already done, and no delay to unwind. */
-  .navlink.is-active .navlink-face {
-    transform: translateY(calc(var(--roll) * -1));
-    transition-delay: 0ms;
-  }
-
-  .navlink.is-active .navlink-face-alt {
-    transform: translateY(0);
-    transition-delay: 0ms;
   }
 
   /* --- The word that opens the small-screen menu --- */
@@ -777,6 +696,48 @@
     }
   }
 
+  /* --- The shared structure, named once ---
+         The same width for every section, header and footer: the page, with
+         its gutter inside it. */
+  .page-width {
+    margin-inline: auto;
+    max-width: var(--container-page);
+    padding-inline: 1.5rem;
+  }
+
+  @media (min-width: 64rem) {
+    .page-width {
+      padding-inline: 2.5rem;
+    }
+  }
+
+  /* A section's heading, and the heading of a block inside a section: the
+     headline and title roles of DESIGN.md. */
+  .section-title,
+  .part-title {
+    font-family: var(--font-display);
+    line-height: var(--leading-tight);
+    letter-spacing: var(--tracking-tight);
+    color: var(--color-paper);
+  }
+
+  .section-title {
+    font-size: var(--text-h3);
+  }
+
+  .part-title {
+    font-size: var(--text-lede);
+  }
+
+  /* The label role: labels, metadata, the text of buttons and small links.
+     Its colour is left to the element. */
+  .type-label {
+    font-family: var(--font-mono);
+    font-size: var(--text-meta);
+    line-height: var(--text-meta--line-height);
+    letter-spacing: var(--tracking-meta);
+  }
+
   /* --- Eyebrow / section meta --- */
   .eyebrow {
     font-family: var(--font-mono);
@@ -785,8 +746,9 @@
     color: var(--color-paper-3);
   }
 
-  /* --- Buttons. They do not move, and they do not chase the pointer: the fill
-         rises and the label swaps for a copy of itself.
+  /* --- Buttons. They do not move, and they do not chase the pointer: on
+         hover or focus a fill rises from the bottom edge, and the label stays
+         where it is read.
 
          A button is a solid tone the page is not, rather than a transparent
          box with a line drawn round it. That is a stronger affordance in both
@@ -804,8 +766,7 @@
     padding: 1.05rem 1.8rem;
     font-family: var(--font-mono);
     font-size: var(--text-meta);
-    /* Tight, because the label swap crops to this box. */
-    line-height: 1.2;
+    line-height: 1.35;
     letter-spacing: var(--tracking-meta);
     color: var(--color-paper);
     background-color: var(--color-ink-3);
@@ -852,39 +813,6 @@
      state is spelled out rather than dimmed into a lower contrast. */
   .btn[disabled] {
     cursor: not-allowed;
-  }
-
-  /* The two stacked copies of the label. The second is aria-hidden, so the
-     accessible name stays exactly one copy of the text. */
-  .btn-swap {
-    position: relative;
-    display: inline-block;
-    overflow: hidden;
-    vertical-align: bottom;
-    /* This box clips, so it has to be tall enough for accented capitals. */
-    line-height: 1.35;
-  }
-
-  .btn-swap > span {
-    display: block;
-    transition: transform var(--t) var(--ease-cine);
-  }
-
-  .btn-swap > span:last-child {
-    position: absolute;
-    inset-inline: 0;
-    top: 0;
-    transform: translateY(110%);
-  }
-
-  .btn:hover .btn-swap > span,
-  .btn:focus-visible .btn-swap > span {
-    transform: translateY(-110%);
-  }
-
-  .btn:hover .btn-swap > span:last-child,
-  .btn:focus-visible .btn-swap > span:last-child {
-    transform: translateY(0);
   }
 
   /* --- Portrait: grayscale, never a raw warm photo on ink ---
@@ -962,9 +890,13 @@
      them, centred on the whole block. The block itself sits in the middle of
      the window, so the first screen is balanced whatever its height.
      --------------------------------------------------------------------- */
+  /* The photograph stands a gutter away from the text it goes with, not at
+     the far edge of the page: pinned to the right, it left a wide hole in
+     the middle of the first screen and read as a second, separate block. */
   .hero-grid {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-columns: minmax(0, auto) auto;
+    justify-content: start;
     align-content: center;
     column-gap: var(--spacing-gutter);
     row-gap: var(--spacing-title);
@@ -1129,6 +1061,13 @@
   }
 
   .disclosure > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  /* The link under a project's main technologies says what it will do:
+     show the others while it is closed, hide them once it is open. */
+  .stack-more:not([open]) .stack-more-hide,
+  .stack-more[open] .stack-more-show {
     display: none;
   }
 

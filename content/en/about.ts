@@ -101,7 +101,7 @@ export const atouts: Localized<typeof frenchAtouts> = [
   {
     name: "Teamwork",
     detail:
-      "On Overkill, as five, I read every approved pull request to keep the code consistent, and helped my teammates with their parts in my free time.",
+      "On Overkill, as five, I read every approved pull request to keep the code consistent, and made myself available, beyond my own tasks, to help my teammates move their parts forward.",
   },
   {
     name: "Reliability",
@@ -124,7 +124,7 @@ export const interets: Localized<typeof frenchInterets> = [
   {
     name: "Technology",
     detail:
-      "Above all, I follow how AI is transforming what already exists: cars, robotics and, more recently, healthcare.",
+      "Above all, I follow how AI is transforming what already exists: cars, robotics and, more recently, medical research.",
   },
 ];
 
@@ -135,19 +135,19 @@ export const principes: readonly {
 }[] = [
   {
     title: "Validate incoming data",
-    body: "On Overkill, a DTO defines the constraints for offers received from the collector, and Symfony validates them before writing to the database. On Corelab, Zod validates login data before the user lookup.",
+    body: "What comes in from outside is checked before it is used. On Overkill, a DTO defines the constraints for offers received from the collector, and Symfony validates them before writing to the database. On Corelab, Zod validates login data before the user lookup.",
   },
   {
     title: "Control access",
-    body: "On Corelab, middleware verifies the JWT, and the relevant routes check the user’s role. Passwords generated when users are imported are hashed with bcrypt.",
+    body: "Everyone reaches only what their role allows. On Corelab, middleware verifies the JWT, and the relevant routes check the user’s role. Passwords generated when users are imported are hashed with bcrypt.",
   },
   {
     title: "Report loading failures",
-    body: "When an amp capture fails to load in Tonecraft, hearing sound does not prove it works. The interface waits for the engine to confirm and reports the failure. Browser tests check this loading before each release.",
+    body: "What fails is reported, never passed over in silence. When an amp capture fails to load in Tonecraft, hearing sound does not prove it works. The interface waits for the engine to confirm and reports the failure. Browser tests check this loading before each release.",
   },
   {
     title: "Simplify the journey",
-    body: "Tonecraft brings guitar simulation, tablature and practice tools together on one page. The player and its instruments load only when a score is opened. A visitor can listen to the demo without turning on the microphone.",
+    body: "As few steps as possible for the visitor. Tonecraft brings guitar simulation, tablature and practice tools together on one page. The player and its instruments load only when a score is opened. A visitor can listen to the demo without turning on the microphone.",
   },
 ];
 

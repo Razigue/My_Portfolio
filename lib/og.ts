@@ -11,6 +11,9 @@ async function loadFont(
   text: string,
 ): Promise<ArrayBuffer | null> {
   try {
+    // The family is a parameter, and only ever Newsreader or Geist, both in
+    // DESIGN.md: the detector cannot read a variable.
+    // impeccable-disable-next-line design-system-font
     const api = `https://fonts.googleapis.com/css2?family=${family}&text=${encodeURIComponent(text)}`;
     const css = await fetch(api).then((response) => response.text());
     const url = /src:\s*url\(([^)]+)\)/.exec(css)?.[1];

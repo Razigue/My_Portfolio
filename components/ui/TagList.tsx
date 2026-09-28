@@ -14,12 +14,12 @@ import { Tag } from "@/components/ui/primitives";
  */
 
 const RISE: Keyframe[] = [
-  { opacity: 0, transform: "translateY(3.5rem)" },
+  { opacity: 0, transform: "translateY(1rem)" },
   { opacity: 1, transform: "translateY(0)" },
 ];
 
 const TIMING: KeyframeAnimationOptions = {
-  duration: 1050,
+  duration: 700,
   easing: "cubic-bezier(0.16, 1, 0.3, 1)",
   // The first frame holds through the delay; once finished, the list is back
   // on its own styles, with nothing left behind on it.

@@ -64,6 +64,10 @@ export function ProjectPage({
   const previous = index > 0 ? projects[index - 1] : null;
   const next = index < projects.length - 1 ? projects[index + 1] : null;
   const context = projectContext(content, project);
+  const mainStack = project.stackDisclosure
+    ? (project.primaryStack ?? [])
+    : project.stack;
+  const otherStack = project.stack.filter((item) => !mainStack.includes(item));
   const titleHref = project.demo ?? project.repo;
 
   return (
@@ -95,7 +99,7 @@ export function ProjectPage({
       />
 
       <section className="band">
-        <div className="section-body mx-auto grid max-w-page gap-x-gutter gap-y-block px-6 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:px-10">
+        <div className="section-body page-width grid gap-x-gutter gap-y-block lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
           <div>
             <p className="max-w-measure text-lede text-paper-2">
               {project.description}
@@ -129,20 +133,25 @@ export function ProjectPage({
               </div>
             ) : null}
 
+            {/* The main technologies stay in view: they are what a
+                recruiter scans for. With a disclosure, the others wait
+                behind a link that says whether it will show or hide them. */}
             <div>
-              {project.stackDisclosure ? (
-                <details>
-                  <summary className="link list-none font-mono text-meta tracking-meta text-paper-2 [&::-webkit-details-marker]:hidden">
-                    {project.stackDisclosure}
+              <Eyebrow>{copy.stackLabel}</Eyebrow>
+              {mainStack.length > 0 ? (
+                <TagList items={mainStack} className="mt-label" />
+              ) : null}
+              {project.stackDisclosure && otherStack.length > 0 ? (
+                <details className="stack-more mt-label">
+                  <summary className="link list-none type-label text-paper-2 [&::-webkit-details-marker]:hidden">
+                    <span className="stack-more-show">
+                      {project.stackDisclosure}
+                    </span>
+                    <span className="stack-more-hide">{copy.stackHide}</span>
                   </summary>
-                  <TagList items={project.stack} className="mt-label" />
+                  <TagList items={otherStack} className="mt-label" />
                 </details>
-              ) : (
-                <>
-                  <Eyebrow>{copy.stackLabel}</Eyebrow>
-                  <TagList items={project.stack} className="mt-label" />
-                </>
-              )}
+              ) : null}
             </div>
 
             <div>
@@ -162,7 +171,7 @@ export function ProjectPage({
                         href={project.repo}
                         label={fill(copy.repoLabel, { title: project.title })}
                         newTab={copy.newTab}
-                        className="link font-mono text-meta tracking-meta text-paper"
+                        className="link type-label text-paper"
                       >
                         {copy.repoLong} ↗
                       </ExternalLink>
@@ -174,7 +183,7 @@ export function ProjectPage({
                         href={project.demo}
                         label={fill(copy.demoLabel, { title: project.title })}
                         newTab={copy.newTab}
-                        className="link font-mono text-meta tracking-meta text-flare"
+                        className="link type-label text-flare"
                       >
                         {copy.demoLong} ↗
                       </ExternalLink>
@@ -196,8 +205,8 @@ export function ProjectPage({
       {/* The long-form account, when the project carries one. */}
       {project.approach ? (
         <section aria-labelledby="demarche-title">
-          <div className="section-body mx-auto max-w-page px-6 lg:px-10">
-            <h2 id="demarche-title" className="eyebrow">
+          <div className="section-body page-width">
+            <h2 id="demarche-title" className="section-title">
               {copy.approachTitle}
             </h2>
 
@@ -219,7 +228,7 @@ export function ProjectPage({
                   <div className="grid gap-x-gutter gap-y-title lg:col-span-2 lg:grid-cols-subgrid">
                     <h3
                       id={`demarche-section-${sectionIndex}`}
-                      className="font-display text-h3 leading-tight tracking-tight text-paper"
+                      className="part-title"
                     >
                       {section.title}
                     </h3>
@@ -250,13 +259,13 @@ export function ProjectPage({
       <div>
         <nav
           aria-label={copy.pagerLabel}
-          className={`section-body mx-auto grid max-w-page gap-title px-6 sm:grid-cols-2 lg:px-10 ${project.approach ? "pt-0" : ""}`}
+          className={`section-body page-width grid gap-title sm:grid-cols-2 ${project.approach ? "pt-0" : ""}`}
         >
           {previous ? (
             <div>
               <Link
                 href={pathFor(locale, "projects", previous.slug)}
-                className="link font-mono text-meta tracking-meta text-paper-2"
+                className="link type-label text-paper-2"
               >
                 ← {previous.title}
               </Link>
@@ -267,7 +276,7 @@ export function ProjectPage({
             <div className="sm:col-start-2 sm:text-right">
               <Link
                 href={pathFor(locale, "projects", next.slug)}
-                className="link font-mono text-meta tracking-meta text-paper-2"
+                className="link type-label text-paper-2"
               >
                 {next.title} →
               </Link>

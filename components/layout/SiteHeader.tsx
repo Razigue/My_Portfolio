@@ -90,12 +90,9 @@ export function SiteHeader({
     let travel = 0;
     let frame = 0;
     let lastY = window.scrollY;
-    let lastTime = performance.now();
-    let heading = 0;
     let scrolled: boolean | null = null;
     let deep: boolean | null = null;
     let live: boolean | null = null;
-    let settle = 0;
     let idle = 0;
 
     const measure = () => {
@@ -120,32 +117,12 @@ export function SiteHeader({
     const update = () => {
       frame = 0;
       const y = window.scrollY;
-      const now = performance.now();
       const room = document.documentElement.scrollHeight - window.innerHeight;
       const progress = room > 0 ? Math.min(1, Math.max(0, y / room)) : 0;
-      const velocity = ((y - lastY) / Math.max(1, now - lastTime)) * 1000;
-      const direction = Math.sign(y - lastY);
+      const moved = y !== lastY;
       lastY = y;
-      lastTime = now;
 
-      if (mark) {
-        // Position is set outright. The stretch eases through a transition
-        // in globals.css, so it can settle after the scrolling stops: faster
-        // scrolling draws the mark out behind itself, and at rest it goes
-        // back to its true length, the one that means something.
-        mark.style.translate = `0 ${progress * travel}px`;
-        mark.style.scale = `1 ${1 + Math.min(0.45, Math.abs(velocity) / 11000)}`;
-        window.clearTimeout(settle);
-        settle = window.setTimeout(() => {
-          mark.style.scale = "1 1";
-        }, 140);
-
-        if (direction !== 0 && direction !== heading) {
-          heading = direction;
-          mark.style.transformOrigin =
-            heading > 0 ? "center bottom" : "center top";
-        }
-      }
+      if (mark) mark.style.translate = `0 ${progress * travel}px`;
 
       // Far enough down that getting back is a chore worth sparing.
       const isDeep = y > window.innerHeight * 1.5;
@@ -171,7 +148,7 @@ export function SiteHeader({
       };
 
       window.clearTimeout(idle);
-      if (isScrolled && direction !== 0) {
+      if (isScrolled && moved) {
         show(true);
         idle = window.setTimeout(() => show(false), 850);
       } else if (!isScrolled) {
@@ -198,7 +175,6 @@ export function SiteHeader({
 
     return () => {
       cancelAnimationFrame(frame);
-      window.clearTimeout(settle);
       window.clearTimeout(idle);
       window.removeEventListener("scroll", schedule);
       window.removeEventListener("resize", remeasure);
@@ -215,28 +191,7 @@ export function SiteHeader({
           aria-current={active ? "page" : undefined}
           className={`navlink ${active ? "is-active" : ""}`}
         >
-          {/* One column per letter, each holding the letter twice, so the
-              columns can turn over left to right. The current page is that
-              same mechanism left finished, which is why nothing is drawn under
-              it. Hidden from assistive technology and restated once, so the
-              accessible name is the word rather than eight characters. */}
-          <span className="navlink-kinetic" aria-hidden="true">
-            {[...item.title].map((letter, index) => (
-              <span
-                key={index}
-                className="navlink-col"
-                style={{ "--i": index } as React.CSSProperties}
-              >
-                <span className="navlink-face">
-                  {letter === " " ? " " : letter}
-                </span>
-                <span className="navlink-face navlink-face-alt">
-                  {letter === " " ? " " : letter}
-                </span>
-              </span>
-            ))}
-          </span>
-          <span className="sr-only">{item.title}</span>
+          {item.title}
         </Link>
       </li>
     );
@@ -250,7 +205,7 @@ export function SiteHeader({
         data-scrolled="false"
         className="site-header fixed inset-x-0 top-0 z-50"
       >
-        <div className="site-header-bar mx-auto flex max-w-page items-center justify-between gap-6 px-6 lg:px-10">
+        <div className="site-header-bar page-width flex items-center justify-between gap-6">
           {/* The accessible name starts with the two letters actually on
               screen, so that a spoken « RB » still matches what is visible. */}
           <Link href={home} className="wordmark">
@@ -318,12 +273,7 @@ export function SiteHeader({
         data-print="hide"
         data-shown="false"
       >
-        {/* Two copies, so the arrow can leave through the top while the second
-            follows it in from below. Same mechanism as the nav letters. */}
-        <span className="to-top-roll" aria-hidden="true">
-          <span className="to-top-face">↑</span>
-          <span className="to-top-face to-top-face-alt">↑</span>
-        </span>
+        <span aria-hidden="true">↑</span>
         <span className="sr-only">{labels.toTop}</span>
       </button>
     </>

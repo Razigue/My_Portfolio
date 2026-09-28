@@ -16,10 +16,10 @@ export function Skills({ locale }: { locale: Locale }) {
 
   return (
     <section aria-labelledby="competences-title" className="band">
-      <div className="section-body mx-auto max-w-page px-6 lg:px-10">
+      <div className="section-body page-width">
         <h2
           id="competences-title"
-          className="font-display text-h3 leading-tight tracking-tight text-paper"
+          className="section-title"
         >
           {sections.competences}
         </h2>
@@ -27,7 +27,7 @@ export function Skills({ locale }: { locale: Locale }) {
         <ul className="mt-block grid gap-x-gutter gap-y-block lg:grid-cols-2">
           {domains.map((domain) => (
             <li key={domain.domain}>
-              <h3 className="font-display text-lede leading-tight tracking-tight text-paper">
+              <h3 className="part-title">
                 {domain.domain}
               </h3>
 

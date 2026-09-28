@@ -54,9 +54,9 @@ export const nav: Localized<typeof frenchNav> = {
 /** The section titles of the home page, in the order they come. */
 export const sections: Localized<typeof frenchSections> = {
   projets: "Projects",
-  methode: "Method",
-  competences: "Skills",
   parcours: "Background",
+  competences: "Skills",
+  methode: "Method",
   contact: "Contact",
 };
 
@@ -118,6 +118,7 @@ export const copy: Localized<typeof frenchCopy> = {
   groupSchool: "School projects",
   frameLabel: "Context",
   stackLabel: "Stack",
+  stackHide: "Hide the other technologies",
   statusLabel: "Status",
   linksLabel: "Links",
   repoShort: "Repository",
@@ -148,21 +149,22 @@ export const copy: Localized<typeof frenchCopy> = {
 };
 
 export const form: Localized<typeof frenchForm> = {
+  required: "Every field is needed.",
   name: "Name",
   email: "Email",
   message: "Message",
   submit: "Send",
   pending: "Sending…",
   success: "Message sent, thank you. I will reply to you personally, by email.",
-  error: "Something went wrong. Try again or write to me directly.",
+  error: "The message did not go through, because of an error on my side. Try again, or write to me directly.",
   interrupted:
     "The message did not go through, the connection was interrupted. Your text is still here: try again, or write to me directly.",
   unconfigured: `The form is not set up yet. Write to me directly at ${frenchSite.email}.`,
   invalid: "Please correct the fields marked below.",
   nameMissing: "Please enter your name.",
-  emailInvalid: "Invalid email address.",
-  messageShort: "Your message is a little short.",
-  messageLong: "Your message is over 5,000 characters.",
+  emailInvalid: "Check the email address, in the form name@company.com.",
+  messageShort: "Your message is a little short; add a few words.",
+  messageLong: "Your message is over 5,000 characters; please shorten it.",
   honeypot: "Leave empty",
 };
 
