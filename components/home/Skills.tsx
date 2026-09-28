@@ -24,14 +24,14 @@ export function Skills({ locale }: { locale: Locale }) {
           {sections.competences}
         </h2>
 
-        <ul className="mt-block grid gap-x-gutter gap-y-block lg:grid-cols-2">
+        <ul className="ruled-each mt-block grid gap-x-gutter gap-y-block lg:grid-cols-2">
           {domains.map((domain) => (
             <li key={domain.domain}>
               <h3 className="part-title">
                 {domain.domain}
               </h3>
 
-              <p className="mt-label max-w-measure text-body text-paper">
+              <p className="fact-value mt-label max-w-measure text-body">
                 {domain.skills.map((skill) => skill.name).join(", ")}
               </p>
 

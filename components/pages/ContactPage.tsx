@@ -38,13 +38,14 @@ export function ContactPage({ locale }: { locale: Locale }) {
             <ContactForm locale={locale} form={form} retry={copy.errorRetry} />
           </div>
 
-          <div className="grid content-start gap-block">
+          {/* The same rail as a project page: each fact a hairline apart. */}
+          <div className="ruled ruled-tight grid content-start gap-title">
             <div>
               <Eyebrow>{copy.emailLabel}</Eyebrow>
               <div className="mt-label flex flex-wrap items-center gap-4">
                 <a
                   href={`mailto:${site.email}`}
-                  className="link text-body text-paper"
+                  className="link fact-value text-body"
                 >
                   {site.email}
                 </a>

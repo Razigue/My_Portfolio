@@ -1,13 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { PageHeader } from "@/components/layout/PageHeader";
 import { ProjectDiagram } from "@/components/projects/ProjectDiagram";
 import { ProjectMedia } from "@/components/projects/ProjectMedia";
 import { ProjectShot } from "@/components/projects/ProjectShot";
-import {
-  ProjectArtwork,
-  ProjectAtmosphere,
-} from "@/components/projects/ProjectVisual";
+import { ProjectAtmosphere } from "@/components/projects/ProjectVisual";
 import Link from "next/link";
 import {
   Eyebrow,
@@ -69,45 +65,57 @@ export function ProjectPage({
     : project.stack;
   const otherStack = project.stack.filter((item) => !mainStack.includes(item));
   const titleHref = project.demo ?? project.repo;
+  const heroImage = project.image ?? project.thumbnail;
+  const heading = (
+    <h1 className="block font-display text-h2 leading-display tracking-display text-paper">
+      {project.title}
+    </h1>
+  );
 
   return (
     <>
-      <PageHeader
-        eyebrow={String(project.year)}
-        title={project.title}
-        titleLink={titleHref ? { href: titleHref, newTab: copy.newTab } : undefined}
-        sub={project.subtitle ?? undefined}
-        backdrop={
-          project.thumbnail?.background ? (
-            <ProjectAtmosphere background={project.thumbnail.background} />
-          ) : undefined
+      {/* The page has one reading column and one rail beside it, from the
+          header down. Everything read in order (the title, the description,
+          the capture, the account) starts on the column's left edge;
+          everything looked up (the links, the status, the stack, the parts
+          of the account) sits in the rail on the right. */}
+      <header
+        className={
+          project.thumbnail?.background
+            ? "relative isolate overflow-hidden"
+            : undefined
         }
-        media={
-          project.thumbnail ? (
-            <ProjectArtwork
-              image={project.thumbnail}
-              sizes="(min-width: 1024px) 40rem, calc(100vw - 48px)"
-            />
-          ) : project.image ? (
-            <ProjectShot
-              image={project.image}
-              sizes="(min-width: 1024px) 40rem, calc(100vw - 48px)"
-              priority
-            />
-          ) : undefined
-        }
-      />
+      >
+        {project.thumbnail?.background ? (
+          <ProjectAtmosphere background={project.thumbnail.background} />
+        ) : null}
+        <div className="page-head page-width">
+          <div className="grid gap-x-gutter gap-y-block lg:grid-cols-[minmax(0,1fr)_minmax(14rem,18rem)]">
+            <div className="min-w-0">
+              <Eyebrow>{String(project.year)}</Eyebrow>
+              {titleHref ? (
+                <ExternalLink
+                  href={titleHref}
+                  newTab={copy.newTab}
+                  className="mt-block block w-fit"
+                >
+                  {heading}
+                </ExternalLink>
+              ) : (
+                <div className="mt-block">{heading}</div>
+              )}
+              {project.subtitle ? (
+                <p className="mt-title max-w-measure text-lede text-paper-2">
+                  {project.subtitle}
+                </p>
+              ) : null}
 
-      <section className="band">
-        <div className="section-body page-width grid gap-x-gutter gap-y-block lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
-          <div>
-            <p className="max-w-measure text-lede text-paper-2">
-              {project.description}
-            </p>
+              <p className="mt-block max-w-measure text-lede text-paper">
+                {project.description}
+              </p>
 
-            {project.highlights.length > 0 ? (
-              <>
-                <ul className="mt-block grid gap-label">
+              {project.highlights.length > 0 ? (
+                <ul className="mt-block grid max-w-measure gap-label">
                   {project.highlights.map((highlight) => (
                     <li
                       key={highlight}
@@ -121,111 +129,122 @@ export function ProjectPage({
                     </li>
                   ))}
                 </ul>
-              </>
-            ) : null}
-          </div>
-
-          <div className="grid content-start gap-block">
-            {context ? (
-              <div>
-                <Eyebrow>{copy.frameLabel}</Eyebrow>
-                <p className="mt-label text-body text-paper">{context}</p>
-              </div>
-            ) : null}
-
-            {/* The main technologies stay in view: they are what a
-                recruiter scans for. With a disclosure, the others wait
-                behind a link that says whether it will show or hide them. */}
-            <div>
-              <Eyebrow>{copy.stackLabel}</Eyebrow>
-              {mainStack.length > 0 ? (
-                <TagList items={mainStack} className="mt-label" />
-              ) : null}
-              {project.stackDisclosure && otherStack.length > 0 ? (
-                <details className="stack-more mt-label">
-                  <summary className="link list-none type-label text-paper-2 [&::-webkit-details-marker]:hidden">
-                    <span className="stack-more-show">
-                      {project.stackDisclosure}
-                    </span>
-                    <span className="stack-more-hide">{copy.stackHide}</span>
-                  </summary>
-                  <TagList items={otherStack} className="mt-label" />
-                </details>
               ) : null}
             </div>
 
-            <div>
-              <Eyebrow>{copy.statusLabel}</Eyebrow>
-              <div className="mt-label">
-                <StatusDot status={project.status} labels={copy} />
-              </div>
-            </div>
-
-            {project.repo || project.demo ? (
-              <div>
-                <Eyebrow>{copy.linksLabel}</Eyebrow>
-                <ul className="mt-label grid gap-3">
-                  {project.repo ? (
-                    <li>
-                      <ExternalLink
-                        href={project.repo}
-                        label={fill(copy.repoLabel, { title: project.title })}
-                        newTab={copy.newTab}
-                        className="link type-label text-paper"
-                      >
-                        {copy.repoLong} ↗
-                      </ExternalLink>
-                    </li>
-                  ) : null}
-                  {project.demo ? (
-                    <li>
-                      <ExternalLink
-                        href={project.demo}
-                        label={fill(copy.demoLabel, { title: project.title })}
-                        newTab={copy.newTab}
-                        className="link type-label text-flare"
-                      >
-                        {copy.demoLong} ↗
-                      </ExternalLink>
-                    </li>
-                  ) : null}
-                </ul>
+            {/* What the project looks like: under the description on a
+                phone, and across the column and the rail from a laptop up,
+                under both. The interface, or the artwork when there is no
+                capture. */}
+            {heroImage ? (
+              <div className="min-w-0 lg:col-span-2 lg:row-start-2">
+                <ProjectShot
+                  image={heroImage}
+                  sizes="(min-width: 88rem) 83rem, calc(100vw - 48px)"
+                  priority
+                />
               </div>
             ) : null}
-          </div>
 
-          {/* When the header carries the artwork, the interface itself opens
-              the page's body, across both columns. */}
-          {project.thumbnail && project.image ? (
-            <ProjectMedia media={[project.image]} />
-          ) : null}
+            <div className="ruled ruled-tight grid content-start gap-title lg:col-start-2 lg:row-start-1">
+              {project.repo || project.demo ? (
+                <div>
+                  <Eyebrow>{copy.linksLabel}</Eyebrow>
+                  <ul className="mt-label grid gap-3">
+                    {project.demo ? (
+                      <li>
+                        <ExternalLink
+                          href={project.demo}
+                          label={fill(copy.demoLabel, { title: project.title })}
+                          newTab={copy.newTab}
+                          className="link fact-value type-label"
+                        >
+                          {copy.demoLong} ↗
+                        </ExternalLink>
+                      </li>
+                    ) : null}
+                    {project.repo ? (
+                      <li>
+                        <ExternalLink
+                          href={project.repo}
+                          label={fill(copy.repoLabel, { title: project.title })}
+                          newTab={copy.newTab}
+                          className="link type-label text-paper-2"
+                        >
+                          {copy.repoLong} ↗
+                        </ExternalLink>
+                      </li>
+                    ) : null}
+                  </ul>
+                </div>
+              ) : null}
+
+              <div>
+                <Eyebrow>{copy.statusLabel}</Eyebrow>
+                <div className="mt-label">
+                  <StatusDot status={project.status} labels={copy} />
+                </div>
+              </div>
+
+              {context ? (
+                <div>
+                  <Eyebrow>{copy.frameLabel}</Eyebrow>
+                  <p className="fact-value mt-label text-body">{context}</p>
+                </div>
+              ) : null}
+
+              {/* The main technologies stay in view: they are what a
+                  recruiter scans for. With a disclosure, the others wait
+                  behind a link that says whether it will show or hide them. */}
+              <div>
+                <Eyebrow>{copy.stackLabel}</Eyebrow>
+                {mainStack.length > 0 ? (
+                  <TagList items={mainStack} className="mt-label" />
+                ) : null}
+                {project.stackDisclosure && otherStack.length > 0 ? (
+                  <details className="stack-more mt-label">
+                    <summary className="link list-none type-label text-paper-2 [&::-webkit-details-marker]:hidden">
+                      <span className="stack-more-show">
+                        {project.stackDisclosure}
+                      </span>
+                      <span className="stack-more-hide">{copy.stackHide}</span>
+                    </summary>
+                    <TagList items={otherStack} className="mt-label" />
+                  </details>
+                ) : null}
+              </div>
+            </div>
+          </div>
         </div>
-      </section>
+      </header>
 
-      {/* The long-form account, when the project carries one. */}
+      <div className="page-width" aria-hidden="true">
+        <hr className="rule" />
+      </div>
+
+      {/* The long-form account, when the project carries one: on the same
+          column and rail as the section above, with the parts listed in the
+          rail, where they stay in view as the account is read. */}
       {project.approach ? (
         <section aria-labelledby="demarche-title">
-          <div className="section-body page-width">
-            <h2 id="demarche-title" className="section-title">
-              {copy.approachTitle}
-            </h2>
+          <div className="section-body page-width grid gap-x-gutter lg:grid-cols-[minmax(0,1fr)_minmax(14rem,18rem)]">
+            <div className="min-w-0">
+              <h2 id="demarche-title" className="section-title">
+                {copy.approachTitle}
+              </h2>
 
-            {/* A part is a section of its own inside the account, so parts
-                are a section apart: further from each other than anything
-                within one part is from the rest of it. */}
-            <div className="mt-block grid gap-section">
-              {project.approach.map((section, sectionIndex) => (
-                <section
-                  key={section.title}
-                  aria-labelledby={`demarche-section-${sectionIndex}`}
-                  className="grid gap-x-gutter gap-y-block lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)]"
-                >
-                  {/* The heading and its paragraphs sit on the part's two
-                      columns through a subgrid, so that what illustrates them
-                      can take either the text column or both. On a phone the
-                      heading keeps closer to its text than the text keeps to
-                      its illustration. */}
-                  <div className="grid gap-x-gutter gap-y-title lg:col-span-2 lg:grid-cols-subgrid">
+              {/* Inside a part, the heading, the text and what illustrates
+                  it are a title step apart; two parts are a block apart. The
+                  account reads straight through, so no line cuts it: its
+                  headings are enough. */}
+              <div className="mt-block grid gap-block">
+                {project.approach.map((section, sectionIndex) => (
+                  <section
+                    key={section.title}
+                    id={`demarche-${sectionIndex}`}
+                    aria-labelledby={`demarche-section-${sectionIndex}`}
+                    className="grid min-w-0 gap-title"
+                  >
                     <h3
                       id={`demarche-section-${sectionIndex}`}
                       className="part-title"
@@ -239,19 +258,34 @@ export function ProjectPage({
                         </p>
                       ))}
                     </div>
-                  </div>
-                  {section.media ? (
-                    <ProjectMedia media={section.media} align="text" />
-                  ) : null}
-                  {section.diagram ? (
-                    <ProjectDiagram
-                      diagram={section.diagram}
-                      labels={{ or: copy.diagramOr }}
-                    />
-                  ) : null}
-                </section>
-              ))}
+                    {section.media ? (
+                      <ProjectMedia media={section.media} />
+                    ) : null}
+                    {section.diagram ? (
+                      <ProjectDiagram
+                        diagram={section.diagram}
+                        labels={{ or: copy.diagramOr }}
+                      />
+                    ) : null}
+                  </section>
+                ))}
+              </div>
             </div>
+
+            <nav aria-label={copy.approachTitle} className="hidden lg:block">
+              <ol className="sticky top-[calc(var(--spacing-header)+var(--spacing-block))] grid gap-3">
+                {project.approach.map((section, sectionIndex) => (
+                  <li key={section.title}>
+                    <a
+                      href={`#demarche-${sectionIndex}`}
+                      className="link type-label text-paper-2"
+                    >
+                      {section.title}
+                    </a>
+                  </li>
+                ))}
+              </ol>
+            </nav>
           </div>
         </section>
       ) : null}
@@ -259,7 +293,7 @@ export function ProjectPage({
       <div>
         <nav
           aria-label={copy.pagerLabel}
-          className={`section-body page-width grid gap-title sm:grid-cols-2 ${project.approach ? "pt-0" : ""}`}
+          className="section-body page-width grid gap-title pt-block sm:grid-cols-2"
         >
           {previous ? (
             <div>

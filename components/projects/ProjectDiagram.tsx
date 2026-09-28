@@ -64,8 +64,8 @@ function Station({
       <span
         className={`flex shrink-0 items-center justify-center ${
           side
-            ? "size-10 bg-ink text-paper-2 lg:size-12"
-            : "size-14 bg-ink-3 text-flare lg:size-16"
+            ? "size-10 rounded-control bg-ink text-paper-2 lg:size-12"
+            : "size-14 rounded-control bg-ink-3 text-flare lg:size-16"
         }`}
       >
         <DiagramIcon
@@ -73,8 +73,8 @@ function Station({
           className={side ? "size-5 lg:size-6" : "size-7 lg:size-8"}
         />
       </span>
-      <div className="w-full min-w-0 break-words hyphens-auto">
-        <h4 className="font-display text-body leading-tight text-paper">
+      <div className="w-full min-w-0 break-words">
+        <h4 className="item-title leading-tight">
           {node.label}
         </h4>
         <p className="mt-1.5 text-meta text-paper-2">{node.hint}</p>
@@ -119,7 +119,7 @@ export function ProjectDiagram({
   const branched = diagram.steps.some((step) => step.branches?.length);
 
   return (
-    <figure className="min-w-0 rounded-shot bg-ink-2 px-5 py-10 sm:px-8 lg:col-span-2 lg:py-14">
+    <figure className="min-w-0 rounded-shot bg-ink-2 px-5 py-10 sm:px-8 lg:py-14">
       <figcaption className="sr-only">{diagram.title}</figcaption>
       <ol
         className="flex flex-col lg:grid lg:grid-cols-[repeat(var(--diagram-columns),minmax(0,12rem))] lg:justify-center lg:gap-x-8"

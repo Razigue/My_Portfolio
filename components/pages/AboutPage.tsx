@@ -93,7 +93,7 @@ export function AboutPage({ locale }: { locale: Locale }) {
             {recherche.title}
           </h2>
 
-          <div className="mt-block grid gap-x-gutter gap-y-block lg:grid-cols-2">
+          <div className="ruled-each mt-block grid gap-x-gutter gap-y-block lg:grid-cols-2">
             <div>
               <h3 className="part-title">
                 {recherche.firstMonthTitle}
@@ -118,7 +118,7 @@ export function AboutPage({ locale }: { locale: Locale }) {
             {copy.experiencesTitle}
           </h2>
 
-          <ol className="mt-block grid gap-block">
+          <ol className="ruled mt-block grid gap-block">
             {experiences.map((experience) => (
               <li
                 key={experience.role}
@@ -180,10 +180,10 @@ export function AboutPage({ locale }: { locale: Locale }) {
               {copy.languagesTitle}
             </h2>
             <div className="mt-title">
-              <dl className="zebra -mx-4 grid">
+              <dl className="ruled ruled-tight grid gap-title">
                 {langues.map((langue) => (
-                  <div key={langue.name} className="grid gap-1 px-4 py-3">
-                    <dt className="text-body text-paper">{langue.name}</dt>
+                  <div key={langue.name} className="grid gap-1">
+                    <dt className="item-title">{langue.name}</dt>
                     <dd className="text-meta text-paper-3">{langue.level}</dd>
                   </div>
                 ))}
@@ -216,10 +216,10 @@ export function AboutPage({ locale }: { locale: Locale }) {
                 {column.title}
               </h2>
               <div className="mt-title">
-                <dl className="grid gap-title">
+                <dl className="ruled ruled-tight grid gap-title">
                   {column.items.map((item) => (
                     <div key={item.name}>
-                      <dt className="text-body text-paper">{item.name}</dt>
+                      <dt className="item-title">{item.name}</dt>
                       <dd className="mt-1 max-w-measure text-body text-paper-2">
                         {item.detail}
                       </dd>

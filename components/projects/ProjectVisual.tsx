@@ -1,9 +1,7 @@
 import Image, { type StaticImageData } from "next/image";
 import { Scrub } from "@/components/motion/Scrub";
-import { ProjectShot } from "@/components/projects/ProjectShot";
-import type { ProjectImage } from "@/content/projects";
 
-/** Both layers of a project's header fade as the header scrolls away. */
+/** The scenery fades as the header scrolls away. */
 const within = "header";
 
 /**
@@ -36,30 +34,5 @@ export function ProjectAtmosphere({
         />
       </Scrub>
     </div>
-  );
-}
-
-/** The artwork beside a project's title. */
-export function ProjectArtwork({
-  image,
-  sizes,
-}: {
-  image: ProjectImage;
-  sizes: string;
-}) {
-  return (
-    <Scrub
-      from={{ opacity: 1, y: 0 }}
-      to={{ opacity: 0, y: -24 }}
-      within={within}
-    >
-      <ProjectShot
-        image={image}
-        sizes={sizes}
-        className="project-artwork"
-        placeholder="empty"
-        priority
-      />
-    </Scrub>
   );
 }

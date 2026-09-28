@@ -9,6 +9,11 @@ export function SiteFooter({ locale }: { locale: Locale }) {
 
   return (
     <footer data-print="hide">
+      {/* Shown only when the page ends on its own ground: after a band, the
+          change of ground already says the page is over. */}
+      <div className="footer-rule page-width" aria-hidden="true">
+        <hr className="rule" />
+      </div>
       <div className="site-footer-bar page-width flex flex-wrap items-baseline justify-between gap-x-gutter gap-y-label type-label pointer-coarse:gap-y-6">
         <ul className="flex flex-wrap gap-x-7 gap-y-3 text-paper-3 pointer-coarse:gap-y-6">
           <li>

@@ -119,12 +119,12 @@ export const interets: Localized<typeof frenchInterets> = [
   {
     name: "Guitar",
     detail:
-      "Almost 15 years of playing, mostly technical, fast pieces. For a demanding solo such as Born of Osiris’s Behold, I allow one month to learn it, breaking it into phrases I work slowly with a metronome, then one more month to build the speed cleanly up to the original tempo.",
+      "Almost 15 years of playing, mostly technical, fast pieces. For demanding solos, such as Archspire’s, I allow one month to learn each one, breaking them into phrases I work slowly with a metronome, then one more month to build the speed cleanly up to the original tempo.",
   },
   {
     name: "Technology",
     detail:
-      "Above all, I follow how AI is transforming what already exists: cars, robotics and, more recently, medical research.",
+      "I closely follow the impact of AI on how cars, robotics and, more recently, medical research are evolving.",
   },
 ];
 

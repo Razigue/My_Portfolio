@@ -20,7 +20,7 @@ export function Method({ locale }: { locale: Locale }) {
           {sections.methode}
         </h2>
 
-        <ul className="mt-block grid gap-x-gutter gap-y-block lg:grid-cols-2">
+        <ul className="ruled-each mt-block grid gap-x-gutter gap-y-block lg:grid-cols-2">
           {principes.map((principe) => (
             <li key={principe.title} className="grid content-start gap-label">
               <h3 className="part-title">

@@ -34,6 +34,9 @@
   --color-paper-3: #8b8a85;
   --color-flare: #ecdcb0;
   --color-live: #4ed9a4;
+  /* The separator between two parts of a page: the text colour at a low
+     strength, so it follows both themes without a value of its own. */
+  --color-rule: color-mix(in srgb, var(--color-paper) 16%, transparent);
 
   /* One face for the whole site, headings, reading text, labels and buttons:
      Geist, a sans-serif drawn for screens. Razigue asked for a single font
@@ -110,6 +113,12 @@
   --radius-*: initial;
   --radius-1: 1px;
   --radius-shot: 0.75rem;
+  /* Controls (buttons, fields, the back-to-top block) and the diagram's
+     tiles: nothing on the site has square corners but the stack's tags. */
+  --radius-control: 0.5rem;
+  /* The small accent marks, softened rather than made round: round means a
+     status. */
+  --radius-mark: 0.15rem;
   --radius-pill: 9999px;
 }
 
@@ -263,7 +272,6 @@
   :focus-visible {
     outline: 2px solid var(--color-flare);
     outline-offset: 3px;
-    border-radius: var(--radius-1);
   }
 
   /* Tailwind v4 dropped `cursor: pointer` on buttons from its preflight, so
@@ -287,10 +295,9 @@
     font-variant-numeric: tabular-nums;
   }
 
-  /* There are no rules on this site, so the one element whose entire job is to
-     draw one is switched off rather than styled. If a horizontal break is ever
-     wanted, it is space or a change of ground, not a line. */
-  hr {
+  /* A bare `hr` draws nothing: the separator the site uses is `.rule`, one
+     hairline in the separator colour, so no browser default line shows up. */
+  hr:not(.rule) {
     display: none;
   }
 }
@@ -321,6 +328,7 @@
     position: absolute;
     inset: -0.14em -0.32em;
     z-index: -1;
+    border-radius: calc(var(--radius-mark) * 2);
     background-color: var(--color-flare);
     transform: scaleX(0);
     transform-origin: right center;
@@ -429,6 +437,7 @@
   .site-progress-thumb {
     display: block;
     width: 100%;
+    border-radius: var(--radius-pill);
     background-color: var(--color-flare);
     will-change: translate;
   }
@@ -448,6 +457,7 @@
     isolation: isolate;
     width: 2.75rem;
     height: 2.75rem;
+    border-radius: var(--radius-control);
     background-color: var(--color-flare);
     color: var(--color-ink);
     font-family: var(--font-mono);
@@ -727,6 +737,7 @@
 
   .part-title {
     font-size: var(--text-lede);
+    font-weight: 500;
   }
 
   /* The label role: labels, metadata, the text of buttons and small links.
@@ -739,11 +750,34 @@
   }
 
   /* --- Eyebrow / section meta --- */
+  /* A label names what follows it, in the accent, so the eye finds the
+     labels first and reads the values under them. */
   .eyebrow {
     font-family: var(--font-mono);
     font-size: var(--text-meta);
     letter-spacing: var(--tracking-meta);
-    color: var(--color-paper-3);
+    color: var(--color-flare);
+  }
+
+  /* What a label names: a fact, read before the prose around it, so it
+     carries a little more weight than the text. */
+  .fact-value {
+    font-weight: 500;
+    color: var(--color-paper);
+  }
+
+  /* The title of one item in a list or a grid (a strength, a language, a
+     station of a diagram): the text size, set apart by weight alone. */
+  .item-title {
+    font-size: var(--text-body);
+    line-height: 1.4;
+    font-weight: 600;
+    color: var(--color-paper);
+  }
+
+  strong {
+    font-weight: 600;
+    color: var(--color-paper);
   }
 
   /* --- Buttons. They do not move, and they do not chase the pointer: on
@@ -764,6 +798,7 @@
     max-width: 100%;
     overflow-wrap: anywhere;
     padding: 1.05rem 1.8rem;
+    border-radius: var(--radius-control);
     font-family: var(--font-mono);
     font-size: var(--text-meta);
     line-height: 1.35;
@@ -822,6 +857,7 @@
   .portrait {
     position: relative;
     overflow: hidden;
+    border-radius: var(--radius-shot);
     background-color: var(--color-ink-2);
   }
 
@@ -851,7 +887,6 @@
   }
 
   /* Artwork and cutouts have transparent surroundings: no ground behind them. */
-  .shot.project-artwork,
   .shot.shot-bare {
     background-color: transparent;
   }
@@ -982,13 +1017,6 @@
     background-color: var(--color-ink-2);
   }
 
-  /* Rows in a list are told apart by lifting every other one, which is what a
-     well-set table does when it has no rules in it. The lift is full-bleed so
-     it reads as a band of the page rather than as a card. */
-  .zebra > *:nth-child(odd) {
-    background-color: var(--color-ink-2);
-  }
-
   /* --- Status dot: the only round thing on the site --- */
   .dot {
     display: inline-block;
@@ -1017,6 +1045,7 @@
     width: 0.55rem;
     height: 0.55rem;
     flex: none;
+    border-radius: var(--radius-mark);
     background-color: var(--color-flare);
   }
 
@@ -1043,6 +1072,7 @@
     transform: translateY(-120%);
     background-color: var(--color-flare);
     color: var(--color-ink);
+    border-radius: 0 0 var(--radius-control) 0;
     padding: 0.75rem 1.25rem;
     font-family: var(--font-mono);
     font-size: var(--text-meta);
@@ -1129,10 +1159,49 @@
     padding-bottom: calc(var(--inset) + 2.75rem + var(--spacing-title));
   }
 
+  /* A hairline between the page and its footer when both are on the page's
+     own ground, a section from each. */
+  .footer-rule {
+    padding-top: var(--spacing-section);
+  }
+
+  main:has(> .band:last-child) ~ footer .footer-rule {
+    display: none;
+  }
+
+  /* --- Separator ---
+     A hairline between two parts of a page, asked for by Razigue to mark
+     where one thing ends and the next begins. It separates; it never frames
+     or underlines anything. */
+  .rule {
+    height: 0;
+    border: 0;
+    border-top: 1px solid var(--color-rule);
+  }
+
+  /* A list whose items are each separated from the one before by the same
+     hairline, a block of space below it (a title step with .ruled-tight). */
+  .ruled > * + * {
+    border-top: 1px solid var(--color-rule);
+    padding-top: var(--ruled-space, var(--spacing-block));
+  }
+
+  .ruled-tight {
+    --ruled-space: var(--spacing-title);
+  }
+
+  /* A grid whose items each open on a hairline, the first row included, so
+     the items of a row start on one line. */
+  .ruled-each > * {
+    border-top: 1px solid var(--color-rule);
+    padding-top: var(--spacing-title);
+  }
+
   /* --- Running prose --- */
+  /* No hyphenation: a word cut at the end of a line reads as a typo to a
+     recruiter skimming the page. The measure is wide enough to rag well. */
   .prose-fr {
-    hyphens: auto;
-    -webkit-hyphens: auto;
+    text-wrap: pretty;
     color: var(--color-paper-2);
   }
 
@@ -1258,6 +1327,7 @@
   .field {
     --field: color-mix(in srgb, var(--color-paper) 14%, var(--color-ink-3));
     width: 100%;
+    border-radius: var(--radius-control);
     background-color: var(--field);
     padding: 1rem 1.1rem;
     color: var(--color-paper);

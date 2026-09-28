@@ -69,11 +69,11 @@ export function Hero({ locale }: { locale: Locale }) {
             {copy.availabilityTitle}
           </h2>
 
-          <dl className="mt-title grid gap-x-gutter gap-y-title sm:grid-cols-2 lg:grid-cols-3">
+          <dl className="ruled-each mt-title grid gap-x-gutter gap-y-title sm:grid-cols-2 lg:grid-cols-3">
             {facts.map((fact) => (
               <div key={fact.label}>
                 <dt className="eyebrow">{fact.label}</dt>
-                <dd className="mt-2 text-body text-paper">{fact.value}</dd>
+                <dd className="fact-value mt-2 text-body">{fact.value}</dd>
               </div>
             ))}
           </dl>

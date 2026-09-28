@@ -22,7 +22,7 @@ export function ParcoursTeaser({ locale }: { locale: Locale }) {
         </p>
 
         <h3 className="eyebrow mt-block">{copy.experiencesTitle}</h3>
-        <ul className="mt-label grid gap-x-gutter gap-y-title sm:grid-cols-2">
+        <ul className="ruled-each mt-label grid gap-x-gutter gap-y-title sm:grid-cols-2">
           {experiences.map((experience) => (
             <li key={experience.role}>
               <p className="part-title">{experience.role}</p>

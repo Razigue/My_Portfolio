@@ -81,14 +81,22 @@ you are the only check. `DESIGN.md`, at the root, records the same visual system
 for design tools, with its tokens; change a rule here or a token in
 `app/globals.css`, and update it too.
 
-1. **There is not one line on this site.** No border, no rule, no divider, no
-   underline, no text-stroke, no frame around a button or a field. No hyphen,
-   middot or pipe used as layout punctuation either. Four exceptions exist and
-   none of them separates anything: the focus ring, the read-position mark in
-   the right margin, a 1px clip that hides text visually while leaving it in
-   the accessibility tree, and the borders a Windows contrast theme needs to
-   show where a field or a button is, drawn only under `forced-colors` and
-   never in either of the site's own themes.
+1. **A line only ever separates.** Razigue asked on 2026-09-29 for parts of
+   a page to be marked off: `.rule` (an `hr`) and `.ruled` (a list whose
+   items each open on a hairline) draw 1px in `--color-rule`, between a
+   project's header and its account, between the facts of a rail (project
+   and contact pages) and the entries of a short list (the languages), and
+   above the footer when a page ends on its own ground (after a band, the
+   change of ground is enough). Not systematically: a line marks a change of
+   kind where the ground does not change, never every block; the parts of an
+   account have none. Never a border framing a box, a button or a
+   field, never an underline, never a text-stroke; no hyphen, middot or pipe
+   as layout punctuation. The other lines are the focus ring, the
+   read-position mark in the right margin, a 1px clip that hides text
+   visually, and the borders a Windows contrast theme needs, drawn only under
+   `forced-colors`. **Corners are rounded**, everything but the stack's tags,
+   which Razigue kept square: `--radius-shot`, `--radius-control`,
+   `--radius-mark`; round is for status only.
 2. **Nothing is set in capitals.** No `uppercase`, no `capitalize`, no small
    caps, anywhere. Acronyms stay acronyms — HTML, PHP, JWT, RNCP. The `RB`
    monogram is the site's mark.
@@ -102,8 +110,9 @@ for design tools, with its tokens; change a rule here or a token in
    that exists to keep one photograph from pulling the composition off neutral,
    and a screenshot has to report the interface's own colours. On the home
    page the projects sit side by side, each with its interface (`image`, or
-   `thumbnail` when it has none) above its one-sentence `summary`; the artwork
-   and the scenery open its own page.
+   `thumbnail` when it has none) above its one-sentence `summary`. A project
+   page opens on its title and description, with the scenery behind them, then
+   its interface across the page: that capture is where a video will go.
 4. **One accent, and the two themes do not share it.** Pale gold at night, dark
    orange by day. The daylight value is capped by contrast arithmetic against
    `--ink-3`; see the README before touching it.
@@ -152,6 +161,10 @@ for design tools, with its tokens; change a rule here or a token in
     readable and professional, "pas quelque chose de fantaisie juste pour
     respecter un thème". Do not add a second face, never an expressive one,
     and no monospace. Nothing is set in italics.
+    Weight is the one variation: 400 to read, 500 for subheadings and facts
+    (`.part-title`, `.fact-value`), 600 for an item's title (`.item-title`).
+    Labels (`.eyebrow`) are set in the accent. Razigue asked for this on
+    2026-09-29, after his friend's site, to make the text less dense.
 
 ---
 
@@ -224,3 +237,13 @@ invisible frame; step down the page a screen at a time instead.
 Report what you changed and what you did not. If something in the request could
 not be done honestly — a claim that needs a number nobody has, a link that does
 not resolve — say so plainly rather than filling the gap.
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->
