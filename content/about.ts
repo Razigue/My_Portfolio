@@ -127,12 +127,12 @@ export const interets: readonly {
   {
     name: "Guitare",
     detail:
-      "Près de 15 ans de pratique, surtout des morceaux techniques et rapides. Pour un solo exigeant comme celui de Behold, de Born of Osiris, je compte deux à trois mois : je le découpe en phrases, je les travaille lentement au métronome, puis je monte jusqu’au tempo d’origine.",
+      "Près de 15 ans de pratique, surtout des morceaux techniques et rapides. Pour un solo exigeant comme celui de Behold, de Born of Osiris, je compte un mois pour l’apprendre, en le découpant en phrases que je travaille lentement au métronome, puis un mois de plus pour construire proprement la vitesse jusqu’au tempo d’origine.",
   },
   {
     name: "Technologie",
     detail:
-      "Je suis surtout la façon dont l’IA transforme ce qui existe déjà : l’automobile et la robotique, mais aussi les cartes graphiques qui la font tourner et les systèmes d’exploitation qui l’intègrent.",
+      "Je suis surtout la façon dont l’IA transforme ce qui existe déjà : l’automobile, la robotique et, plus récemment, la santé.",
   },
 ];
 
