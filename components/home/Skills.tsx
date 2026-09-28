@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Fragment } from "react";
 import { getContent } from "@/lib/content";
 import { pathFor, type Locale } from "@/lib/i18n";
 import { skillDomains } from "@/lib/skills";
@@ -36,19 +35,22 @@ export function Skills({ locale }: { locale: Locale }) {
                 {domain.skills.map((skill) => skill.name).join(", ")}
               </p>
 
+              {/* Each project carries the arrow every other link to a page on
+                  this site carries: set in running text with nothing drawn
+                  under it, a name told apart by its colour alone does not
+                  read as something to click. */}
               {domain.projects.length > 0 ? (
-                <p className="mt-label text-meta text-paper-3">
-                  {copy.skillsUsedIn}{" "}
-                  {domain.projects.map((project, index) => (
-                    <Fragment key={project.slug}>
-                      {index > 0 ? ", " : null}
-                      <Link
-                        href={pathFor(locale, "projects", project.slug)}
-                        className="link text-paper-2"
-                      >
-                        {project.title}
-                      </Link>
-                    </Fragment>
+                <p className="mt-label flex flex-wrap items-baseline gap-x-5 gap-y-2 text-meta text-paper-3">
+                  <span>{copy.skillsUsedIn}</span>
+                  {domain.projects.map((project) => (
+                    <Link
+                      key={project.slug}
+                      href={pathFor(locale, "projects", project.slug)}
+                      className="link text-paper"
+                    >
+                      {project.title}
+                      <span aria-hidden="true"> →</span>
+                    </Link>
                   ))}
                 </p>
               ) : null}

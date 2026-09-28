@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/layout/PageHeader";
-import { Stage } from "@/components/motion/Stage";
 import { ProjectRow } from "@/components/projects/ProjectRow";
-import { Reveal } from "@/components/ui/Reveal";
 import type { ProjectKind } from "@/content/projects";
 import { getContent, kindLabel, projectsSummary } from "@/lib/content";
 import { alternates, pathFor, type Locale } from "@/lib/i18n";
@@ -43,31 +41,20 @@ export function ProjectsPage({ locale }: { locale: Locale }) {
 
   return (
     <>
-      <PageHeader
-        eyebrow={copy.projectsEyebrow}
-        title={copy.projectsHeading}
-      />
+      <PageHeader title={copy.projectsHeading} centered />
 
       {groups.map((group, order) => (
-        <Stage
+        <section
           key={group.kind}
-          as="section"
           aria-labelledby={`groupe-${group.kind}`}
-          stagger={0.045}
-          start="top 90%"
           className={order > 0 ? "pt-block" : undefined}
         >
           <div className="mx-auto max-w-page px-6 lg:px-10">
-            <Reveal
-              variant="fade"
-              as="h2"
-              id={`groupe-${group.kind}`}
-              className="eyebrow"
-            >
+            <h2 id={`groupe-${group.kind}`} className="eyebrow">
               {group.entries.length > 1
                 ? plural[group.kind]
                 : kindLabel(content, group.kind)}
-            </Reveal>
+            </h2>
           </div>
 
           <ol className="index mx-auto mt-label max-w-page px-6 lg:px-10">
@@ -80,7 +67,7 @@ export function ProjectsPage({ locale }: { locale: Locale }) {
               />
             ))}
           </ol>
-        </Stage>
+        </section>
       ))}
     </>
   );

@@ -30,17 +30,23 @@ export async function sendMessage(
   const name = field(formData, "name");
   const email = field(formData, "email");
   const message = field(formData, "message");
+  // Sent back with every answer but a success, so nothing typed is lost.
+  const values = { name, email, message };
 
   // Honeypot: a real person never fills a field they cannot see. Answer as if
   // it worked, so a bot has nothing to learn from the response.
   if (field(formData, "website").length > 0) {
-    return { status: "success", message: form.success, fieldErrors: {}, key };
+    return { status: "success", message: form.success, fieldErrors: {}, values: {}, key };
   }
 
   // Submissions faster than a second and a half are not typed by a human.
+  // The page's script stamps the time it opened. Without a stamp the check
+  // does not apply: scripting may be off, or React may have emptied the form
+  // after an earlier answer, and in both cases the visitor is a person whose
+  // message has to go through, not a bot to answer with a false success.
   const startedAt = Number(field(formData, "startedAt"));
-  if (!startedAt || Date.now() - startedAt < 1500) {
-    return { status: "success", message: form.success, fieldErrors: {}, key };
+  if (startedAt > 0 && Date.now() - startedAt < 1500) {
+    return { status: "success", message: form.success, fieldErrors: {}, values: {}, key };
   }
 
   const fieldErrors: ContactState["fieldErrors"] = {};
@@ -58,6 +64,7 @@ export async function sendMessage(
       status: "invalid",
       message: form.invalid,
       fieldErrors,
+      values,
       key,
     };
   }
@@ -75,6 +82,14 @@ export async function sendMessage(
     return sendWithFormSubmit({ to, name, email, message, subject, form, key });
   }
 
+  const failed: ContactState = {
+    status: "error",
+    message: form.error,
+    fieldErrors: {},
+    values,
+    key,
+  };
+
   try {
     const resend = new Resend(apiKey);
     const { error } = await resend.emails.send({
@@ -88,13 +103,13 @@ export async function sendMessage(
 
     if (error) {
       console.error("[contact] Resend error:", error);
-      return { status: "error", message: form.error, fieldErrors: {}, key };
+      return failed;
     }
 
-    return { status: "success", message: form.success, fieldErrors: {}, key };
+    return { status: "success", message: form.success, fieldErrors: {}, values: {}, key };
   } catch (cause) {
     console.error("[contact] send failed:", cause);
-    return { status: "error", message: form.error, fieldErrors: {}, key };
+    return failed;
   }
 }
 
@@ -152,7 +167,7 @@ async function sendWithFormSubmit({
     } | null;
 
     if (response.ok && (data?.success === true || data?.success === "true")) {
-      return { status: "success", message: form.success, fieldErrors: {}, key };
+      return { status: "success", message: form.success, fieldErrors: {}, values: {}, key };
     }
 
     console.error(
@@ -164,10 +179,17 @@ async function sendWithFormSubmit({
       status: pending ? "unconfigured" : "error",
       message: pending ? form.unconfigured : form.error,
       fieldErrors: {},
+      values: { name, email, message },
       key,
     };
   } catch (cause) {
     console.error("[contact] FormSubmit unreachable:", cause);
-    return { status: "error", message: form.error, fieldErrors: {}, key };
+    return {
+      status: "error",
+      message: form.error,
+      fieldErrors: {},
+      values: { name, email, message },
+      key,
+    };
   }
 }

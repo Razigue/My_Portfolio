@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { PageHeader } from "@/components/layout/PageHeader";
-import { Stage } from "@/components/motion/Stage";
 import { CopyButton } from "@/components/ui/CopyButton";
-import { Reveal } from "@/components/ui/Reveal";
 import { Eyebrow, ExternalLink } from "@/components/ui/primitives";
 import { getContent } from "@/lib/content";
 import { alternates, pathFor, type Locale } from "@/lib/i18n";
@@ -30,19 +28,18 @@ export function ContactPage({ locale }: { locale: Locale }) {
   return (
     <>
       <PageHeader
-        eyebrow={copy.contactEyebrow}
         title={copy.contactHeading}
         sub={copy.contactSub}
       />
 
-      <Stage className="band" stagger={0.09}>
+      <section className="band">
         <div className="section-body mx-auto grid max-w-page gap-x-gutter gap-y-block px-6 lg:grid-cols-[minmax(0,1fr)_22rem] lg:px-10">
           <div>
-            <ContactForm locale={locale} form={form} />
+            <ContactForm locale={locale} form={form} retry={copy.errorRetry} />
           </div>
 
-          <aside className="grid content-start gap-block">
-            <Reveal variant="rise" order={1}>
+          <div className="grid content-start gap-block">
+            <div>
               <Eyebrow>{copy.emailLabel}</Eyebrow>
               <div className="mt-label flex flex-wrap items-center gap-4">
                 <a
@@ -59,9 +56,9 @@ export function ContactPage({ locale }: { locale: Locale }) {
                   confirm={copy.copyConfirm}
                 />
               </div>
-            </Reveal>
+            </div>
 
-            <Reveal variant="rise" order={2}>
+            <div>
               <Eyebrow>{copy.elsewhereLabel}</Eyebrow>
               <ul className="mt-label grid gap-3">
                 <li>
@@ -94,9 +91,9 @@ export function ContactPage({ locale }: { locale: Locale }) {
                   </a>
                 </li>
               </ul>
-            </Reveal>
+            </div>
 
-            <Reveal variant="rise" order={3}>
+            <div>
               <Eyebrow>{copy.availabilityTitle}</Eyebrow>
               <p className="mt-label flex items-baseline gap-3 text-body text-paper">
                 <span className="mark-flare dot-baseline" aria-hidden="true" />
@@ -104,10 +101,10 @@ export function ContactPage({ locale }: { locale: Locale }) {
                   {availability.headline}, {availability.window}
                 </span>
               </p>
-            </Reveal>
-          </aside>
+            </div>
+          </div>
         </div>
-      </Stage>
+      </section>
     </>
   );
 }

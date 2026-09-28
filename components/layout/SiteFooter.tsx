@@ -9,33 +9,45 @@ export function SiteFooter({ locale }: { locale: Locale }) {
 
   return (
     <footer data-print="hide">
-      <div className="site-footer-bar mx-auto flex max-w-page flex-wrap items-baseline justify-between gap-x-gutter gap-y-label px-6 font-mono text-meta tracking-meta lg:px-10">
-        <ul className="flex flex-wrap gap-x-7 gap-y-3 text-paper-3">
+      <div className="site-footer-bar mx-auto flex max-w-page flex-wrap items-baseline justify-between gap-x-gutter gap-y-label px-6 font-mono text-meta tracking-meta pointer-coarse:gap-y-6 lg:px-10">
+        <ul className="flex flex-wrap gap-x-7 gap-y-3 text-paper-3 pointer-coarse:gap-y-6">
           <li>
-            <a href={`mailto:${site.email}`} className="link">
+            <a href={`mailto:${site.email}`} className="link tap-area">
               {site.email}
             </a>
           </li>
           <li>
-            <ExternalLink href={site.github} newTab={copy.newTab}>
+            <ExternalLink
+              href={site.github}
+              newTab={copy.newTab}
+              className="link tap-area"
+            >
               GitHub ↗
             </ExternalLink>
           </li>
           {site.linkedin ? (
             <li>
-              <ExternalLink href={site.linkedin} newTab={copy.newTab}>
+              <ExternalLink
+                href={site.linkedin}
+                newTab={copy.newTab}
+                className="link tap-area"
+              >
                 LinkedIn ↗
               </ExternalLink>
             </li>
           ) : null}
           <li>
-            <a href={site.cvUrl} download className="link">
+            <a href={site.cvUrl} download className="link tap-area">
               {copy.cvShort} ↓
             </a>
           </li>
           {site.sourceRepo ? (
             <li>
-              <ExternalLink href={site.sourceRepo} newTab={copy.newTab}>
+              <ExternalLink
+                href={site.sourceRepo}
+                newTab={copy.newTab}
+                className="link tap-area"
+              >
                 {copy.sourceLink}
               </ExternalLink>
             </li>

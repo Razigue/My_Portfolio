@@ -1,76 +1,85 @@
 "use client";
 
-import { useGSAP } from "@gsap/react";
-import { useRef } from "react";
-import { gsap, registerGsap } from "@/lib/gsap";
+import { useEffect, useRef, type CSSProperties } from "react";
+
+/** One end of the fade: how opaque, how far moved up or down, how large. */
+export type ScrubFrame = {
+  readonly opacity: number;
+  /** Vertical offset, in pixels. */
+  readonly y?: number;
+  readonly scale?: number;
+};
+
+function styleAt(from: ScrubFrame, to: ScrubFrame, progress: number): CSSProperties {
+  const mix = (a: number, b: number) => a + (b - a) * progress;
+  const y = mix(from.y ?? 0, to.y ?? 0);
+  const scale = mix(from.scale ?? 1, to.scale ?? 1);
+  return {
+    opacity: mix(from.opacity, to.opacity),
+    transform: `translateY(${y}px) scale(${scale})`,
+  };
+}
 
 /**
- * Motion tied to the scroll position rather than to time. Used for the visual
- * layers fading out of project page headers.
+ * A layer that fades as the section around it scrolls away: `from` while the
+ * top of the section is at the top of the window, `to` once its bottom has
+ * reached it. Used for the two layers of a project's header.
  *
- * `from` and `to` are plain objects, so a Server Component can hand them across
- * the client boundary without ceremony.
+ * The server writes the first frame, so the page opens on it rather than
+ * jumping to it when the script arrives. One read of the section's position
+ * per frame, then one write, and only while the page scrolls.
  */
 export function Scrub({
   children,
   className,
   from,
   to,
-  start = "top bottom",
-  end = "bottom top",
-  triggerClosest,
+  within,
 }: {
   children: React.ReactNode;
   className?: string;
-  from: Record<string, number | string>;
-  to: Record<string, number | string>;
-  start?: string;
-  end?: string;
-  /**
-   * Measure against the nearest ancestor matching this selector instead of
-   * against the wrapper. A band forty pixels tall has almost no scroll range of
-   * its own; the section around it has plenty.
-   */
-  triggerClosest?: string;
+  from: ScrubFrame;
+  to: ScrubFrame;
+  /** The ancestor whose passage through the top of the window drives the fade. */
+  within: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const signature = JSON.stringify([from, to, start, end, triggerClosest]);
+  // Plain values, so the effect does not restart on every render.
+  const signature = JSON.stringify([from, to, within]);
 
-  useGSAP(
-    () => {
-      const el = ref.current;
-      if (!el) return;
-      registerGsap();
+  useEffect(() => {
+    const layer = ref.current;
+    if (!layer) return;
+    const [start, end, selector] = JSON.parse(signature) as [
+      ScrubFrame,
+      ScrubFrame,
+      string,
+    ];
+    const section = layer.closest<HTMLElement>(selector) ?? layer;
+    let frame = 0;
 
-      const trigger = triggerClosest
-        ? (el.closest<HTMLElement>(triggerClosest) ?? el)
-        : el;
+    const apply = () => {
+      frame = 0;
+      const box = section.getBoundingClientRect();
+      const progress = Math.min(1, Math.max(0, -box.top / Math.max(1, box.height)));
+      Object.assign(layer.style, styleAt(start, end, progress));
+    };
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(apply);
+    };
 
-      const tween = gsap.fromTo(el, from, {
-        ...to,
-        ease: "none",
-        scrollTrigger: {
-          trigger,
-          start,
-          end,
-          scrub: 0.6,
-          invalidateOnRefresh: true,
-        },
-      });
-
-      // Kill this tween's own ScrollTrigger by reference. Filtering
-      // `getAll()` by trigger element would also take down the chapter
-      // gutter's trigger, which watches the same section.
-      return () => {
-        tween.scrollTrigger?.kill();
-        tween.kill();
-      };
-    },
-    { scope: ref, dependencies: [signature], revertOnUpdate: true },
-  );
+    apply();
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+    };
+  }, [signature]);
 
   return (
-    <div ref={ref} className={className}>
+    <div ref={ref} className={className} style={styleAt(from, to, 0)}>
       {children}
     </div>
   );

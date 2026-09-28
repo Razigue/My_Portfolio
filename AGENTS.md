@@ -81,10 +81,12 @@ you are the only check.
 
 1. **There is not one line on this site.** No border, no rule, no divider, no
    underline, no text-stroke, no frame around a button or a field. No hyphen,
-   middot or pipe used as layout punctuation either. Three exceptions exist and
+   middot or pipe used as layout punctuation either. Four exceptions exist and
    none of them separates anything: the focus ring, the read-position mark in
-   the right margin, and a 1px clip that hides text visually while leaving it in
-   the accessibility tree.
+   the right margin, a 1px clip that hides text visually while leaving it in
+   the accessibility tree, and the borders a Windows contrast theme needs to
+   show where a field or a button is, drawn only under `forced-colors` and
+   never in either of the site's own themes.
 2. **Nothing is set in capitals.** No `uppercase`, no `capitalize`, no small
    caps, anywhere. Acronyms stay acronyms — HTML, PHP, JWT, RNCP. The `RB`
    monogram is the site's mark.
@@ -208,9 +210,9 @@ All three silent. `npm run build` is the one that matters — it runs the conten
 checks and it is exactly what runs on deploy.
 
 If you changed anything visual, also look at it: `npm run dev`, both themes, and
-at 320px wide. The site is choreographed on scroll, so a full-page screenshot
-catches half the elements mid-animation and tells you nothing; step down the
-page a screen at a time instead.
+at 320px wide. The technology lists rise the first time they come on screen,
+so a full-page screenshot catches the ones below the fold on their first,
+invisible frame; step down the page a screen at a time instead.
 
 Report what you changed and what you did not. If something in the request could
 not be done honestly — a claim that needs a number nobody has, a link that does

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ProjectShot } from "@/components/projects/ProjectShot";
-import { Reveal } from "@/components/ui/Reveal";
-import { ExternalLink, StatusDot, TagList } from "@/components/ui/primitives";
+import { ExternalLink, StatusDot } from "@/components/ui/primitives";
+import { TagList } from "@/components/ui/TagList";
 import type { Project } from "@/content/projects";
 import { getContent, projectContext } from "@/lib/content";
 import { fill, pathFor, type Locale } from "@/lib/i18n";
@@ -64,9 +64,10 @@ export function ProjectSummary({
             {project.summary ?? project.description}
           </p>
 
-          <Reveal variant="rise" className="mt-title">
-            <TagList items={project.primaryStack ?? project.stack} />
-          </Reveal>
+          <TagList
+            items={project.primaryStack ?? project.stack}
+            className="mt-title"
+          />
 
           <p className="mt-title flex flex-wrap items-center gap-x-6 gap-y-3">
             <Link

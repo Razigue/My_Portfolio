@@ -1,5 +1,3 @@
-import { Stage } from "@/components/motion/Stage";
-import { Reveal } from "@/components/ui/Reveal";
 import { Eyebrow, ExternalLink } from "@/components/ui/primitives";
 
 export function PageHeader({
@@ -39,22 +37,15 @@ export function PageHeader({
   children?: React.ReactNode;
 }) {
   const heading = (
-    <Reveal
-      variant="chars"
-      as="h1"
-      order={1}
+    <h1
       className={`${eyebrow ? "mt-block " : ""}block font-display text-h2 leading-display tracking-display text-paper`}
     >
       {title}
-    </Reveal>
+    </h1>
   );
 
   return (
-    <Stage
-      immediate
-      as="header"
-      delay={0.12}
-      stagger={0.11}
+    <header
       className={backdrop ? "relative isolate overflow-hidden" : undefined}
     >
       {backdrop}
@@ -75,8 +66,6 @@ export function PageHeader({
           <div>
             {eyebrow ? <Eyebrow>{eyebrow}</Eyebrow> : null}
 
-            {/* Keep the link outside the split heading so SplitText cannot
-                hide the interactive element from the accessibility tree. */}
             {titleLink ? (
               <ExternalLink
                 href={titleLink.href}
@@ -88,26 +77,19 @@ export function PageHeader({
             ) : heading}
 
             {sub ? (
-              <Reveal
-                variant="lines"
-                as="p"
-                order={2}
-                className="mt-title max-w-measure text-lede text-paper-2"
-              >
+              <p className="mt-title max-w-measure text-lede text-paper-2">
                 {sub}
-              </Reveal>
+              </p>
             ) : null}
           </div>
 
           {media ? (
-            <Reveal variant="mask" order={3}>
-              {media}
-            </Reveal>
+            <div>{media}</div>
           ) : null}
         </div>
 
         {children}
       </div>
-    </Stage>
+    </header>
   );
 }

@@ -1,6 +1,4 @@
 import Link from "next/link";
-import { Stage } from "@/components/motion/Stage";
-import { Reveal } from "@/components/ui/Reveal";
 import { BtnLabel, Eyebrow } from "@/components/ui/primitives";
 import { getContent } from "@/lib/content";
 import { pathFor, type Locale } from "@/lib/i18n";
@@ -10,36 +8,24 @@ export function NotFoundPage({ locale }: { locale: Locale }) {
   const { copy } = getContent(locale);
 
   return (
-    <Stage immediate delay={0.1} stagger={0.11}>
+    <section>
       <div className="mx-auto flex min-h-dvh max-w-page flex-col justify-center px-6 page-head lg:px-10">
-        <Reveal variant="fade" as={Eyebrow} order={0}>
-          {copy.notFoundEyebrow}
-        </Reveal>
+        <Eyebrow>{copy.notFoundEyebrow}</Eyebrow>
 
-        <Reveal
-          variant="chars"
-          as="h1"
-          order={1}
-          className="mt-block block font-display text-h2 leading-display tracking-display text-paper"
-        >
+        <h1 className="mt-block block font-display text-h2 leading-display tracking-display text-paper">
           {copy.notFoundTitle}
-        </Reveal>
+        </h1>
 
-        <Reveal
-          variant="lines"
-          as="p"
-          order={2}
-          className="mt-title max-w-measure text-lede text-paper-2"
-        >
+        <p className="mt-title max-w-measure text-lede text-paper-2">
           {copy.notFoundBody}
-        </Reveal>
+        </p>
 
-        <Reveal variant="rise" order={3} className="mt-block">
+        <div className="mt-block">
           <Link href={pathFor(locale, "home")} className="btn">
             <BtnLabel>{copy.notFoundLink}</BtnLabel>
           </Link>
-        </Reveal>
+        </div>
       </div>
-    </Stage>
+    </section>
   );
 }

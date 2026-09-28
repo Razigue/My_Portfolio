@@ -107,7 +107,6 @@ export const copy: Localized<typeof frenchCopy> = {
   experiencesTitle: "Experience",
   skillsUsedIn: "Used in:",
 
-  projectsEyebrow: "Index",
   projectsDescription: "Full-stack web applications, built solo and in teams.",
   projectsSummaryOne: "{count} project, {years}.",
   projectsSummaryMany: "{count} projects, {years}.",
@@ -130,12 +129,10 @@ export const copy: Localized<typeof frenchCopy> = {
   pagerLabel: "Previous and next project",
 
   aboutTitle: "About",
-  aboutEyebrow: "Background",
   languagesTitle: "Languages",
   documentTitle: "Document",
   strengthsTitle: "Strengths",
   interestsTitle: "Interests",
-  contactEyebrow: "Contact",
   emailLabel: "Email",
   elsewhereLabel: "Elsewhere",
 
@@ -158,6 +155,8 @@ export const form: Localized<typeof frenchForm> = {
   pending: "Sending…",
   success: "Message sent, thank you. I will reply to you personally, by email.",
   error: "Something went wrong. Try again or write to me directly.",
+  interrupted:
+    "The message did not go through, the connection was interrupted. Your text is still here: try again, or write to me directly.",
   unconfigured: `The form is not set up yet. Write to me directly at ${frenchSite.email}.`,
   invalid: "Please correct the fields marked below.",
   nameMissing: "Please enter your name.",

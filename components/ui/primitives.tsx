@@ -49,25 +49,9 @@ export function StatusDot({
 
 export function Tag({ children }: { children: React.ReactNode }) {
   return (
-    <li className="bg-ink-3 px-3 py-1.5 font-mono text-meta tracking-meta text-paper-2 transition-colors duration-300 hover:bg-flare hover:text-ink">
+    <li className="bg-ink-3 px-3 py-1.5 font-mono text-meta tracking-meta text-paper-2">
       {children}
     </li>
-  );
-}
-
-export function TagList({
-  items,
-  className,
-}: {
-  items: readonly string[];
-  className?: string;
-}) {
-  return (
-    <ul data-stack className={`flex flex-wrap gap-2 ${className ?? ""}`}>
-      {items.map((item) => (
-        <Tag key={item}>{item}</Tag>
-      ))}
-    </ul>
   );
 }
 
@@ -95,7 +79,9 @@ export function ExternalLink({
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label={label}
+      // An `aria-label` replaces everything inside the link, the new-tab
+      // mention below included, so a label has to carry that mention too.
+      aria-label={label ? `${label} (${newTab})` : undefined}
       data-print-url
       className={className ?? "link"}
     >

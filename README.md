@@ -2,8 +2,9 @@
 
 Portfolio bilingue d’un développeur web full-stack en recherche d’alternance :
 français par défaut à la racine, anglais sous `/en`.
-Next.js 16 (App Router, Turbopack), React 19, TypeScript strict, Tailwind
-CSS v4 et GSAP ScrollTrigger.
+Next.js 16 (App Router, Turbopack), React 19, TypeScript strict et Tailwind
+CSS v4. Aucune bibliothèque d’animation : les trois mouvements du site tiennent
+en quelques lignes natives.
 
 Direction artistique : neutres froids et profonds, un seul accent, une seule
 police, Geist, pour les titres comme pour le texte ; seul le monogramme
@@ -150,69 +151,41 @@ dans `.next/static` après un build.
 
 ---
 
-## La chorégraphie
+## Le mouvement
 
-Le cœur du système est un contrat en deux moitiés.
+Trois choses bougent sur le site, et aucune n’a besoin d’une bibliothèque.
 
-**Côté serveur**, un composant se contente de poser un attribut :
+**Les listes de technologies montent à leur première apparition**
+(`components/ui/TagList.tsx`). Une liste encore sous la ligne de flottaison est
+tenue sur sa première image, invisible et 56 px plus bas, par l’API
+d’animation du navigateur ; un `IntersectionObserver` la fait jouer quand son
+haut passe à 12 % du bas de la fenêtre. Les listes qui arrivent ensemble, les
+trois cartes de l’accueil côte à côte, se suivent à 90 ms d’écart. Une liste
+déjà à l’écran à l’ouverture de la page n’est jamais touchée : rien de visible
+ne s’éteint pour se rallumer. Une fois jouée, l’animation ne laisse rien sur
+l’élément.
 
-```tsx
-<Reveal variant="lines" as="p">{project.description}</Reveal>
-// rend : <p data-choreo="lines">…</p>
-```
+**Le visuel en tête d’une fiche projet s’estompe quand l’en-tête défile**
+(`components/motion/Scrub.tsx`) : du plein quand le haut de l’en-tête touche
+le haut de la fenêtre, à l’effacement quand son bas l’a atteint. La première
+image est écrite par le serveur, donc la page s’ouvre dessus au lieu d’y
+sauter à l’arrivée du script.
 
-**Côté client**, un `<Stage>` ramasse tous les `[data-choreo]` qu’il contient,
-construit **une timeline en pause par élément**, et donne à chaque élément son
-propre ScrollTrigger via `ScrollTrigger.batch`.
-
-**Des arrivées, rien d’autre.** Rien ne repart en arrière quand on redescend :
-ce qui a été montré reste montré. C’est aussi pour cela que chaque déclencheur
-est `once` et se supprime après avoir joué, si bien qu’une page lue jusqu’en bas
-ne porte plus aucun travail au défilement.
-
-Par élément, et non par section : c’est le point important. Une timeline unique
-déclenchée à l’arrivée de la *section* signifiait que, dans une section plus
-haute que la fenêtre, tout ce qui se trouvait sous la ligne de flottaison avait
-fini d’animer avant même d’être atteint. La page paraissait figée. `batch`
-conserve l’effet de groupe : les éléments qui arrivent ensemble sont réunis dans
-un même lot et joués en cascade, ceux qui arrivent seuls jouent seuls.
-
-Le bénéfice : le contenu reste dans des Server Components. Une liste de
-technologies n’a pas besoin de devenir du code client pour être animée.
-
-**Seules les listes de technologies s’animent à leur apparition.** Les titres,
-paragraphes, images, boutons, libellés et schémas restent visibles.
-Le tri se fait dans `components/motion/Stage.tsx` ; les attributs restent dans
-le balisage. L’effet porte sur la liste elle-même, pas sur son libellé.
-
-Variantes disponibles (`lib/gsap.ts` → `CHOREO`) : `fade` `rise` `fall` `scale`
-`blur` `mask` `wipe` `chars` `words` `lines` `drift` `sweep` `counter`.
-
-> Il y avait une variante `rule`, un `scaleX` de 0 à 1 dont le seul emploi était
-> de tracer un filet. Elle est partie avec les filets.
-
-```tsx
-<Stage stagger={0.09} start="top 88%">   {/* section entière */}
-<Stage immediate delay={0.12}>           {/* joue au chargement, pas au scroll */}
-<Reveal variant="rise" order={1}><TagList items={stack} /></Reveal>
-```
-
-Pour du mouvement lié à la position de défilement plutôt qu’au temps,
-`<Scrub from={…} to={…}>` conserve le fondu des visuels en tête des fiches
-projets. Rien d’autre ne bouge avec le défilement.
+**La marque de lecture** dans la marge droite, décrite plus bas.
 
 Il n’y a ni écran de chargement, ni rideau entre les pages, ni défilement
 lissé, ni grain de film, ni nom en filigrane au pied des pages, ni sections
 numérotées : tout cela a été retiré pour que le site se lise comme une source
-d’information plutôt que comme une vitrine.
+d’information plutôt que comme une vitrine. GSAP, qui portait tout cela, est
+parti avec : 49 Ko compressés chargés sur chaque page pour ces trois effets.
 
 ### Ce qui protège la page
 
-- **Rien n’est masqué en CSS.** L’état caché est posé par GSAP après le montage
-  du `Stage`. Sans JavaScript, la page s’affiche complète, et c’est vérifié.
-- **Le focus force l’entrée.** Entrer au clavier dans une section joue toute sa
-  chorégraphie d’un coup, sans cascade : impossible d’atterrir sur un élément
-  transparent.
+- **Rien n’est masqué en CSS.** L’état caché n’est posé par le script qu’aux
+  listes encore à venir. Sans JavaScript, la page s’affiche complète, et c’est
+  vérifié. À l’impression, une liste pas encore atteinte s’affiche quand même.
+- **Rien de focalisable n’est jamais transparent.** Une liste de technologies
+  ne contient ni lien ni bouton : on ne peut pas y atterrir au clavier.
 
 ### Repère de lecture
 
@@ -296,8 +269,7 @@ WCAG 2.5.8.
 Les liens internes sont des `<Link>` de Next, sans transition. Après un
 changement de page, `components/motion/RouteFocus.tsx` place le focus sur le
 contenu principal, pour qu’une personne au clavier ou au lecteur d’écran
-reparte du début de la nouvelle page, et fait remesurer la page à
-ScrollTrigger.
+reparte du début de la nouvelle page.
 
 ---
 
@@ -358,10 +330,12 @@ l’interrupteur tombent à un tiers de pixel les uns des autres : 0,17 px la
 nuit, 0,33 px le jour.
 
 Ces deux valeurs appartiennent aux fontes sur lesquelles elles ont été
-mesurées : Newsreader pour le monogramme, et Geist Mono pour la navigation, qui
-est depuis passée en Geist. `--trim-mono` peut donc être faux d’une fraction de
-pixel ; la seule façon d’en trouver une valeur juste est de regarder les pixels
-à nouveau.
+mesurées. Elles ont été relevées de nouveau le 28 septembre 2026, à 4×, une
+fois la navigation passée de Geist Mono à Geist en 15 px : les mots du menu
+tombaient encore à un quart de pixel de l’interrupteur, mais le monogramme
+montait 2,5 px trop haut, et `--trim-display` est passé de 0,074em à 0,175em.
+Tout changement de police ou de taille dans la barre les invalide : la seule
+façon d’en trouver de justes est de regarder les pixels à nouveau.
 
 ---
 

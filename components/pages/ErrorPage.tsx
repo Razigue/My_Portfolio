@@ -48,7 +48,7 @@ export function ErrorPage({
       </div>
 
       {error.digest ? (
-        <p className="mt-block font-mono text-micro tracking-meta text-paper-3">
+        <p className="mt-block font-mono text-meta tracking-meta text-paper-3">
           {copy.errorRef} {error.digest}
         </p>
       ) : null}

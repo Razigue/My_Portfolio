@@ -122,7 +122,6 @@ export const copy = {
   skillsUsedIn: "Utilisé dans\u00A0:",
 
   // Projets. `{years}`, `{year}`, `{first}`, `{last}` et `{title}` se calculent.
-  projectsEyebrow: "Index",
   projectsDescription: "Applications web full-stack, en solo et en équipe.",
   projectsSummaryOne: "{count} projet, {years}.",
   projectsSummaryMany: "{count} projets, {years}.",
@@ -146,12 +145,10 @@ export const copy = {
 
   // À propos et contact
   aboutTitle: "À propos",
-  aboutEyebrow: "Parcours",
   languagesTitle: "Langues",
   documentTitle: "Document",
   strengthsTitle: "Atouts",
   interestsTitle: "Centres d’intérêt",
-  contactEyebrow: "Contact",
   emailLabel: "Email",
   elsewhereLabel: "Ailleurs",
 
@@ -175,6 +172,9 @@ export const form = {
   pending: "Envoi…",
   success: "Message envoyé, merci. Je vous répondrai personnellement, par email.",
   error: "Une erreur est survenue. Réessayez ou écrivez-moi directement.",
+  // Quand la connexion coupe pendant l’envoi : le texte tapé est gardé.
+  interrupted:
+    "Le message n’est pas parti, la connexion a été interrompue. Votre texte est conservé : réessayez, ou écrivez-moi directement.",
   unconfigured: `Le formulaire n’est pas encore configuré. Écrivez-moi directement à ${site.email}.`,
   invalid: "Corrigez les champs signalés.",
   nameMissing: "Indiquez votre nom.",

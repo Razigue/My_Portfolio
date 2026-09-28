@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { ProjectSummary } from "@/components/home/ProjectSummary";
-import { Stage } from "@/components/motion/Stage";
 import { getContent } from "@/lib/content";
 import { pathFor, type Locale } from "@/lib/i18n";
 
@@ -12,12 +11,7 @@ export function Projects({ locale }: { locale: Locale }) {
   const { copy, projects, sections } = getContent(locale);
 
   return (
-    <Stage
-      as="section"
-      aria-labelledby="projets-title"
-      className="band"
-      stagger={0.08}
-    >
+    <section aria-labelledby="projets-title" className="band">
       <div className="section-body mx-auto max-w-page px-6 lg:px-10">
         <div className="flex flex-wrap items-baseline justify-between gap-x-gutter gap-y-label">
           <h2
@@ -45,6 +39,6 @@ export function Projects({ locale }: { locale: Locale }) {
           ))}
         </ol>
       </div>
-    </Stage>
+    </section>
   );
 }

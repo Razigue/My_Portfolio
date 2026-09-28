@@ -63,15 +63,27 @@ export function alternates(locale: Locale, page: Page, slug?: string) {
   };
 }
 
-/** Puts values into a sentence written with `{name}` placeholders. */
+/**
+ * Puts values into a sentence written with `{name}` placeholders.
+ *
+ * French elides « de » before a vowel, so « Démo en ligne de {title} » gives
+ * « d’Overkill » but « de Tonecraft ». Only « de » directly before a
+ * placeholder is touched; an English template never contains it.
+ */
 export function fill(
   template: string,
   values: Readonly<Record<string, string | number>>,
 ): string {
-  return template.replace(/\{(\w+)\}/g, (match, key: string) => {
-    const value = values[key];
-    return value === undefined ? match : String(value);
-  });
+  return template.replace(
+    /(\bde )?\{(\w+)\}/g,
+    (match, de: string | undefined, key: string) => {
+      const value = values[key];
+      if (value === undefined) return match;
+      const text = String(value);
+      if (de && /^[aeiouyàâéèêëîïôûœ]/i.test(text)) return `d’${text}`;
+      return `${de ?? ""}${text}`;
+    },
+  );
 }
 
 /**

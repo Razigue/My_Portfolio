@@ -9,14 +9,12 @@ import {
   ProjectAtmosphere,
 } from "@/components/projects/ProjectVisual";
 import Link from "next/link";
-import { Stage } from "@/components/motion/Stage";
-import { Reveal } from "@/components/ui/Reveal";
 import {
   Eyebrow,
   ExternalLink,
   StatusDot,
-  TagList,
 } from "@/components/ui/primitives";
+import { TagList } from "@/components/ui/TagList";
 import { featuredProjects } from "@/content/projects";
 import { findProject, getContent, projectContext } from "@/lib/content";
 import { alternates, fill, pathFor, type Locale } from "@/lib/i18n";
@@ -96,17 +94,12 @@ export function ProjectPage({
         }
       />
 
-      <Stage className="band" stagger={0.09}>
+      <section className="band">
         <div className="section-body mx-auto grid max-w-page gap-x-gutter gap-y-block px-6 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:px-10">
           <div>
-            <Reveal
-              variant="lines"
-              as="p"
-              order={0}
-              className="max-w-measure text-lede text-paper-2"
-            >
+            <p className="max-w-measure text-lede text-paper-2">
               {project.description}
-            </Reveal>
+            </p>
 
             {project.highlights.length > 0 ? (
               <>
@@ -114,7 +107,6 @@ export function ProjectPage({
                   {project.highlights.map((highlight) => (
                     <li
                       key={highlight}
-                      data-choreo="rise"
                       className="flex items-baseline gap-4 text-body text-paper-2"
                     >
                       <span
@@ -129,15 +121,15 @@ export function ProjectPage({
             ) : null}
           </div>
 
-          <aside className="grid content-start gap-block">
+          <div className="grid content-start gap-block">
             {context ? (
-              <Reveal variant="rise">
+              <div>
                 <Eyebrow>{copy.frameLabel}</Eyebrow>
                 <p className="mt-label text-body text-paper">{context}</p>
-              </Reveal>
+              </div>
             ) : null}
 
-            <Reveal variant="rise">
+            <div>
               {project.stackDisclosure ? (
                 <details>
                   <summary className="link list-none font-mono text-meta tracking-meta text-paper-2 [&::-webkit-details-marker]:hidden">
@@ -151,17 +143,17 @@ export function ProjectPage({
                   <TagList items={project.stack} className="mt-label" />
                 </>
               )}
-            </Reveal>
+            </div>
 
-            <Reveal variant="rise">
+            <div>
               <Eyebrow>{copy.statusLabel}</Eyebrow>
               <div className="mt-label">
                 <StatusDot status={project.status} labels={copy} />
               </div>
-            </Reveal>
+            </div>
 
             {project.repo || project.demo ? (
-              <Reveal variant="rise">
+              <div>
                 <Eyebrow>{copy.linksLabel}</Eyebrow>
                 <ul className="mt-label grid gap-3">
                   {project.repo ? (
@@ -189,9 +181,9 @@ export function ProjectPage({
                     </li>
                   ) : null}
                 </ul>
-              </Reveal>
+              </div>
             ) : null}
-          </aside>
+          </div>
 
           {/* When the header carries the artwork, the interface itself opens
               the page's body, across both columns. */}
@@ -199,23 +191,15 @@ export function ProjectPage({
             <ProjectMedia media={[project.image]} />
           ) : null}
         </div>
-      </Stage>
+      </section>
 
-      {/* The long-form account, when the project carries one. Its own Stage,
-          so it is choreographed against its own scroll position rather than
-          the one that revealed the summary two screens earlier. */}
+      {/* The long-form account, when the project carries one. */}
       {project.approach ? (
-        <Stage aria-labelledby="demarche-title" stagger={0.08}>
+        <section aria-labelledby="demarche-title">
           <div className="section-body mx-auto max-w-page px-6 lg:px-10">
-            <Reveal
-              variant="fade"
-              as="h2"
-              order={0}
-              id="demarche-title"
-              className="eyebrow"
-            >
+            <h2 id="demarche-title" className="eyebrow">
               {copy.approachTitle}
-            </Reveal>
+            </h2>
 
             {/* A part is a section of its own inside the account, so parts
                 are a section apart: further from each other than anything
@@ -233,21 +217,15 @@ export function ProjectPage({
                       heading keeps closer to its text than the text keeps to
                       its illustration. */}
                   <div className="grid gap-x-gutter gap-y-title lg:col-span-2 lg:grid-cols-subgrid">
-                    <Reveal
-                      variant="rise"
-                      as="h3"
+                    <h3
                       id={`demarche-section-${sectionIndex}`}
                       className="font-display text-h3 leading-tight tracking-tight text-paper"
                     >
                       {section.title}
-                    </Reveal>
+                    </h3>
                     <div className="grid max-w-measure gap-title text-body">
                       {section.paragraphs.map((paragraph) => (
-                        <p
-                          key={paragraph}
-                          data-choreo="lines"
-                          className="prose-fr"
-                        >
+                        <p key={paragraph} className="prose-fr">
                           {paragraph}
                         </p>
                       ))}
@@ -266,37 +244,37 @@ export function ProjectPage({
               ))}
             </div>
           </div>
-        </Stage>
+        </section>
       ) : null}
 
-      <Stage stagger={0.1}>
+      <div>
         <nav
           aria-label={copy.pagerLabel}
           className={`section-body mx-auto grid max-w-page gap-title px-6 sm:grid-cols-2 lg:px-10 ${project.approach ? "pt-0" : ""}`}
         >
           {previous ? (
-            <Reveal variant="rise">
+            <div>
               <Link
                 href={pathFor(locale, "projects", previous.slug)}
                 className="link font-mono text-meta tracking-meta text-paper-2"
               >
                 ← {previous.title}
               </Link>
-            </Reveal>
+            </div>
           ) : null}
 
           {next ? (
-            <Reveal variant="rise" className="sm:col-start-2 sm:text-right">
+            <div className="sm:col-start-2 sm:text-right">
               <Link
                 href={pathFor(locale, "projects", next.slug)}
                 className="link font-mono text-meta tracking-meta text-paper-2"
               >
                 {next.title} →
               </Link>
-            </Reveal>
+            </div>
           ) : null}
         </nav>
-      </Stage>
+      </div>
     </>
   );
 }

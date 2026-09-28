@@ -13,7 +13,9 @@ import tseslint from "typescript-eslint";
  * is where most of the value is.
  */
 const eslintConfig = defineConfig([
-  globalIgnores([".next/**", "out/**", "build/**", "next-env.d.ts"]),
+  // `.claude/` holds the tools an assistant runs against this project, bundled
+  // and minified by their authors: not code of this site.
+  globalIgnores([".next/**", "out/**", "build/**", "next-env.d.ts", ".claude/**"]),
 
   ...nextVitals,
   ...nextTs,

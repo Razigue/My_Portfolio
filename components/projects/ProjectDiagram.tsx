@@ -132,7 +132,6 @@ export function ProjectDiagram({
               key={step.nodes.map((node) => node.label).join()}
               className="relative flex min-w-0 flex-col lg:row-span-2 lg:grid lg:grid-cols-subgrid lg:grid-rows-subgrid lg:gap-y-0"
               style={{ gridColumn: `span ${span} / span ${span}` }}
-              data-choreo="rise"
             >
               {index > 0 ? (
                 <>

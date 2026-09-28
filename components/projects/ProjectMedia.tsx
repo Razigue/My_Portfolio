@@ -33,7 +33,6 @@ export function ProjectMedia({
 
   return (
     <div
-      data-choreo="rise"
       className={`flex w-full flex-col gap-6 sm:flex-row ${
         align === "text" ? "lg:col-start-2" : "mx-auto lg:col-span-2"
       }`}

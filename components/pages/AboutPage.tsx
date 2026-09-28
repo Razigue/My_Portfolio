@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import portrait from "@/content/media/razigue.png";
 import { PageHeader } from "@/components/layout/PageHeader";
-import { Stage } from "@/components/motion/Stage";
-import { Reveal } from "@/components/ui/Reveal";
 import { BtnLabel } from "@/components/ui/primitives";
 import { getContent } from "@/lib/content";
 import { alternates, pathFor, type Locale } from "@/lib/i18n";
@@ -62,23 +60,22 @@ export function AboutPage({ locale }: { locale: Locale }) {
   return (
     <>
       <PageHeader
-        eyebrow={copy.aboutEyebrow}
         title={copy.aboutTitle}
         sub={devise}
       />
 
       {/* Portrait + the longer-form story */}
-      <Stage className="band" stagger={0.09}>
+      <section className="band">
         <div className="section-body mx-auto grid max-w-page gap-x-gutter gap-y-block px-6 lg:grid-cols-[minmax(0,1fr)_22rem] lg:px-10">
           <div className="prose-fr max-w-measure text-body">
-            {parcours.map((paragraph, index) => (
-              <p key={paragraph} data-choreo="lines" data-choreo-order={index}>
+            {parcours.map((paragraph) => (
+              <p key={paragraph}>
                 {paragraph}
               </p>
             ))}
           </div>
 
-          <Reveal variant="mask" order={9} className="portrait h-fit">
+          <div className="portrait h-fit">
             <Image
               src={portrait}
               alt={copy.portraitAlt}
@@ -86,22 +83,16 @@ export function AboutPage({ locale }: { locale: Locale }) {
               sizes="(min-width: 1024px) 22rem, 100vw"
               className="h-full w-full object-cover"
             />
-          </Reveal>
+          </div>
         </div>
-      </Stage>
+      </section>
 
       {/* As an apprentice: what he can take on, and what he wants to learn */}
-      <Stage aria-labelledby="recherche-title" stagger={0.08}>
+      <section aria-labelledby="recherche-title">
         <div className="section-body mx-auto max-w-page px-6 lg:px-10">
-          <Reveal
-            variant="fade"
-            as="h2"
-            order={0}
-            id="recherche-title"
-            className="eyebrow"
-          >
+          <h2 id="recherche-title" className="eyebrow">
             {recherche.title}
-          </Reveal>
+          </h2>
 
           <div className="mt-label grid gap-x-gutter gap-y-block lg:grid-cols-2">
             <div>
@@ -119,26 +110,19 @@ export function AboutPage({ locale }: { locale: Locale }) {
             </div>
           </div>
         </div>
-      </Stage>
+      </section>
 
       {/* Experience */}
-      <Stage aria-labelledby="experiences-title" className="band" stagger={0.08}>
+      <section aria-labelledby="experiences-title" className="band">
         <div className="section-body mx-auto max-w-page px-6 lg:px-10">
-          <Reveal
-            variant="fade"
-            as="h2"
-            order={0}
-            id="experiences-title"
-            className="eyebrow"
-          >
+          <h2 id="experiences-title" className="eyebrow">
             {copy.experiencesTitle}
-          </Reveal>
+          </h2>
 
           <ol className="mt-label grid gap-block">
             {experiences.map((experience) => (
               <li
                 key={experience.role}
-                data-choreo="rise"
                 className="grid gap-3 lg:grid-cols-[14rem_minmax(0,1fr)] lg:gap-x-gutter"
               >
                 <div>
@@ -162,22 +146,16 @@ export function AboutPage({ locale }: { locale: Locale }) {
             ))}
           </ol>
         </div>
-      </Stage>
+      </section>
 
       {/* Education, languages, CV */}
-      <Stage aria-labelledby="formation-title" stagger={0.08}>
+      <section aria-labelledby="formation-title">
         <div className="section-body mx-auto grid max-w-page gap-x-gutter gap-y-block px-6 lg:grid-cols-3 lg:px-10">
           <div className="lg:col-span-2 lg:row-span-2">
-            <Reveal
-              variant="fade"
-              as="h2"
-              order={0}
-              id="formation-title"
-              className="eyebrow"
-            >
+            <h2 id="formation-title" className="eyebrow">
               {copy.formationTitle}
-            </Reveal>
-            <Reveal variant="rise" order={1} className="mt-label">
+            </h2>
+            <div className="mt-label">
               <p className="font-display text-h3 leading-tight tracking-tight text-paper">
                 {formation.title}
               </p>
@@ -190,7 +168,7 @@ export function AboutPage({ locale }: { locale: Locale }) {
                 <li className="tnum">{formation.period}</li>
                 <li className="tnum">{formation.detail}</li>
               </ul>
-            </Reveal>
+            </div>
             <div className="mt-title grid max-w-measure gap-label text-body text-paper-2">
               <p>{formation.firstYear}</p>
               <p>{formation.cycle}</p>
@@ -199,10 +177,10 @@ export function AboutPage({ locale }: { locale: Locale }) {
           </div>
 
           <div>
-            <Reveal variant="fade" as="h2" order={2} className="eyebrow">
+            <h2 className="eyebrow">
               {copy.languagesTitle}
-            </Reveal>
-            <Reveal variant="rise" order={3} className="mt-label">
+            </h2>
+            <div className="mt-label">
               <dl className="zebra -mx-4 grid">
                 {langues.map((langue) => (
                   <div key={langue.name} className="grid gap-1 px-4 py-3">
@@ -211,40 +189,34 @@ export function AboutPage({ locale }: { locale: Locale }) {
                   </div>
                 ))}
               </dl>
-            </Reveal>
+            </div>
           </div>
 
           <div data-print="hide">
-            <Reveal variant="fade" as="h2" order={4} className="eyebrow">
+            <h2 className="eyebrow">
               {copy.documentTitle}
-            </Reveal>
-            <Reveal variant="rise" order={5} className="mt-label">
+            </h2>
+            <div className="mt-label">
               <a href={site.cvUrl} download className="btn">
                 <BtnLabel>{copy.cvButton}</BtnLabel>
               </a>
-            </Reveal>
+            </div>
           </div>
         </div>
-      </Stage>
+      </section>
 
       {/* Strengths, and what fills the rest of the time */}
-      <Stage aria-labelledby="atouts-title" className="band" stagger={0.08}>
+      <section aria-labelledby="atouts-title" className="band">
         <div className="section-body mx-auto grid max-w-page gap-x-gutter gap-y-block px-6 lg:grid-cols-2 lg:px-10">
           {[
             { id: "atouts-title", title: copy.strengthsTitle, items: atouts },
             { id: "interets-title", title: copy.interestsTitle, items: interets },
-          ].map((column, columnIndex) => (
+          ].map((column) => (
             <div key={column.id}>
-              <Reveal
-                variant="fade"
-                as="h2"
-                order={columnIndex * 2}
-                id={column.id}
-                className="eyebrow"
-              >
+              <h2 id={column.id} className="eyebrow">
                 {column.title}
-              </Reveal>
-              <Reveal variant="rise" order={columnIndex * 2 + 1} className="mt-label">
+              </h2>
+              <div className="mt-label">
                 <dl className="grid gap-title">
                   {column.items.map((item) => (
                     <div key={item.name}>
@@ -255,11 +227,11 @@ export function AboutPage({ locale }: { locale: Locale }) {
                     </div>
                   ))}
                 </dl>
-              </Reveal>
+              </div>
             </div>
           ))}
         </div>
-      </Stage>
+      </section>
     </>
   );
 }

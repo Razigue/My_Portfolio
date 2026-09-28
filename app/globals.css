@@ -3,11 +3,12 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* ---------------------------------------------------------------------------
-   « Cinématique éditoriale »
-   Cool near-black, a single light gold, an editorial serif.
+   Cool near-black by night and warm paper by day, one accent per theme, and
+   one face, Geist, for everything but the `RB` monogram.
 
-   The neutrals are deliberately cool. The gold is the only warm thing on the
-   page, which is what makes it register as an accent rather than as a tint.
+   The neutrals are deliberately cool. The accent is the only warm thing on
+   the page, which is what makes it register as an accent rather than as a
+   tint: pale gold at night, dark orange by day.
 
    Every colour literal on this site lives in this file and nowhere else. The
    `*: initial` resets delete Tailwind's stock scales, so off-palette utilities
@@ -46,9 +47,13 @@
   --font-mono: var(--font-geist), system-ui, -apple-system, sans-serif;
 
   --text-*: initial;
-  --text-micro: clamp(0.6875rem, 0.67rem + 0.08vw, 0.75rem);
-  --text-micro--line-height: 1.35;
-  --text-meta: clamp(0.8125rem, 0.79rem + 0.11vw, 0.875rem);
+  /* The smallest text on the site, and the only size under body: labels,
+     metadata, buttons, the navigation. 14px on a phone, 15 on a wide screen.
+     Labels used to sit a size below this, at 11px on a phone, and they are
+     what a recruiter reads first: « Période », « Rythme », « Poste visé ».
+     A label is told from what it names by its tone and its place, not by
+     being harder to read. */
+  --text-meta: clamp(0.875rem, 0.85rem + 0.1vw, 0.9375rem);
   --text-meta--line-height: 1.45;
   --text-body: clamp(1rem, 0.97rem + 0.15vw, 1.125rem);
   --text-body--line-height: 1.65;
@@ -58,8 +63,6 @@
   --text-h3--line-height: 1.14;
   --text-h2: clamp(2.375rem, 1.75rem + 3.1vw, 4.5rem);
   --text-h2--line-height: 1.02;
-  --text-h1: clamp(3rem, 2rem + 5vw, 6.5rem);
-  --text-h1--line-height: 0.98;
 
   --tracking-*: initial;
   --tracking-display: -0.035em;
@@ -70,7 +73,6 @@
      ascenders and descenders already do that work, it reads as holes. Geist
      is spaced for small sizes already; this only opens it a hair. */
   --tracking-meta: 0.01em;
-  --tracking-wide: 0.09em;
 
   --leading-*: initial;
   --leading-display: 0.86;
@@ -78,10 +80,13 @@
   --leading-body: 1.65;
 
   --container-*: initial;
-  --container-lede: 34ch;
-  --container-measure: 62ch;
+  /* The reading measure. `ch` is the width of a zero, and in Geist a line of
+     French runs about 1.34 characters to the `ch`: 50ch holds 65 to 75
+     characters, the comfortable range. It was 62ch, set when the site was in
+     a monospace, where one `ch` is exactly one character; in Geist that came
+     out at up to 93. */
+  --container-measure: 50ch;
   --container-page: 88rem;
-  --container-text: 46rem;
 
   /* Five steps of space. A gap is chosen by what it separates, never by eye:
      a label and what it names; a heading and the text under it; one block and
@@ -152,7 +157,7 @@
   --color-live: #4ed9a4;
 }
 
-/* Motion timings shared by CSS and read by the GSAP layer. */
+/* Motion timings, shared by every transition on the site. */
 :root {
   --t-fast: 180ms;
   --t: 420ms;
@@ -182,9 +187,13 @@
      were read back off screenshots of the bar, row by row, until the painted
      centres of the monogram, a nav word and the switch agreed within a third
      of a pixel in both themes.
-     They belong to these three faces. Changing a typeface invalidates them,
-     and the only way to find the new ones is to look at the pixels again. */
-  --trim-display: 0.074em;
+     They belong to these faces. Changing a typeface invalidates them, and
+     the only way to find the new ones is to look at the pixels again.
+     Re-read on 2026-09-28, at 4x, once the navigation had moved from Geist
+     Mono to Geist at 15 px: the nav words still sat within a quarter of a
+     pixel of the switch, but the monogram rode 2.5 px high, so its value
+     went from 0.074em to 0.175em. */
+  --trim-display: 0.175em;
   --trim-mono: 0.021em;
 }
 
@@ -202,6 +211,10 @@
     text-size-adjust: 100%;
     /* Scrolling is the browser's own: no glide added on top. */
     scroll-behavior: auto;
+    /* The header is fixed over the top of the window. Whatever the browser
+       scrolls into view for the keyboard stops this far below the top, so a
+       focused link is never hidden under the bar, at any text size. */
+    scroll-padding-top: calc(var(--spacing-header) + var(--spacing-label));
     /* The native scrollbar is hidden and replaced by the gold bar in the
        right-hand margin, which is a readout rather than a control. See
        `.site-progress` below. */
@@ -282,78 +295,7 @@
   }
 }
 
-/* ---------------------------------------------------------------------------
-   Choreography contract.
-
-   Server components mark elements with `data-choreo="<variant>"`. A client
-   <Stage> finds them, builds one paused timeline per element, and gives each
-   element its own ScrollTrigger so it moves when it personally arrives rather
-   than when the section it happens to sit in arrives.
-
-   Nothing is hidden in CSS. The hidden state is set by GSAP only after a Stage
-   has taken ownership, so with JavaScript off the page still renders complete
-   and visible rather than collapsing to a blank screen.
-   --------------------------------------------------------------------------- */
-
 @layer utilities {
-  /* Deliberately no blanket `will-change` on [data-choreo]. There are seventy
-     of them on the home page, and promoting all seventy to their own composited
-     layer costs far more than it saves. GSAP promotes each element for the
-     duration of its own tween and releases it afterwards. */
-
-  .line-mask {
-    overflow: hidden;
-    display: block;
-  }
-
-  /* The sentence, restated for assistive technology beside an element whose
-     text has been broken into individual characters. `user-select: none` keeps
-     it out of a copied selection; it stays in the accessibility tree. */
-  .split-alt {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip-path: inset(50%);
-    white-space: nowrap;
-    border-width: 0;
-    user-select: none;
-    -webkit-user-select: none;
-  }
-
-  /* The wrappers SplitText puts around each masked piece.
-   *
-   * A mask is sized to the line box. Titling here is set at a line-height of
-   * 0.86, so the line box is materially shorter than the glyphs: measured on
-   * the home page it was cutting 37px off every character of a 186px name, and
-   * 23px off each page heading. The padding opens the clip box far enough to
-   * hold the glyphs and the negative margin takes the space straight back, so
-   * nothing on the page moves.
-   */
-  .choreo-char-mask,
-  .choreo-word-mask,
-  .choreo-line-mask {
-    padding-block: 0.3em;
-    margin-block: -0.3em;
-  }
-
-  /* And sideways, for the same reason. A glyph in a serif face overhangs its
-     advance width, and negative tracking pulls the boxes further together, so
-     each character's mask was slicing the tails and serifs of the ones beside
-     it. The reveal only travels vertically, so the horizontal clip buys
-     nothing at all and can be opened right up. */
-  .choreo-char-mask,
-  .choreo-word-mask {
-    padding-inline: 0.24em;
-    margin-inline: -0.24em;
-  }
-
-  .choreo-line {
-    will-change: transform;
-  }
-
   /* ---------------------------------------------------------------------
      Links.
 
@@ -413,7 +355,9 @@
     position: relative;
     z-index: 1;
     padding-block: 1.5rem;
-    transition: padding var(--t) var(--ease-cine);
+    /* A layout property, on purpose: the bar is fixed, so the new padding
+       lays out its three items and nothing else, and no content moves. */
+    transition: padding var(--t) var(--ease-cine); /* impeccable-disable-line layout-transition */
   }
 
   /* The only state the header has: it tightens once you leave the top. */
@@ -480,11 +424,15 @@
     opacity: 1;
   }
 
+  /* Position is written straight to `translate` on every frame; the stretch
+     a fast scroll draws out eases back through `scale`. Two properties, so
+     the one never interrupts the other. */
   .site-progress-thumb {
     display: block;
     width: 100%;
     background-color: var(--color-flare);
-    will-change: transform;
+    will-change: translate, scale;
+    transition: scale 500ms cubic-bezier(0.215, 0.61, 0.355, 1);
   }
 
   /* --- Back to the top ---
@@ -605,6 +553,42 @@
     color: var(--color-flare);
   }
 
+  /* --- Targets a finger can hit ---
+         The three controls in the bar are drawn small, and stay drawn small:
+         what grows is an invisible box around each, 44 px on its short side,
+         the size a fingertip covers. They are far enough apart that no two
+         boxes overlap. */
+  .wordmark::before,
+  .menu-button::after,
+  .lightswitch::before {
+    content: "";
+    position: absolute;
+  }
+
+  .wordmark::before {
+    inset: -0.6rem -0.5rem;
+  }
+
+  .menu-button::after {
+    inset: -0.9rem -0.6rem;
+  }
+
+  .lightswitch::before {
+    inset: -0.6rem;
+  }
+
+  /* Rows of small text links, in the footer: on a touch screen each link
+     reaches 0.75rem above and below its line, and the rows open to match
+     (`pointer-coarse:gap-y-6`), so every target is a finger tall and none
+     overlaps the next. */
+  @media (pointer: coarse) {
+    .tap-area::after {
+      content: "";
+      position: absolute;
+      inset: -0.75rem -0.25rem;
+    }
+  }
+
   /* ---------------------------------------------------------------------
      Navigation: bare type at the right end, no frame.
 
@@ -632,7 +616,7 @@
 
   .navrow .navlink {
     font-family: var(--font-mono);
-    font-size: var(--text-micro);
+    font-size: var(--text-meta);
     letter-spacing: var(--tracking-meta);
     /* The words are capitals-and-lowercase against a circle, so the same
        correction the monogram needs applies here too. */
@@ -694,7 +678,7 @@
   /* --- The word that opens the small-screen menu --- */
   .menu-button {
     font-family: var(--font-mono);
-    font-size: var(--text-micro);
+    font-size: var(--text-meta);
     line-height: 1.15;
     letter-spacing: var(--tracking-meta);
     color: var(--color-paper-2);
@@ -741,6 +725,23 @@
        the same line as the name above it. */
     padding: 7rem 1.5rem 3rem;
     background-color: var(--color-ink);
+    /* Never cut a word off: when the words are taller than the window they
+       scroll, and `safe` keeps the first one from riding up under the bar. */
+    overflow-y: auto;
+    align-content: safe center;
+  }
+
+  /* A phone held sideways leaves under 30rem of height: the four words come
+     down to the section-heading size, which fits them between the bar and
+     the bottom edge. */
+  @media (max-height: 30rem) {
+    .menu-panel .navlink {
+      font-size: var(--text-h3);
+    }
+
+    .disclosure[open] .menu-panel {
+      padding-block: 5.5rem 1.5rem;
+    }
   }
 
   .disclosure[open] .menu-panel > * {
@@ -765,10 +766,21 @@
     }
   }
 
+  /* The open overlay covers the whole window, so what is under it leaves the
+     focus order as well as the screen: Tab goes round the monogram, the menu
+     and the switch instead of walking on through links nobody can see.
+     Without a script too, and with nothing visible changing, since the
+     overlay already hides every pixel of what this takes away. */
+  @media (width < 64rem) {
+    body:has(.disclosure[open]) :is(main, footer, .to-top, .skip-link) {
+      visibility: hidden;
+    }
+  }
+
   /* --- Eyebrow / section meta --- */
   .eyebrow {
     font-family: var(--font-mono);
-    font-size: var(--text-micro);
+    font-size: var(--text-meta);
     letter-spacing: var(--tracking-meta);
     color: var(--color-paper-3);
   }
@@ -1298,9 +1310,16 @@
      A field is a filled trough, not an outlined box. The tone is the same one
      a button takes, so « something you type into » and « something you press »
      read as the same family of object without either being drawn round. --- */
+  /* By day the button tone alone sat at 1.16:1 against the band the form is
+     on, and a field was hard to find on a laptop screen. A seventh of the
+     text colour mixed in takes it to about 1.5:1 in both themes, with the
+     typed text still above 9:1 on it. Without a line there is no reaching
+     3:1 and keeping dark text readable on a light field; the label above
+     each field is what names it. */
   .field {
+    --field: color-mix(in srgb, var(--color-paper) 14%, var(--color-ink-3));
     width: 100%;
-    background-color: var(--color-ink-3);
+    background-color: var(--field);
     padding: 1rem 1.1rem;
     color: var(--color-paper);
     font-family: var(--font-sans);
@@ -1316,11 +1335,34 @@
      message under it is what actually says what is wrong; this only makes the
      field findable in a long form, which is why colour is never on its own. */
   .field[aria-invalid="true"] {
-    background-color: color-mix(
-      in srgb,
-      var(--color-flare) 22%,
-      var(--color-ink-3)
-    );
+    background-color: color-mix(in srgb, var(--color-flare) 22%, var(--field));
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Forced colours: a Windows contrast theme replaces every colour here with
+   its own, and a control drawn as a filled tone rather than an outline, a
+   field, a button, the light switch, would be left with no edge at all. Only
+   then does anything get a border. It never appears in either of the site's
+   own themes, so the rule that nothing here is a line still holds on every
+   screen that shows the design.
+   --------------------------------------------------------------------------- */
+
+@media (forced-colors: active) {
+  .field,
+  .btn,
+  button:not(.lightswitch) {
+    border: 1px solid CanvasText;
+  }
+
+  /* The switch keeps its crescent, drawn in the system's own two colours. */
+  .lightswitch-disc {
+    forced-color-adjust: none;
+    background-color: ButtonText;
+  }
+
+  .lightswitch-disc::after {
+    background-color: Canvas;
   }
 }
 
@@ -1353,13 +1395,11 @@
     display: none !important;
   }
 
-  [data-choreo],
-  .choreo-line {
+  /* A technology list the page has not scrolled to yet is held on its
+     first, invisible frame by a script. Paper shows it anyway. */
+  [data-stack] {
     opacity: 1 !important;
-    visibility: visible !important;
     transform: none !important;
-    clip-path: none !important;
-    filter: none !important;
   }
 
   a {
