@@ -234,6 +234,7 @@ Four shared classes in `app/globals.css` carry the structure every page repeats:
 ### Cards / Containers
 - **Captures:** shown as they are, rounded 0.75rem, band ground only while loading; no window chrome, border or shadow, and no reaction to the pointer. A cutout artwork has no ground at all.
 - **Facts panel:** band ground, 0.75rem corners, 1.5rem padding on a phone and 2.5rem from 640px; a heading and six labelled facts.
+- **Project cards (home):** a card with a ground of its own on the band (`--color-card`, one step lighter than the band in both themes), 0.75rem corners, padded 1rem then 1.25rem. The whole card is one link, the title's, stretched over it (`.card`, `.stretch-link`): under the pointer the ground lightens a step further (`--color-card-hover`) and the title turns to the accent; the keyboard's ring goes round the card. The only links inside it lead elsewhere, the demo and the repository, above the stretched one. The capture itself does not react.
 - **Index rows:** full-bleed bands, every other one lifted to the band tone, one tone further under the pointer, with the title in the accent and an arrow appearing on hover.
 
 ### Inputs / Fields

@@ -101,7 +101,6 @@ export const copy: Localized<typeof frenchCopy> = {
 
   availabilityTitle: "Availability",
   selectionIndex: "See the project index",
-  viewProject: "View the project",
   parcoursLink: "Full background",
   formationTitle: "Education",
   experiencesTitle: "Experience",

@@ -29,6 +29,11 @@
   --color-ink: #08080a;
   --color-ink-2: #0e0f12;
   --color-ink-3: #1a1d22;
+  /* A project card on the home page: a ground of its own on the band, a
+     step lighter than the band in both themes, and one more step lighter
+     under the pointer, away from the band rather than back into it. */
+  --color-card: #131519;
+  --color-card-hover: #171a1e;
   --color-paper: #f4f3f0;
   --color-paper-2: #c0bfba;
   --color-paper-3: #8b8a85;
@@ -135,6 +140,8 @@
      not a raised surface, it is the same surface. A control has to be a tone
      the page is not. */
   --color-ink-3: #dedbd2;
+  --color-card: #fbfaf7;
+  --color-card-hover: #ffffff;
   --color-paper: #121114;
   --color-paper-2: #3a3835;
   --color-paper-3: #63605a;
@@ -159,6 +166,8 @@
   --color-ink: #08080a;
   --color-ink-2: #0e0f12;
   --color-ink-3: #1a1d22;
+  --color-card: #131519;
+  --color-card-hover: #171a1e;
   --color-paper: #f4f3f0;
   --color-paper-2: #c0bfba;
   --color-paper-3: #8b8a85;
@@ -1063,6 +1072,35 @@
     z-index: 1;
   }
 
+  /* A card on the home page, the whole of it a link to the project: a
+     ground of its own says where it starts and ends, and the ground itself
+     answers the pointer. The focus ring goes round the card rather than the
+     title, since the card is what the link covers. */
+  .card {
+    position: relative;
+    border-radius: var(--radius-shot);
+    background-color: var(--color-card);
+    transition: background-color var(--t-fast) var(--ease-swift);
+  }
+
+  .card:has(.stretch-link:hover) {
+    background-color: var(--color-card-hover);
+  }
+
+  .card .stretch-link:focus-visible {
+    outline: none;
+  }
+
+  .card:has(.stretch-link:focus-visible) {
+    outline: 2px solid var(--color-flare);
+    outline-offset: 3px;
+  }
+
+  .card:has(.stretch-link:hover) .card-title,
+  .card:has(.stretch-link:focus-visible) .card-title {
+    color: var(--color-flare);
+  }
+
   /* --- Skip link --- */
   .skip-link {
     position: fixed;
@@ -1387,6 +1425,8 @@
     --color-ink: #ffffff;
     --color-ink-2: #ffffff;
     --color-ink-3: #ffffff;
+    --color-card: #ffffff;
+    --color-card-hover: #ffffff;
     --color-paper: #000000;
     --color-paper-2: #222222;
     --color-paper-3: #444444;

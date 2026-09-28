@@ -115,7 +115,6 @@ export const copy = {
   // Accueil
   availabilityTitle: "Disponibilité",
   selectionIndex: "Voir l’index des projets",
-  viewProject: "Voir le projet",
   parcoursLink: "Parcours complet",
   formationTitle: "Formation",
   experiencesTitle: "Expériences",
