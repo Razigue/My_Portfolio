@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { ApproachNav } from "@/components/projects/ApproachNav";
 import { ProjectDiagram } from "@/components/projects/ProjectDiagram";
 import { ProjectMedia } from "@/components/projects/ProjectMedia";
 import { ProjectShot } from "@/components/projects/ProjectShot";
@@ -272,20 +273,10 @@ export function ProjectPage({
               </div>
             </div>
 
-            <nav aria-label={copy.approachTitle} className="hidden lg:block">
-              <ol className="sticky top-[calc(var(--spacing-header)+var(--spacing-block))] grid gap-3">
-                {project.approach.map((section, sectionIndex) => (
-                  <li key={section.title}>
-                    <a
-                      href={`#demarche-${sectionIndex}`}
-                      className="link type-label text-paper-2"
-                    >
-                      {section.title}
-                    </a>
-                  </li>
-                ))}
-              </ol>
-            </nav>
+            <ApproachNav
+              label={copy.approachTitle}
+              titles={project.approach.map((section) => section.title)}
+            />
           </div>
         </section>
       ) : null}

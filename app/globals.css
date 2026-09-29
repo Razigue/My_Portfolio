@@ -354,6 +354,19 @@
     transform: scaleX(1);
     transform-origin: left center;
   }
+
+  /* The part of an account being read, in the rail: the same mark, barely
+     tinted, and the label at full contrast. The pointer still lays the full
+     gold over it. */
+  .link[aria-current="location"]:not(:hover, :focus-visible) {
+    color: var(--color-paper);
+  }
+
+  .link[aria-current="location"]:not(:hover, :focus-visible)::before {
+    background-color: color-mix(in srgb, var(--color-flare) 14%, transparent);
+    transform: scaleX(1);
+    transform-origin: left center;
+  }
 }
 
 @layer components {
