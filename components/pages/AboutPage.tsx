@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import portrait from "@/content/media/razigue.png";
 import { PageHeader } from "@/components/layout/PageHeader";
+import { ExternalLink } from "@/components/ui/primitives";
 import { getContent } from "@/lib/content";
 import { alternates, pathFor, type Locale } from "@/lib/i18n";
 
@@ -207,10 +208,20 @@ export function AboutPage({ locale }: { locale: Locale }) {
       {/* Strengths, and what fills the rest of the time */}
       <section aria-labelledby="atouts-title" className="band">
         <div className="section-body page-width grid gap-x-gutter gap-y-block lg:grid-cols-2">
-          {[
-            { id: "atouts-title", title: copy.strengthsTitle, items: atouts },
-            { id: "interets-title", title: copy.interestsTitle, items: interets },
-          ].map((column) => (
+          {(
+            [
+              { id: "atouts-title", title: copy.strengthsTitle, items: atouts },
+              { id: "interets-title", title: copy.interestsTitle, items: interets },
+            ] as const satisfies readonly {
+              id: string;
+              title: string;
+              items: readonly {
+                readonly name: string;
+                readonly detail: string;
+                readonly link?: { readonly label: string; readonly href: string };
+              }[];
+            }[]
+          ).map((column) => (
             <div key={column.id}>
               <h2 id={column.id} className="section-title">
                 {column.title}
@@ -223,6 +234,19 @@ export function AboutPage({ locale }: { locale: Locale }) {
                       <dd className="mt-1 max-w-measure text-body text-paper-2">
                         {item.detail}
                       </dd>
+                      {/* Set like the small print, for whoever is curious:
+                          not an argument, so nothing draws the eye to it. */}
+                      {"link" in item && item.link ? (
+                        <dd className="mt-2">
+                          <ExternalLink
+                            href={item.link.href}
+                            newTab={copy.newTab}
+                            className="link text-meta text-paper-3"
+                          >
+                            {item.link.label} ↗
+                          </ExternalLink>
+                        </dd>
+                      ) : null}
                     </div>
                   ))}
                 </dl>

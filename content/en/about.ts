@@ -120,6 +120,10 @@ export const interets: Localized<typeof frenchInterets> = [
     name: "Guitar",
     detail:
       "Almost 15 years of playing, mostly technical, fast pieces. For demanding solos, such as Archspire’s, I allow one month to learn each one, breaking them into phrases I work slowly with a metronome, then one more month to build the speed cleanly up to the original tempo.",
+    link: {
+      label: "A few covers",
+      href: "https://www.youtube.com/playlist?list=PLc8AWPHGVg0E9qopSmr0WWPlNUrqF6mg3",
+    },
   },
   {
     name: "Technology",

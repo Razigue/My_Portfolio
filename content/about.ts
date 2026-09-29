@@ -123,11 +123,17 @@ export const atouts: readonly {
 export const interets: readonly {
   readonly name: string;
   readonly detail: string;
+  /** Un lien discret sous le texte, pour qui a envie d’aller voir. */
+  readonly link?: { readonly label: string; readonly href: string };
 }[] = [
   {
     name: "Guitare",
     detail:
       "Près de 15 ans de pratique, surtout des morceaux techniques et rapides. Pour des solos exigeants, comme ceux d’Archspire, je compte un mois pour apprendre chacun d’eux, en les découpant en phrases que je travaille lentement au métronome, puis un mois de plus pour construire proprement la vitesse jusqu’au tempo d’origine.",
+    link: {
+      label: "Quelques reprises",
+      href: "https://www.youtube.com/playlist?list=PLc8AWPHGVg0E9qopSmr0WWPlNUrqF6mg3",
+    },
   },
   {
     name: "Technologie",
