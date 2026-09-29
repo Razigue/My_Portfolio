@@ -153,17 +153,7 @@ dans `.next/static` après un build.
 
 ## Le mouvement
 
-Trois choses bougent sur le site, et aucune n’a besoin d’une bibliothèque.
-
-**Les listes de technologies montent à leur première apparition**
-(`components/ui/TagList.tsx`). Une liste encore sous la ligne de flottaison est
-tenue sur sa première image, invisible et 16 px plus bas, par l’API
-d’animation du navigateur ; un `IntersectionObserver` la fait jouer quand son
-haut passe à 12 % du bas de la fenêtre. Les listes qui arrivent ensemble, les
-trois cartes de l’accueil côte à côte, se suivent à 90 ms d’écart. Une liste
-déjà à l’écran à l’ouverture de la page n’est jamais touchée : rien de visible
-ne s’éteint pour se rallumer. Une fois jouée, l’animation ne laisse rien sur
-l’élément.
+Deux choses bougent sur le site, et aucune n’a besoin d’une bibliothèque.
 
 **Le visuel en tête d’une fiche projet s’estompe quand l’en-tête défile**
 (`components/motion/Scrub.tsx`) : du plein quand le haut de l’en-tête touche

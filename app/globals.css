@@ -1476,13 +1476,6 @@
     display: none !important;
   }
 
-  /* A technology list the page has not scrolled to yet is held on its
-     first, invisible frame by a script. Paper shows it anyway. */
-  [data-stack] {
-    opacity: 1 !important;
-    transform: none !important;
-  }
-
   a {
     text-decoration: none;
   }

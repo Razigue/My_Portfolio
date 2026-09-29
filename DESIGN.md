@@ -126,7 +126,7 @@ components:
 
 The site is an application file a recruiter can read in a few minutes: every fact in its place, labelled, and found at a glance. Nothing is there to perform. Hierarchy comes from size, tone and position, never from ornament: one face at three weights, labels in the accent, fields of tone and a few hairlines between parts, one warm accent against cool neutrals. The design earns trust the way a tidy dossier does, by being complete, consistent and easy to check.
 
-Two themes carry the same file. By night it is chalk on graphite with a pale gold accent; by day, the theme most recruiters read in, it is near-black ink on warm paper with a burnt copper accent. Every colour is a role token (`--color-ink`, `--color-paper`, `--color-flare`…) that swaps between the two, so a component is written once. Motion is almost gone: what remains reports something (a list arriving, a header scrolling away, the reading position) and never delays reading.
+Two themes carry the same file. By night it is chalk on graphite with a pale gold accent; by day, the theme most recruiters read in, it is near-black ink on warm paper with a burnt copper accent. Every colour is a role token (`--color-ink`, `--color-paper`, `--color-flare`…) that swaps between the two, so a component is written once. Motion is almost gone: what remains reports something (a header scrolling away, the reading position) and never delays reading.
 
 The system rejects the showcase: no loader, no page curtain, no smooth scrolling, no film grain, no numbered sections, no window chrome around captures, no expressive or monospace face chosen to fit a theme.
 
@@ -229,7 +229,7 @@ Four shared classes in `app/globals.css` carry the structure every page repeats:
 
 ### Chips (technology tags)
 - **Style:** lift tone, secondary text, label size, 0.5rem corners, padding 0.375rem 0.75rem, in a wrapping row with 0.5rem gaps.
-- **State:** none. A tag is not a control and does not react to the pointer. A list of tags rises into place the first time it comes on screen (16px, 700ms, 90ms between lists that arrive together); a list already on screen is never animated.
+- **State:** none. A tag is not a control and does not react to the pointer. A list of tags does not move: it is simply there, like the text around it.
 
 ### Cards / Containers
 - **Captures:** shown as they are, rounded 0.75rem, band ground only while loading; no window chrome, border or shadow, and no reaction to the pointer. A cutout artwork has no ground at all.
