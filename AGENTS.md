@@ -94,9 +94,9 @@ for design tools, with its tokens; change a rule here or a token in
    as layout punctuation. The other lines are the focus ring, the
    read-position mark in the right margin, a 1px clip that hides text
    visually, and the borders a Windows contrast theme needs, drawn only under
-   `forced-colors`. **Corners are rounded**, everything but the stack's tags,
-   which Razigue kept square: `--radius-shot`, `--radius-control`,
-   `--radius-mark`; round is for status only.
+   `forced-colors`. **Corners are rounded**, the stack's tags included:
+   `--radius-shot`, `--radius-control`, `--radius-mark`; round is for status
+   only.
 2. **Nothing is set in capitals.** No `uppercase`, no `capitalize`, no small
    caps, anywhere. Acronyms stay acronyms — HTML, PHP, JWT, RNCP. The `RB`
    monogram is the site's mark.

@@ -118,8 +118,8 @@
   --radius-*: initial;
   --radius-1: 1px;
   --radius-shot: 0.75rem;
-  /* Controls (buttons, fields, the back-to-top block) and the diagram's
-     tiles: nothing on the site has square corners but the stack's tags. */
+  /* Controls (buttons, fields, the back-to-top block), the stack's tags and
+     the diagram's tiles: nothing on the site has square corners. */
   --radius-control: 0.5rem;
   /* The small accent marks, softened rather than made round: round means a
      status. */

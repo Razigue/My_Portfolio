@@ -210,7 +210,7 @@ The system is flat and has no shadows at all. Depth is tonal layering, three gro
 
 ## Shapes
 
-Nothing has square corners but the stack's tags, which Razigue kept square. Captures, diagrams, the portrait and the facts panel on the home page are rounded at 0.75rem (`--radius-shot`); the wash behind a hovered link at 0.3rem; buttons, fields, the copy button, the back-to-top block and the diagram's tiles at 0.5rem (`--radius-control`); the small accent markers (the availability marker, the items of a project's highlights) are softened at 0.15rem (`--radius-mark`), not made round. Round is reserved for status: the status dot and the theme switch's disc.
+Nothing has square corners, the stack's tags included. Captures, diagrams, the portrait and the facts panel on the home page are rounded at 0.75rem (`--radius-shot`); the wash behind a hovered link at 0.3rem; buttons, fields, the copy button, the stack's tags, the back-to-top block and the diagram's tiles at 0.5rem (`--radius-control`); the small accent markers (the availability marker, the items of a project's highlights) are softened at 0.15rem (`--radius-mark`), not made round. Round is reserved for status: the status dot and the theme switch's disc.
 
 ### Named Rules
 **The Round-Means-Status Rule.** A circle says « this is a state ». Nothing else on the site is round.
@@ -228,7 +228,7 @@ Four shared classes in `app/globals.css` carry the structure every page repeats:
 - **Disabled:** the label says what is happening (« Envoi… »); contrast is never dimmed.
 
 ### Chips (technology tags)
-- **Style:** lift tone, secondary text, label size, square, padding 0.375rem 0.75rem, in a wrapping row with 0.5rem gaps.
+- **Style:** lift tone, secondary text, label size, 0.5rem corners, padding 0.375rem 0.75rem, in a wrapping row with 0.5rem gaps.
 - **State:** none. A tag is not a control and does not react to the pointer. A list of tags rises into place the first time it comes on screen (16px, 700ms, 90ms between lists that arrive together); a list already on screen is never animated.
 
 ### Cards / Containers

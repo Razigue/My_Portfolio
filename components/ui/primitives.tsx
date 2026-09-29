@@ -35,7 +35,7 @@ export function StatusDot({
 
 export function Tag({ children }: { children: React.ReactNode }) {
   return (
-    <li className="bg-ink-3 px-3 py-1.5 type-label text-paper-2">
+    <li className="rounded-control bg-ink-3 px-3 py-1.5 type-label text-paper-2">
       {children}
     </li>
   );
