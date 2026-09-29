@@ -16,7 +16,7 @@ The site belongs to Razigue Benhmida (he/him), who edits its text himself throug
 
 ## Product Purpose
 
-A bilingual portfolio, French at the root and English mirrored under `/en`, with one job: land Razigue a 12-month alternance (apprenticeship) from September 2026. The role he targets is full-stack web developer, PHP / Symfony and React / TypeScript, six weeks in the company and two at school, anywhere in Paris and Île-de-France, remote accepted. He trains at the Web@cadémie by Epitech, 2025 to 2027, for the titre RNCP niveau 5 « Développeur intégrateur web ».
+A bilingual portfolio, French at the root and English mirrored under `/en`, with one job: land Razigue a 12-month alternance (apprenticeship), starting as soon as possible. The role he targets is full-stack web developer (JavaScript / TypeScript first, then PHP and Java), six weeks in the company and two at school, anywhere in Paris and Île-de-France, remote accepted. He trains at the Web@cadémie by Epitech, 2025 to 2027, for the titre RNCP niveau 5 « Développeur intégrateur web ».
 
 A visit succeeds when the recruiter does any of these:
 
@@ -28,9 +28,10 @@ A visit succeeds when the recruiter does any of these:
 
 What another apprentice's portfolio could not truthfully say:
 
+- The thread, set on 2026-09-29 at his request: a logical mind, generative AI since 2022 (Midjourney, for his shop, before ChatGPT), and his training at the Web@cadémie from 2025, as agentic coding took off. He learns both sides: code written by hand to understand it (My Cinema), and an agent coding from a precise specification, everything tested (Tonecraft). The logic rests on what the site already shows (JeuVideOPS breakdown, BMAD specification, My Cinema), never on a new claim. The hero, the About story, the strengths, the method and the AI note carry it; the AI note follows the projects on the home page.
 - He is a developer and a guitarist of about fifteen years, and he built Tonecraft on his own: a web app to learn a song on guitar and record yourself playing it, live and public. He uses it himself, and other guitarists try it and send him feedback every day.
 - He ran an online shop alone for three years (January 2022 to December 2024), which taught him to look at a product from the user's side.
-- He says plainly how he uses AI: Claude (Opus 5) and Claude Code, what he checks, and what he never delegates.
+- He says plainly how he uses AI: Claude (Opus 5.5) and Claude Code, what he checks, and what he never delegates.
 
 ## Operating Context
 
@@ -43,26 +44,27 @@ What another apprentice's portfolio could not truthfully say:
 
 - Pages, in both languages: home, projects index, a page per published project, about, contact. Only the slugs in `featuredSlugs` (`content/projects.ts`) are published; the other projects are a reserve with no page.
 - Every rendered string lives in `content/`. English mirrors French entry for entry in `content/en/`, and the checks refuse a gap.
-- Terminology: « alternance » in French, "apprenticeship" in English. The role reads « Développeur web full-stack, PHP / Symfony et React / TypeScript ».
+- Terminology: « alternance » in French, "apprenticeship" in English. The role reads « Développeur web full-stack », with the languages in order of mastery under it: JavaScript / TypeScript, PHP, Java.
 - `null` renders nothing, and nothing that can be counted is typed by hand (`AGENTS.md`).
 - Left out at Razigue's request: any preference for a type of company (it would close doors), the phone number, and some past activities and schooling he chose not to show. Never add an experience, an interest, a level or a claim the site does not already state, from the CV or anywhere else, without asking him.
 - Open, waiting on Razigue:
-  - The CV PDF is older than the site and still lists some of what the site deliberately leaves out; he will update it. The site is the reference: nothing moves from the PDF to the site without him.
-  - Tonecraft's amp captures come from the community; the site claims no model of his own unless he points to one in the repository.
-  - `razigue.com` is the chosen domain and is not wired up yet (`TODO.md` §1).
-  - There is no English CV; the English CV buttons say the PDF is in French.
+    - The CV PDF is older than the site and still lists some of what the site deliberately leaves out; he will update it. The site is the reference: nothing moves from the PDF to the site without him.
+    - Tonecraft's amp captures come from the community; the site claims no model of his own unless he points to one in the repository.
+    - `razigue.com` is the chosen domain and is not wired up yet (`TODO.md` §1).
+    - There is no English CV; the English CV buttons say the PDF is in French.
 
 ## Brand Commitments
 
 - Name: Razigue Benhmida. Role: « Développeur web full-stack ». Mark: the `RB` monogram.
 - Voice: first person, plain and factual, in his words. His motto opens the About page: « Je saisis les occasions, je m’organise, et je vais au bout. »
 - French typography is part of the voice and `content/check.ts` enforces it: curly apostrophes, a no-break space before `: ; ! ?` and inside « ».
-- Binding visual constraints he stated, recorded without expansion: keep his theme, by night and by day; one readable, professional typeface for everything, the `RB` monogram being the only exception, never a fanciful face picked to fit a theme. The rest of the art direction is in `AGENTS.md` until a DESIGN.md records it.
-- Reference: a friend's portfolio, kisukesaama.com, for its simplicity and how fast its information reads. Never copy its wording; its typeface, Manrope, is not ours.
+- Visual direction: on 2026-09-29 every earlier visual rule was reopened, facts excepted ("tout rouvrir sauf les faits"), and the category-standard developer portfolio was chosen, executed at the top of its craft and free of AI-slop tells. `DESIGN.md` records the system. The `RB` mark survives as the header badge.
+- Positioning chosen the same day, from the market: companies hire judgment, ownership and people who pilot AI without handing it their decisions, and a real project with users. Tonecraft carries that proof and leads the projects.
+- Reference: a friend’s portfolio, kisukesaama.com, for its simplicity and how fast its information reads. Never copy its wording.
 
 ## Evidence on Hand
 
-- **Tonecraft**: personal project, 2026. Live demo https://razigue.github.io/Tonecraft/, public repository https://github.com/Razigue/Tonecraft. Designed alone and developed with Claude Code and Opus 5 working as an agent, from specifications he built with the BMAD method; a first working version in two weeks, the v1 one week later. The amp captures are shared by the community (the repository credits `pelennor2170/NAM_models`, GPL v3); the cabinet, boost, correction and reverb are the project's own.
+- **Tonecraft**: personal project, 2026. Live demo https://razigue.github.io/Tonecraft/, public repository https://github.com/Razigue/Tonecraft. Designed alone and developed with Claude Code and Opus 5.5 working as an agent, from specifications he built with the BMAD method; a first working version in two weeks, the v1 one week later. The amp captures are shared by the community (the repository credits `pelennor2170/NAM_models`, GPL v3); the cabinet, boost, correction and reverb are the project's own.
 - **Overkill**: school project, 2026, a team of five over three weeks. Symfony API, React, PostgreSQL; his part is the offers and the favourites. Demo https://overkill.kisukesaama.com/, hosted by a classmate; no public repository link.
 - **Corelab**: school project, 2026, a team of three, and the site says so and nothing more: no word of how the work was shared out in the end, at Razigue's request (2026-09-28). Express API, MongoDB; his part is the data models and the routes. Repository https://github.com/Razigue/Corelab; no demo.
 - **CV**: `public/cv-razigue-benhmida.pdf`, French only, out of step with the site as noted above.

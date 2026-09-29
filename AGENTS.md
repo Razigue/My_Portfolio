@@ -1,7 +1,7 @@
 # Instructions for an agent working on this project
 
 This is Razigue Benhmida's portfolio (he/him): a bilingual site for a
-full-stack web developer looking for a 12-month alternance from September 2026.
+full-stack web developer looking for a 12-month alternance, starting as soon as possible.
 French is the default, at the root; English mirrors every page under `/en`.
 
 Razigue is the owner. He may not read code, and he is the one who has to live
@@ -75,98 +75,47 @@ Existing content uses the literal character in places. Both work. Do not
 
 ## Rules the build will not stop you breaking
 
-These are the art direction, and nothing enforces them. The verification harness
-that used to was instrumentation, and it was not shipped. If you change styling,
-you are the only check. `DESIGN.md`, at the root, records the same visual system
-for design tools, with its tokens; change a rule here or a token in
-`app/globals.css`, and update it too.
+The visual system was redesigned on 2026-09-29: every earlier rule was reopened
+("tout rouvrir sauf les faits") and the site became the developer portfolio,
+played straight and finished carefully, for HR first and tech leads second.
+`DESIGN.md` records it with its tokens; change a token in `app/globals.css`
+or a rule here, and update it too. Nothing below is enforced by a check.
 
-1. **A line only ever separates.** Razigue asked on 2026-09-29 for parts of
-   a page to be marked off: `.rule` (an `hr`) and `.ruled` (a list whose
-   items each open on a hairline) draw 1px in `--color-rule`, between a
-   project's header and its account, between the facts of a rail (project
-   and contact pages) and the entries of a short list (the languages), and
-   above the footer when a page ends on its own ground (after a band, the
-   change of ground is enough). Not systematically: a line marks a change of
-   kind where the ground does not change, never every block; the parts of an
-   account have none. Never a border framing a box, a button or a
-   field, never an underline, never a text-stroke; no hyphen, middot or pipe
-   as layout punctuation. The other lines are the focus ring, the
-   read-position mark in the right margin, a 1px clip that hides text
-   visually, and the borders a Windows contrast theme needs, drawn only under
-   `forced-colors`. **Corners are rounded**, the stack's tags included:
-   `--radius-shot`, `--radius-control`, `--radius-mark`; round is for status
-   only.
-2. **Nothing is set in capitals.** No `uppercase`, no `capitalize`, no small
-   caps, anywhere. Acronyms stay acronyms — HTML, PHP, JWT, RNCP. The `RB`
-   monogram is the site's mark.
-3. **A capture is shown as it is.** `.shot` is the only container a project
-   capture gets: overflow, rounded corners, a ground while it loads. No window,
-   no title bar, no border, no shadow: the title bar with three dots that used
-   to sit above each screen was removed at Razigue's request as a mockup
-   trope, so do not bring it back. An image marked `cutout: true` in
-   `content/projects.ts` has no ground behind it. No capture reacts to hover:
-   Razigue asked for that. It deliberately does not carry the portrait's grayscale filter —
-   that exists to keep one photograph from pulling the composition off neutral,
-   and a screenshot has to report the interface's own colours. On the home
-   page the projects sit side by side, each with its interface (`image`, or
-   `thumbnail` when it has none) above its one-sentence `summary`. A project
-   page opens on its title and description, with the scenery behind them, then
-   its interface across the page: that capture is where a video will go.
-4. **One accent, and the two themes do not share it.** Pale gold at night, dark
-   orange by day. The daylight value is capped by contrast arithmetic against
-   `--ink-3`; see the README before touching it.
-5. **Every colour lives in `app/globals.css`.** ESLint rejects a colour literal
-   in any `.ts` or `.tsx`. The one exception is `lib/palette.ts`, for the three
-   surfaces that render without a stylesheet.
-6. **No invented facts.** No metric, date, duration, team size, client name or
-   outcome that is not already in the CV, on GitHub, or in the existing content.
-   A project's `highlights` and its `summary` may only restate what its
-   `description` or `stack` already says. The AI note (`ia`), the About
-   page's `devise` and the apprenticeship section (`recherche`), all in
-   `content/about.ts`, hold only what Razigue said on 2026-09-27, in his words
-   or close to them: add to them only from him. `approach`, the long-form account rendered under « La
-   démarche » as titled sections (`title`, `paragraphs`), is the one place a
-   choice may be explained at length — it is
-   still held to the same rule: a recruiter opening the repo has to find what
-   the page claims.
-7. **Nothing that can be counted is typed.** The project count, the years the
-   index spans, the projects named under each skill domain, the sentence the
-   index quotes from each description — all derived. If
-   you find yourself typing a number that describes the data, you are about to
-   make it wrong at the next edit.
-8. **`null` renders nothing.** Never a disabled link, a `mailto:#`, a greyed
-   button or « bientôt ». An absence has to read as a decision.
-9. **Every gap is one of five steps.** `app/globals.css` defines them as
-   `--spacing-label`, `-title`, `-block`, `-gutter` and `-section`, and
-   Tailwind turns them into `mt-label`, `mt-title`, `mt-block`,
-   `gap-x-gutter`, `py-section` and so on. Choose the step by what the gap
-   separates: a label and what it names, a heading and its text, two blocks
-   of one section, two columns, two sections. Numeric utilities are only for
-   the inside of a component, a tag or a dot and its word. Every page opens
-   with `.page-head`, every section is padded by `.section-body` and held to
-   the page's width and gutter by `.page-width`; a section's heading is
-   `.section-title`, a heading inside a section is `.part-title`, and the
-   label role (labels, metadata, small links) is `.type-label`. Do not name a
-   new class `block-…` or `inline-…`: Tailwind reads those as logical sizes
-   (`block-title` became `block-size: 1.5rem`). And a last
-   section on the page's own ground drops its bottom padding so the footer
-   sits one section away, not two. No project gets a rhythm of its own:
-   Razigue asked for one spacing everywhere.
-10. **One face: Geist.** Headings, reading text, labels, buttons and the
-    social cards are all set in Geist, a sans-serif; `font-display`,
-    `font-sans` and `font-mono` all name it. The `RB` monogram, in the header
-    and in the favicon, is the one thing set in Newsreader. When Razigue asked
-    for a "mono font" he meant one single font, not a monospace: he wants it
-    readable and professional, "pas quelque chose de fantaisie juste pour
-    respecter un thème". Do not add a second face, never an expressive one,
-    and no monospace. Nothing is set in italics.
-    Weight is the one variation: 400 to read, 500 for subheadings and facts
-    (`.part-title`, `.fact-value`), 600 for an item's title (`.item-title`).
-    Labels (`.eyebrow`) are set in the accent. Razigue asked for this on
-    2026-09-29, after his friend's site, to make the text less dense.
-
----
+1. **Facts only.** No metric, date, duration, team size, client name or
+   outcome that is not already in the CV, on GitHub, or in `content/`. A
+   project's `highlights` and `summary` restate its `description`, `stack` or
+   `approach`. The AI note (`ia`), the `devise` and the apprenticeship section
+   (`recherche`), all in `content/about.ts`, hold only what Razigue said, in his
+   words or close to them; the `ia.headings` only name what each
+   paragraph already says.
+2. **Nothing that can be counted is typed.** The project count, the projects
+   named under each skill domain, the index's sentences are all derived.
+3. **`null` renders nothing.** Never a disabled link, a `mailto:#`, a greyed
+   button or « bientôt ».
+4. **Every colour lives in `app/globals.css`.** ESLint rejects a colour
+   literal in any `.ts` or `.tsx`, except `lib/palette.ts` for the surfaces
+   that render without a stylesheet (social images, favicon, `theme-color`,
+   manifest). Light is the default theme; `:root.dark` swaps the tokens.
+   Blue (`--color-flare`) is the one accent. Green (`--color-live`) is
+   declared and reserved: no component uses it, and a state is said in words
+   (« en ligne » in medium full ink), never with a dot.
+5. **Type: Geist only.** No monospace or terminal-style font, not even for
+   dates or technology names (dates use `.data`, tabular figures). A second
+   family is only a deliberate pairing Razigue asks for. Headings at 600 with tight tracking; nothing under 14px except the two
+   letters of the header badge.
+6. **No AI-slop tells** (researched on 2026-09-29, see `DESIGN.md`): no pill
+   or label above a heading, no pulsing dot, no icon in a tinted tile, no
+   accent glow or gradient text, no grid of identical cards for prose (use a
+   hairline-ruled list), no emoji or text glyph standing in for an icon (use
+   `components/ui/Icon.tsx`), no em dash in the copy, no « passionné »,
+   « n’hésitez pas », « véritable » or « not X but Y » phrasing.
+7. **Cards are for things you open or look up**: a project, the facts beside
+   a project, the contact channels. One elevation per element: a border, or a
+   shadow under the pointer, never both at rest.
+8. **Motion is one entrance** (`.rise`, staggered with `--i`) on the opening
+   of a page, plus hover states. Do not add scroll-triggered reveals.
+9. **A capture is shown as it is**: `.shot`, rounded, a 1px ring, no window
+   chrome. Portrait in colour.
 
 ## Things that look like mistakes and are not
 
@@ -176,13 +125,8 @@ Leave these alone unless Razigue asks, and say why if you think he should.
   out of the markup deliberately, to avoid scraping.
 - **`prefers-reduced-motion` is not honoured.** Removed on purpose. Do not
   reintroduce it as a courtesy.
-- **There is no loader, no route curtain, no smooth scrolling, no film grain,
-  no footer watermark and no numbered sections.** Razigue had them removed so
-  the site reads as information rather than a showcase. Only a technology
-  list still animates, as it arrives on screen. Do not bring the others back
-  as polish.
-- **The native scrollbar is hidden**, and the gold mark in the right margin
-  replaces it. It is a display, not a control: nothing to grab, nothing to drag.
+- **There is no loader, no route curtain, no smooth scrolling, no film grain
+  and no numbered sections.** Do not bring them back as polish.
 - **Six repository links point at personal mirrors**, not at the
   `EpitechWebAcademiePromo2027` organisation, which 404s for every visitor.
   Repointing them "back" would break them.
@@ -230,9 +174,8 @@ All three silent. `npm run build` is the one that matters — it runs the conten
 checks and it is exactly what runs on deploy.
 
 If you changed anything visual, also look at it: `npm run dev`, both themes, and
-at 320px wide. The technology lists rise the first time they come on screen,
-so a full-page screenshot catches the ones below the fold on their first,
-invisible frame; step down the page a screen at a time instead.
+at 320px wide. The opening of each page rises in once; wait a second before a
+screenshot, or it catches the first, invisible frame.
 
 Report what you changed and what you did not. If something in the request could
 not be done honestly — a claim that needs a number nobody has, a link that does

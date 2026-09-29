@@ -13,32 +13,43 @@ export function Eyebrow({
   );
 }
 
-export function StatusDot({
+/**
+ * A project's frame and state, as one line of text: « Projet d’école,
+ * équipe de 5, en ligne ». No badge and no dot: the words say it, and « en
+ * ligne » alone takes the full text colour.
+ */
+export function ProjectMeta({
+  context,
   status,
   labels,
+  className,
 }: {
+  context: string | null;
   status: "live" | "archived";
   labels: { readonly statusLive: string; readonly statusArchived: string };
+  className?: string;
 }) {
   return (
-    <span className="inline-flex items-center gap-2 whitespace-nowrap">
-      <span
-        className={`dot ${status === "live" ? "dot-live" : "dot-archived"}`}
-        aria-hidden="true"
-      />
-      <span className="type-label text-paper-3">
-        {status === "live" ? labels.statusLive : labels.statusArchived}
-      </span>
-    </span>
+    <p className={`type-label text-paper-3 ${className ?? ""}`}>
+      {context ? `${context}, ` : null}
+      {status === "live" ? (
+        <span className="font-medium text-paper">{labels.statusLive}</span>
+      ) : (
+        labels.statusArchived
+      )}
+    </p>
   );
 }
 
-export function Tag({ children }: { children: React.ReactNode }) {
-  return (
-    <li className="rounded-control bg-ink-3 px-3 py-1.5 type-label text-paper-2">
-      {children}
-    </li>
-  );
+export function Tag({
+  children,
+  proven = false,
+}: {
+  children: React.ReactNode;
+  /** A technology a published project uses: set in the full text colour. */
+  proven?: boolean;
+}) {
+  return <li className={`tag ${proven ? "tag-proven" : ""}`}>{children}</li>;
 }
 
 /**

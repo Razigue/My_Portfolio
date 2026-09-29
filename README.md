@@ -7,8 +7,8 @@ CSS v4. Aucune bibliothèque d’animation : les trois mouvements du site tienne
 en quelques lignes natives.
 
 Direction artistique : neutres froids et profonds, un seul accent, une seule
-police, Geist, pour les titres comme pour le texte ; seul le monogramme
-`RB` reste en Newsreader. Le site se lit comme un document : les faits d’abord, aucun effet de mise
+police, Geist, pour les titres, le texte et le monogramme `RB`, dates et noms
+de technologies compris ; aucune police à chasse fixe. Le site se lit comme un document : les faits d’abord, aucun effet de mise
 en scène, et le mouvement réduit aux listes de technologies qui apparaissent.
 
 ---
@@ -235,8 +235,8 @@ dans le texte rendu, seuil qui laisse passer un sigle et arrête un mot crié.
 
 ### Le mobilier fixe
 
-**Le monogramme.** L’en-tête porte `RB` en Newsreader, la seule chose du site
-qui ne soit pas en Geist, plutôt que le nom complet. Le nom complet reste dans l’arbre d’accessibilité, précédé des
+**Le monogramme.** L’en-tête porte `RB` en Geist, dans un petit carré arrondi,
+à côté du nom. Le nom complet reste dans l’arbre d’accessibilité, précédé des
 deux lettres réellement affichées, pour que le nom accessible contienne le
 libellé visible (WCAG 2.5.3). Le monogramme est calé juste sous la hauteur de
 l’interrupteur, donc la barre n’a pas changé de hauteur. La favicone est le

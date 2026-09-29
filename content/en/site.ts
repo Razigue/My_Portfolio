@@ -25,11 +25,12 @@ export const site: Localized<Pick<typeof frenchSite, "role" | "location">> = {
 export const availability: Localized<typeof frenchAvailability> = {
   headline: "Looking for a 12-month apprenticeship",
   windowLabel: "Period",
-  window: "from September 2026",
+  window: "as soon as possible",
   rhythmLabel: "Schedule",
   rhythm: "6 weeks at the company, 2 weeks in training",
   targetLabel: "Target role",
-  target: "Full-stack web developer, PHP / Symfony and React / TypeScript",
+  target: "Full-stack web developer",
+  languages: "JavaScript / TypeScript, PHP, Java",
   schoolLabel: "School",
   diplomaLabel: "Qualification",
   placeLabel: "Location",
@@ -38,11 +39,11 @@ export const availability: Localized<typeof frenchAvailability> = {
 export const hero: Localized<typeof frenchHero> = {
   role: site.role,
   tagline:
-    "Full-stack web developer in training at Web@cadémie by Epitech, looking for a 12-month apprenticeship from September 2026.",
+    "Full-stack web developer with a logical mind, with AI in my toolkit since 2022. Looking for a 12-month apprenticeship, starting as soon as possible.",
 };
 
 export const presentation =
-  "I discovered code while starting the e-commerce site of my own business as a sole trader. I am now training at Web@cadémie by Epitech Paris (2025 to 2027), where I mostly build with PHP and Symfony, and with React and TypeScript.";
+  "I have a logical mind, and AI has been in my toolkit since 2022. I am training as a developer at Web@cadémie by Epitech, as agentic coding takes off. I design, I code and I test. AI helps me go faster, and the decisions stay mine.";
 
 export const nav: Localized<typeof frenchNav> = {
   home: "Home",
@@ -63,11 +64,11 @@ export const sections: Localized<typeof frenchSections> = {
 export const copy: Localized<typeof frenchCopy> = {
   projectsHeading: "Project index",
   contactHeading: "Get in touch",
-  contactSub: "For an apprenticeship offer or a question about a project, write to me.",
+  contactSub: "An apprenticeship offer, a question about a project? Write to me.",
   cvButton: "Download the CV (PDF, in French)",
   heroContact: "Contact me",
-  copyIdle: "copy",
-  copyDone: "copied",
+  copyIdle: "Copy",
+  copyDone: "Copied",
   sourceLink: "Source code ↗",
   approachTitle: "The approach",
   diagramOr: "or",
@@ -76,10 +77,10 @@ export const copy: Localized<typeof frenchCopy> = {
   skipLink: "Skip to content",
   notFoundTitle: "Page not found",
   notFoundBody: "This page does not exist or has been moved.",
-  notFoundLink: "← Back to the home page",
+  notFoundLink: "Back to the home page",
   errorTitle: "Something went wrong",
   errorBody:
-    "Something went wrong on my side. Try again, or go back to the home page.",
+    "A problem on my side. Try again or go back to the home page.",
   errorRetry: "Try again",
   errorEyebrow: "Error",
   errorRef: "Ref.",
@@ -91,6 +92,8 @@ export const copy: Localized<typeof frenchCopy> = {
   toTop: "Back to the top of the page",
   themeToDay: "Switch to day mode",
   themeToNight: "Switch to night mode",
+  themeDay: "Day mode",
+  themeNight: "Night mode",
   languageName: "English",
   newTab: "opens in a new tab",
   portraitAlt: `Portrait of ${frenchSite.name}`,
@@ -100,6 +103,8 @@ export const copy: Localized<typeof frenchCopy> = {
   copyConfirm: "Address copied",
 
   availabilityTitle: "Availability",
+  spotlightLabel: "Featured project",
+  spotlightLink: "See the project",
   selectionIndex: "See the project index",
   parcoursLink: "Full background",
   formationTitle: "Education",
@@ -128,11 +133,16 @@ export const copy: Localized<typeof frenchCopy> = {
 
   aboutTitle: "About",
   languagesTitle: "Languages",
-  documentTitle: "Document",
+  documentTitle: "CV",
   strengthsTitle: "Strengths",
   interestsTitle: "Interests",
   emailLabel: "Email",
   elsewhereLabel: "Elsewhere",
+
+  caseStudy: "Read the case study",
+  allProjects: "All projects",
+  closingTitle: "Let’s talk about your apprenticeship",
+  learnLink: "And what I want to learn at the company",
 
   keywords: [
     "web developer",
@@ -142,6 +152,8 @@ export const copy: Localized<typeof frenchCopy> = {
     "React",
     "Symfony",
     "TypeScript",
+    "AI",
+    "Claude Code",
   ],
 };
 
@@ -150,20 +162,21 @@ export const form: Localized<typeof frenchForm> = {
   email: "Email",
   message: "Message",
   submit: "Send",
+  note: "Your message goes to my inbox. I reply myself.",
   pending: "Sending…",
-  success: "Message sent, thank you. I will reply to you personally, by email.",
-  error: "The message did not go through, because of an error on my side. Try again, or write to me directly.",
+  success: "Message sent, thank you. I will reply by email.",
+  error: "The message did not go through, an error on my side. Try again or write to me directly.",
   interrupted:
-    "The message did not go through, the connection was interrupted. Your text is still here: try again, or write to me directly.",
+    "Connection lost, the message did not go through. Your text is kept: try again.",
   unconfigured: `The form is not set up yet. Write to me directly at ${frenchSite.email}.`,
   invalid: "Please correct the fields marked below.",
   missing: "Every field is needed.",
   nameMissing: "Please enter your name.",
   emailMissing: "Please enter your email address.",
   messageMissing: "Please write your message.",
-  emailInvalid: "Check the email address, in the form name@company.com.",
-  messageShort: "Your message is a little short; add a few words.",
-  messageLong: "Your message is over 5,000 characters; please shorten it.",
+  emailInvalid: "Invalid address, in the form name@company.com.",
+  messageShort: "A little short, add a few words.",
+  messageLong: "5,000 characters at most, please shorten it.",
   honeypot: "Leave empty",
 };
 

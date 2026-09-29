@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
+import { AiPractice } from "@/components/home/AiPractice";
 import { ContactCta } from "@/components/home/ContactCta";
+import { FirstMonth } from "@/components/home/FirstMonth";
 import { Hero } from "@/components/home/Hero";
-import { Method } from "@/components/home/Method";
 import { ParcoursTeaser } from "@/components/home/ParcoursTeaser";
 import { Projects } from "@/components/home/Projects";
 import { Skills } from "@/components/home/Skills";
@@ -12,19 +13,24 @@ export function homeMetadata(locale: Locale): Metadata {
 }
 
 /**
- * Sections alternate between the page's ground and a band, starting on the
- * page. What a recruiter reads first comes first: who, the projects, the
- * path, the skills; the method, with its technical detail and the note on AI,
- * comes after them, for whoever reads on, and the contact closes the page.
+ * Who and on what terms, then the proof before the prose: the projects, how
+ * he works with AI, the thread that runs through them, then what he takes on
+ * from the first month, his path, his skills, and a closing call to write to
+ * him.
  */
 export function HomePage({ locale }: { locale: Locale }) {
   return (
     <>
       <Hero locale={locale} />
       <Projects locale={locale} />
+      <section aria-labelledby="ia-title">
+        <div className="section-body page-width">
+          <AiPractice locale={locale} />
+        </div>
+      </section>
+      <FirstMonth locale={locale} />
       <ParcoursTeaser locale={locale} />
       <Skills locale={locale} />
-      <Method locale={locale} />
       <ContactCta locale={locale} />
     </>
   );

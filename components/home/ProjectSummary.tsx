@@ -1,109 +1,103 @@
 import Link from "next/link";
 import { ProjectShot } from "@/components/projects/ProjectShot";
-import { ExternalLink, StatusDot } from "@/components/ui/primitives";
+import { Icon } from "@/components/ui/Icon";
+import { ExternalLink, ProjectMeta } from "@/components/ui/primitives";
 import { TagList } from "@/components/ui/TagList";
 import type { Project } from "@/content/projects";
 import { getContent, projectContext } from "@/lib/content";
 import { fill, pathFor, type Locale } from "@/lib/i18n";
 
 /**
- * One published project on the home page, as a column: its interface, its
- * name and state, the frame and the year, what it is in one sentence, the
- * main technologies and the links. The full description waits on the
- * project's page.
- *
- * The whole card leads to the project: the title's link is stretched over
- * it, so a visitor does not have to aim at the name, and a keyboard stops on
- * the card once, outlined whole. The card has a ground of its own, so its
- * edges show what the pointer can reach. The only links left inside it go
- * somewhere else, the demo and the repository, above the stretched one.
+ * One project as a card: its interface, its name and state, the frame, what
+ * it is in one sentence, the main technologies and the links. The whole card
+ * leads to the project's page; the demo and the repository sit above that
+ * stretched link.
  */
 export function ProjectSummary({
   project,
   locale,
+  as: Wrapper = "li",
 }: {
   project: Project;
   locale: Locale;
+  as?: "li" | "div";
 }) {
   const content = getContent(locale);
   const { copy } = content;
   const context = projectContext(content, project);
   const href = pathFor(locale, "projects", project.slug);
   const titleId = `projet-${project.slug}`;
-  // The interface itself; the artwork made for the project page's header
-  // only when there is no capture.
   const visual = project.image ?? project.thumbnail ?? null;
+  const stack = project.primaryStack ?? project.stack;
 
   return (
-    <li className="grid">
+    <Wrapper className="grid">
       <article
         aria-labelledby={titleId}
-        className="card flex flex-col gap-y-title p-4 sm:p-5"
+        className="card card-link flex flex-col overflow-hidden"
       >
         {visual ? (
-          <ProjectShot
-            image={visual}
-            sizes="(min-width: 1024px) 25rem, calc(100vw - 48px)"
-            placeholder={visual.cutout ? "empty" : "blur"}
-          />
+          <div className="border-b border-line bg-ink-2 p-4 sm:p-5">
+            <ProjectShot
+              image={visual}
+              sizes="(min-width: 1024px) 34rem, calc(100vw - 40px)"
+              placeholder={visual.cutout ? "empty" : "blur"}
+            />
+          </div>
         ) : null}
 
-        <div className="flex flex-1 flex-col">
-          <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-            <h3
-              id={titleId}
-              className="section-title"
-            >
-              <Link
-                href={href}
-                className="stretch-link card-title transition-colors duration-300"
-              >
-                {project.title}
-              </Link>
-            </h3>
-            <StatusDot status={project.status} labels={copy} />
-          </div>
+        <div className="flex flex-1 flex-col p-5 sm:p-7">
+          <h3 id={titleId} className="part-title">
+            <Link href={href} className="stretch-link card-title">
+              {project.title}
+            </Link>
+          </h3>
 
-          {context ? (
-            <p className="mt-2 text-meta text-paper-3">{context}</p>
-          ) : null}
+          <ProjectMeta
+            context={context}
+            status={project.status}
+            labels={copy}
+            className="mt-1.5"
+          />
 
-          <p className="mt-title max-w-measure text-body text-paper-2">
+          <p className="mt-4 text-body text-paper-2">
             {project.summary ?? project.description}
           </p>
 
-          <TagList
-            items={project.primaryStack ?? project.stack}
-            className="mt-title"
-          />
+          <TagList items={stack} proven={stack} className="mt-5" />
 
-          {project.demo || project.repo ? (
-            <p className="mt-auto flex flex-wrap items-center gap-x-6 gap-y-3 pt-title">
-              {project.demo ? (
-                <ExternalLink
-                  href={project.demo}
-                  label={fill(copy.demoLabel, { title: project.title })}
-                  newTab={copy.newTab}
-                  className="link z-2 type-label text-paper-2"
-                >
-                  {copy.demoShort} ↗
-                </ExternalLink>
-              ) : null}
+          <div className="mt-auto flex flex-wrap items-center gap-x-4 gap-y-2 pt-6 type-label">
+            {project.demo ? (
+              <ExternalLink
+                href={project.demo}
+                label={fill(copy.demoLabel, { title: project.title })}
+                newTab={copy.newTab}
+                className="link-arrow relative z-2"
+              >
+                {copy.demoLong}
+                <Icon name="arrowUpRight" />
+              </ExternalLink>
+            ) : null}
 
-              {project.repo ? (
-                <ExternalLink
-                  href={project.repo}
-                  label={fill(copy.repoLabel, { title: project.title })}
-                  newTab={copy.newTab}
-                  className="link z-2 type-label text-paper-2"
-                >
-                  {copy.repoShort} ↗
-                </ExternalLink>
-              ) : null}
-            </p>
-          ) : null}
+            {project.repo ? (
+              <ExternalLink
+                href={project.repo}
+                label={fill(copy.repoLabel, { title: project.title })}
+                newTab={copy.newTab}
+                className="link-arrow relative z-2"
+              >
+                <Icon name="github" />
+                {copy.repoShort}
+              </ExternalLink>
+            ) : null}
+
+            <span className="ml-auto inline-flex items-center gap-1.5 text-paper-3" aria-hidden="true">
+              {copy.caseStudy}
+              <Icon name="arrowRight" />
+            </span>
+          </div>
         </div>
       </article>
-    </li>
+    </Wrapper>
   );
 }

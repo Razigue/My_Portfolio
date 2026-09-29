@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
+import { FeaturedProject } from "@/components/home/FeaturedProject";
+import { ProjectSummary } from "@/components/home/ProjectSummary";
 import { PageHeader } from "@/components/layout/PageHeader";
-import { ProjectRow } from "@/components/projects/ProjectRow";
 import type { ProjectKind } from "@/content/projects";
 import { getContent, kindLabel, projectsSummary } from "@/lib/content";
 import { alternates, pathFor, type Locale } from "@/lib/i18n";
@@ -25,15 +26,16 @@ export function projectsMetadata(locale: Locale): Metadata {
   };
 }
 
+/** Every published project, grouped by kind, as the same cards as the home page. */
 export function ProjectsPage({ locale }: { locale: Locale }) {
   const content = getContent(locale);
   const { copy, projects } = content;
+  const summary = projectsSummary(content);
   const plural: Readonly<Record<ProjectKind, string>> = {
     personnel: copy.groupPersonal,
     ecole: copy.groupSchool,
   };
 
-  // Grouped by kind, each group in the order of the published list.
   const groups = KINDS.map((kind) => ({
     kind,
     entries: projects.filter((project) => project.kind === kind),
@@ -41,34 +43,37 @@ export function ProjectsPage({ locale }: { locale: Locale }) {
 
   return (
     <>
-      <PageHeader title={copy.projectsHeading} centered />
+      <PageHeader
+        title={copy.projectsHeading}
+        sub={`${summary} ${copy.projectsDescription}`}
+      />
 
-      {groups.map((group, order) => (
-        <section
-          key={group.kind}
-          aria-labelledby={`groupe-${group.kind}`}
-          className={order > 0 ? "pt-block" : undefined}
-        >
-          <div className="page-width">
-            <h2 id={`groupe-${group.kind}`} className="eyebrow">
-              {group.entries.length > 1
-                ? plural[group.kind]
-                : kindLabel(content, group.kind)}
-            </h2>
-          </div>
+      <div className="band">
+        <div className="section-body page-width grid gap-section">
+          {groups.map((group) => (
+            <section key={group.kind} aria-labelledby={`groupe-${group.kind}`}>
+              <h2 id={`groupe-${group.kind}`} className="part-title">
+                {group.entries.length > 1
+                  ? plural[group.kind]
+                  : kindLabel(content, group.kind)}
+              </h2>
 
-          <ol className="index page-width mt-label">
-            {group.entries.map((project) => (
-              <ProjectRow
-                key={project.slug}
-                project={project}
-                locale={locale}
-                copy={copy}
-              />
-            ))}
-          </ol>
-        </section>
-      ))}
+              {/* A group of one takes the page's width, as on the home page. */}
+              {group.entries.length === 1 && group.entries[0] ? (
+                <div className="mt-6">
+                  <FeaturedProject project={group.entries[0]} locale={locale} />
+                </div>
+              ) : (
+                <ol className="mt-6 grid gap-6 md:grid-cols-2">
+                  {group.entries.map((project) => (
+                    <ProjectSummary key={project.slug} project={project} locale={locale} />
+                  ))}
+                </ol>
+              )}
+            </section>
+          ))}
+        </div>
+      </div>
     </>
   );
 }

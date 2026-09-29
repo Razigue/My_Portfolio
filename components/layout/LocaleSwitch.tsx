@@ -33,7 +33,7 @@ export function LocaleSwitch({
       href={`${translatePath(pathname, to)}?${LOCALE_PARAM}=${to}`}
       hrefLang={tag}
       lang={tag}
-      className="link tap-area"
+      className="link tap-area font-medium"
     >
       {label}
     </a>

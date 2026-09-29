@@ -1,33 +1,36 @@
 import { LocaleSwitch } from "@/components/layout/LocaleSwitch";
+import { Icon } from "@/components/ui/Icon";
 import { ExternalLink } from "@/components/ui/primitives";
 import { getContent } from "@/lib/content";
 import { otherLocale, type Locale } from "@/lib/i18n";
 
-/** One line of links at the foot of every page, and the way to the other language. */
+/** The name and role, the ways to reach him, and the other language. */
 export function SiteFooter({ locale }: { locale: Locale }) {
   const { copy, site } = getContent(locale);
 
   return (
-    <footer data-print="hide">
-      {/* Shown only when the page ends on its own ground: after a band, the
-          change of ground already says the page is over. */}
-      <div className="footer-rule page-width" aria-hidden="true">
-        <hr className="rule" />
-      </div>
-      <div className="site-footer-bar page-width flex flex-wrap items-baseline justify-between gap-x-gutter gap-y-label type-label pointer-coarse:gap-y-6">
-        <ul className="flex flex-wrap gap-x-7 gap-y-3 text-paper-3 pointer-coarse:gap-y-6">
+    <footer data-print="hide" className="site-footer">
+      <div className="page-width flex flex-col gap-6 py-10 sm:flex-row sm:items-center sm:justify-between">
+        <p className="type-label text-paper-3">
+          <span className="font-medium text-paper">{site.name}</span>,{" "}
+          {site.role}
+        </p>
+
+        <ul className="flex flex-wrap items-center gap-x-5 gap-y-3 type-label text-paper-2 pointer-coarse:gap-y-5">
           <li>
-            <a href={`mailto:${site.email}`} className="link tap-area">
-              {site.email}
+            <a href={`mailto:${site.email}`} className="link-arrow tap-area font-normal text-paper-2">
+              <Icon name="mail" />
+              {copy.emailLabel}
             </a>
           </li>
           <li>
             <ExternalLink
               href={site.github}
               newTab={copy.newTab}
-              className="link tap-area"
+              className="link-arrow tap-area font-normal text-paper-2"
             >
-              GitHub ↗
+              <Icon name="github" />
+              GitHub
             </ExternalLink>
           </li>
           {site.linkedin ? (
@@ -35,15 +38,17 @@ export function SiteFooter({ locale }: { locale: Locale }) {
               <ExternalLink
                 href={site.linkedin}
                 newTab={copy.newTab}
-                className="link tap-area"
+                className="link-arrow tap-area font-normal text-paper-2"
               >
-                LinkedIn ↗
+                <Icon name="linkedin" />
+                LinkedIn
               </ExternalLink>
             </li>
           ) : null}
           <li>
-            <a href={site.cvUrl} download className="link tap-area">
-              {copy.cvShort} ↓
+            <a href={site.cvUrl} download className="link-arrow tap-area font-normal text-paper-2">
+              <Icon name="download" />
+              {copy.cvShort}
             </a>
           </li>
           {site.sourceRepo ? (
@@ -51,20 +56,19 @@ export function SiteFooter({ locale }: { locale: Locale }) {
               <ExternalLink
                 href={site.sourceRepo}
                 newTab={copy.newTab}
-                className="link tap-area"
+                className="link-arrow tap-area font-normal text-paper-2"
               >
                 {copy.sourceLink}
               </ExternalLink>
             </li>
           ) : null}
+          <li className="text-paper">
+            <LocaleSwitch
+              locale={locale}
+              label={getContent(otherLocale(locale)).copy.languageName}
+            />
+          </li>
         </ul>
-
-        <p className="text-paper-2">
-          <LocaleSwitch
-            locale={locale}
-            label={getContent(otherLocale(locale)).copy.languageName}
-          />
-        </p>
       </div>
     </footer>
   );

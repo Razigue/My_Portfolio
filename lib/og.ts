@@ -11,7 +11,7 @@ async function loadFont(
   text: string,
 ): Promise<ArrayBuffer | null> {
   try {
-    // The family is a parameter, and only ever Newsreader or Geist, both in
+    // The family is a parameter, and only ever Geist, in
     // DESIGN.md: the detector cannot read a variable.
     // impeccable-disable-next-line design-system-font
     const api = `https://fonts.googleapis.com/css2?family=${family}&text=${encodeURIComponent(text)}`;
@@ -26,15 +26,10 @@ async function loadFont(
   }
 }
 
-/** Newsreader, for the `RB` monogram of the favicon. */
-export function loadDisplayFont(text: string): Promise<ArrayBuffer | null> {
-  return loadFont("Newsreader:opsz,wght@72,400", text);
-}
-
 /** Geist, the face of the site, for everything the social cards write. */
 export function loadTextFont(
   text: string,
-  weight: 400 | 500 = 400,
+  weight: 400 | 500 | 600 | 700 = 400,
 ): Promise<ArrayBuffer | null> {
   return loadFont(`Geist:wght@${weight}`, text);
 }

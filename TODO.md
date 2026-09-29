@@ -136,13 +136,11 @@ fichier.
 
 ## 8. Polices : aucun repli utilisé
 
-Geist, la police de tout le site, se charge via `next/font/google` dans le
-sous-ensemble `latin`, qui couvre déjà `É À Ê Î Ç œ` et la ponctuation
-française ; `latin-ext` était préchargé sans qu’aucun de ses caractères ne
-soit affiché. Newsreader ne sert qu’au monogramme `RB` : le fichier ne contient
-que ces deux lettres (`lib/fonts/newsreader-rb.woff2`, 1,7 Ko au lieu de
-132 Ko). Si le monogramme change un jour de lettres, il faut retailler ce
-fichier, l’adresse est dans `lib/fonts.ts`. Aucune substitution à signaler.
+Geist, la police de tout le site, monogramme `RB` compris, se charge via
+`next/font/google` dans le sous-ensemble `latin`, qui couvre déjà
+`É À Ê Î Ç œ` et la ponctuation française ; `latin-ext` était préchargé sans
+qu’aucun de ses caractères ne soit affiché. C’est la seule police du site,
+déclarée dans `lib/fonts.ts` ; il n’y a plus de police à chasse fixe. Aucune substitution à signaler.
 
 ---
 

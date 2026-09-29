@@ -3,21 +3,21 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* ---------------------------------------------------------------------------
-   Cool near-black by night and warm paper by day, one accent per theme, and
-   one face, Geist, for everything but the `RB` monogram.
+   The developer portfolio, played straight and finished to the last pixel.
 
-   The neutrals are deliberately cool. The accent is the only warm thing on
-   the page, which is what makes it register as an accent rather than as a
-   tint: pale gold at night, dark orange by day.
+   A near-white page by day and a near-black one by night, zinc neutrals, one
+   confident blue for what responds (hover, focus, selection) and for check
+   marks. Green is declared and reserved: no component uses it, and state is
+   said in words, never with a dot. Geist sets everything, dates and
+   technology names included: one family, no monospace anywhere.
 
    Every colour literal on this site lives in this file and nowhere else. The
    `*: initial` resets delete Tailwind's stock scales, so off-palette utilities
    (bg-indigo-500, text-sm, rounded-xl) simply do not exist.
 
-   Nothing here is a line colour, because nothing on this site is a line. The
-   neutrals are grounds: the page, the band a section sits in, and the tone a
-   control or a lifted row takes. Separation is done by changing the ground
-   under something, never by drawing an edge beside it.
+   The role names are older than this palette and were kept so the markup
+   reads the same: `ink` is a ground (the page, a band, a control), `paper` is
+   text, `flare` is the accent.
    --------------------------------------------------------------------------- */
 
 @theme {
@@ -25,199 +25,123 @@
   --color-transparent: transparent;
   --color-current: currentColor;
 
-  /* Night is the primary theme; these values are what utilities compile against. */
-  --color-ink: #08080a;
-  --color-ink-2: #0e0f12;
-  --color-ink-3: #1a1d22;
-  /* A project card on the home page: a ground of its own on the band, a
-     step lighter than the band in both themes, and one more step lighter
-     under the pointer, away from the band rather than back into it. */
-  --color-card: #131519;
-  --color-card-hover: #171a1e;
-  --color-paper: #f4f3f0;
-  --color-paper-2: #c0bfba;
-  --color-paper-3: #8b8a85;
-  --color-flare: #ecdcb0;
-  --color-live: #4ed9a4;
-  /* The separator between two parts of a page: the text colour at a low
-     strength, so it follows both themes without a value of its own. */
-  --color-rule: color-mix(in srgb, var(--color-paper) 16%, transparent);
+  /* Daylight is what utilities compile against; night swaps below. */
+  --color-ink: #fafaf9;
+  --color-ink-2: #f3f3f1;
+  --color-ink-3: #e9e9e6;
+  --color-card: #ffffff;
+  --color-card-hover: #ffffff;
+  --color-line: #e4e4e0;
+  --color-line-strong: #cfcfca;
+  --color-paper: #0b0b0d;
+  --color-paper-2: #3f3f46;
+  --color-paper-3: #62626a;
+  --color-flare: #2851e0;
+  --color-flare-ink: #ffffff;
+  --color-live: #157a3c;
+  --color-error: #b42318;
 
-  /* One face for the whole site, headings, reading text, labels and buttons:
-     Geist, a sans-serif drawn for screens. Razigue asked for a single font
-     that reads easily and looks professional, rather than one chosen to fit a
-     theme. `font-display`, `font-sans` and `font-mono` all name it, so the
-     markup did not have to change. The `RB` monogram alone keeps Newsreader,
-     set directly on `.wordmark`: it is the site's mark, not its text. */
   --font-*: initial;
   --font-display: var(--font-geist), system-ui, -apple-system, sans-serif;
   --font-sans: var(--font-geist), system-ui, -apple-system, sans-serif;
-  --font-mono: var(--font-geist), system-ui, -apple-system, sans-serif;
 
   --text-*: initial;
-  /* The smallest text on the site, and the only size under body: labels,
-     metadata, buttons, the navigation. 14px on a phone, 15 on a wide screen.
-     Labels used to sit a size below this, at 11px on a phone, and they are
-     what a recruiter reads first: « Période », « Rythme », « Poste visé ».
-     A label is told from what it names by its tone and its place, not by
-     being harder to read. */
-  --text-meta: clamp(0.875rem, 0.85rem + 0.1vw, 0.9375rem);
+  /* The floor: nothing on the site is set smaller than 14px. */
+  --text-meta: 0.875rem;
   --text-meta--line-height: 1.45;
-  --text-body: clamp(1rem, 0.97rem + 0.15vw, 1.125rem);
+  --text-body: clamp(1rem, 0.979rem + 0.093vw, 1.0625rem);
   --text-body--line-height: 1.65;
-  --text-lede: clamp(1.25rem, 1.15rem + 0.5vw, 1.625rem);
-  --text-lede--line-height: 1.42;
-  --text-h3: clamp(1.625rem, 1.4rem + 1.1vw, 2.375rem);
-  --text-h3--line-height: 1.14;
-  --text-h2: clamp(2.375rem, 1.75rem + 3.1vw, 4.5rem);
-  --text-h2--line-height: 1.02;
+  --text-lede: clamp(1.125rem, 1.07rem + 0.25vw, 1.3125rem);
+  --text-lede--line-height: 1.55;
+  --text-h3: clamp(1.25rem, 1.18rem + 0.3vw, 1.5rem);
+  --text-h3--line-height: 1.25;
+  --text-h2: clamp(1.875rem, 1.6rem + 1.2vw, 2.75rem);
+  --text-h2--line-height: 1.08;
+  --text-display: clamp(2.75rem, 2rem + 3.4vw, 5rem);
+  --text-display--line-height: 1;
 
   --tracking-*: initial;
   --tracking-display: -0.035em;
-  --tracking-tight: -0.02em;
-  /* Meta is set in lowercase, so the tracking stays close to the face's own.
-     Wide letter spacing is a capital's convention: it opens up the gaps
-     between forms that are all the same height, and on lowercase, where the
-     ascenders and descenders already do that work, it reads as holes. Geist
-     is spaced for small sizes already; this only opens it a hair. */
-  --tracking-meta: 0.01em;
+  --tracking-tight: -0.025em;
+  --tracking-meta: 0em;
 
   --leading-*: initial;
-  --leading-display: 0.86;
-  --leading-tight: 1.02;
+  --leading-display: 1;
+  --leading-tight: 1.15;
   --leading-body: 1.65;
 
   --container-*: initial;
-  /* The reading measure. `ch` is the width of a zero, and in Geist a line of
-     French runs about 1.34 characters to the `ch`: 50ch holds 65 to 75
-     characters, the comfortable range. It was 62ch, set when the site was in
-     a monospace, where one `ch` is exactly one character; in Geist that came
-     out at up to 93. */
-  --container-measure: 50ch;
-  --container-page: 88rem;
+  /* About 70 characters of Geist at the body size. */
+  --container-measure: 62ch;
+  --container-page: 74rem;
 
-  /* Five steps of space. A gap is chosen by what it separates, never by eye:
-     a label and what it names; a heading and the text under it; one block and
-     the next inside a section; two columns side by side; one section and the
-     next. Each step is larger than the one before, so whatever sits closer
-     reads as belonging together. Anything tighter than `label` is inside a
-     single component, a tag or a dot and its word, and keeps the numeric
-     scale. */
-  --spacing-label: 1rem;
-  --spacing-title: 1.5rem;
-  --spacing-block: clamp(2.5rem, 1.75rem + 2vw, 4rem);
-  --spacing-gutter: clamp(2rem, 0.5rem + 4.5vw, 6rem);
-  --spacing-section: clamp(4.5rem, 3rem + 4.5vw, 7.5rem);
-  /* The height the fixed header bar covers at the top of every page. */
-  --spacing-header: 5rem;
+  /* Five steps of space, chosen by what a gap separates: a label and what it
+     names, a heading and its text, two blocks of a section, two columns, two
+     sections. */
+  --spacing-label: 0.75rem;
+  --spacing-title: 1.25rem;
+  --spacing-block: clamp(2rem, 1.6rem + 1.6vw, 3rem);
+  --spacing-gutter: clamp(1.5rem, 0.8rem + 3vw, 4rem);
+  --spacing-section: clamp(4.5rem, 3.4rem + 4.6vw, 8rem);
+  /* The height of the sticky header. */
+  --spacing-header: 4rem;
 
   --ease-*: initial;
-  --ease-cine: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-swift: cubic-bezier(0.4, 0, 0.2, 1);
 
   --radius-*: initial;
-  --radius-1: 1px;
-  --radius-shot: 0.75rem;
-  /* Controls (buttons, fields, the back-to-top block), the stack's tags and
-     the diagram's tiles: nothing on the site has square corners. */
-  --radius-control: 0.5rem;
-  /* The small accent marks, softened rather than made round: round means a
-     status. */
-  --radius-mark: 0.15rem;
+  --radius-mark: 0.25rem;
+  --radius-control: 0.625rem;
+  --radius-shot: 0.875rem;
+  --radius-card: 1.125rem;
   --radius-pill: 9999px;
-}
 
-/* Runtime theme swap, unlayered so it outranks the `theme` layer above.
-   No class on <html> means daylight; the blocking script in <head> adds `.dark`
-   before first paint. Daylight is therefore also the no-JavaScript default. */
+  --animate-rise: rise 900ms var(--ease-out) both;
+}
 
 :root:not(.dark) {
   color-scheme: light;
-
-  --color-ink: #f6f5f2;
-  --color-ink-2: #edebe6;
-  /* Daylight lifts by going *down* in value, not up: white on near-white is
-     not a raised surface, it is the same surface. A control has to be a tone
-     the page is not. */
-  --color-ink-3: #dedbd2;
-  --color-card: #fbfaf7;
-  --color-card-hover: #ffffff;
-  --color-paper: #121114;
-  --color-paper-2: #3a3835;
-  --color-paper-3: #63605a;
-  /* The two themes carry different accents, which is a decision rather than an
-     oversight: gold holds up as a light mark on near-black, and there is no
-     light mark that holds up on near-white. Daylight's accent has to be a dark
-     one, and dark orange is a colour in its own right where dark gold is only
-     a dimmer gold.
-
-     How dark is set by the tightest ground it sits on, --ink-3, which is what
-     an index row rises to under the pointer. Clearing 4.5:1 there caps the
-     accent's relative luminance at 0.119; this is 0.090, which measures 5.43
-     on that ground, 6.31 on a band and 6.90 on the page. Anything lighter
-     reads more orange and fails the row it is read on. */
-  --color-flare: #8a3f04;
-  --color-live: #10693d;
 }
 
 :root.dark {
   color-scheme: dark;
 
-  --color-ink: #08080a;
-  --color-ink-2: #0e0f12;
-  --color-ink-3: #1a1d22;
-  --color-card: #131519;
-  --color-card-hover: #171a1e;
-  --color-paper: #f4f3f0;
-  --color-paper-2: #c0bfba;
-  --color-paper-3: #8b8a85;
-  --color-flare: #ecdcb0;
-  --color-live: #4ed9a4;
+  --color-ink: #09090b;
+  --color-ink-2: #0e0e11;
+  --color-ink-3: #1b1b20;
+  --color-card: #111114;
+  --color-card-hover: #151519;
+  --color-line: #232329;
+  --color-line-strong: #34343c;
+  --color-paper: #f4f4f5;
+  --color-paper-2: #babac2;
+  --color-paper-3: #8e8e98;
+  --color-flare: #86a2ff;
+  --color-flare-ink: #09090b;
+  --color-live: #4ade80;
+  --color-error: #ff8a80;
 }
 
-/* Motion timings, shared by every transition on the site. */
 :root {
-  --t-fast: 180ms;
-  --t: 420ms;
-  --t-slow: 900ms;
-  /* The margin the fixed furniture keeps from the edge of the window: the read
-     position and the back-to-top. Static, evaluated once, never written to at
-     runtime. */
-  --inset: 1rem;
-
-  /* Optical centring, per typeface.
-
-     Centring a line box centres the em box, and the em box is not where the
-     marks are. A capital runs from the baseline up to the cap height; the
-     descender space below it belongs to letters like g and p, and a row of
-     capitals leaves it empty. Centre the box and that empty space counts as
-     ink, so the word rides high — against a circle, which has no such space,
-     the two visibly disagree.
-
-     The correction is half that unused space, which follows from the font's
-     own metrics — (cap height + descent − ascent) / 2 — and is therefore a
-     constant of the face. Being a fraction of the em it holds at every size
-     the face is set at.
-
-     The numbers below are measured rather than computed from those metrics:
-     the font's reported ink box rounds to whole pixels at text sizes, so it
-     is wrong by up to half a pixel in exactly the range that matters. They
-     were read back off screenshots of the bar, row by row, until the painted
-     centres of the monogram, a nav word and the switch agreed within a third
-     of a pixel in both themes.
-     They belong to these faces. Changing a typeface invalidates them, and
-     the only way to find the new ones is to look at the pixels again.
-     Re-read on 2026-09-28, at 4x, once the navigation had moved from Geist
-     Mono to Geist at 15 px: the nav words still sat within a quarter of a
-     pixel of the switch, but the monogram rode 2.5 px high, so its value
-     went from 0.074em to 0.175em. */
-  --trim-display: 0.175em;
-  --trim-mono: 0.021em;
+  --t-fast: 160ms;
+  --t: 320ms;
+  --t-slow: 700ms;
+  /* A wash of the accent, for focus on a field. */
+  --flare-soft: color-mix(in srgb, var(--color-flare) 16%, transparent);
+  /* Depth, declared once: a soft offset shadow, never with a border beside it. */
+  --shadow-lift: 0 1px 2px rgb(10 10 12 / 0.04), 0 12px 32px -12px rgb(10 10 12 / 0.14);
 }
 
-@media (min-width: 1024px) {
-  :root {
-    --inset: 1.5rem;
+:root.dark {
+  --shadow-lift: 0 1px 2px rgb(0 0 0 / 0.3), 0 16px 40px -16px rgb(0 0 0 / 0.7);
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+    filter: blur(6px);
   }
 }
 
@@ -227,22 +151,8 @@
   html {
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
-    /* Scrolling is the browser's own: no glide added on top. */
-    scroll-behavior: auto;
-    /* The header is fixed over the top of the window. Whatever the browser
-       scrolls into view for the keyboard stops this far below the top, so a
-       focused link is never hidden under the bar, at any text size. */
-    scroll-padding-top: calc(var(--spacing-header) + var(--spacing-label));
-    /* The native scrollbar is hidden and replaced by the gold bar in the
-       right-hand margin, which is a readout rather than a control. See
-       `.site-progress` below. */
-    scrollbar-width: none;
-  }
-
-  ::-webkit-scrollbar {
-    width: 0;
-    height: 0;
-    display: none;
+    scroll-padding-top: calc(var(--spacing-header) + var(--spacing-title));
+    scrollbar-color: var(--color-line-strong) var(--color-ink);
   }
 
   body {
@@ -259,11 +169,12 @@
 
   h1,
   h2,
-  h3 {
+  h3,
+  h4 {
     font-family: var(--font-display);
-    font-weight: 400;
+    font-weight: 600;
     text-wrap: balance;
-    letter-spacing: var(--tracking-display);
+    letter-spacing: var(--tracking-tight);
   }
 
   p {
@@ -272,22 +183,14 @@
 
   ::selection {
     background-color: var(--color-flare);
-    color: var(--color-ink);
+    color: var(--color-flare-ink);
   }
 
-  /* The one stroke left on the site, and it is not decoration: without a
-     visible focus ring a keyboard user cannot tell where they are. Two pixels
-     and offset, so it never reads as a hairline drawn around something. */
   :focus-visible {
     outline: 2px solid var(--color-flare);
     outline-offset: 3px;
   }
 
-  /* Tailwind v4 dropped `cursor: pointer` on buttons from its preflight, so
-     the browser default applies and every button on the site was showing an
-     arrow: the light switch, the submit, the copy button, the scroll cue and
-     the back-to-top. Links get it from the user agent; buttons have to be
-     told. */
   button:not(:disabled),
   [role="button"]:not([aria-disabled="true"]),
   summary {
@@ -298,365 +201,326 @@
     cursor: not-allowed;
   }
 
+  input,
+  textarea {
+    caret-color: var(--color-flare);
+  }
+
   .tnum,
   time,
   table {
     font-variant-numeric: tabular-nums;
   }
 
-  /* A bare `hr` draws nothing: the separator the site uses is `.rule`, one
-     hairline in the separator colour, so no browser default line shows up. */
   hr:not(.rule) {
     display: none;
+  }
+
+  strong {
+    font-weight: 600;
+    color: var(--color-paper);
   }
 }
 
 @layer utilities {
-  /* ---------------------------------------------------------------------
-     Links.
-
-     Pointing at a link paints the word itself in gold and sets the text in the
-     page colour, like a marker drawn across a printed page.
-
-     These live in the utilities layer rather than with the other components
-     because most links here also carry a Tailwind colour utility. Layer order
-     puts utilities last, so a rule in `components` could never win: from here,
-     `.link:hover` outranks `.text-paper-3` on specificity and the label stays
-     legible once the wash is behind it.
-     --------------------------------------------------------------------- */
+  /* A text link: an underline in the line colour that takes the accent under
+     the pointer, and the word with it. */
   .link {
-    position: relative;
-    isolation: isolate;
-    display: inline-block;
-    text-decoration: none;
-    transition: color var(--t-fast) var(--ease-swift);
-  }
-
-  .link::before {
-    content: "";
-    position: absolute;
-    inset: -0.14em -0.32em;
-    z-index: -1;
-    border-radius: calc(var(--radius-mark) * 2);
-    background-color: var(--color-flare);
-    transform: scaleX(0);
-    transform-origin: right center;
-    transition: transform var(--t-fast) var(--ease-cine);
+    text-decoration-line: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.28em;
+    text-decoration-color: var(--color-line-strong);
+    transition: color var(--t-fast) var(--ease-swift),
+      text-decoration-color var(--t-fast) var(--ease-swift);
   }
 
   .link:hover,
   .link:focus-visible {
-    color: var(--color-ink);
+    color: var(--color-flare);
+    text-decoration-color: currentColor;
   }
 
-  .link:hover::before,
-  .link:focus-visible::before {
-    transform: scaleX(1);
-    transform-origin: left center;
-  }
-
-  /* The parts of an account, in the rail. No gold sweep here: the part being
-     read fades in a pale wash, and the pointer only brings the label up to
-     full contrast. */
-  .rail-link {
-    position: relative;
-    isolation: isolate;
-    display: inline-block;
-    text-decoration: none;
+  /* A link that is a line of its own (« Tous les projets », « Parcours
+     complet »): no underline, an arrow that moves a step under the pointer. */
+  .link-arrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-weight: 500;
+    color: var(--color-paper);
     transition: color var(--t-fast) var(--ease-swift);
   }
 
-  .rail-link::before {
-    content: "";
-    position: absolute;
-    inset: -0.14em -0.32em;
-    z-index: -1;
-    border-radius: calc(var(--radius-mark) * 2);
-    background-color: color-mix(in srgb, var(--color-flare) 14%, transparent);
-    opacity: 0;
-    transition: opacity 400ms var(--ease-swift);
+  .link-arrow svg {
+    transition: transform var(--t) var(--ease-out);
+  }
+
+  .link-arrow:hover,
+  .link-arrow:focus-visible {
+    color: var(--color-flare);
+  }
+
+  .link-arrow:hover .icon-go,
+  .link-arrow:focus-visible .icon-go {
+    transform: translateX(3px);
+  }
+
+  .link-arrow:hover .icon-out,
+  .link-arrow:focus-visible .icon-out {
+    transform: translate(2px, -2px);
+  }
+
+  .link-arrow:hover .icon-back,
+  .link-arrow:focus-visible .icon-back {
+    transform: translateX(-3px);
+  }
+
+  .link-arrow:hover .icon-down,
+  .link-arrow:focus-visible .icon-down {
+    transform: translateY(2px);
+  }
+
+  /* The parts of an account, in the rail. */
+  .rail-link {
+    display: block;
+    padding: 0.35rem 0.75rem;
+    border-radius: var(--radius-control);
+    color: var(--color-paper-3);
+    transition: color var(--t-fast) var(--ease-swift),
+      background-color var(--t-fast) var(--ease-swift);
   }
 
   .rail-link:hover,
-  .rail-link:focus-visible,
-  .rail-link[aria-current="location"] {
+  .rail-link:focus-visible {
     color: var(--color-paper);
   }
 
-  .rail-link[aria-current="location"]::before {
-    opacity: 1;
+  .rail-link[aria-current="location"] {
+    color: var(--color-paper);
+    background-color: var(--color-ink-3);
+  }
+
+  /* The name on the home page and the title of a page. */
+  .display-title {
+    font-size: var(--text-display);
+    line-height: var(--leading-display);
+    letter-spacing: var(--tracking-display);
+    font-weight: 600;
   }
 }
 
 @layer components {
-  /* Programmatic focus after a client navigation should not draw a box around
-     the entire page, but a keyboard user still needs to see where they landed. */
   #contenu:focus:not(:focus-visible) {
     outline: none;
   }
 
-  /* --- Header: three things on one line, and nothing underneath them --- */
+  /* --- The shared structure --- */
+  .page-width {
+    margin-inline: auto;
+    max-width: var(--container-page);
+    padding-inline: 1.25rem;
+  }
+
+  @media (min-width: 40rem) {
+    .page-width {
+      padding-inline: 2rem;
+    }
+  }
+
+  .section-body {
+    padding-block: var(--spacing-section);
+  }
+
+  .page-head {
+    padding-top: calc(var(--spacing-block) + 1rem);
+    padding-bottom: calc(var(--spacing-block) * 1.5);
+  }
+
+  .band {
+    background-color: var(--color-ink-2);
+    border-block: 1px solid var(--color-line);
+  }
+
+  .section-title {
+    font-size: var(--text-h2);
+    font-weight: 600;
+    line-height: var(--leading-tight);
+    letter-spacing: var(--tracking-display);
+    color: var(--color-paper);
+  }
+
+  /* The title of a page other than the home page. */
+  .page-title {
+    font-size: clamp(2.5rem, 1.9rem + 2.6vw, 4rem);
+    line-height: 1.02;
+    letter-spacing: var(--tracking-display);
+    font-weight: 600;
+    color: var(--color-paper);
+  }
+
+  .section-lede {
+    margin-top: var(--spacing-title);
+    max-width: var(--container-measure);
+    font-size: var(--text-lede);
+    line-height: var(--text-lede--line-height);
+    color: var(--color-paper-2);
+  }
+
+  .part-title {
+    font-size: var(--text-h3);
+    font-weight: 600;
+    line-height: var(--leading-tight);
+    letter-spacing: var(--tracking-tight);
+    color: var(--color-paper);
+  }
+
+  .item-title {
+    font-size: var(--text-body);
+    line-height: 1.4;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--color-paper);
+  }
+
+  .type-label {
+    font-size: var(--text-meta);
+    line-height: var(--text-meta--line-height);
+  }
+
+  /* A label naming a fact (a `dt`, a rail's heading). Never over a heading. */
+  .eyebrow {
+    font-size: var(--text-meta);
+    line-height: var(--text-meta--line-height);
+    font-weight: 500;
+    color: var(--color-paper-3);
+  }
+
+  .fact-value {
+    font-weight: 500;
+    color: var(--color-paper);
+  }
+
+  /* Dates and periods: Geist at the meta size, figures aligned. */
+  .data {
+    font-size: 0.875rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* --- Header --- */
   .site-header {
-    isolation: isolate;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    border-bottom: 1px solid transparent;
+    /* Solid: no glass. */
+    background-color: var(--color-ink);
+    transition: border-color var(--t) var(--ease-swift);
+  }
+
+  .site-header[data-scrolled="true"] {
+    border-bottom-color: var(--color-line);
   }
 
   .site-header-bar {
-    position: relative;
-    z-index: 1;
-    padding-block: 1.5rem;
-    /* A layout property, on purpose: the bar is fixed, so the new padding
-       lays out its three items and nothing else, and no content moves. */
-    transition: padding var(--t) var(--ease-cine); /* impeccable-disable-line layout-transition */
+    height: var(--spacing-header);
   }
 
-  /* The only state the header has: it tightens once you leave the top. */
-  .site-header[data-scrolled="true"] .site-header-bar {
-    padding-block: 0.9rem;
-  }
-
-  /* Solid, not glass. The header never retracts, so it is permanently over
-     content, and at any translucency a display heading passing underneath
-     shows through it. A backdrop-filter would hide that, but it re-blurs its
-     whole region on every frame the page moves and is the first effect a
-     browser drops under load: the wrong thing to rest legibility on. */
-  .site-header::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    background-color: var(--color-ink);
-    opacity: 0;
-    transition: opacity var(--t) var(--ease-swift);
-  }
-
-  .site-header[data-scrolled="true"]::before {
-    opacity: 1;
-  }
-
-  /* ---------------------------------------------------------------------
-     The read position, down the right-hand edge.
-
-     One mark that travels, not a fill that grows. A fill growing from the top
-     is a progress bar and says one thing, the fraction passed. A mark has a
-     length as well as a position, so it says two: how much of the page is on
-     screen at once, which is how long the page is, and where in it you are.
-
-     There is no track behind it: an unfilled line running the length of the
-     window is a border, and this page has no borders in it. Only the mark is
-     painted. It is three pixels wide and reports a position, which is what
-     keeps it a readout rather than one more rule. The gap is the same at the
-     top, the right and the bottom, and it is smaller than the page gutter, so
-     the mark always sits in the margin and never over the text.
-     --------------------------------------------------------------------- */
-
-  .site-progress {
-    position: fixed;
-    top: var(--inset);
-    right: var(--inset);
-    bottom: var(--inset);
-    z-index: 60;
-    width: 3px;
-    /* So a mark drawn out by a fast scroll is trimmed at the ends of the
-       margin rather than running past them. */
-    overflow: hidden;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity var(--t) var(--ease-swift);
-  }
-
-  /* Only while the page is actually moving. A position is worth reporting
-     while it is changing; standing still over a page nobody is scrolling, it
-     is just a gold dash in the margin. It goes 850 ms after the last movement.
-     Note this is `data-live` and not `data-scrolled`: the header keeps its
-     solid ground once you have left the top, whether or not you are moving. */
-  .site-progress[data-live="true"] {
-    opacity: 1;
-  }
-
-  /* Its position is written straight to `translate`, once per frame while
-     the page moves. */
-  .site-progress-thumb {
-    display: block;
-    width: 100%;
-    border-radius: var(--radius-pill);
-    background-color: var(--color-flare);
-    will-change: translate;
-  }
-
-  /* --- Back to the top ---
-         A filled block, like every other control here, sitting to the left of
-         the read position so the two never overlap. Hidden outright until it
-         is offered: `visibility` takes it out of the tab order, which opacity
-         alone would not. */
-  .to-top {
-    position: fixed;
-    right: calc(var(--inset) + 1.15rem);
-    bottom: var(--inset);
-    z-index: 60;
-    display: grid;
-    place-items: center;
-    isolation: isolate;
-    width: 2.75rem;
-    height: 2.75rem;
-    border-radius: var(--radius-control);
-    background-color: var(--color-flare);
-    color: var(--color-ink);
-    font-family: var(--font-mono);
-    font-size: var(--text-meta);
-    line-height: 1;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(0.6rem);
-    transition: opacity var(--t) var(--ease-swift),
-      transform var(--t) var(--ease-cine),
-      visibility var(--t) step-end;
-  }
-
-  .to-top[data-shown="true"] {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-    transition: opacity var(--t) var(--ease-swift),
-      transform var(--t) var(--ease-cine),
-      visibility var(--t) step-start;
-  }
-
-  /* The fill rises from the bottom edge, exactly as it does on a button. */
-  .to-top::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    background-color: var(--color-paper);
-    transform: scaleY(0);
-    transform-origin: bottom center;
-    transition: transform var(--t) var(--ease-cine);
-  }
-
-  .to-top:hover::before,
-  .to-top:focus-visible::before {
-    transform: scaleY(1);
-  }
-
-  /* --- The monogram, at the left end ---
-         Set in the titling face rather than in the meta mono, because it is a
-         mark and not a label. Kept just under the height of the light switch
-         so it does not change the height of the bar.
-
-         Lifted above the small-screen menu overlay, which is a positioned
-         child of this same bar and would otherwise paint over it. */
   .wordmark {
     position: relative;
     z-index: 2;
     display: inline-flex;
-    /* Its grid column is a whole third of the header. Without this the link
-       box stretches across all of it and the name lights up from a hover
-       nowhere near the name. */
-    justify-self: start;
     align-items: center;
-    /* The one thing on the site not set in Geist. */
-    font-family: var(--font-newsreader), Georgia, "Times New Roman", serif;
-    font-size: 1.55rem;
-    line-height: 1;
-    letter-spacing: -0.04em;
+    gap: 0.75rem;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    letter-spacing: -0.01em;
     color: var(--color-paper);
-    /* Two capitals and nothing else, so the whole descender space is empty and
-       the monogram would otherwise sit a pixel and a half above the switch it
-       shares the bar with. */
-    transform: translateY(var(--trim-display));
-    transition: color var(--t-fast) var(--ease-swift);
   }
 
-  .wordmark:hover {
-    color: var(--color-flare);
+  .wordmark-badge {
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 0.5rem;
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    transition: background-color var(--t-fast) var(--ease-swift);
   }
 
-  /* --- Targets a finger can hit ---
-         The three controls in the bar are drawn small, and stay drawn small:
-         what grows is an invisible box around each, 44 px on its short side,
-         the size a fingertip covers. They are far enough apart that no two
-         boxes overlap. */
-  .wordmark::before,
-  .menu-button::after,
-  .lightswitch::before {
-    content: "";
-    position: absolute;
+  .wordmark:hover .wordmark-badge {
+    background-color: var(--color-flare);
+    color: var(--color-flare-ink);
   }
 
-  .wordmark::before {
-    inset: -0.6rem -0.5rem;
-  }
-
-  .menu-button::after {
-    inset: -0.9rem -0.6rem;
-  }
-
-  .lightswitch::before {
-    inset: -0.6rem;
-  }
-
-  /* Rows of small text links, in the footer: on a touch screen each link
-     reaches 0.75rem above and below its line, and the rows open to match
-     (`pointer-coarse:gap-y-6`), so every target is a finger tall and none
-     overlaps the next. */
-  @media (pointer: coarse) {
-    .tap-area::after {
-      content: "";
-      position: absolute;
-      inset: -0.75rem -0.25rem;
-    }
-  }
-
-  /* ---------------------------------------------------------------------
-     Navigation: bare type at the right end, no frame.
-
-     Pointing at a word turns it to the accent, and the page you are on keeps
-     that colour, so nothing has to be drawn under it to mark it.
-     --------------------------------------------------------------------- */
   .navrow {
     display: flex;
     align-items: center;
-    gap: 1.9rem;
+    gap: 0.25rem;
   }
 
-  /* Flex rather than block, so the link box is the line box and nothing
-     else: as a block it carried a strut at the inherited body leading, and
-     centring the link in the bar left the word riding high. */
   .navlink {
     display: flex;
     align-items: center;
-    color: var(--color-paper-3);
-    transition: color var(--t-fast) var(--ease-swift);
-  }
-
-  .navlink:hover,
-  .navlink:focus-visible,
-  .navlink.is-active {
-    color: var(--color-flare);
+    color: var(--color-paper-2);
+    transition: color var(--t-fast) var(--ease-swift),
+      background-color var(--t-fast) var(--ease-swift);
   }
 
   .navrow .navlink {
-    font-family: var(--font-mono);
-    font-size: var(--text-meta);
-    line-height: 1.35;
-    letter-spacing: var(--tracking-meta);
-    /* The words are capitals-and-lowercase against a circle, so the same
-       correction the monogram needs applies here too. */
-    transform: translateY(var(--trim-mono));
+    padding: 0.45rem 0.8rem;
+    border-radius: var(--radius-pill);
+    font-size: 0.9375rem;
+    font-weight: 500;
+  }
+
+  .navrow .navlink:hover,
+  .navrow .navlink:focus-visible {
+    color: var(--color-paper);
+    background-color: var(--color-ink-3);
+  }
+
+  .navrow .navlink.is-active {
+    color: var(--color-paper);
+    background-color: var(--color-ink-3);
   }
 
   /* --- The word that opens the small-screen menu --- */
   .menu-button {
-    font-family: var(--font-mono);
+    display: inline-flex;
+    align-items: center;
+    height: 2.5rem;
+    padding-inline: 0.9rem;
+    border: 1px solid var(--color-line-strong);
+    border-radius: var(--radius-control);
+    background-color: var(--color-card);
     font-size: var(--text-meta);
-    line-height: 1.15;
-    letter-spacing: var(--tracking-meta);
-    color: var(--color-paper-2);
-    transition: color var(--t-fast) var(--ease-swift);
+    font-weight: 500;
+    color: var(--color-paper);
+    transition: background-color var(--t-fast) var(--ease-swift);
   }
 
-  .menu-button:hover {
-    color: var(--color-paper);
+  .menu-button:hover,
+  .menu-button:focus-visible {
+    background-color: var(--color-ink-3);
+  }
+
+  /* On a touch screen the header's controls reach a finger's height. */
+  @media (pointer: coarse) {
+    .menu-button {
+      height: 2.75rem;
+    }
+
+    .site-header .btn-sm {
+      min-height: 2.75rem;
+    }
+
+    .site-header .btn-icon.btn-sm {
+      width: 2.75rem;
+    }
   }
 
   .menu-word[data-menu-word="open"],
@@ -668,17 +532,14 @@
     display: inline;
   }
 
-  .menu-panel .navlink {
-    font-family: var(--font-display);
-    font-size: var(--text-h2);
-    line-height: 1.1;
-    letter-spacing: var(--tracking-display);
-  }
-
-  /* --- Mobile menu: a full-screen overlay driven by <details>, no JS --- */
   .disclosure > summary {
     position: relative;
     z-index: 2;
+    list-style: none;
+  }
+
+  .disclosure > summary::-webkit-details-marker {
+    display: none;
   }
 
   .menu-panel {
@@ -686,437 +547,207 @@
   }
 
   .disclosure[open] .menu-panel {
-    display: grid;
     position: fixed;
     inset: 0;
     z-index: 0;
-    align-content: center;
-    /* Same inline padding as the header bar, so the menu's left edge lands on
-       the same line as the name above it. */
-    padding: 7rem 1.5rem 3rem;
-    background-color: var(--color-ink);
-    /* Never cut a word off: when the words are taller than the window they
-       scroll, and `safe` keeps the first one from riding up under the bar. */
-    overflow-y: auto;
+    display: grid;
     align-content: safe center;
+    gap: var(--spacing-block);
+    padding: 6rem 1.25rem 3rem;
+    overflow-y: auto;
+    background-color: var(--color-ink);
   }
 
-  /* A phone held sideways leaves under 30rem of height: the four words come
-     down to the section-heading size, which fits them between the bar and
-     the bottom edge. */
+  .menu-panel .navlink {
+    font-size: var(--text-h2);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: var(--tracking-display);
+    color: var(--color-paper-3);
+  }
+
+  .menu-panel .navlink.is-active,
+  .menu-panel .navlink:hover {
+    color: var(--color-paper);
+  }
+
   @media (max-height: 30rem) {
     .menu-panel .navlink {
       font-size: var(--text-h3);
     }
-
-    .disclosure[open] .menu-panel {
-      padding-block: 5.5rem 1.5rem;
-    }
   }
 
   .disclosure[open] .menu-panel > * {
-    animation: menu-in 620ms var(--ease-cine) both;
+    animation: rise 520ms var(--ease-out) both;
   }
 
-  @keyframes menu-in {
-    from {
-      opacity: 0;
-      transform: translateY(1.5rem);
-    }
+  .disclosure[open] .menu-panel > * + * {
+    animation-delay: 80ms;
   }
 
-  /* Lock the page behind the open overlay without needing a script. */
   body:has(.disclosure[open]) {
     overflow: clip;
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: 64rem) {
     body:has(.disclosure[open]) {
       overflow: visible;
     }
   }
 
-  /* The open overlay covers the whole window, so what is under it leaves the
-     focus order as well as the screen: Tab goes round the monogram, the menu
-     and the switch instead of walking on through links nobody can see.
-     Without a script too, and with nothing visible changing, since the
-     overlay already hides every pixel of what this takes away. */
   @media (width < 64rem) {
-    body:has(.disclosure[open]) :is(main, footer, .to-top, .skip-link) {
+    body:has(.disclosure[open]) :is(main, footer, .skip-link) {
       visibility: hidden;
     }
   }
 
-  /* --- The shared structure, named once ---
-         The same width for every section, header and footer: the page, with
-         its gutter inside it. */
-  .page-width {
-    margin-inline: auto;
-    max-width: var(--container-page);
-    padding-inline: 1.5rem;
+  /* --- Icons: drawn, one stroke, the size of the text they sit in --- */
+  .icon {
+    width: 1.05em;
+    height: 1.05em;
+    flex: none;
   }
 
-  @media (min-width: 64rem) {
-    .page-width {
-      padding-inline: 2.5rem;
-    }
-  }
-
-  /* A section's heading, and the heading of a block inside a section: the
-     headline and title roles of DESIGN.md. */
-  .section-title,
-  .part-title {
-    font-family: var(--font-display);
-    line-height: var(--leading-tight);
-    letter-spacing: var(--tracking-tight);
-    color: var(--color-paper);
-  }
-
-  .section-title {
-    font-size: var(--text-h3);
-  }
-
-  .part-title {
-    font-size: var(--text-lede);
-    font-weight: 500;
-  }
-
-  /* The label role: labels, metadata, the text of buttons and small links.
-     Its colour is left to the element. */
-  .type-label {
-    font-family: var(--font-mono);
-    font-size: var(--text-meta);
-    line-height: var(--text-meta--line-height);
-    letter-spacing: var(--tracking-meta);
-  }
-
-  /* --- Eyebrow / section meta --- */
-  /* A label names what follows it, in the accent, so the eye finds the
-     labels first and reads the values under them. */
-  .eyebrow {
-    font-family: var(--font-mono);
-    font-size: var(--text-meta);
-    letter-spacing: var(--tracking-meta);
-    color: var(--color-flare);
-  }
-
-  /* What a label names: a fact, read before the prose around it, so it
-     carries a little more weight than the text. */
-  .fact-value {
-    font-weight: 500;
-    color: var(--color-paper);
-  }
-
-  /* The title of one item in a list or a grid (a strength, a language, a
-     station of a diagram): the text size, set apart by weight alone. */
-  .item-title {
-    font-size: var(--text-body);
-    line-height: 1.4;
-    font-weight: 600;
-    color: var(--color-paper);
-  }
-
-  strong {
-    font-weight: 600;
-    color: var(--color-paper);
-  }
-
-  /* --- Buttons. They do not move, and they do not chase the pointer: on
-         hover or focus a fill rises from the bottom edge, and the label stays
-         where it is read.
-
-         A button is a solid tone the page is not, rather than a transparent
-         box with a line drawn round it. That is a stronger affordance in both
-         themes and it removes the only remaining stroke on a control. --- */
+  /* --- Buttons --- */
   .btn {
     position: relative;
     display: inline-flex;
     align-items: center;
-    gap: 0.75rem;
-    overflow: hidden;
-    isolation: isolate;
-    /* A long email address must never push the page wider than the viewport. */
+    justify-content: center;
+    gap: 0.55rem;
+    min-height: 2.75rem;
     max-width: 100%;
+    padding: 0.55rem 1.15rem;
     overflow-wrap: anywhere;
-    padding: 1.05rem 1.8rem;
+    border: 1px solid var(--color-line-strong);
     border-radius: var(--radius-control);
-    font-family: var(--font-mono);
-    font-size: var(--text-meta);
-    line-height: 1.35;
-    letter-spacing: var(--tracking-meta);
+    background-color: var(--color-card);
     color: var(--color-paper);
-    background-color: var(--color-ink-3);
-    transition: color var(--t) var(--ease-swift);
-  }
-
-  /* Fill sweeps up from the bottom edge. */
-  .btn::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    background-color: var(--color-flare);
-    transform: scaleY(0);
-    transform-origin: bottom center;
-    transition: transform var(--t) var(--ease-cine);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: -0.005em;
+    transition: background-color var(--t-fast) var(--ease-swift),
+      border-color var(--t-fast) var(--ease-swift),
+      color var(--t-fast) var(--ease-swift),
+      transform var(--t-fast) var(--ease-swift);
   }
 
   .btn:hover,
   .btn:focus-visible {
-    color: var(--color-ink);
+    background-color: var(--color-ink-3);
+    border-color: var(--color-line-strong);
   }
 
-  .btn:hover::before,
-  .btn:focus-visible::before {
-    transform: scaleY(1);
+  .btn:active {
+    transform: translateY(1px);
   }
 
+  .btn svg {
+    transition: transform var(--t) var(--ease-out);
+  }
+
+  .btn:hover svg.icon-go,
+  .btn:focus-visible svg.icon-go {
+    transform: translateX(3px);
+  }
+
+  .btn:hover svg.icon-out,
+  .btn:focus-visible svg.icon-out {
+    transform: translate(2px, -2px);
+  }
+
+  .btn:hover svg.icon-down,
+  .btn:focus-visible svg.icon-down {
+    transform: translateY(2px);
+  }
+
+  /* The primary action: the text colour as a ground. */
   .btn-solid {
-    background-color: var(--color-flare);
-    color: var(--color-ink);
-  }
-
-  .btn-solid::before {
+    border-color: var(--color-paper);
     background-color: var(--color-paper);
+    color: var(--color-ink);
   }
 
   .btn-solid:hover,
   .btn-solid:focus-visible {
-    color: var(--color-ink);
+    border-color: var(--color-flare);
+    background-color: var(--color-flare);
+    color: var(--color-flare-ink);
   }
 
-  /* The label already says « Envoi… » while a submit is in flight, so the
-     state is spelled out rather than dimmed into a lower contrast. */
+  .btn-sm {
+    min-height: 2.25rem;
+    padding: 0.35rem 0.85rem;
+    font-size: var(--text-meta);
+  }
+
+  /* A button that is only an icon: square, named for assistive technology. */
+  .btn-icon {
+    width: 2.75rem;
+    padding: 0;
+  }
+
+  .btn-icon.btn-sm {
+    width: 2.25rem;
+  }
+
   .btn[disabled] {
     cursor: not-allowed;
   }
 
-  /* --- Portrait: grayscale, never a raw warm photo on ink ---
-     A warm photograph would pull the whole composition off neutral, and the
-     neutrals here are meant to stay cool. It does not react to the pointer:
-     it is not a control. */
+  /* --- Technology names: a line of plain words, no chip --- */
+  .tag {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--color-paper-3);
+  }
+
+  /* A technology a published project uses: set in the full text colour. */
+  .tag-proven {
+    color: var(--color-paper);
+  }
+
+  /* --- Portrait --- */
   .portrait {
     position: relative;
     overflow: hidden;
-    border-radius: var(--radius-shot);
-    background-color: var(--color-ink-2);
+    border-radius: var(--radius-card);
+    background-color: var(--color-ink-3);
+    box-shadow: var(--shadow-lift);
   }
 
-  .portrait img {
-    filter: grayscale(1) contrast(1.12) brightness(0.92);
-  }
-
-  :root:not(.dark) .portrait img {
-    filter: grayscale(1) contrast(1.04) brightness(1.02);
-  }
-
-  /* --- A capture of a project ---
-     Same container as the portrait, without the grayscale: that filter keeps
-     one photograph from pulling the composition off neutral, and a screenshot
-     of an interface has to report its own colours. No border, no shadow and
-     no window around it: the block of pixels is its own edge. A title bar
-     with three dots used to sit above each screen; it was a mockup's costume
-     and said nothing the capture does not. The ground behind it only shows
-     through while the image loads. Its corners are rounded; a capture cut to
-     a hard rectangle read as a crop. It does not react to the pointer: it is
-     not a control, and nothing happens when it is clicked. */
+  /* --- A capture of a project, shown as it is --- */
   .shot {
     position: relative;
+    display: block;
     overflow: hidden;
     border-radius: var(--radius-shot);
-    background-color: var(--color-ink-2);
+    background-color: var(--color-ink-3);
+    box-shadow: 0 0 0 1px var(--color-line);
   }
 
-  /* Artwork and cutouts have transparent surroundings: no ground behind them. */
   .shot.shot-bare {
     background-color: transparent;
+    box-shadow: none;
   }
 
-  /* The scenery behind a project page's title. It fades out under the header
-     bar and into the band that follows; only the scenery is tinted, the text
-     stays on its own layer. */
-  .project-atmosphere {
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    overflow: hidden;
-    pointer-events: none;
-    opacity: 0.7;
-    mask-image: linear-gradient(
-      to bottom,
-      transparent,
-      black 22%,
-      black 70%,
-      transparent
-    );
-  }
-
-  /* Not by day. On a near-white ground the blurred scenery could only be
-     laid in at a fraction of its strength, and there it read as a grey smudge
-     behind the title rather than as a room. The header keeps its artwork or
-     its capture; the page's own ground does the rest. */
-  :root:not(.dark) .project-atmosphere {
-    display: none;
-  }
-
-  /* ---------------------------------------------------------------------
-     The opening screen.
-
-     Two columns: the name and what follows it, and the photograph beside
-     them, centred on the whole block. The block itself sits in the middle of
-     the window, so the first screen is balanced whatever its height.
-     --------------------------------------------------------------------- */
-  /* The photograph stands a gutter away from the text it goes with, not at
-     the far edge of the page: pinned to the right, it left a wide hole in
-     the middle of the first screen and read as a second, separate block. */
-  .hero-grid {
-    display: grid;
-    grid-template-columns: minmax(0, auto) auto;
-    justify-content: start;
-    align-content: center;
-    column-gap: var(--spacing-gutter);
-    row-gap: var(--spacing-title);
-  }
-
-  .hero-name,
-  .hero-body {
-    grid-column: 1;
-  }
-
-  .hero-portrait {
-    grid-column: 2;
-    grid-row: 1 / span 2;
-    align-self: center;
-  }
-
-  /* Below the small breakpoint the second column is wider than the screen can
-     spare, so the photograph goes under the name. */
-  @media (max-width: 639px) {
-    .hero-grid {
-      grid-template-columns: minmax(0, 1fr);
-    }
-
-    .hero-portrait {
-      grid-column: 1;
-      grid-row: auto;
-    }
-  }
-
-  /* ---------------------------------------------------------------------
-     Sectioning, without a single line anywhere.
-
-     Three devices, in order of how much work they do.
-
-     1. Ground. Every other section sits in a band of its own tone, and the
-        tone changes cleanly at the edge. That edge is where one field stops
-        and the next starts, which is a different thing from a rule drawn
-        between them: it has no colour of its own, no thickness, and it holds
-        at any zoom. A softened edge was tried first and rejected, because a
-        boundary that fades reads as blurred rather than as deliberate.
-     2. Air. There is far more room between two sections than any rule could
-        occupy, and much less inside one. Proximity does the grouping, which is
-        what a hairline was standing in for.
-     3. A heading. Each section opens with its name, set in the titling face
-        at the size of a subheading: enough to find while scrolling past,
-        never more than the content under it.
-     --------------------------------------------------------------------- */
-
-  .section-body {
-    padding-block: var(--spacing-section);
-  }
-
-  /* The footer sits on the page's own ground. A last section on that same
-     ground leaves the gap to the footer, so the two are one section apart and
-     not two. */
-  main > :last-child:not(.band) > .section-body {
-    padding-bottom: 0;
-  }
-
-  /* A page header clears the fixed bar, then opens with the same ground as
-     any section. Centred, it takes as much below the title as above it,
-     counted from the top of the page. */
-  .page-head {
-    padding-top: calc(var(--spacing-header) + var(--spacing-section));
-    padding-bottom: var(--spacing-section);
-  }
-
-  .page-head-centered {
-    padding-bottom: calc(var(--spacing-header) + var(--spacing-section));
-  }
-
-  .band {
-    position: relative;
-    isolation: isolate;
-  }
-
-  /* Below anything a section lays behind its own content at -1. */
-  .band::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: -2;
-    background-color: var(--color-ink-2);
-  }
-
-  /* --- Status dot: the only round thing on the site --- */
-  .dot {
-    display: inline-block;
-    width: 0.5rem;
-    height: 0.5rem;
-    border-radius: var(--radius-pill);
-    flex: none;
-  }
-
-  .dot-live {
-    background-color: var(--color-live);
-  }
-
-  /* Filled, like the live one. A hollow ring is a one-pixel circle, and the
-     word beside it already says which state this is, so the dot only has to
-     carry the difference in tone. */
-  .dot-archived {
-    background-color: var(--color-paper-3);
-  }
-
-  /* A solid gold block. Round is reserved for a project's status, so anything
-     that is not a status takes the square instead: the availability marker,
-     and the item marks in a project's highlights. */
-  .mark-flare {
-    display: inline-block;
-    width: 0.55rem;
-    height: 0.55rem;
-    flex: none;
-    border-radius: var(--radius-mark);
-    background-color: var(--color-flare);
-  }
-
-  /* Optically centres a dot against a line of body text. */
-  .dot-baseline {
-    transform: translateY(-0.15em);
-  }
-
-  /* Grows the row's primary link to cover the whole row, so the target is the
-     row itself, while the external links stay separately clickable above it. */
-  .stretch-link::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-  }
-
-  /* A card on the home page, the whole of it a link to the project: a
-     ground of its own says where it starts and ends, and the ground itself
-     answers the pointer. The focus ring goes round the card rather than the
-     title, since the card is what the link covers. */
+  /* --- Cards --- */
   .card {
     position: relative;
-    border-radius: var(--radius-shot);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-card);
     background-color: var(--color-card);
-    transition: background-color var(--t-fast) var(--ease-swift);
+    transition: border-color var(--t) var(--ease-swift),
+      box-shadow var(--t) var(--ease-swift),
+      transform var(--t) var(--ease-out);
   }
 
-  .card:has(.stretch-link:hover) {
-    background-color: var(--color-card-hover);
+  .card-link:hover,
+  .card-link:has(.stretch-link:focus-visible) {
+    border-color: var(--color-line-strong);
+    box-shadow: var(--shadow-lift);
+    transform: translateY(-2px);
   }
 
   .card .stretch-link:focus-visible {
@@ -1128,131 +759,202 @@
     outline-offset: 3px;
   }
 
-  .card:has(.stretch-link:hover) .card-title,
+  .card-title {
+    transition: color var(--t-fast) var(--ease-swift);
+  }
+
+  .card-link:hover .card-title,
   .card:has(.stretch-link:focus-visible) .card-title {
     color: var(--color-flare);
+  }
+
+  .card-link .shot img {
+    transition: transform var(--t-slow) var(--ease-out);
+  }
+
+  .card-link:hover .shot img {
+    transform: scale(1.02);
+  }
+
+  .stretch-link::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  /* The featured project: its capture sits on the band's ground, which runs
+     to the card's edge. No glow: the interface brings its own colour. */
+  .feature-stage {
+    position: relative;
+    overflow: hidden;
+    border-left: 1px solid var(--color-line);
+    background-color: var(--color-ink-3);
+  }
+
+  @media (width < 64rem) {
+    .feature-stage {
+      border-left: 0;
+      border-top: 1px solid var(--color-line);
+    }
+  }
+
+  .feature-stage .shot {
+    box-shadow: 0 0 0 1px var(--color-line), var(--shadow-lift);
+  }
+
+  /* --- A panel on the other theme's ground: the closing call --- */
+  .on-night {
+    --color-ink: #09090b;
+    --color-ink-2: #111114;
+    --color-ink-3: #1d1d22;
+    --color-card: #17171b;
+    --color-line: #2a2a31;
+    --color-line-strong: #3a3a43;
+    --color-paper: #f4f4f5;
+    --color-paper-2: #c4c4cc;
+    --color-paper-3: #9a9aa4;
+    --color-flare: #86a2ff;
+    --color-flare-ink: #09090b;
+    --color-live: #4ade80;
+    color-scheme: dark;
+    background-color: var(--color-ink);
+    color: var(--color-paper);
+  }
+
+  :root.dark .on-night {
+    --color-ink: #121216;
+    border: 1px solid var(--color-line);
+  }
+
+  /* --- Lists that check off what they claim --- */
+  .check-list > li {
+    display: grid;
+    grid-template-columns: 1.25rem minmax(0, 1fr);
+    column-gap: 0.85rem;
+    align-items: start;
+  }
+
+  .check-list .check-mark {
+    display: grid;
+    place-items: center;
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-top: 0.2em;
+    color: var(--color-flare);
+  }
+
+  .check-mark .icon {
+    width: 1.05rem;
+    height: 1.05rem;
+    stroke-width: 2.25;
+  }
+
+  /* --- Timeline --- */
+  .timeline > li {
+    position: relative;
+    padding-left: 1.75rem;
+  }
+
+  .timeline > li::before {
+    content: "";
+    position: absolute;
+    left: 0.2rem;
+    top: 0.55rem;
+    width: 0.6rem;
+    height: 0.6rem;
+    border: 2px solid var(--color-flare);
+    border-radius: var(--radius-pill);
+    background-color: var(--color-ink);
+  }
+
+  .timeline > li:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    left: calc(0.5rem - 0.5px);
+    top: 1.4rem;
+    bottom: calc(var(--spacing-block) * -1 + 0.4rem);
+    width: 1px;
+    background-color: var(--color-line-strong);
+  }
+
+  /* --- The opening entrance: the one authored moment --- */
+  .rise {
+    animation: var(--animate-rise);
+    animation-delay: calc(var(--i, 0) * 70ms);
   }
 
   /* --- Skip link --- */
   .skip-link {
     position: fixed;
-    top: 0;
-    left: 0;
+    top: 0.75rem;
+    left: 0.75rem;
     z-index: 200;
-    transform: translateY(-120%);
-    background-color: var(--color-flare);
+    transform: translateY(-160%);
+    padding: 0.6rem 1rem;
+    border-radius: var(--radius-control);
+    background-color: var(--color-paper);
     color: var(--color-ink);
-    border-radius: 0 0 var(--radius-control) 0;
-    padding: 0.75rem 1.25rem;
-    font-family: var(--font-mono);
     font-size: var(--text-meta);
-    letter-spacing: var(--tracking-meta);
-    transition: transform var(--t-fast) var(--ease-cine);
+    font-weight: 500;
+    transition: transform var(--t-fast) var(--ease-out);
   }
 
   .skip-link:focus {
     transform: translateY(0);
   }
 
-  /* --- Disclosure (mobile nav works with scripting off) --- */
-  .disclosure > summary {
-    list-style: none;
-    cursor: pointer;
-  }
-
-  .disclosure > summary::-webkit-details-marker {
-    display: none;
-  }
-
-  /* The link under a project's main technologies says what it will do:
-     show the others while it is closed, hide them once it is open. */
   .stack-more:not([open]) .stack-more-hide,
   .stack-more[open] .stack-more-show {
     display: none;
   }
 
-  /* --- The light switch ---
-     A disc with a bite taken out of it, the bite being the page's own ground:
-     it slides clear for daylight and across for night, so no second colour
-     enters the palette. Which position is drawn comes from the `dark` class
-     the blocking <head> script writes before first paint, so the control is
-     right on frame one rather than one React render later. */
+  .stack-more > summary {
+    list-style: none;
+  }
+
+  .stack-more > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  /* --- The theme switch: a moon by day, a sun by night --- */
   .lightswitch {
     position: relative;
     z-index: 2;
-    display: inline-grid;
-    place-items: center;
-    width: 1.6rem;
-    height: 1.6rem;
   }
 
-  .lightswitch-disc {
-    position: relative;
-    width: 0.85rem;
-    height: 0.85rem;
-    overflow: hidden;
-    border-radius: var(--radius-pill);
-    background-color: var(--color-flare);
-    transition: transform var(--t) var(--ease-cine);
+
+  /* --- Footer --- */
+  .site-footer {
+    border-top: 1px solid var(--color-line);
   }
 
-  /* The bite is the page's own background colour, so night is a crescent and
-     day is a full disc, without a second colour entering the palette. */
-  .lightswitch-disc::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: var(--radius-pill);
-    background-color: var(--color-ink);
-    transform: translateX(112%);
-    transition: transform var(--t-slow) var(--ease-cine);
+  main:has(> :last-child.band) ~ .site-footer {
+    border-top: 0;
   }
 
-  :root.dark .lightswitch-disc::after {
-    transform: translateX(34%);
+  /* On a touch screen each small link reaches a finger's height. */
+  @media (pointer: coarse) {
+    .tap-area {
+      position: relative;
+    }
+
+    .tap-area::after {
+      content: "";
+      position: absolute;
+      inset: -0.75rem -0.25rem;
+    }
   }
 
-  .lightswitch:hover .lightswitch-disc {
-    transform: scale(1.16);
-  }
-
-  :root:not(.dark) .theme-say[data-when="dark"],
-  :root.dark .theme-say[data-when="light"] {
-    display: none;
-  }
-
-  /* The footer is one line of links. It stands a section away from the page
-     above it, and its last line clears the back-to-top button fixed in the
-     corner of the window. */
-  .site-footer-bar {
-    padding-top: var(--spacing-section);
-    padding-bottom: calc(var(--inset) + 2.75rem + var(--spacing-title));
-  }
-
-  /* A hairline between the page and its footer when both are on the page's
-     own ground, a section from each. */
-  .footer-rule {
-    padding-top: var(--spacing-section);
-  }
-
-  main:has(> .band:last-child) ~ footer .footer-rule {
-    display: none;
-  }
-
-  /* --- Separator ---
-     A hairline between two parts of a page, asked for by Razigue to mark
-     where one thing ends and the next begins. It separates; it never frames
-     or underlines anything. */
+  /* --- Separators --- */
   .rule {
     height: 0;
     border: 0;
-    border-top: 1px solid var(--color-rule);
+    border-top: 1px solid var(--color-line);
   }
 
-  /* A list whose items are each separated from the one before by the same
-     hairline, a block of space below it (a title step with .ruled-tight). */
   .ruled > * + * {
-    border-top: 1px solid var(--color-rule);
+    border-top: 1px solid var(--color-line);
     padding-top: var(--ruled-space, var(--spacing-block));
   }
 
@@ -1260,18 +962,13 @@
     --ruled-space: var(--spacing-title);
   }
 
-  /* A grid whose items each open on a hairline, the first row included, so
-     the items of a row start on one line. */
   .ruled-each > * {
-    border-top: 1px solid var(--color-rule);
+    border-top: 1px solid var(--color-line);
     padding-top: var(--spacing-title);
   }
 
   /* --- Running prose --- */
-  /* No hyphenation: a word cut at the end of a line reads as a typo to a
-     recruiter skimming the page. The measure is wide enough to rag well. */
   .prose-fr {
-    text-wrap: pretty;
     color: var(--color-paper-2);
   }
 
@@ -1279,169 +976,58 @@
     margin-top: var(--spacing-title);
   }
 
-  /* No drop cap. A floated `::first-letter` three and a half times the body
-     size does not fit inside the line box, and the line box is exactly what a
-     masked line reveal clips to, so the cap was being cut in half. */
-
-  /* --- Index rows on /projets ---
-     One set of column tracks for the whole index, not one per row. Give each
-     row its own grid and a track sized to its contents is sized to *that row's*
-     contents: a project carrying two links pushes its neighbours left, one
-     carrying none lets them drift right, and the year lands somewhere different
-     on every line. Subgrid resolves the tracks once, against the widest row. */
-  .index {
-    display: grid;
-  }
-
-  .index-row {
-    position: relative;
-    isolation: isolate;
-    display: grid;
-    gap: 1rem;
-    padding-block: 2rem;
-  }
-
-  @media (width >= 64rem) {
-    .index {
-      grid-template-columns:
-        [row-start] minmax(0, 1.6fr) minmax(0, 1fr) max-content
-        [row-end];
-      column-gap: 2rem;
-    }
-
-    .index-row {
-      grid-column: row-start / row-end;
-      grid-template-columns: subgrid;
-      align-items: baseline;
-      padding-block: 2.25rem;
-    }
-  }
-
-  /* The grounds run the full width of the window while the text stays inside
-     the page measure, so they read as bands of the page rather than as cards.
-     Both are painted by pseudo-elements reaching past the row: a negative
-     z-index child paints above its own element's background and below its
-     text, which is what lets the two stack in the right order. */
-  .index-row::before,
-  .index-row::after {
-    content: "";
-    position: absolute;
-    inset-block: 0;
-    inset-inline: calc(50% - 50vw);
-    pointer-events: none;
-  }
-
-  /* Every other row lifted, which is how a well-set table separates rows when
-     it has no rules in it. */
-  .index-row::before {
-    z-index: -2;
-  }
-
-  .index-row:nth-child(odd)::before {
-    background-color: var(--color-ink-2);
-  }
-
-  /* And one tone further under the pointer. */
-  .index-row::after {
-    z-index: -1;
-    background-color: var(--color-ink-3);
-    transform: scaleY(0);
-    transform-origin: bottom center;
-    transition: transform var(--t) var(--ease-cine);
-  }
-
-  .index-row:hover::after,
-  .index-row:focus-within::after {
-    transform: scaleY(1);
-  }
-
-  /* The text does not move under the pointer: the title takes the accent and
-     the arrow appears, and the rest stays where it is being read. */
-  .index-row .index-title {
-    transition: color var(--t-fast) var(--ease-swift);
-  }
-
-  /* The arrow only exists while the row is being pointed at. */
-  .index-arrow {
-    display: inline-block;
-    opacity: 0;
-    transform: translateX(-0.6rem);
-    color: var(--color-flare);
-    transition: opacity var(--t) var(--ease-cine),
-      transform var(--t) var(--ease-cine);
-  }
-
-  @media (hover: hover) {
-    .index-row:hover .index-title,
-    .index-row:focus-within .index-title {
-      color: var(--color-flare);
-    }
-
-    .index-row:hover .index-arrow,
-    .index-row:focus-within .index-arrow {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
-  /* --- Contact fields ---
-     A field is a filled trough, not an outlined box. The tone is the same one
-     a button takes, so « something you type into » and « something you press »
-     read as the same family of object without either being drawn round. --- */
-  /* By day the button tone alone sat at 1.16:1 against the band the form is
-     on, and a field was hard to find on a laptop screen. A seventh of the
-     text colour mixed in takes it to about 1.5:1 in both themes, with the
-     typed text still above 9:1 on it. Without a line there is no reaching
-     3:1 and keeping dark text readable on a light field; the label above
-     each field is what names it. */
+  /* --- Contact fields --- */
   .field {
-    --field: color-mix(in srgb, var(--color-paper) 14%, var(--color-ink-3));
     width: 100%;
+    border: 1px solid var(--color-line-strong);
     border-radius: var(--radius-control);
-    background-color: var(--field);
-    padding: 1rem 1.1rem;
+    background-color: var(--color-card);
+    padding: 0.8rem 0.95rem;
     color: var(--color-paper);
     font-family: var(--font-sans);
     font-size: var(--text-body);
-    transition: background-color var(--t-fast) var(--ease-swift);
+    transition: border-color var(--t-fast) var(--ease-swift),
+      box-shadow var(--t-fast) var(--ease-swift);
+  }
+
+  .field:hover {
+    border-color: var(--color-paper-3);
+  }
+
+  .field:focus-visible {
+    outline: none;
+    border-color: var(--color-flare);
+    box-shadow: 0 0 0 4px var(--flare-soft);
   }
 
   .field::placeholder {
     color: var(--color-paper-3);
   }
 
-  /* A field that failed validation is filled with a wash of the accent. The
-     message under it is what actually says what is wrong; this only makes the
-     field findable in a long form, which is why colour is never on its own. */
   .field[aria-invalid="true"] {
-    background-color: color-mix(in srgb, var(--color-flare) 22%, var(--field));
+    border-color: var(--color-error);
+  }
+
+  .field[aria-invalid="true"]:focus-visible {
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-error) 18%, transparent);
   }
 }
 
+/* Unlayered, so it outranks the display utilities on the same elements. */
+:root:not(.dark) .theme-say[data-when="dark"],
+:root.dark .theme-say[data-when="light"] {
+  display: none;
+}
+
 /* ---------------------------------------------------------------------------
-   Forced colours: a Windows contrast theme replaces every colour here with
-   its own, and a control drawn as a filled tone rather than an outline, a
-   field, a button, the light switch, would be left with no edge at all. Only
-   then does anything get a border. It never appears in either of the site's
-   own themes, so the rule that nothing here is a line still holds on every
-   screen that shows the design.
+   Forced colours: give the controls an edge the system can draw.
    --------------------------------------------------------------------------- */
 
 @media (forced-colors: active) {
   .field,
   .btn,
-  button:not(.lightswitch) {
+  .card {
     border: 1px solid CanvasText;
-  }
-
-  /* The switch keeps its crescent, drawn in the system's own two colours. */
-  .lightswitch-disc {
-    forced-color-adjust: none;
-    background-color: ButtonText;
-  }
-
-  .lightswitch-disc::after {
-    background-color: Canvas;
   }
 }
 
@@ -1452,13 +1038,16 @@
 @media print {
   :root,
   :root.dark,
-  :root:not(.dark) {
+  :root:not(.dark),
+  .on-night {
     color-scheme: light;
     --color-ink: #ffffff;
     --color-ink-2: #ffffff;
     --color-ink-3: #ffffff;
     --color-card: #ffffff;
     --color-card-hover: #ffffff;
+    --color-line: #cccccc;
+    --color-line-strong: #999999;
     --color-paper: #000000;
     --color-paper-2: #222222;
     --color-paper-3: #444444;
@@ -1469,6 +1058,10 @@
   body {
     font-size: 10.5pt;
     line-height: 1.45;
+  }
+
+  .site-header {
+    position: static;
   }
 
   [data-print="hide"],
@@ -1483,8 +1076,14 @@
   [data-print-url]::after {
     content: " (" attr(href) ")";
     font-size: 9pt;
-    color: #444444;
+    color: var(--color-paper-3);
     word-break: break-all;
+  }
+
+  .card,
+  .portrait,
+  .shot {
+    box-shadow: none;
   }
 
   h1,

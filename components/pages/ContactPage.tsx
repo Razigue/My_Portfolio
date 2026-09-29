@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { CopyButton } from "@/components/ui/CopyButton";
-import { Eyebrow, ExternalLink } from "@/components/ui/primitives";
+import { Icon } from "@/components/ui/Icon";
+import { ExternalLink } from "@/components/ui/primitives";
 import { getContent } from "@/lib/content";
 import { alternates, pathFor, type Locale } from "@/lib/i18n";
 
@@ -22,6 +23,11 @@ export function contactMetadata(locale: Locale): Metadata {
   };
 }
 
+/**
+ * The form on a card, and beside it everything a recruiter may prefer to a
+ * form: the address with its copy button, the profiles, the CV, and the
+ * search itself. On a phone the address comes first.
+ */
 export function ContactPage({ locale }: { locale: Locale }) {
   const { availability, copy, form, site } = getContent(locale);
 
@@ -30,25 +36,29 @@ export function ContactPage({ locale }: { locale: Locale }) {
       <PageHeader
         title={copy.contactHeading}
         sub={copy.contactSub}
-      />
+      >
+        <p
+          className="rise mt-4 text-body font-medium text-paper"
+          style={{ "--i": 2 } as React.CSSProperties}
+        >
+          {availability.headline}, {availability.window}
+        </p>
+      </PageHeader>
 
       <section className="band">
-        <div className="section-body page-width grid gap-x-gutter gap-y-block lg:grid-cols-[minmax(0,1fr)_22rem]">
-          <div>
-            <ContactForm locale={locale} form={form} retry={copy.errorRetry} />
-          </div>
-
-          {/* The same rail as a project page: each fact a hairline apart. */}
-          <div className="ruled ruled-tight grid content-start gap-title">
-            <div>
-              <Eyebrow>{copy.emailLabel}</Eyebrow>
-              <div className="mt-label flex flex-wrap items-center gap-4">
+        <div className="section-body page-width grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,22rem)]">
+          <aside className="grid content-start gap-6 lg:col-start-2 lg:row-start-1">
+            <div className="card p-6">
+              <p className="eyebrow">{copy.emailLabel}</p>
+              <p className="mt-2">
                 <a
                   href={`mailto:${site.email}`}
-                  className="link fact-value text-body"
+                  className="link fact-value break-all text-body"
                 >
                   {site.email}
                 </a>
+              </p>
+              <div className="mt-4">
                 <CopyButton
                   value={site.email}
                   idle={copy.copyIdle}
@@ -59,16 +69,18 @@ export function ContactPage({ locale }: { locale: Locale }) {
               </div>
             </div>
 
-            <div>
-              <Eyebrow>{copy.elsewhereLabel}</Eyebrow>
-              <ul className="mt-label grid gap-3">
+            <div className="card p-6">
+              <p className="eyebrow">{copy.elsewhereLabel}</p>
+              <ul className="mt-3 grid gap-2.5 type-label">
                 <li>
                   <ExternalLink
                     href={site.github}
                     newTab={copy.newTab}
-                    className="link type-label text-paper-2"
+                    className="link-arrow"
                   >
-                    GitHub ↗
+                    <Icon name="github" />
+                    GitHub
+                    <Icon name="arrowUpRight" className="text-paper-3" />
                   </ExternalLink>
                 </li>
                 {site.linkedin ? (
@@ -76,33 +88,26 @@ export function ContactPage({ locale }: { locale: Locale }) {
                     <ExternalLink
                       href={site.linkedin}
                       newTab={copy.newTab}
-                      className="link type-label text-paper-2"
+                      className="link-arrow"
                     >
-                      LinkedIn ↗
+                      <Icon name="linkedin" />
+                      LinkedIn
+                      <Icon name="arrowUpRight" className="text-paper-3" />
                     </ExternalLink>
                   </li>
                 ) : null}
                 <li>
-                  <a
-                    href={site.cvUrl}
-                    download
-                    className="link type-label text-paper-2"
-                  >
-                    {copy.cvButton} ↓
+                  <a href={site.cvUrl} download className="link-arrow">
+                    <Icon name="download" />
+                    {copy.cvButton}
                   </a>
                 </li>
               </ul>
             </div>
+          </aside>
 
-            <div>
-              <Eyebrow>{copy.availabilityTitle}</Eyebrow>
-              <p className="mt-label flex items-baseline gap-3 text-body text-paper">
-                <span className="mark-flare dot-baseline" aria-hidden="true" />
-                <span>
-                  {availability.headline}, {availability.window}
-                </span>
-              </p>
-            </div>
+          <div className="card p-6 sm:p-8 lg:col-start-1 lg:row-start-1">
+            <ContactForm locale={locale} form={form} retry={copy.errorRetry} />
           </div>
         </div>
       </section>

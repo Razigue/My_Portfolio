@@ -1,277 +1,384 @@
 ---
 name: Razigue Benhmida, portfolio
-description: A bilingual portfolio that reads like a well-kept application file.
+description: The developer portfolio played straight and finished to the last pixel, by day and by night.
 colors:
-  graphite-ink: "#08080a"
-  graphite-band: "#0e0f12"
-  graphite-lift: "#1a1d22"
-  chalk: "#f4f3f0"
-  chalk-secondary: "#c0bfba"
-  chalk-muted: "#8b8a85"
-  pale-gold: "#ecdcb0"
-  signal-green-night: "#4ed9a4"
-  warm-paper: "#f6f5f2"
-  warm-paper-band: "#edebe6"
-  warm-paper-lift: "#dedbd2"
-  ink-black: "#121114"
-  ink-secondary: "#3a3835"
-  ink-muted: "#63605a"
-  burnt-copper: "#8a3f04"
-  signal-green-day: "#10693d"
+  # Daylight (the default theme; what the utilities compile against)
+  day-ground: "#fafaf9"
+  day-band: "#f3f3f1"
+  day-raised: "#e9e9e6"
+  day-card: "#ffffff"
+  day-hairline: "#e4e4e0"
+  day-hairline-strong: "#cfcfca"
+  day-ink: "#0b0b0d"
+  day-ink-secondary: "#3f3f46"
+  day-ink-muted: "#62626a"
+  day-signal-blue: "#2851e0"
+  day-on-blue: "#ffffff"
+  day-live-green: "#157a3c"
+  day-error-red: "#b42318"
+  # Night (:root.dark)
+  night-ground: "#09090b"
+  night-band: "#0e0e11"
+  night-raised: "#1b1b20"
+  night-card: "#111114"
+  night-card-hover: "#151519"
+  night-hairline: "#232329"
+  night-hairline-strong: "#34343c"
+  night-ink: "#f4f4f5"
+  night-ink-secondary: "#babac2"
+  night-ink-muted: "#8e8e98"
+  night-signal-blue: "#86a2ff"
+  night-on-blue: "#09090b"
+  night-live-green: "#4ade80"
+  night-error-red: "#ff8a80"
 typography:
   display:
     fontFamily: "Geist, system-ui, -apple-system, sans-serif"
-    fontSize: "clamp(2.375rem, 1.75rem + 3.1vw, 4.5rem)"
-    fontWeight: 400
-    lineHeight: 0.86
+    fontSize: "clamp(2.75rem, 2rem + 3.4vw, 5rem)"
+    fontWeight: 600
+    lineHeight: 1
+    letterSpacing: "-0.035em"
+  page-title:
+    fontFamily: "Geist, system-ui, -apple-system, sans-serif"
+    fontSize: "clamp(2.5rem, 1.9rem + 2.6vw, 4rem)"
+    fontWeight: 600
+    lineHeight: 1.02
     letterSpacing: "-0.035em"
   headline:
     fontFamily: "Geist, system-ui, -apple-system, sans-serif"
-    fontSize: "clamp(1.625rem, 1.4rem + 1.1vw, 2.375rem)"
-    fontWeight: 400
-    lineHeight: 1.02
-    letterSpacing: "-0.02em"
+    fontSize: "clamp(1.875rem, 1.6rem + 1.2vw, 2.75rem)"
+    fontWeight: 600
+    lineHeight: 1.15
+    letterSpacing: "-0.035em"
   title:
     fontFamily: "Geist, system-ui, -apple-system, sans-serif"
-    fontSize: "clamp(1.25rem, 1.15rem + 0.5vw, 1.625rem)"
-    fontWeight: 500
-    lineHeight: 1.42
-    letterSpacing: "-0.02em"
+    fontSize: "clamp(1.25rem, 1.18rem + 0.3vw, 1.5rem)"
+    fontWeight: 600
+    lineHeight: 1.15
+    letterSpacing: "-0.025em"
+  item-title:
+    fontFamily: "Geist, system-ui, -apple-system, sans-serif"
+    fontSize: "clamp(1rem, 0.979rem + 0.093vw, 1.0625rem)"
+    fontWeight: 600
+    lineHeight: 1.4
+    letterSpacing: "-0.01em"
+  lede:
+    fontFamily: "Geist, system-ui, -apple-system, sans-serif"
+    fontSize: "clamp(1.125rem, 1.07rem + 0.25vw, 1.3125rem)"
+    fontWeight: 400
+    lineHeight: 1.55
   body:
     fontFamily: "Geist, system-ui, -apple-system, sans-serif"
-    fontSize: "clamp(1rem, 0.97rem + 0.15vw, 1.125rem)"
+    fontSize: "clamp(1rem, 0.979rem + 0.093vw, 1.0625rem)"
     fontWeight: 400
     lineHeight: 1.65
+  control:
+    fontFamily: "Geist, system-ui, -apple-system, sans-serif"
+    fontSize: "0.9375rem"
+    fontWeight: 500
+    lineHeight: 1.3
   label:
     fontFamily: "Geist, system-ui, -apple-system, sans-serif"
-    fontSize: "clamp(0.875rem, 0.85rem + 0.1vw, 0.9375rem)"
-    fontWeight: 400
+    fontSize: "0.875rem"
+    fontWeight: 500
     lineHeight: 1.45
-    letterSpacing: "0.01em"
-  monogram:
-    fontFamily: "Newsreader, Georgia, serif"
-    fontSize: "1.55rem"
+    letterSpacing: "0em"
+  data:
+    fontFamily: "Geist, system-ui, -apple-system, sans-serif"
+    fontSize: "0.875rem"
     fontWeight: 400
-    lineHeight: 1
-    letterSpacing: "-0.04em"
+    lineHeight: 1.5
+    letterSpacing: "0em"
+    fontFeature: "tnum"
 rounded:
-  none: "0px"
-  hairline: "1px"
-  shot: "0.75rem"
+  mark: "0.25rem"
+  badge: "0.5rem"
+  control: "0.625rem"
+  shot: "0.875rem"
+  card: "1.125rem"
+  panel: "1.5rem"
   pill: "9999px"
 spacing:
-  label: "1rem"
-  title: "1.5rem"
-  block: "clamp(2.5rem, 1.75rem + 2vw, 4rem)"
-  gutter: "clamp(2rem, 0.5rem + 4.5vw, 6rem)"
-  section: "clamp(4.5rem, 3rem + 4.5vw, 7.5rem)"
-  header: "5rem"
+  label: "0.75rem"
+  title: "1.25rem"
+  block: "clamp(2rem, 1.6rem + 1.6vw, 3rem)"
+  gutter: "clamp(1.5rem, 0.8rem + 3vw, 4rem)"
+  section: "clamp(4.5rem, 3.4rem + 4.6vw, 8rem)"
+  header: "4rem"
+  page-inline: "1.25rem"
+  page-inline-wide: "2rem"
 components:
-  button-primary:
-    backgroundColor: "{colors.burnt-copper}"
-    textColor: "{colors.warm-paper}"
+  button-solid:
+    backgroundColor: "{colors.day-ink}"
+    textColor: "{colors.day-ground}"
+    typography: "{typography.control}"
+    rounded: "{rounded.control}"
+    padding: "0.55rem 1.15rem"
+    height: "2.75rem"
+  button-solid-hover:
+    backgroundColor: "{colors.day-signal-blue}"
+    textColor: "{colors.day-on-blue}"
+  button:
+    backgroundColor: "{colors.day-card}"
+    textColor: "{colors.day-ink}"
+    typography: "{typography.control}"
+    rounded: "{rounded.control}"
+    padding: "0.55rem 1.15rem"
+    height: "2.75rem"
+  button-hover:
+    backgroundColor: "{colors.day-raised}"
+    textColor: "{colors.day-ink}"
+  button-small:
     typography: "{typography.label}"
-    rounded: "{rounded.none}"
-    padding: "1.05rem 1.8rem"
-  button-primary-hover:
-    backgroundColor: "{colors.ink-black}"
-    textColor: "{colors.warm-paper}"
-  button-secondary:
-    backgroundColor: "{colors.warm-paper-lift}"
-    textColor: "{colors.ink-black}"
-    typography: "{typography.label}"
-    rounded: "{rounded.none}"
-    padding: "1.05rem 1.8rem"
-  button-secondary-hover:
-    backgroundColor: "{colors.burnt-copper}"
-    textColor: "{colors.warm-paper}"
-  input-field:
-    backgroundColor: "color-mix(in srgb, #121114 14%, #dedbd2)"
-    textColor: "{colors.ink-black}"
-    typography: "{typography.body}"
-    rounded: "{rounded.none}"
-    padding: "1rem 1.1rem"
-  tag:
-    backgroundColor: "{colors.warm-paper-lift}"
-    textColor: "{colors.ink-secondary}"
-    typography: "{typography.label}"
-    rounded: "{rounded.none}"
-    padding: "0.375rem 0.75rem"
-  link-hover:
-    backgroundColor: "{colors.burnt-copper}"
-    textColor: "{colors.warm-paper}"
-  capture:
-    backgroundColor: "{colors.warm-paper-band}"
-    rounded: "{rounded.shot}"
-  facts-panel:
-    backgroundColor: "{colors.warm-paper-band}"
-    rounded: "{rounded.shot}"
-    padding: "2.5rem"
-  back-to-top:
-    backgroundColor: "{colors.burnt-copper}"
-    textColor: "{colors.warm-paper}"
-    rounded: "{rounded.none}"
+    rounded: "{rounded.control}"
+    padding: "0.35rem 0.85rem"
+    height: "2.25rem"
+  button-icon:
+    backgroundColor: "{colors.day-card}"
+    textColor: "{colors.day-ink}"
+    rounded: "{rounded.control}"
     size: "2.75rem"
-  status-dot-live:
-    backgroundColor: "{colors.signal-green-day}"
+  input-field:
+    backgroundColor: "{colors.day-card}"
+    textColor: "{colors.day-ink}"
+    typography: "{typography.body}"
+    rounded: "{rounded.control}"
+    padding: "0.8rem 0.95rem"
+  nav-link:
+    textColor: "{colors.day-ink-secondary}"
+    typography: "{typography.control}"
     rounded: "{rounded.pill}"
-    size: "0.5rem"
+    padding: "0.45rem 0.8rem"
+  nav-link-active:
+    backgroundColor: "{colors.day-raised}"
+    textColor: "{colors.day-ink}"
+  project-meta:
+    textColor: "{colors.day-ink-muted}"
+    typography: "{typography.label}"
+  project-meta-live:
+    textColor: "{colors.day-ink}"
+  tag:
+    textColor: "{colors.day-ink-muted}"
+    typography: "{typography.data}"
+  tag-proven:
+    textColor: "{colors.day-ink}"
+  terms-card-title:
+    textColor: "{colors.day-ink}"
+    typography: "{typography.item-title}"
+    padding: "1rem 1.5rem"
+  card:
+    backgroundColor: "{colors.day-card}"
+    rounded: "{rounded.card}"
+  capture:
+    backgroundColor: "{colors.day-raised}"
+    rounded: "{rounded.shot}"
+  feature-stage:
+    backgroundColor: "{colors.day-raised}"
+    padding: "1.75rem"
+  wordmark-badge:
+    backgroundColor: "{colors.day-ink}"
+    textColor: "{colors.day-ground}"
+    rounded: "{rounded.badge}"
+    size: "2rem"
+  closing-panel:
+    backgroundColor: "{colors.night-ground}"
+    textColor: "{colors.night-ink}"
+    rounded: "{rounded.panel}"
+    padding: "clamp(3rem, 5vw, 5rem) clamp(1.5rem, 5vw, 4rem)"
 ---
 
 # Design System: Razigue Benhmida, portfolio
 
 ## Overview
 
-**Creative North Star: "The Well-Kept File"**
+**Creative North Star: "The Category Standard, Played Straight"**
 
-The site is an application file a recruiter can read in a few minutes: every fact in its place, labelled, and found at a glance. Nothing is there to perform. Hierarchy comes from size, tone and position, never from ornament: one face at three weights, labels in the accent, fields of tone and a few hairlines between parts, one warm accent against cool neutrals. The design earns trust the way a tidy dossier does, by being complete, consistent and easy to check.
+This is the developer portfolio as the genre knows it (near-white page, near-black night, zinc neutrals, one confident blue, Geist throughout) executed at the top of its craft rather than reinvented. The first screen says who, on what terms, and that he is available; proof comes before prose. Confidence comes from finish: exact type, 1px hairlines, generous section rhythm, one authored entrance, and nothing decorative that a recruiter would have to read past.
 
-Two themes carry the same file. By night it is chalk on graphite with a pale gold accent; by day, the theme most recruiters read in, it is near-black ink on warm paper with a burnt copper accent. Every colour is a role token (`--color-ink`, `--color-paper`, `--color-flare`…) that swaps between the two, so a component is written once. Motion is almost gone: what remains reports something (a header scrolling away, the reading position) and never delays reading.
+Density is calm and editorial. Sections breathe on a large vertical rhythm, alternate between the page ground and a slightly darker band, and hold their content on a 74rem page with a 62ch reading measure. Structure is drawn with hairlines, not boxes: lists of prose are ruled, not tiled. Cards exist where a thing is an object you can open (a project, the terms strip, a fact panel), never as wrappers for paragraphs.
 
-The system rejects the showcase: no loader, no page curtain, no smooth scrolling, no film grain, no numbered sections, no window chrome around captures, no expressive or monospace face chosen to fit a theme.
+The system consciously refuses the tells of generated landing pages: badges and pills for status or metadata, status dots, glass headers and backdrop blur, chip-styled tags, icon tiles, accent glows and gradient text, and grids of identical cards for prose. State and metadata are said in words. Both themes are first-class; daylight is the default because recruiters read there.
 
 **Key Characteristics:**
-- One face, Geist, at 400 for reading, 500 for subheadings and facts, 600 for the title of an item; Newsreader only for the `RB` monogram.
-- Separation by ground, and by a hairline where one part of a page ends and the next begins.
-- One accent per theme, used sparingly: links on hover, the primary button, small markers.
-- Rounded corners everywhere but the stack's tags; round only for status.
-- Five spacing steps chosen by what a gap separates.
-- Reading lines of 65 to 75 characters; no text under 14px.
+- Near-white day (#fafaf9) and near-black night (#09090b), zinc neutrals, one blue accent.
+- State and metadata are words in a line of text: no pills, no badges, no status dots.
+- Geist semibold headings with tight negative tracking over Geist body; one family, no monospace.
+- 1px hairlines and hairline-ruled lists carry structure; cards only for openable objects.
+- Drawn single-stroke SVG icons, sized to the text they sit in.
+- One staggered entrance on the first screen; hover lifts on project cards; nothing loops.
 
 ## Colors
 
-Cool, near-neutral grounds with a single warm accent per theme; the accent is the only warm thing on the page, which is what makes it read as an accent rather than a tint.
+A restrained zinc palette with one saturated blue for action and focus. Everything else is ink on ground.
 
 ### Primary
-- **Pale Gold** (`pale-gold`): the night accent, `--color-flare` in the dark theme. Link hover wash, the primary button, the focus ring, the reading mark, the back-to-top block, the small markers.
-- **Burnt Copper** (`burnt-copper`): the day accent, `--color-flare` in the light theme. Same roles as Pale Gold. Its darkness is set by contrast arithmetic: it must clear 4.5:1 on the lift tone, where an index row sits under the pointer (it measures 5.43:1 there, 6.31:1 on a band, 6.90:1 on the page). A lighter orange fails the row it is read on.
+- **Signal Blue** (day #2851e0, night #86a2ff): links under the pointer, the solid button's hover ground, focus rings, text selection, the caret, check marks, timeline nodes, the wordmark badge on hover. Text set on it uses **On-Blue** (day #ffffff, night #09090b).
 
 ### Secondary
-- **Signal Green** (`signal-green-night`, `signal-green-day`): `--color-live`, only for the « en ligne » status dot and the form's success message.
+- **Error Red** (day #b42318, night #ff8a80): an invalid field's border, its 18% focus wash, and the error message under it. Nowhere else.
 
 ### Neutral
-- **Graphite Ink** (`graphite-ink`) / **Warm Paper** (`warm-paper`): `--color-ink`, the page ground by night / by day.
-- **Graphite Band** (`graphite-band`) / **Warm Paper Band** (`warm-paper-band`): `--color-ink-2`, the ground of every other section, of odd index rows and of the facts panel.
-- **Graphite Lift** (`graphite-lift`) / **Warm Paper Lift** (`warm-paper-lift`): `--color-ink-3`, the tone of a control (secondary button, tag, copy button) and of an index row under the pointer. By day it goes down in value: white on near-white is not a raised surface.
-- **Chalk** (`chalk`) / **Ink Black** (`ink-black`): `--color-paper`, headings and primary text.
-- **Chalk Secondary** / **Ink Secondary**: `--color-paper-2`, reading text and ledes.
-- **Chalk Muted** / **Ink Muted**: `--color-paper-3`, metadata, the archived status dot. Its lowest measured contrast is 5.26:1 by day and 5.54:1 by night.
+- **Ground** (day #fafaf9, night #09090b): the page.
+- **Band** (day #f3f3f1, night #0e0e11): alternating sections, a project summary's capture header.
+- **Raised** (day #e9e9e6, night #1b1b20): hover and active fill for buttons and nav links, the featured project's capture stage, the placeholder behind images.
+- **Card** (day #ffffff, night #111114; hover #151519): cards, buttons, fields.
+- **Hairline** (day #e4e4e0, night #232329): every 1px divider, card border, band edge, ruled list, the scrolled header's bottom edge.
+- **Hairline Strong** (day #cfcfca, night #34343c): button and field borders, link underlines at rest, the timeline spine, the scrollbar thumb.
+- **Ink** (day #0b0b0d, night #f4f4f5): headings, strong text, the solid button's ground, proven technology names, « en ligne ».
+- **Ink Secondary** (day #3f3f46, night #babac2): body copy, ledes, nav links at rest, the availability window.
+- **Ink Muted** (day #62626a, night #8e8e98): fact labels, dates, captions, project meta lines, technology names, placeholders.
+
+### Reserved
+- **Live Green** (day #157a3c, night #4ade80): still declared as `--color-live` in `app/globals.css`, used by no component since the status dots were removed. Kept documented as reserved and unused; it is not a license to bring a dot back.
+
+The closing call panel always uses night values, in both themes (ground #09090b in day, lifted to #121216 with a hairline border in night so it still separates).
 
 ### Named Rules
-**The Hairline Rule.** A line only ever separates: `.rule` (an `hr`) or `.ruled` (a list whose items each open on one), 1px in `--color-rule`, the text colour at 16%. Razigue asked for them on 2026-09-29 to mark where one thing ends and the next begins: between a project's header and its account, between the facts of a rail (a project page's and the contact page's) and the entries of a short list (the languages), and above the footer when a page ends on its own ground (after a band, the change of ground is enough). They are not systematic: a line marks a change of kind where the ground does not change, never every block (the parts of an account read straight through, their headings are enough). Never a border framing a box or a control, never an underline, never a text-stroke. The other lines are the focus ring, the reading mark, the 1px clip that hides text visually, and the borders a Windows contrast theme needs, drawn only under `forced-colors`.
+**The One Blue Rule.** Blue is the only accent. It marks what responds (hover, focus, selection) and the check marks that prove a claim; it is never a fill for decoration, a gradient, a glow or a heading color.
 
-**The One Accent Rule.** Each theme has exactly one accent, and the two themes do not share it. Gold holds up as a light mark on near-black; no light mark holds up on near-white, so day's accent is a dark copper.
+**The Words Not Dots Rule.** A state is a word set in the text's own colors: « en ligne » in medium weight full Ink, availability as a heading row. No colored dot, pill or badge carries status; green has no component role.
 
-**The Tokens-Only Rule.** Every colour literal lives in `app/globals.css`; ESLint rejects one anywhere else. `lib/palette.ts` is the single exception, for the three surfaces that render without a stylesheet (social images, `theme-color`, the manifest).
+**The One File Rule.** Every color literal lives in `app/globals.css`. The only mirror is `lib/palette.ts`, for surfaces with no cascade (social images, `theme-color`, the manifest), and it follows globals.css, never leads it.
 
 ## Typography
 
 **Display Font:** Geist (with system-ui, -apple-system, sans-serif)
-**Body Font:** Geist (with the same stack)
-**Label Font:** Geist (with the same stack)
+**Body Font:** Geist (same stack)
+**No monospace face.** Dates and technology names are Geist too.
 
-**Character:** One plain sans-serif drawn for screens, readable and professional at every size. The owner asked for exactly that, rather than a face chosen to fit a theme. The `RB` monogram in Newsreader is the site's mark, not its text.
+**Character:** One grotesque family doing all the work: semibold and tightly tracked at size so headings feel engineered, regular and open at body size so paragraphs read easily. Data is marked by size, colour and tabular figures, never by a second face.
 
 ### Hierarchy
-- **Display** (400, clamp(2.375rem → 4.5rem), line-height 0.86, tracking -0.035em): page titles and the name on the home page (set at line-height 1.02 there).
-- **Headline** (400, clamp(1.625rem → 2.375rem), 1.02, -0.02em): section headings, project names on cards, roles in the experience list, the parts of a project's account.
-- **Title** (400, clamp(1.25rem → 1.625rem), 1.42; 500 as a subheading, `.part-title`): subheadings, a project's description and the lede under a page title, reading at most 50ch.
-- **Body** (400, clamp(1rem → 1.125rem), 1.65): reading text, capped at 50ch (65 to 75 characters in Geist; `ch` is the width of a zero, about 1.34 characters of French).
-- **Label** (400, clamp(0.875rem → 0.9375rem), 1.45, tracking 0.01em): labels, metadata, buttons, tags, navigation. It is the smallest size on the site. A label (`.eyebrow`) is set in the accent, so the eye finds the labels first; what it names is a **fact** (`.fact-value`, weight 500, full text colour).
-- **Item title** (`.item-title`, 600, body size, 1.4): the name of one item in a list or grid, a strength, a language, a station of a diagram, set apart by weight alone.
-
-**The Three Weights Rule.** 400 for everything read, 500 for subheadings and facts, 600 for an item's title and `strong`. Weight marks what to read first; it never replaces a heading. Display and headline stay at 400.
-
-**The Ruled Grid.** In a grid of equal items (the availability facts, the skill domains, the principles, the experiences), each item opens on a hairline (`.ruled-each`), the first row included; in a single column list, the items after the first do (`.ruled`).
+- **Display** (600, clamp(2.75rem → 5rem), 1, -0.035em): the name on the home page only.
+- **Page Title** (600, clamp(2.5rem → 4rem), 1.02, -0.035em): the title of every other page.
+- **Headline** (600, clamp(1.875rem → 2.75rem), 1.15, -0.035em): section titles, the featured project's name, the closing call, the small-screen menu links.
+- **Title** (600, clamp(1.25rem → 1.5rem), 1.15, -0.025em): parts inside a section (a project card's name, a timeline role, an AI-practice heading). Also the role line under the name, at weight 500.
+- **Item Title** (600, body size, 1.4, -0.01em): the name of a list item (a skill domain, a strength, a language).
+- **Lede** (400, clamp(1.125rem → 1.3125rem), 1.55): the sentence under a title, capped at 62ch.
+- **Body** (400, clamp(1rem → 1.0625rem), 1.65): running text, max 62ch, `text-wrap: pretty`.
+- **Control** (500, 0.9375rem, 1.3): the words of controls and compact facts: button labels, header nav links, the wordmark name (600, -0.01em), the term values in the hero's terms card.
+- **Label** (500 or 400, 0.875rem, 1.45): fact labels, buttons at small size, footer links, captions. 14px is the floor: nothing on the site is smaller.
+- **Data** (Geist 400, 0.875rem, tabular numerals): dates and periods, technology names.
 
 ### Named Rules
-**The One Face Rule.** Geist sets everything; only the monogram is Newsreader. Never add a second face, never a monospace, never an expressive one. `font-display`, `font-sans` and `font-mono` are three names for Geist, kept so markup did not change.
+**The One Family Rule.** Geist sets everything. No monospace or terminal-style face anywhere, not even for dates, code-like names or labels. A second family is only ever a deliberate pairing decided with Razigue, never a mono.
 
-**The Lowercase Rule.** Nothing is set in capitals: no `uppercase`, no `capitalize`, no small caps. Acronyms stay acronyms. Nothing is set in italics either.
+**The Fourteen Floor Rule.** No text below 0.875rem (14px), anywhere, including legal lines and captions.
 
-**The 14px Floor.** No text is smaller than the label size, 14px on a phone and 15px on a wide screen.
+**The Sentence Case Rule.** Headings and labels are sentence case at their natural tracking; no uppercase kickers, no letter-spaced small caps.
 
 ## Layout
 
-The page is a single column of sections within a 88rem container, padded 1.5rem on a phone and 2.5rem from 1024px. Sections alternate between the page ground and the band ground, full-bleed, and each opens with its heading. A fixed header bar, 5rem tall at the top of the page, tightens when the page scrolls; everything the browser scrolls into view for the keyboard stops 6rem below the top, clear of it.
+A centered page of 74rem max with 1.25rem side padding (2rem from 40rem up). Long text holds to a 62ch measure (about 70 characters of Geist).
 
-Breakpoints are content-driven around the defaults: 640px (the portrait moves beside the name, facts go to two columns), 1024px (the desktop navigation replaces the menu, three columns of projects and facts, side columns on project and contact pages). Under 64rem the navigation is a full-screen overlay; under 30rem of height its words drop to the headline size so a landscape phone holds them.
+Space comes from five named steps chosen by what a gap separates: **label** (0.75rem, a label and what it names), **title** (1.25rem, a heading and its text), **block** (clamp 2rem → 3rem, two blocks of a section), **gutter** (clamp 1.5rem → 4rem, two columns), **section** (clamp 4.5rem → 8rem, two sections). The sticky header is 4rem tall and scroll padding clears it.
+
+Sections alternate between the ground and a band (Band fill with a hairline top and bottom). Two-column sections use asymmetric splits, most often 5/7 (title and link left, sticky on large screens; content right) or 7/5, collapsing to one column below 64rem. The hero is name, role, one sentence and the actions on the left, the portrait on the right (22rem column). Underneath, still in the first viewport on a laptop, the terms card: its title row states the availability, then four term cells reflow 4 → 2 → 1 columns with hairline dividers between them.
+
+Breakpoints follow Tailwind's defaults as used: 40rem (sm), 48rem (md), 64rem (lg, where the header nav appears and the menu disclosure disappears).
 
 ### Named Rules
-**The Five Steps Rule.** Every gap is one of five steps, chosen by what it separates: `label` (1rem) between a label and what it names, `title` (1.5rem) between a heading and its text, `block` (2.5 → 4rem) between blocks of a section, `gutter` (2 → 6rem) between columns, `section` (4.5 → 7.5rem) between sections. Numeric spacing is only for the inside of a component. No page gets a rhythm of its own.
-**The One Edge Rule.** A project page has one reading column and one rail, the same from the header down. The header reads year, title, subtitle, description and highlights, with the facts in the rail beside them, then the project's capture across both (under the description on a phone); that capture is the place a video will go. Everything read in order (the description, the captures, the diagrams, the parts of « La démarche ») starts on the column's left edge, the title's edge; nothing is centred. Everything looked up (links, status, frame, stack, the list of parts, which stays in view as the account is read) sits in the rail on the right, 14 to 18rem wide. Inside a part, the heading, the text and what illustrates it are a `title` step apart; two parts are a `block` apart, with no line between them. Reading text is never hyphenated.
+**The Ruled List Rule.** Prose collections (first-month tasks, AI practice, method principles, skills, strengths, interests) are hairline-ruled lists, one item per row, not grids of identical cards.
 
 ## Elevation & Depth
 
-The system is flat and has no shadows at all. Depth is tonal layering, three grounds deep: the page, the band a section sits in, and the lift a control or a pointed row takes. By day the layers go down in value, by night up; either way a raised thing is a tone the page is not.
+Mostly flat, depth by tone and hairline. Surfaces separate by ground (Ground → Band → Card) and 1px borders. A single soft shadow exists and is used sparingly: on the portrait at rest, on a project card as a hover response, and under the featured project's capture on its stage.
+
+### Shadow Vocabulary
+- **Lift, day** (`box-shadow: 0 1px 2px rgb(10 10 12 / 0.04), 0 12px 32px -12px rgb(10 10 12 / 0.14)`): portrait, project card on hover, featured capture.
+- **Lift, night** (`box-shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 16px 40px -16px rgb(0 0 0 / 0.7)`): the same roles at night.
+- **Capture ring** (`box-shadow: 0 0 0 1px var(--color-line)`): the hairline around a screenshot, drawn as a ring so it does not shift layout.
+- **Field focus wash** (`box-shadow: 0 0 0 4px` Signal Blue at 16%): a focused text field only.
+
+The sticky header sits on a solid page-colored ground (no translucency, no blur) and gains a bottom hairline only once the page has scrolled.
 
 ### Named Rules
-**The Ground-Not-Shadow Rule.** Never a `box-shadow`, never a glass blur. If something must stand apart, give it a ground of its own.
+**The Solid Ground Rule.** Every surface is opaque. No glass, no `backdrop-filter`, no translucent header or panel; a scrolled header shows its edge with a hairline, not a blur.
+
+**The No Glow Rule.** No colored shadows, no accent glows, no gradient text, no gradient washes behind content. A capture brings its own color.
+
+**The Hover Lift Rule.** Cards are flat at rest; a card that is a link lifts 2px, darkens its border to Hairline Strong and gains the Lift shadow under the pointer or focus.
 
 ## Shapes
 
-Nothing has square corners, the stack's tags included. Captures, diagrams, the portrait and the facts panel on the home page are rounded at 0.75rem (`--radius-shot`); the wash behind a hovered link at 0.3rem; buttons, fields, the copy button, the stack's tags, the back-to-top block and the diagram's tiles at 0.5rem (`--radius-control`); the small accent markers (the availability marker, the items of a project's highlights) are softened at 0.15rem (`--radius-mark`), not made round. Round is reserved for status: the status dot and the theme switch's disc.
-
-### Named Rules
-**The Round-Means-Status Rule.** A circle says « this is a state ». Nothing else on the site is round.
+Softly rounded, on a fixed scale tied to the element's size: 0.25rem (mark, kept in the scale), the wordmark badge 0.5rem, controls (buttons, fields, rail links, menu button) 0.625rem, screenshots 0.875rem, cards and the portrait 1.125rem, the closing panel 1.5rem, and full rounding only for the nav links' hover fill and the timeline's ring nodes. Borders are always 1px. Images are clipped by their container's radius; the portrait keeps its own 2:3 ratio.
 
 ## Components
 
-Sober and precise: flat fields of colour with no outline, that never move; on hover only a fill rises.
-
-Four shared classes in `app/globals.css` carry the structure every page repeats: `.page-width` (the page's width with its gutter, 1.5rem then 2.5rem from 1024px), `.section-title` (the headline role), `.part-title` (the title role) and `.type-label` (the label role).
-
 ### Buttons
-- **Shape:** 0.5rem corners, padding 1.05rem 1.8rem, label size.
-- **Primary:** the accent fill with page-colour text (Burnt Copper on Warm Paper by day). On hover or keyboard focus, a fill of the text colour rises from the bottom edge (420ms, cubic-bezier(0.16, 1, 0.3, 1)); the label stays where it is read.
-- **Secondary:** the lift tone with text colour; the rising fill is the accent.
-- **Disabled:** the label says what is happening (« Envoi… »); contrast is never dimmed.
+Quiet, solid, and exact.
+- **Shape:** gently rounded (0.625rem), min height 2.75rem, 1px border; label in the control size (0.9375rem, 500).
+- **Solid (primary):** the ink color as a ground with ground-colored text; on hover or focus it turns Signal Blue with On-Blue text. One per group: « Me contacter », « Envoyer », the demo link.
+- **Default:** Card fill, Hairline Strong border, Ink text; hover fills Raised.
+- **Small:** 2.25rem high, 0.875rem text (the header's CV button).
+- **Icon-only:** a 2.75rem square (2.25rem small), always with an accessible name (GitHub, LinkedIn, theme switch).
+- **Motion:** press moves down 1px; a trailing arrow steps 3px right, an out-arrow steps up-right, a download arrow steps down (320ms, ease-out).
 
-### Chips (technology tags)
-- **Style:** lift tone, secondary text, label size, 0.5rem corners, padding 0.375rem 0.75rem, in a wrapping row with 0.5rem gaps.
-- **State:** none. A tag is not a control and does not react to the pointer. A list of tags does not move: it is simply there, like the text around it.
+### Project Meta and Technology Names
+There are no chips in this system.
+- **Project meta line:** a project's frame and state as one line of 0.875rem Ink Muted text, placed under the title: « Projet d’école, équipe de 5, en ligne ». « en ligne » alone is medium weight in full Ink; « archivé » stays muted.
+- **Technology names:** plain Geist words (0.875rem) in a wrapping row (1rem between words, 0.25rem between lines), Ink Muted. **Proven** names (used in a published project) take full Ink. No border, no background, no radius.
 
 ### Cards / Containers
-- **Captures:** shown as they are, rounded 0.75rem, band ground only while loading; no window chrome, border or shadow, and no reaction to the pointer. A cutout artwork has no ground at all.
-- **Facts panel:** band ground, 0.75rem corners, 1.5rem padding on a phone and 2.5rem from 640px; a heading and six labelled facts.
-- **Project cards (home):** a card with a ground of its own on the band (`--color-card`, one step lighter than the band in both themes), 0.75rem corners, padded 1rem then 1.25rem. The whole card is one link, the title's, stretched over it (`.card`, `.stretch-link`): under the pointer the ground lightens a step further (`--color-card-hover`) and the title turns to the accent; the keyboard's ring goes round the card. The only links inside it lead elsewhere, the demo and the repository, above the stretched one. The capture itself does not react.
-- **Index rows:** full-bleed bands, every other one lifted to the band tone, one tone further under the pointer, with the title in the accent and an arrow appearing on hover.
+- **Corner Style:** 1.125rem.
+- **Background:** Card.
+- **Shadow Strategy:** flat at rest; Lift on hover for link cards (see Elevation).
+- **Border:** 1px Hairline.
+- **Internal Padding:** 1.5rem to 2.5rem by breakpoint.
+- **Use:** only for openable objects and fact panels: the featured project, project summaries, the terms strip, the formation and languages panels. A whole-card link uses a stretched link and moves its focus ring to the card; the title turns blue on hover.
 
 ### Inputs / Fields
-- **Style:** a filled trough, 0.5rem corners, body size, padding 1rem 1.1rem. Its fill is the lift tone with 14% of the text colour mixed in, about 1.55:1 against the band it sits on in both themes; the label above names it.
-- **Focus:** the global 2px accent ring, offset 3px.
-- **Error:** the field takes a 22% wash of the accent and the message under it states the problem; colour is never the only signal.
+- **Style:** Card fill, 1px Hairline Strong, 0.625rem corners, 0.8rem × 0.95rem padding, body-size text, blue caret.
+- **Hover:** border darkens to Ink Muted.
+- **Focus:** border turns Signal Blue with a 4px 16% blue wash; no outline.
+- **Error:** border Error Red, focus wash in red at 18%, message below in medium 0.875rem red.
+- **Form outcome:** the line under the send button is medium 0.875rem: full Ink for a success, Error Red for anything else. No green.
 
 ### Navigation
-- **Desktop:** bare words at label size in muted text at the right of the bar. Pointing at a word turns it to the accent (180ms); the current page keeps the accent, so nothing is drawn under it.
-- **Mobile:** the word « Menu » opens a full-screen overlay on the page ground, the four words at headline-to-display size; the page under it leaves the focus order, Escape closes it and returns focus.
-- **Monogram and switch:** `RB` at the left, the theme switch (a gold or copper disc that becomes a crescent at night) at the right; both answer a tap over 44px. Their vertical centres are optically aligned on painted pixels, not on boxes.
+- **Header:** sticky, 4rem, solid page-colored ground, hairline bottom border once scrolled. Left, the wordmark: a 2rem Ink badge (0.5rem corners) carrying the « RB » mark in Geist 700 at 0.8125rem, -0.02em (a mark sized to its badge, not a type step), turning Signal Blue on hover; then the name in the control size at 600. Right, fully rounded nav links in the control size (Ink Secondary; hover and current page fill Raised with Ink text), a small CV button, the locale and theme switches.
+- **Below 64rem:** a bordered « Menu » word button opens a full-screen panel on the ground with links at headline size, current page in Ink, others muted, rising in once.
+- **Rail (project pages):** 0.625rem rounded links in Ink Muted; current section fills Raised.
+- **Text links:** a 1px Hairline Strong underline at 0.28em offset; under the pointer word and underline turn blue. Standalone links (« Tous les projets ») drop the underline and carry an arrow that steps on hover.
 
-### Links
-- **Style:** text colour with no underline; internal links that lead to a page carry « → », external ones « ↗ » and say « nouvel onglet » to assistive technology.
-- **Hover / Focus:** an accent wash sweeps in behind the word and the text takes the page colour.
+### Feature Project (signature)
+The first published project spans the page as one card split text-left, capture-right (1 : 1.5 from 64rem). The text side carries the name at headline size, the subtitle, the project meta line, a lede, proof points as a check list (blue drawn checks), the proven technology names, and its three destinations (solid demo button, repository button, case-study arrow link). The capture sits on a Raised-colored stage that runs to the card's edge, separated from the text by a 1px Hairline on its left edge (its top edge below 64rem), with the capture ring and Lift shadow. It is not a whole-card link.
 
-### Reading mark
-A 3px accent mark in the right margin, as long against the margin as the window is against the page, travelling with the scroll position; it never stretches. It shows only while the page moves and replaces the hidden native scrollbar. It is a readout, not a control.
+### Terms Card (signature)
+The card under the hero. Its title row, above a hairline, states the availability: « Recherche alternance 12 mois » in semibold Ink, then «, dès que possible » in regular Ink Secondary (body size, tight tracking, 1rem × 1.5rem padding). Below, four cells (rhythm, role, training, place), each a muted fact label over a medium value. This title row is the only place the home page states availability; there is no status line under the role. The contact page says it as a plain medium-weight sentence under its lede.
+
+### Closing Call (signature)
+A 1.5rem-rounded panel that is always night (in day it is a dark island; at night a slightly lifted one with a hairline). Headline capped at 18ch, lede, solid and default buttons, then a hairline and the email with a copy button. No availability line.
+
+### Timeline
+Dates in Geist, tabular figures, above each role; a 0.6rem ring node outlined in Signal Blue on the ground, joined by a 1px Hairline Strong spine.
+
+### Icons
+Drawn in one 1.75 stroke on a 24-unit grid (Lucide shapes, copied into `components/ui/Icon.tsx`), sized 1.05em to match their text, always decorative with the meaning carried by adjacent text or the control's name.
+
+The case-study diagrams' pictograms (`components/projects/DiagramIcon.tsx`) follow the same stroke, caps and grid, at 2 to 2.25rem. A station is its pictogram in Ink over its label, with no tile or tint; a branch's pictogram is Ink Muted. The arrows between stations are the drawn arrows of `Icon.tsx`, in Ink Muted.
 
 ## Do's and Don'ts
 
 ### Do:
-- **Do** separate by ground: page, band (`--color-ink-2`), lift (`--color-ink-3`).
-- **Do** take every colour from the role tokens in `app/globals.css`, so both themes follow.
-- **Do** set everything in Geist and build hierarchy from the five sizes, the three text tones, the accent on labels and the three weights.
-- **Do** keep reading text within 50ch and every text at 14px or more.
-- **Do** choose every gap from the five spacing steps by what it separates.
-- **Do** mark a link to a page with « → », an external link with « ↗ ».
-- **Do** round every corner (controls 0.5rem, captures 0.75rem) except the stack's tags, and keep round for status only.
+- **Do** keep every color in `app/globals.css` and use its role tokens (ground, band, raised, card, hairline, ink, blue); mirror to `lib/palette.ts` only for cascade-less surfaces.
+- **Do** say state and metadata in words: availability as the terms card's title row, a project's frame and state as one meta line with « en ligne » in medium full Ink.
+- **Do** separate prose items with 1px hairlines in a single ruled list; reserve cards for projects and fact panels.
+- **Do** use icons only from `components/ui/Icon.tsx`, stroked, at 1.05em, beside text.
+- **Do** set dates in Geist with tabular numerals (`.data`).
+- **Do** keep text at 0.875rem or above, and body copy within 62ch.
+- **Do** give the first screen its one staggered entrance (rise: 14px up, 6px blur, 900ms ease-out, 70ms per step) and let everything else simply be there.
+- **Do** show both themes with equal care; test every surface in daylight first.
 
 ### Don't:
-- **Don't** draw a line that frames or underlines: no border around a box, button or field, no underline, no text-stroke. A hairline between two parts is the only line that separates.
-- **Don't** set anything in capitals, small caps or italics.
-- **Don't** add a second typeface, a monospace or an expressive face.
-- **Don't** use shadows, glass or blur.
-- **Don't** wrap a capture in a window, a border, a shadow, or make it react to the pointer.
-- **Don't** give the two themes the same accent, or lighten the day accent below its contrast cap.
-- **Don't** bring back a loader, a page curtain, smooth scrolling, grain or numbered sections.
-- **Don't** make text turn over, roll or duplicate itself on hover: a hover changes a colour or raises a fill, nothing more.
-- **Don't** put a label above a heading that only repeats it.
+- **Don't** put a badge, pill or kicker above a heading.
+- **Don't** use pills or badges for status or metadata.
+- **Don't** use status dots, static or pulsing.
+- **Don't** use glass or backdrop blur; headers and panels are opaque.
+- **Don't** style technology names as chips: no border, background or radius around a tag.
+- **Don't** place icons in tinted tiles or circles; an icon never gets its own background.
+- **Don't** use accent glows, colored shadows, gradient text or gradient backgrounds.
+- **Don't** lay prose content out as a grid of identical cards; use a hairline-ruled list.
+- **Don't** use icon fonts, emoji or glyph characters as icons; only drawn SVG from `components/ui/Icon.tsx`.
+- **Don't** add a monospace or terminal-style font, for anything.
+- **Don't** introduce a second accent color; the reserved green has no component role.
+- **Don't** set uppercase, letter-spaced labels.

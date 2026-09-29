@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { Icon } from "@/components/ui/Icon";
 import { INK, INK_LIGHT } from "@/lib/palette";
 import { THEME_STORAGE_KEY } from "@/lib/theme-script";
 
@@ -18,12 +19,10 @@ function paintBrowserBar(dark: boolean) {
 }
 
 /**
- * A switch, not a cycle: two positions, and no third setting to step through.
- * The operating system's preference applies until the switch is touched, and
- * stops applying afterwards.
- *
- * Which position is drawn, and which of the two labels is in the accessible
- * tree, both come from the `dark` class. See `.lightswitch` in globals.css.
+ * A switch, not a cycle: two positions. The operating system's preference
+ * applies until the switch is touched. The icon shows what a press gives, a
+ * moon by day and a sun by night, and which one is drawn comes from the
+ * `dark` class the <head> script writes before first paint.
  */
 export function ThemeToggle({
   toDay,
@@ -61,8 +60,17 @@ export function ThemeToggle({
   }
 
   return (
-    <button type="button" onClick={flip} className="lightswitch">
-      <span className="lightswitch-disc" aria-hidden="true" />
+    <button
+      type="button"
+      onClick={flip}
+      className="lightswitch btn btn-sm btn-icon"
+    >
+      <span className="theme-say inline-flex" data-when="light">
+        <Icon name="moon" />
+      </span>
+      <span className="theme-say inline-flex" data-when="dark">
+        <Icon name="sun" />
+      </span>
       <span className="sr-only theme-say" data-when="dark">
         {toDay}
       </span>

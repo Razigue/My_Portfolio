@@ -27,9 +27,8 @@ export function ErrorPage({
 
   return (
     <div className="page-width flex min-h-dvh flex-col justify-center page-head">
-      <p className="eyebrow">{copy.errorEyebrow}</p>
 
-      <h1 className="mt-block font-display text-h2 leading-display tracking-display text-paper">
+      <h1 className="page-title">
         {copy.errorTitle}
       </h1>
 
@@ -37,7 +36,7 @@ export function ErrorPage({
         {copy.errorBody}
       </p>
 
-      <div className="mt-block flex flex-wrap gap-5">
+      <div className="mt-block flex flex-wrap gap-4">
         <button type="button" onClick={reset} className="btn btn-solid">
           {copy.errorRetry}
         </button>

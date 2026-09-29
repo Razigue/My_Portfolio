@@ -78,14 +78,16 @@ function Field({
     // No `outline-none` here: the global :focus-visible ring is the actual
     // focus indicator. The invalid fill is styled off `aria-invalid` in
     // globals.css, and the message under the field is what states the problem.
-    className: "field mt-3",
+    className: "field mt-2",
   };
 
   return (
     <p>
+      {/* In the full text colour: a muted label over a filled trough read
+          as a field that could not be used. */}
       <label
         htmlFor={id}
-        className="type-label text-paper-3"
+        className="type-label font-medium text-paper"
       >
         {label}
       </label>
@@ -97,7 +99,7 @@ function Field({
       )}
 
       {error ? (
-        <span id={errorId} className="mt-2 block text-meta text-flare">
+        <span id={errorId} className="mt-2 block text-meta font-medium text-error">
           {error}
         </span>
       ) : null}
@@ -223,15 +225,16 @@ function Form({
         defaultValue={initial("message")}
       />
 
-      <div className="flex flex-wrap items-center gap-6">
+      <div className="flex flex-wrap items-center gap-x-6 gap-y-title">
         <Submit idle={form.submit} busy={form.pending} />
+        <p className="max-w-measure text-meta text-paper-3">{form.note}</p>
       </div>
 
       <p
         role="status"
         aria-live="polite"
-        className={`text-meta ${
-          state.status === "success" ? "text-live" : "text-flare"
+        className={`text-meta font-medium ${
+          state.status === "success" ? "text-paper" : "text-error"
         }`}
       >
         {state.message}

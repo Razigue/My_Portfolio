@@ -33,11 +33,13 @@ checkSite(site);
 export const availability = {
   headline: "Recherche alternance 12 mois",
   windowLabel: "Période",
-  window: "à partir de septembre 2026",
+  window: "dès que possible",
   rhythmLabel: "Rythme",
   rhythm: "6 semaines en entreprise, 2 semaines en formation",
   targetLabel: "Poste visé",
-  target: "Développeur web full-stack, PHP / Symfony et React / TypeScript",
+  target: "Développeur web full-stack",
+  // Sous le poste visé, dans l’ordre de maîtrise.
+  languages: "JavaScript / TypeScript, PHP, Java",
   // L’école, le diplôme et le lieu ne se saisissent pas ici : ils sont lus
   // dans `formation` (content/about.ts) et dans `site.location`.
   schoolLabel: "École",
@@ -48,11 +50,11 @@ export const availability = {
 export const hero = {
   role: site.role,
   tagline:
-    "Développeur web full-stack en formation à la Web@cadémie by Epitech, je cherche une alternance de 12 mois à partir de septembre 2026.",
+    "Développeur web full-stack à l’esprit logique, l’IA dans mes outils depuis 2022. Je cherche une alternance de 12 mois, dès que possible.",
 } as const;
 
 export const presentation =
-  "J’ai découvert le code en commençant le site e-commerce de mon auto-entreprise. Je suis aujourd’hui en formation à la Web@cadémie by Epitech Paris (2025 à 2027), où je développe surtout en PHP avec Symfony, et en React avec TypeScript.";
+  "J’ai l’esprit logique, et l’IA fait partie de mes outils depuis 2022. Je me forme au développement à la Web@cadémie by Epitech, en plein essor du code agentique. Je conçois, je code et je teste. L’IA m’aide à aller plus vite, et les décisions restent les miennes.";
 
 /** Les entrées du menu. Les adresses se calculent dans `lib/i18n.ts`. */
 export const nav = {
@@ -74,11 +76,11 @@ export const sections = {
 export const copy = {
   projectsHeading: "Index des projets",
   contactHeading: "Prendre contact",
-  contactSub: "Pour une offre d’alternance ou une question sur un projet, écrivez-moi.",
+  contactSub: "Une offre d’alternance, une question sur un projet ? Écrivez-moi.",
   cvButton: "Télécharger le CV (PDF)",
   heroContact: "Me contacter",
-  copyIdle: "copier",
-  copyDone: "copié",
+  copyIdle: "Copier",
+  copyDone: "Copié",
   sourceLink: "Code source ↗",
   approachTitle: "La démarche",
   diagramOr: "ou",
@@ -87,10 +89,9 @@ export const copy = {
   skipLink: "Aller au contenu",
   notFoundTitle: "Page introuvable",
   notFoundBody: "Cette page n’existe pas ou a été déplacée.",
-  notFoundLink: "← Retour à l’accueil",
+  notFoundLink: "Retour à l’accueil",
   errorTitle: "Une erreur est survenue",
-  errorBody:
-    "Quelque chose s’est mal passé de mon côté. Réessayez, ou revenez à l’accueil.",
+  errorBody: "Un problème de mon côté. Réessayez ou revenez à l’accueil.",
   errorRetry: "Réessayer",
   errorEyebrow: "Erreur",
   errorRef: "Réf.",
@@ -103,6 +104,9 @@ export const copy = {
   toTop: "Retour en haut de la page",
   themeToDay: "Passer en mode jour",
   themeToNight: "Passer en mode nuit",
+  /** Les mots écrits à côté du disque : le thème qu’on obtient en appuyant. */
+  themeDay: "Mode jour",
+  themeNight: "Mode nuit",
   /** Le nom de la langue, affiché dans le pied de page des pages anglaises pour revenir ici. */
   languageName: "Français",
   newTab: "nouvel onglet",
@@ -114,6 +118,8 @@ export const copy = {
 
   // Accueil
   availabilityTitle: "Disponibilité",
+  spotlightLabel: "Projet à la une",
+  spotlightLink: "Voir le projet",
   selectionIndex: "Voir l’index des projets",
   parcoursLink: "Parcours complet",
   formationTitle: "Formation",
@@ -145,11 +151,17 @@ export const copy = {
   // À propos et contact
   aboutTitle: "À propos",
   languagesTitle: "Langues",
-  documentTitle: "Document",
+  documentTitle: "CV",
   strengthsTitle: "Atouts",
   interestsTitle: "Centres d’intérêt",
   emailLabel: "Email",
   elsewhereLabel: "Ailleurs",
+
+  // La refonte du 2026-09-29
+  caseStudy: "Lire l’étude de cas",
+  allProjects: "Tous les projets",
+  closingTitle: "Parlons de votre alternance",
+  learnLink: "Et ce que je veux apprendre en entreprise",
 
   /** Les mots-clés lus par les moteurs de recherche. */
   keywords: [
@@ -160,6 +172,8 @@ export const copy = {
     "React",
     "Symfony",
     "TypeScript",
+    "IA",
+    "Claude Code",
   ],
 } as const;
 
@@ -168,12 +182,14 @@ export const form = {
   email: "Email",
   message: "Message",
   submit: "Envoyer",
+  // À côté du bouton : ce que devient le message, avant qu’on l’envoie.
+  note: "Le message arrive dans ma boîte mail. Je réponds moi-même.",
   pending: "Envoi…",
-  success: "Message envoyé, merci. Je vous répondrai personnellement, par email.",
-  error: "Le message n’est pas parti, à cause d’une erreur de mon côté. Réessayez, ou écrivez-moi directement.",
+  success: "Message envoyé, merci. Je vous réponds par email.",
+  error: "Le message n’est pas parti, erreur de mon côté. Réessayez ou écrivez-moi directement.",
   // Quand la connexion coupe pendant l’envoi : le texte tapé est gardé.
   interrupted:
-    "Le message n’est pas parti, la connexion a été interrompue. Votre texte est conservé : réessayez, ou écrivez-moi directement.",
+    "Connexion interrompue, le message n’est pas parti. Votre texte est gardé : réessayez.",
   unconfigured: `Le formulaire n’est pas encore configuré. Écrivez-moi directement à ${site.email}.`,
   invalid: "Corrigez les champs signalés.",
   // À l’envoi, quand un champ au moins est resté vide.
@@ -181,9 +197,9 @@ export const form = {
   nameMissing: "Indiquez votre nom.",
   emailMissing: "Indiquez votre adresse email.",
   messageMissing: "Écrivez votre message.",
-  emailInvalid: "Vérifiez l’adresse email, du type nom@entreprise.fr.",
-  messageShort: "Votre message est un peu court, ajoutez quelques mots.",
-  messageLong: "Votre message dépasse 5 000 caractères, raccourcissez-le.",
+  emailInvalid: "Adresse invalide, du type nom@entreprise.fr.",
+  messageShort: "Un peu court, ajoutez quelques mots.",
+  messageLong: "5 000 caractères maximum, raccourcissez.",
   honeypot: "Ne pas remplir",
 } as const;
 

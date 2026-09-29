@@ -13,14 +13,14 @@
  * not by any code the project runs.
  */
 
-/** Night, which is the primary theme. */
-export const INK = "#08080a";
-export const PAPER = "#f4f3f0";
-export const PAPER_3 = "#8b8a85";
-export const FLARE = "#ecdcb0";
+/** Night. */
+export const INK = "#09090b";
+export const PAPER = "#f4f4f5";
+export const PAPER_3 = "#8e8e98";
+export const FLARE = "#86a2ff";
 
 /** Daylight: the browser chrome, and the social cards, which show the home
  *  page as a first visit sees it. */
-export const INK_LIGHT = "#f6f5f2";
-export const PAPER_LIGHT = "#121114";
-export const PAPER_2_LIGHT = "#3a3835";
+export const INK_LIGHT = "#fafaf9";
+export const PAPER_LIGHT = "#0b0b0d";
+export const PAPER_2_LIGHT = "#3f3f46";

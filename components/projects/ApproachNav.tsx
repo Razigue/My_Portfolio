@@ -4,8 +4,7 @@ import { useEffect, useState } from "react";
 
 /**
  * The parts of a project's account, listed in the rail. The part being read
- * fades in a pale wash, so the rail says where the reader is without drawing
- * the eye away from the text.
+ * is set on a ground of its own, so the rail says where the reader is.
  *
  * A part is being read once its top has passed the upper third of the
  * window; at the very bottom of the page the last part is, even when it is
@@ -55,19 +54,22 @@ export function ApproachNav({
 
   return (
     <nav aria-label={label} className="hidden lg:block">
-      <ol className="sticky top-[calc(var(--spacing-header)+var(--spacing-block))] grid gap-3">
-        {titles.map((title, index) => (
-          <li key={title}>
-            <a
-              href={`#demarche-${index}`}
-              aria-current={index === current ? "location" : undefined}
-              className="rail-link type-label text-paper-2"
-            >
-              {title}
-            </a>
-          </li>
-        ))}
-      </ol>
+      <div className="sticky top-[calc(var(--spacing-header)+var(--spacing-block))]">
+        <p className="eyebrow px-3">{label}</p>
+        <ol className="mt-3 grid gap-0.5 border-l border-line pl-2">
+          {titles.map((title, index) => (
+            <li key={title}>
+              <a
+                href={`#demarche-${index}`}
+                aria-current={index === current ? "location" : undefined}
+                className="rail-link type-label"
+              >
+                {title}
+              </a>
+            </li>
+          ))}
+        </ol>
+      </div>
     </nav>
   );
 }

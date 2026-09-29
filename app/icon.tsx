@@ -1,11 +1,12 @@
 import { ImageResponse } from "next/og";
-import { FLARE, INK, loadDisplayFont } from "@/lib/og";
+import { INK_LIGHT, loadTextFont, PAPER_LIGHT } from "@/lib/og";
 
 export const size = { width: 64, height: 64 };
 export const contentType = "image/png";
 
+/** The header's badge: the two initials, light on the text colour. */
 export default async function Icon() {
-  const font = await loadDisplayFont("RB");
+  const font = await loadTextFont("RB", 700);
 
   return new ImageResponse(
     (
@@ -16,10 +17,12 @@ export default async function Icon() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: FLARE,
-          color: INK,
-          fontSize: 40,
-          fontFamily: font ? "Display" : "serif",
+          background: PAPER_LIGHT,
+          color: INK_LIGHT,
+          borderRadius: 16,
+          fontSize: 30,
+          fontWeight: 700,
+          fontFamily: font ? "Text" : "sans-serif",
           letterSpacing: "-0.04em",
         }}
       >
@@ -29,7 +32,7 @@ export default async function Icon() {
     {
       ...size,
       fonts: font
-        ? [{ name: "Display", data: font, style: "normal", weight: 400 }]
+        ? [{ name: "Text", data: font, style: "normal", weight: 700 }]
         : undefined,
     },
   );

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { Icon } from "@/components/ui/Icon";
 
 export function CopyButton({
   value,
@@ -8,6 +9,7 @@ export function CopyButton({
   done,
   action,
   confirm,
+  className,
 }: {
   value: string;
   idle: string;
@@ -15,6 +17,7 @@ export function CopyButton({
   /** The accessible name before copying, and the one after. */
   action: string;
   confirm: string;
+  className?: string;
 }) {
   const [copied, setCopied] = useState(false);
   const timer = useRef(0);
@@ -37,8 +40,9 @@ export function CopyButton({
       <button
         type="button"
         onClick={() => void copy()}
-        className="rounded-control bg-ink-3 px-3 py-1.5 type-label text-paper-2 transition-colors duration-200 hover:bg-flare hover:text-ink"
+        className={`btn btn-sm ${className ?? ""}`}
       >
+        <Icon name={copied ? "check" : "copy"} />
         <span aria-hidden="true">{copied ? done : idle}</span>
         <span className="sr-only">{action}</span>
       </button>

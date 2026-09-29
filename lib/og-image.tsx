@@ -38,7 +38,7 @@ export async function renderOgImage(locale: Locale): Promise<ImageResponse> {
   // site's one face; the name alone takes the heavier weight.
   const [font, heavy, portrait] = await Promise.all([
     loadTextFont(hero.tagline),
-    loadTextFont(site.name, 500),
+    loadTextFont(site.name, 600),
     loadPortrait(),
   ]);
 
@@ -70,9 +70,9 @@ export async function renderOgImage(locale: Locale): Promise<ImageResponse> {
             style={{
               display: "flex",
               fontSize: 84,
-              fontWeight: 500,
-              lineHeight: 1.05,
-              letterSpacing: "-0.03em",
+              fontWeight: 600,
+              lineHeight: 1.02,
+              letterSpacing: "-0.035em",
             }}
           >
             {site.name}
@@ -108,7 +108,7 @@ export async function renderOgImage(locale: Locale): Promise<ImageResponse> {
         ? [
             { name: "Text", data: font, style: "normal", weight: 400 },
             ...(heavy
-              ? [{ name: "Text", data: heavy, style: "normal", weight: 500 } as const]
+              ? [{ name: "Text", data: heavy, style: "normal", weight: 600 } as const]
               : []),
           ]
         : undefined,

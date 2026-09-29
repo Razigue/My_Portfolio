@@ -1,13 +1,14 @@
 import Link from "next/link";
+import { Icon } from "@/components/ui/Icon";
+import { TagList } from "@/components/ui/TagList";
 import { getContent } from "@/lib/content";
 import { pathFor, type Locale } from "@/lib/i18n";
 import { skillDomains } from "@/lib/skills";
 
 /**
- * One block per domain: its technologies on one line, and under them the
- * published projects that use any of them, derived from `content/projects.ts`
- * and linked, so the list also says where to see it. A domain no published
- * project uses shows its technologies alone. See `lib/skills.ts`.
+ * One row per domain: its technologies, those a published project uses set
+ * in the full text colour, and the projects that use any of them, derived
+ * from `content/projects.ts` and linked. See `lib/skills.ts`.
  */
 export function Skills({ locale }: { locale: Locale }) {
   const content = getContent(locale);
@@ -17,43 +18,42 @@ export function Skills({ locale }: { locale: Locale }) {
   return (
     <section aria-labelledby="competences-title" className="band">
       <div className="section-body page-width">
-        <h2
-          id="competences-title"
-          className="section-title"
-        >
+        <h2 id="competences-title" className="section-title">
           {sections.competences}
         </h2>
 
-        <ul className="ruled-each mt-block grid gap-x-gutter gap-y-block lg:grid-cols-2">
+        <ul className="mt-block grid border-t border-line">
           {domains.map((domain) => (
-            <li key={domain.domain}>
-              <h3 className="part-title">
-                {domain.domain}
-              </h3>
+            <li
+              key={domain.domain}
+              className="grid gap-x-gutter gap-y-3 border-b border-line py-6 md:grid-cols-[minmax(0,11rem)_minmax(0,1fr)_minmax(0,17rem)] md:items-baseline"
+            >
+              <h3 className="item-title">{domain.domain}</h3>
 
-              <p className="fact-value mt-label max-w-measure text-body">
-                {domain.skills.map((skill) => skill.name).join(", ")}
-              </p>
+              <TagList
+                items={domain.skills.map((skill) => skill.name)}
+                proven={domain.skills
+                  .filter((skill) => skill.projects.length > 0)
+                  .map((skill) => skill.name)}
+              />
 
-              {/* Each project carries the arrow every other link to a page on
-                  this site carries: set in running text with nothing drawn
-                  under it, a name told apart by its colour alone does not
-                  read as something to click. */}
               {domain.projects.length > 0 ? (
-                <p className="mt-label flex flex-wrap items-baseline gap-x-5 gap-y-2 text-meta text-paper-3">
+                <p className="flex flex-wrap items-center gap-x-4 gap-y-1 type-label text-paper-3 md:justify-end">
                   <span>{copy.skillsUsedIn}</span>
                   {domain.projects.map((project) => (
                     <Link
                       key={project.slug}
                       href={pathFor(locale, "projects", project.slug)}
-                      className="link text-paper"
+                      className="link-arrow"
                     >
                       {project.title}
-                      <span aria-hidden="true"> →</span>
+                      <Icon name="arrowRight" />
                     </Link>
                   ))}
                 </p>
-              ) : null}
+              ) : (
+                <span aria-hidden="true" className="hidden md:block" />
+              )}
             </li>
           ))}
         </ul>

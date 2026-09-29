@@ -4,14 +4,15 @@ import { checkAbout, checkMethod } from "@/content/check";
 import { featuredProjects } from "@/content/projects";
 
 export const parcours: readonly string[] = [
-  "Avant Epitech, j’ai occupé plusieurs emplois, notamment dans la restauration et l’entretien d’espaces verts. J’ai ensuite développé une activité de vente en ligne de visuels générés par IA avec Midjourney, d’abord sur Etsy.",
-  "Pour cette boutique, j’ai commencé à construire mon propre site. C’est là que j’ai appris les bases du HTML et du CSS, et que j’ai eu envie d’aller plus loin\u00A0: j’ai poursuivi avec des projets personnels, puis rejoint la Web@cadémie by Epitech pour en faire mon métier.",
-  "La boutique m’a surtout appris à regarder un produit du côté de celui qui l’utilise. Une page produit peu claire ou une étape de trop dans l’achat se voyait tout de suite dans les ventes, alors j’ajustais en continu. Aujourd’hui, quand je code une interface, je pars du parcours de l’utilisateur et de ce qui peut le bloquer, je livre une première version, puis je l’améliore à partir de ce que j’observe. C’est cette logique qui a donné Tonecraft, parti d’un problème que j’avais moi-même en tant que guitariste.",
+    "Avant Epitech, j’ai travaillé dans la restauration et l’entretien d’espaces verts. Puis j’ai lancé une boutique en ligne de visuels générés par IA, sur Etsy.",
+    "Pour cette boutique, j’ai voulu mon propre site. J’y ai appris le HTML et le CSS, et l’envie d’en faire mon métier : des projets personnels, puis la Web@cadémie by Epitech en 2025, en plein essor du code agentique.",
+    "J’y apprends le métier par les deux bouts. Écrire le code à la main pour le comprendre, comme My Cinema, ma première API, sans framework. Et développer avec un agent IA à partir d’un cahier des charges précis, en testant tout et en décidant de ce qui est gardé.",
+    "La boutique m’a appris à voir un produit avec les yeux du client. Une page floue ou une étape de trop se voyait dans les ventes. Je code de la même façon : je pars du parcours de l’utilisateur, je livre, puis j’améliore. Tonecraft est né ainsi, d’un problème que j’avais en tant que guitariste.",
 ];
 
 /** La phrase qui ouvre la page « À propos », sous son titre. Ses mots à lui. */
 export const devise =
-  "Je saisis les occasions, je m’organise, et je vais au bout.";
+    "Je saisis les occasions, je m’organise, et je vais au bout.";
 
 /**
  * La partie « En alternance » de la page « À propos » : ce qu’il peut prendre
@@ -20,125 +21,124 @@ export const devise =
  * elle fermerait des portes.
  */
 export const recherche = {
-  title: "En alternance",
-  firstMonthTitle: "Ce que je peux prendre en charge dès le premier mois",
-  firstMonth: [
-    "Corriger des bugs d’intégration (responsive, CSS, composants), le cœur de mon titre de développeur intégrateur web.",
-    "Auditer l’accessibilité d’une page avec axe ou Lighthouse, puis corriger les points simples : contrastes, libellés de formulaires, textes alternatifs, navigation au clavier.",
-    "Faire évoluer une API existante : ajouter un filtre ou une pagination, renforcer la validation des entrées, documenter les routes en OpenAPI.",
-    "Brancher le lint et les tests dans la CI, ou accélérer une pipeline trop lente.",
-    "Automatiser une tâche manuelle de l’équipe (reporting, export, notes de version) avec un script ou un workflow n8n.",
-  ],
-  learnTitle: "Ce que je veux apprendre en entreprise",
-  learn: [
-    "Vivre les rituels agiles de l’intérieur : comprendre le rôle de chacun, participer aux estimations, et faire un point quotidien utile, en une minute, sur ce qui est fait, ce qui reste et ce qui bloque.",
-    "Rendre mon avancement visible sans qu’on me le demande, avec des tickets et des statuts à jour, surtout en télétravail.",
-    "Présenter une fonctionnalité en revue de sprint par ce qu’elle apporte à l’utilisateur.",
-    "Savoir ce que les autres métiers attendent de moi : le QA pour tester, le support pour répondre aux utilisateurs, le designer pour ajuster une maquette.",
-    "Partager ce que j’apprends : documentation, courte présentation interne, aide au prochain arrivant.",
-  ],
+    title: "En alternance",
+    firstMonthTitle: "Dès le premier mois",
+    firstMonth: [
+        "Corriger des défauts d’affichage sur mobile et sur ordinateur, le cœur de mon titre d’intégrateur web.",
+        "Rendre une page accessible à tous : contrastes, formulaires, navigation au clavier.",
+        "Faire évoluer une API existante : nouveaux filtres, contrôle des données reçues, documentation.",
+        "Automatiser les vérifications avant chaque mise en ligne, ou accélérer celles qui ralentissent l’équipe.",
+        "Automatiser une tâche répétitive de l’équipe : reporting, exports, notes de version.",
+    ],
+    learnTitle: "Ce que je veux apprendre",
+    learn: [
+        "Vivre les rituels agiles de l’intérieur : estimations, point quotidien court et utile.",
+        "Rendre mon avancement visible sans qu’on me le demande, surtout en télétravail.",
+        "Présenter une fonctionnalité par ce qu’elle apporte à l’utilisateur.",
+        "Comprendre ce que le QA, le support et le design attendent de moi.",
+        "Partager ce que j’apprends : documentation, présentations, accueil des nouveaux.",
+    ],
 } as const;
 
 export type Experience = {
-  readonly role: string;
-  readonly period: string;
-  readonly context: string;
-  readonly description: string;
+    readonly role: string;
+    readonly period: string;
+    readonly context: string;
+    readonly description: string;
 };
 
 export const experiences: readonly Experience[] = [
-  {
-    role: "Auto-entrepreneur",
-    period: "janvier 2022 à décembre 2024",
-    context: "Contenu numérique IA et e-commerce",
-    description:
-      "Boutique en ligne de visuels générés par IA, gérée seul de bout en bout : production, produit et relation client. Vente sur Etsy, avec des clients trouvés par le bouche-à-oreille, puis par un serveur Discord et des plateformes de visibilité rémunérées à la commission. Les visuels étaient produits sur Midjourney, en itérant les prompts pour tenir le style, le cadrage et la qualité avant de publier, un réflexe que je garde avec les tests. Point de départ de ma reconversion vers le développement web.",
-  },
-  {
-    role: "Agent d’espaces verts",
-    period: "2021 à 2022",
-    context: "AITA, intérim à Angers",
-    description:
-      "Entretien des espaces verts des communes d’Angers, dans une équipe qui se répartit la tonte, la taille et le nettoyage pour finir une zone dans la journée. En intérim, on n’est rappelé pour la mission suivante que si l’on est fiable\u00A0: à l’heure, au rythme de l’équipe, rigoureux avec les consignes de sécurité sur les machines.",
-  },
+    {
+        role: "Auto-entrepreneur",
+        period: "janvier 2022 à décembre 2024",
+        context: "Contenu numérique IA et e-commerce",
+        description:
+            "Boutique de visuels générés par IA, gérée seul de bout en bout : production, catalogue, relation client. Vente sur Etsy, puis via Discord et des partenaires payés à la commission. Chaque visuel était retravaillé jusqu’au bon rendu avant publication, un réflexe que je garde avec les tests.",
+    },
+    {
+        role: "Agent d’espaces verts",
+        period: "2021 à 2022",
+        context: "AITA, intérim à Angers",
+        description:
+            "Entretien des espaces verts d’Angers, en équipe, avec une zone à finir dans la journée. En intérim, on n’est rappelé que si l’on est fiable : ponctuel, au rythme de l’équipe, rigoureux sur la sécurité.",
+    },
 ];
 
 export const formation = {
-  title: "Développeur intégrateur web",
-  credential: "Titre RNCP de niveau 5",
-  period: "2025 à 2027",
-  school: "Web@cadémie by Epitech",
-  place: "Le Kremlin-Bicêtre (94)",
-  detail: "Formation 24 mois dont 12 en alternance",
-  firstYear:
-    "En première année, 12 projets rendus : 5 seul, 5 en binôme et 2 en équipe. Le plus gros, Overkill, s’est fait à cinq en trois semaines.",
-  cycle:
-    "Chaque projet suit le même cycle : un lancement qui présente le sujet, la prise en main du projet et de ses technologies, les tâches réparties sur Trello, un point d’avancement chaque jour, puis une soutenance orale devant l’équipe pédagogique.",
-  proudest:
-    "Le projet qui m’a le plus appris : My Cinema, ma première API REST reliant le back au front, écrite entièrement à la main en PHP, sans framework. Un projet exigeant, qui m’a fait comprendre le rôle des contrôleurs, des modèles et des entités.",
+    title: "Développeur intégrateur web",
+    credential: "Titre RNCP de niveau 5",
+    period: "2025 à 2027",
+    school: "Web@cadémie by Epitech",
+    place: "Le Kremlin-Bicêtre (94)",
+    detail: "Formation 24 mois dont 12 en alternance",
+    firstYear:
+        "12 projets rendus en première année : 5 seul, 5 en binôme, 2 en équipe.",
+    cycle: "Chaque projet suit le même cycle : lancement, tâches réparties sur Trello, point quotidien, soutenance orale.",
+    proudest:
+        "Celui qui m’a le plus appris : My Cinema, ma première API, écrite à la main en PHP, sans framework.",
 } as const;
 
 export const langues: readonly {
-  readonly name: string;
-  readonly level: string;
+    readonly name: string;
+    readonly level: string;
 }[] = [
-  { name: "Français", level: "natif" },
-  { name: "Anglais", level: "courant, pratiqué au quotidien depuis plus de dix ans" },
+    { name: "Français", level: "natif" },
+    {
+        name: "Anglais",
+        level: "courant, au quotidien depuis plus de dix ans",
+    },
 ];
 
 /** Les qualités, chacune avec ce qui la montre. */
 export const atouts: readonly {
-  readonly name: string;
-  readonly detail: string;
+    readonly name: string;
+    readonly detail: string;
 }[] = [
-  {
-    name: "Autonomie",
-    detail:
-      "Tonecraft, que je porte seul de l’idée à la mise en ligne, et une boutique en ligne tenue seul pendant trois ans.",
-  },
-  {
-    name: "Organisation",
-    detail:
-      "Avant de coder, je découpe le sujet en cartes Trello et je vérifie qu’elles le couvrent en entier. Sur JeuVideOPS, c’est ce qui a montré qu’il manquait le déploiement et la gestion des secrets, avant la première ligne de code.",
-  },
-  {
-    name: "Travail en équipe",
-    detail:
-      "Sur Overkill, à cinq, je relisais chaque pull request validée pour garder un code cohérent.",
-  },
-  {
-    name: "Fiabilité",
-    detail:
-      "Ce que je prends, je le livre, et quand ça bloque, je préviens tout de suite\u00A0: un réflexe gardé de l’intérim.",
-  },
-  {
-    name: "Sens du produit",
-    detail:
-      "Je pars du parcours de l’utilisateur, et je décide de la suite à partir de ses retours\u00A0: c’est ainsi que Tonecraft évolue.",
-  },
+    {
+        name: "Esprit logique",
+        detail: "Je découpe un problème avant de le coder. Sur JeuVideOPS, ce découpage a révélé deux oublis dès le départ : la mise en ligne et la gestion des secrets.",
+    },
+    {
+        name: "Code avec l’IA",
+        detail: "L’IA générative au quotidien depuis 2022. J’ai développé Tonecraft avec Claude Code, à partir de mon cahier des charges. Je teste tout, et je la recadre quand elle se trompe.",
+    },
+    {
+        name: "Autonomie",
+        detail: "Tonecraft, porté seul de l’idée à la mise en ligne. Une boutique tenue seul pendant trois ans.",
+    },
+    {
+        name: "Travail en équipe",
+        detail: "Sur Overkill, à cinq, je relisais chaque contribution validée pour garder un code cohérent.",
+    },
+    {
+        name: "Fiabilité",
+        detail: "Je livre ce que je prends. Quand ça bloque, je préviens tout de suite.",
+    },
+    {
+        name: "Sens du produit",
+        detail: "Je pars du parcours de l’utilisateur et j’avance avec ses retours. C’est ainsi que Tonecraft évolue.",
+    },
 ];
 
 /** Au-delà du code, avec ce qu’il en a dit. */
 export const interets: readonly {
-  readonly name: string;
-  readonly detail: string;
-  /** Un lien discret sous le texte, pour qui a envie d’aller voir. */
-  readonly link?: { readonly label: string; readonly href: string };
+    readonly name: string;
+    readonly detail: string;
+    /** Un lien discret sous le texte, pour qui a envie d’aller voir. */
+    readonly link?: { readonly label: string; readonly href: string };
 }[] = [
-  {
-    name: "Guitare",
-    detail:
-      "Près de 15 ans de pratique, surtout des morceaux techniques et rapides. Pour des solos exigeants, comme ceux d’Archspire, je compte un mois pour apprendre chacun d’eux, en les découpant en phrases que je travaille lentement au métronome, puis un mois de plus pour construire proprement la vitesse jusqu’au tempo d’origine.",
-    link: {
-      label: "Quelques reprises",
-      href: "https://www.youtube.com/playlist?list=PLc8AWPHGVg0E9qopSmr0WWPlNUrqF6mg3",
+    {
+        name: "Guitare",
+        detail: "Près de 15 ans de pratique, surtout des morceaux techniques et rapides. Un solo d’Archspire : un mois pour l’apprendre phrase par phrase, un autre pour atteindre le tempo.",
+        link: {
+            label: "Quelques reprises",
+            href: "https://www.youtube.com/playlist?list=PLc8AWPHGVg0E9qopSmr0WWPlNUrqF6mg3",
+        },
     },
-  },
-  {
-    name: "Technologie",
-    detail:
-      "Je suis de près l’impact de l’IA sur l’évolution de l’automobile, de la robotique et, plus récemment, de la recherche médicale.",
-  },
+    {
+        name: "Technologie",
+        detail: "Je suis l’impact de l’IA sur l’automobile, la robotique et la recherche médicale.",
+    },
 ];
 
 /**
@@ -147,26 +147,29 @@ export const interets: readonly {
  * « Méthode », sur l’accueil.
  */
 export const ia = {
-  title: "Mon usage de l’IA",
-  paragraphs: [
-    "J’utilise surtout Claude, d’Anthropic, avec le modèle Opus 5, pour apprendre, déboguer et écrire du code, tests et pipeline de CI compris. Quand je découvre une technologie, je lui demande le pourquoi de chaque étape, et je vérifie dans la documentation officielle au moindre doute. Sur Tonecraft, je l’ai fait travailler en agent avec Claude Code, à partir de spécifications que j’ai construites avec la méthode BMAD.",
-    "Je teste tout ce qu’il produit, avec Postman, des tests ou la CI, et je vérifie que le résultat répond vraiment au besoin. Sur JeuVideOPS, il proposait un serveur nginx alors que le sujet imposait GitHub Pages : je l’ai recadré. Sur Tonecraft, c’est mon oreille qui juge le son.",
-    "Ce que je ne lui délègue jamais : l’idée d’un produit, ses choix d’interface, ce qui entre dans le dépôt et ce que j’affirme sur moi. En entreprise, aucun code ni aucune donnée interne n’ira dans un outil que l’entreprise n’a pas autorisé.",
-  ],
+    title: "Coder avec l’IA",
+    /** Au-dessus de chaque paragraphe, dans le même ordre : depuis quand, ce qu’il lui confie, ce qu’il vérifie, ce qu’il garde. */
+    headings: ["Depuis 2022", "Ce que je lui confie", "Ce que je vérifie", "Ce que je ne délègue jamais"],
+    paragraphs: [
+        "J’utilise l’IA générative depuis 2022, avec Midjourney pour ma boutique. Je suis entré à la Web@cadémie en 2025, quand le code agentique a explosé : j’ai appris à coder en même temps qu’à piloter ces outils.",
+        "J’utilise surtout Claude, d’Anthropic, pour apprendre, déboguer et écrire du code. Face à une technologie nouvelle, je lui demande le pourquoi de chaque étape et je vérifie dans la documentation officielle. Tonecraft, je l’ai développé avec Claude Code en mode agent, à partir de mon cahier des charges rédigé avec la méthode BMAD.",
+        "Quand il fait fausse route, je le recadre. Sur JeuVideOPS, il proposait une solution que le sujet excluait. Je teste tout ce qu’il propose avant de le garder, et je vérifie que cela répond au besoin. Sur Tonecraft, c’est mon oreille qui juge le son.",
+        "Je ne lui délègue jamais l’idée d’un produit, les choix d’interface, ce qui entre dans le projet, ni ce que j’affirme sur moi. En entreprise, aucun code ni donnée interne n’ira dans un outil non autorisé.",
+    ],
 } as const;
 
 // Textes vides, apostrophes droites, espaces ordinaires contre une ponctuation
 // double : la compilation s'arrête ici plutôt que de publier la page.
 checkAbout({
-  parcours,
-  devise,
-  recherche,
-  experiences,
-  formation,
-  langues,
-  atouts,
-  interets,
-  ia,
+    parcours,
+    devise,
+    recherche,
+    experiences,
+    formation,
+    langues,
+    atouts,
+    interets,
+    ia,
 });
 
 /**
@@ -174,30 +177,35 @@ checkAbout({
  * montrent, et ne dit rien que « La démarche » de ces projets ne dise déjà.
  */
 export const principes: readonly {
-  readonly title: string;
-  readonly body: string;
-  readonly projects: readonly string[];
+    readonly title: string;
+    readonly body: string;
+    readonly projects: readonly string[];
 }[] = [
-  {
-    title: "Valider les données entrantes",
-    body: "Ce qui arrive de l’extérieur est vérifié avant d’être utilisé. Sur Overkill, un DTO définit les contraintes des offres reçues du collecteur et Symfony les valide avant l’écriture en base. Sur Corelab, Zod valide les données de connexion avant la recherche de l’utilisateur.",
-    projects: ["overkill", "corelab"],
-  },
-  {
-    title: "Contrôler les accès",
-    body: "Chacun n’accède qu’à ce que son rôle lui permet. Sur Corelab, un middleware vérifie le jeton JWT et les routes concernées contrôlent le rôle de l’utilisateur. Les mots de passe générés à l’import des utilisateurs sont hachés avec bcrypt.",
-    projects: ["corelab"],
-  },
-  {
-    title: "Signaler les échecs de chargement",
-    body: "Ce qui échoue est signalé, jamais passé sous silence. Quand une capture d’ampli ne se charge pas dans Tonecraft, entendre du son ne prouve pas qu’elle fonctionne. L’interface attend une confirmation du moteur et signale l’échec. Les tests en navigateur vérifient ce chargement avant la publication.",
-    projects: ["tonecraft"],
-  },
-  {
-    title: "Simplifier le parcours",
-    body: "Le moins d’étapes possible pour le visiteur. Tonecraft réunit simulation guitare, tablatures et outils de pratique dans la même page. Le lecteur et ses instruments ne sont chargés qu’à l’ouverture d’une partition. Un visiteur peut écouter la démonstration sans activer le micro.",
-    projects: ["tonecraft"],
-  },
+    {
+        title: "Cadrer avant de coder",
+        body: "Le besoin est écrit avant la première ligne. Avant de développer Tonecraft, j’ai rédigé son cahier des charges avec la méthode BMAD. Je décide ensuite de ce qui est gardé.",
+        projects: ["tonecraft"],
+    },
+    {
+        title: "Vérifier ce qui entre",
+        body: "Rien de ce qui arrive de l’extérieur n’est utilisé sans contrôle. Sur Overkill, les offres collectées sont vérifiées avant d’être enregistrées. Sur Corelab, les identifiants de connexion aussi.",
+        projects: ["overkill", "corelab"],
+    },
+    {
+        title: "Contrôler les accès",
+        body: "Chacun n’accède qu’à ce que son rôle permet. Sur Corelab, chaque demande est authentifiée et les mots de passe ne sont jamais stockés en clair.",
+        projects: ["corelab"],
+    },
+    {
+        title: "Signaler les échecs",
+        body: "Une panne n’est jamais passée sous silence. Tonecraft n’annonce un ampli prêt que s’il l’est vraiment, et signale l’échec sinon. Des tests le vérifient avant chaque mise en ligne.",
+        projects: ["tonecraft"],
+    },
+    {
+        title: "Simplifier le parcours",
+        body: "Le moins d’étapes possible. Tonecraft réunit tout sur une page, ne charge le lecteur de partitions qu’au besoin, et s’essaie sans micro.",
+        projects: ["tonecraft"],
+    },
 ];
 
 /**
@@ -206,53 +214,58 @@ export const principes: readonly {
  * se calcule à partir de `content/projects.ts`.
  */
 export const competences: readonly {
-  readonly domain: string;
-  readonly technologies: readonly string[];
+    readonly domain: string;
+    readonly technologies: readonly string[];
 }[] = [
-  {
-    domain: "Back-end",
-    technologies: [
-      "PHP",
-      "Laravel",
-      "Symfony",
-      "Java",
-      "Spring Boot",
-      "Node.js",
-      "Express",
-      "API REST",
-      "MySQL",
-      "PostgreSQL",
-      "MongoDB",
-    ],
-  },
-  {
-    domain: "Front-end",
-    technologies: [
-      "JavaScript",
-      "TypeScript",
-      "React",
-      "Svelte",
-      "Astro",
-      "HTML",
-      "CSS",
-      "Tailwind CSS",
-      "Bootstrap",
-      "alphaTab",
-      "IndexedDB",
-    ],
-  },
-  {
-    domain: "Audio et natif",
-    technologies: ["C++", "Rust", "WebAssembly", "Web Audio API"],
-  },
-  {
-    domain: "DevOps et qualité",
-    technologies: ["Docker", "GitHub Actions", "CI/CD", "ESLint", "Jest", "Playwright"],
-  },
-  {
-    domain: "Outils",
-    technologies: ["Git", "Linux", "VS Code", "Trello"],
-  },
+    {
+        domain: "Front-end",
+        technologies: [
+            "JavaScript",
+            "TypeScript",
+            "React",
+            "Svelte",
+            "Astro",
+            "HTML",
+            "CSS",
+            "Tailwind CSS",
+        ],
+    },
+    {
+        domain: "Back-end",
+        technologies: [
+            "Node.js",
+            "Express",
+            "PHP",
+            "Symfony",
+            "Laravel",
+            "Java",
+            "API REST",
+            "PostgreSQL",
+            "MySQL",
+            "MongoDB",
+        ],
+    },
+    {
+        domain: "DevOps et qualité",
+        technologies: [
+            "Docker",
+            "GitHub Actions",
+            "CI/CD",
+            "ESLint",
+            "Jest",
+            "Playwright",
+        ],
+    },
+    {
+        domain: "Outils",
+        technologies: ["Git", "Linux"],
+    },
+    {
+        // Le code de ces parties de Tonecraft est écrit par l’agent : il ne
+        // code pas dans ces langages. Le groupe vient en dernier, à dessein.
+        domain: "Délégué à l’IA",
+        technologies: ["C++", "WebAssembly", "Rust"],
+    },
 ];
 
 checkMethod({ principes, competences }, featuredProjects);

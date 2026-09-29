@@ -5,10 +5,11 @@ import type {
   ProjectDiagram as Diagram,
 } from "@/content/projects";
 import { DiagramIcon } from "@/components/projects/DiagramIcon";
+import { Icon, type IconName } from "@/components/ui/Icon";
 
 /*
- * Arrows are glyphs, the same ones the site's links already carry. Nothing is
- * drawn between the stations: no line, no connector. A branch always hangs
+ * Arrows are the site's drawn arrows, in the muted ink. Nothing else is drawn
+ * between the stations: no line, no connector. A branch always hangs
  * under its station, so its arrow points up or down on every screen. On a
  * phone it is indented to the station's text, so its arrow is never read as
  * one of the main path's.
@@ -30,22 +31,21 @@ import { DiagramIcon } from "@/components/projects/DiagramIcon";
  * its place: it hangs under its station, smaller and on a quieter ground, and
  * that is what ties it to the station rather than to the path.
  *
- * The diagram sits on a ground of its own, with the rounded corners of a
- * capture: that ground, not a frame, is what sets it apart from the
- * paragraphs above it, the way a capture is set apart by its own pixels. It
- * carries no visible title. The heading and the paragraphs of its part
+ * A station is its pictogram over its words, in the text's own colours: no
+ * tile, no tint, no accent. The diagram is a card, which is what sets it
+ * apart from the paragraphs around it. It carries no visible title. The heading and the paragraphs of its part
  * already introduce it, so `title` names the figure for a screen reader only.
  */
-const BRANCH_ARROWS: Record<DiagramBranch["flow"], string | null> = {
-  out: "↓",
-  in: "↑",
-  loop: "↓↑",
-  apart: null,
+const BRANCH_ARROWS: Record<DiagramBranch["flow"], IconName[]> = {
+  out: ["arrowDown"],
+  in: ["arrowUp"],
+  loop: ["arrowDown", "arrowUp"],
+  apart: [],
 };
 
-/** What sits in the gutter left of a station, level with its tile. */
+/** What sits in the gutter left of a station, level with its pictogram. */
 const GUTTER =
-  "absolute top-0 -left-8 hidden h-16 w-8 items-center justify-center lg:flex";
+  "absolute top-0 -left-8 hidden h-9 w-8 items-center justify-center lg:flex";
 
 export type DiagramLabels = {
   /** Between two alternatives. */
@@ -60,17 +60,15 @@ function Station({
   side?: boolean;
 }) {
   return (
-    <div className="flex w-full min-w-0 items-center gap-4 lg:flex-col lg:gap-5 lg:text-center">
+    <div className="flex w-full min-w-0 items-center gap-4 lg:flex-col lg:gap-4 lg:text-center">
       <span
-        className={`flex shrink-0 items-center justify-center ${
-          side
-            ? "size-10 rounded-control bg-ink text-paper-2 lg:size-12"
-            : "size-14 rounded-control bg-ink-3 text-flare lg:size-16"
+        className={`flex size-9 shrink-0 items-center justify-center ${
+          side ? "text-paper-3" : "text-paper"
         }`}
       >
         <DiagramIcon
           icon={node.icon}
-          className={side ? "size-5 lg:size-6" : "size-7 lg:size-8"}
+          className={side ? "size-6" : "size-8 lg:size-9"}
         />
       </span>
       <div className="w-full min-w-0 break-words">
@@ -89,15 +87,17 @@ function Station({
 }
 
 function Branch({ branch }: { branch: DiagramBranch }) {
-  const arrow = BRANCH_ARROWS[branch.flow];
+  const arrows = BRANCH_ARROWS[branch.flow];
   return (
     <li className="grid gap-2 lg:justify-items-center">
-      {arrow ? (
+      {arrows.length > 0 ? (
         <span
           aria-hidden="true"
-          className="flex h-8 w-10 items-center justify-center whitespace-nowrap font-mono text-lede text-flare lg:w-16"
+          className="flex h-8 w-9 items-center justify-center text-lede text-paper-3"
         >
-          {arrow}
+          {arrows.map((name) => (
+            <Icon key={name} name={name} />
+          ))}
         </span>
       ) : null}
       <Station node={branch} side />
@@ -119,7 +119,7 @@ export function ProjectDiagram({
   const branched = diagram.steps.some((step) => step.branches?.length);
 
   return (
-    <figure className="min-w-0 rounded-shot bg-ink-2 px-5 py-10 sm:px-8 lg:py-14">
+    <figure className="card min-w-0 p-6 sm:p-8 lg:p-10">
       <figcaption className="sr-only">{diagram.title}</figcaption>
       <ol
         className="flex flex-col lg:grid lg:grid-cols-[repeat(var(--diagram-columns),minmax(0,12rem))] lg:justify-center lg:gap-x-8"
@@ -137,15 +137,15 @@ export function ProjectDiagram({
                 <>
                   <span
                     aria-hidden="true"
-                    className="flex h-10 w-14 items-center justify-center font-mono text-lede text-flare lg:hidden"
+                    className="flex h-10 w-9 items-center justify-center text-lede text-paper-3 lg:hidden"
                   >
-                    ↓
+                    <Icon name="arrowDown" />
                   </span>
                   <span
                     aria-hidden="true"
-                    className={`${GUTTER} font-mono text-lede text-flare`}
+                    className={`${GUTTER} text-lede text-paper-3`}
                   >
-                    →
+                    <Icon name="arrowRight" />
                   </span>
                 </>
               ) : null}
@@ -161,11 +161,11 @@ export function ProjectDiagram({
                   >
                     {i > 0 ? (
                       <>
-                        <span className="w-14 text-center font-display text-body text-paper-3 lg:hidden">
+                        <span className="w-9 text-center text-body text-paper-3 lg:hidden">
                           {labels.or}
                         </span>
                         <span
-                          className={`${GUTTER} font-display text-body text-paper-3`}
+                          className={`${GUTTER} text-body text-paper-3`}
                         >
                           {labels.or}
                         </span>
@@ -176,7 +176,7 @@ export function ProjectDiagram({
                 ))}
               </div>
               {step.branches ? (
-                <ul className="mt-3 grid content-start gap-6 pl-18 lg:col-span-full lg:mt-0 lg:pl-0">
+                <ul className="mt-3 grid content-start gap-6 pl-13 lg:col-span-full lg:mt-0 lg:pl-0">
                   {step.branches.map((branch) => (
                     <Branch key={branch.label} branch={branch} />
                   ))}

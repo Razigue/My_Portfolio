@@ -101,10 +101,12 @@ export function RootDocument({
             navLabel: copy.navLabel,
             menuOpen: copy.menuOpen,
             menuClose: copy.menuClose,
-            toTop: copy.toTop,
             themeToDay: copy.themeToDay,
             themeToNight: copy.themeToNight,
+            cv: copy.cvButton,
+            cvShort: copy.cvShort,
           }}
+          cvUrl={site.cvUrl}
         />
         <main id="contenu" tabIndex={-1}>
           {children}

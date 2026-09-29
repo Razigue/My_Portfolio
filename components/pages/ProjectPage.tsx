@@ -1,16 +1,13 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ContactCta } from "@/components/home/ContactCta";
 import { ApproachNav } from "@/components/projects/ApproachNav";
 import { ProjectDiagram } from "@/components/projects/ProjectDiagram";
 import { ProjectMedia } from "@/components/projects/ProjectMedia";
 import { ProjectShot } from "@/components/projects/ProjectShot";
-import { ProjectAtmosphere } from "@/components/projects/ProjectVisual";
-import Link from "next/link";
-import {
-  Eyebrow,
-  ExternalLink,
-  StatusDot,
-} from "@/components/ui/primitives";
+import { Icon } from "@/components/ui/Icon";
+import { ExternalLink, ProjectMeta } from "@/components/ui/primitives";
 import { TagList } from "@/components/ui/TagList";
 import { featuredProjects } from "@/content/projects";
 import { findProject, getContent, projectContext } from "@/lib/content";
@@ -45,6 +42,12 @@ export function projectMetadata(locale: Locale, slug: string): Metadata {
   };
 }
 
+/**
+ * A project: its name, state and frame, what it is, what proves it and how to
+ * see it, with the facts in a card beside; then its interface across the
+ * page; then the long-form account with its parts listed in a rail that stays
+ * in view; then the neighbours and the closing call.
+ */
 export function ProjectPage({
   locale,
   slug,
@@ -65,179 +68,161 @@ export function ProjectPage({
     ? (project.primaryStack ?? [])
     : project.stack;
   const otherStack = project.stack.filter((item) => !mainStack.includes(item));
-  const titleHref = project.demo ?? project.repo;
   const heroImage = project.image ?? project.thumbnail;
-  const heading = (
-    <h1 className="block font-display text-h2 leading-display tracking-display text-paper">
-      {project.title}
-    </h1>
-  );
 
   return (
     <>
-      {/* The page has one reading column and one rail beside it, from the
-          header down. Everything read in order (the title, the description,
-          the capture, the account) starts on the column's left edge;
-          everything looked up (the links, the status, the stack, the parts
-          of the account) sits in the rail on the right. */}
-      <header
-        className={
-          project.thumbnail?.background
-            ? "relative isolate overflow-hidden"
-            : undefined
-        }
-      >
-        {project.thumbnail?.background ? (
-          <ProjectAtmosphere background={project.thumbnail.background} />
-        ) : null}
-        <div className="page-head page-width">
-          <div className="grid gap-x-gutter gap-y-block lg:grid-cols-[minmax(0,1fr)_minmax(14rem,18rem)]">
-            <div className="min-w-0">
-              {titleHref ? (
-                <ExternalLink
-                  href={titleHref}
-                  newTab={copy.newTab}
-                  className="block w-fit"
-                >
-                  {heading}
-                </ExternalLink>
-              ) : (
-                <div>{heading}</div>
-              )}
-              {project.subtitle ? (
-                <p className="mt-title max-w-measure text-lede text-paper-2">
-                  {project.subtitle}
-                </p>
-              ) : null}
+      <header className="page-head page-width">
+        <p className="mb-8">
+          <Link
+            href={pathFor(locale, "projects")}
+            className="link-arrow type-label text-paper-2"
+          >
+            <Icon name="arrowLeft" />
+            {copy.allProjects}
+          </Link>
+        </p>
 
-              <p className="mt-block max-w-measure text-lede text-paper">
-                {project.description}
+        <div className="grid gap-x-gutter gap-y-block lg:grid-cols-[minmax(0,1fr)_minmax(0,20rem)]">
+          <div className="min-w-0">
+            <h1
+              className="rise page-title"
+              style={{ "--i": 1 } as React.CSSProperties}
+            >
+              {project.title}
+            </h1>
+            {project.subtitle ? (
+              <p
+                className="rise mt-3 text-h3 font-medium tracking-tight text-paper-3"
+                style={{ "--i": 1 } as React.CSSProperties}
+              >
+                {project.subtitle}
               </p>
-
-              {project.highlights.length > 0 ? (
-                <ul className="mt-block grid max-w-measure gap-label">
-                  {project.highlights.map((highlight) => (
-                    <li
-                      key={highlight}
-                      className="flex items-baseline gap-4 text-body text-paper-2"
-                    >
-                      <span
-                        className="mark-flare dot-baseline"
-                        aria-hidden="true"
-                      />
-                      {highlight}
-                    </li>
-                  ))}
-                </ul>
-              ) : null}
-            </div>
-
-            {/* What the project looks like: under the description on a
-                phone, and across the column and the rail from a laptop up,
-                under both. The interface, or the artwork when there is no
-                capture. */}
-            {heroImage ? (
-              <div className="min-w-0 lg:col-span-2 lg:row-start-2">
-                <ProjectShot
-                  image={heroImage}
-                  sizes="(min-width: 88rem) 83rem, calc(100vw - 48px)"
-                  priority
-                />
-              </div>
             ) : null}
 
-            <div className="ruled ruled-tight grid content-start gap-title lg:col-start-2 lg:row-start-1">
-              {project.repo || project.demo ? (
-                <div>
-                  <Eyebrow>{copy.linksLabel}</Eyebrow>
-                  <ul className="mt-label grid gap-3">
-                    {project.demo ? (
-                      <li>
-                        <ExternalLink
-                          href={project.demo}
-                          label={fill(copy.demoLabel, { title: project.title })}
-                          newTab={copy.newTab}
-                          className="link fact-value type-label"
-                        >
-                          {copy.demoLong} ↗
-                        </ExternalLink>
-                      </li>
-                    ) : null}
-                    {project.repo ? (
-                      <li>
-                        <ExternalLink
-                          href={project.repo}
-                          label={fill(copy.repoLabel, { title: project.title })}
-                          newTab={copy.newTab}
-                          className="link type-label text-paper-2"
-                        >
-                          {copy.repoLong} ↗
-                        </ExternalLink>
-                      </li>
-                    ) : null}
-                  </ul>
-                </div>
-              ) : null}
+            <div className="rise" style={{ "--i": 2 } as React.CSSProperties}>
+              <ProjectMeta
+                context={context}
+                status={project.status}
+                labels={copy}
+                className="mt-4"
+              />
+            </div>
 
-              <div>
-                <Eyebrow>{copy.statusLabel}</Eyebrow>
-                <div className="mt-label">
-                  <StatusDot status={project.status} labels={copy} />
-                </div>
+            <p
+              className="rise mt-7 max-w-measure text-lede text-paper-2"
+              style={{ "--i": 2 } as React.CSSProperties}
+            >
+              {project.description}
+            </p>
+
+            {project.highlights.length > 0 ? (
+              <ul
+                className="rise check-list mt-7 grid max-w-measure gap-3"
+                style={{ "--i": 3 } as React.CSSProperties}
+              >
+                {project.highlights.map((highlight) => (
+                  <li key={highlight} className="text-body text-paper-2">
+                    <span className="check-mark" aria-hidden="true">
+                      <Icon name="check" />
+                    </span>
+                    <span>{highlight}</span>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+
+            {project.demo || project.repo ? (
+              <div
+                className="rise mt-9 flex flex-wrap items-center gap-3"
+                style={{ "--i": 4 } as React.CSSProperties}
+              >
+                {project.demo ? (
+                  <ExternalLink
+                    href={project.demo}
+                    label={fill(copy.demoLabel, { title: project.title })}
+                    newTab={copy.newTab}
+                    className="btn btn-solid"
+                  >
+                    {copy.demoLong}
+                    <Icon name="arrowUpRight" />
+                  </ExternalLink>
+                ) : null}
+                {project.repo ? (
+                  <ExternalLink
+                    href={project.repo}
+                    label={fill(copy.repoLabel, { title: project.title })}
+                    newTab={copy.newTab}
+                    className="btn"
+                  >
+                    <Icon name="github" />
+                    {copy.repoLong}
+                  </ExternalLink>
+                ) : null}
               </div>
+            ) : null}
+          </div>
 
+          {/* The facts, looked up rather than read. */}
+          <aside
+            className="rise card h-fit p-6"
+            style={{ "--i": 3 } as React.CSSProperties}
+          >
+            <dl className="ruled ruled-tight grid gap-title">
               {context ? (
                 <div>
-                  <Eyebrow>{copy.frameLabel}</Eyebrow>
-                  <p className="fact-value mt-label text-body">{context}</p>
+                  <dt className="eyebrow">{copy.frameLabel}</dt>
+                  <dd className="fact-value mt-1.5 text-body">{context}</dd>
                 </div>
               ) : null}
 
-              {/* The main technologies stay in view: they are what a
-                  recruiter scans for. With a disclosure, the others wait
-                  behind a link that says whether it will show or hide them. */}
               <div>
-                <Eyebrow>{copy.stackLabel}</Eyebrow>
-                {mainStack.length > 0 ? (
-                  <TagList items={mainStack} className="mt-label" />
-                ) : null}
-                {project.stackDisclosure && otherStack.length > 0 ? (
-                  <details className="stack-more mt-label">
-                    <summary className="link list-none type-label text-paper-2 [&::-webkit-details-marker]:hidden">
-                      <span className="stack-more-show">
-                        {project.stackDisclosure}
-                      </span>
-                      <span className="stack-more-hide">{copy.stackHide}</span>
-                    </summary>
-                    <TagList items={otherStack} className="mt-label" />
-                  </details>
-                ) : null}
+                <dt className="eyebrow">{copy.stackLabel}</dt>
+                <dd>
+                  {mainStack.length > 0 ? (
+                    <TagList items={mainStack} proven={mainStack} className="mt-2.5" />
+                  ) : null}
+                  {project.stackDisclosure && otherStack.length > 0 ? (
+                    <details className="stack-more mt-3">
+                      <summary className="link-arrow type-label font-normal text-paper-2">
+                        <span className="stack-more-show">
+                          {project.stackDisclosure}
+                        </span>
+                        <span className="stack-more-hide">{copy.stackHide}</span>
+                      </summary>
+                      <TagList items={otherStack} className="mt-2.5" />
+                    </details>
+                  ) : null}
+                </dd>
               </div>
-            </div>
-          </div>
+            </dl>
+          </aside>
         </div>
+
+        {heroImage ? (
+          <div
+            className="rise feature-stage mt-block rounded-[1.5rem] border border-line p-3 sm:p-6 lg:p-10"
+            style={{ "--i": 5 } as React.CSSProperties}
+          >
+            <ProjectShot
+              image={heroImage}
+              sizes="(min-width: 74rem) 68rem, calc(100vw - 48px)"
+              placeholder={heroImage.cutout ? "empty" : "blur"}
+              priority
+            />
+          </div>
+        ) : null}
       </header>
 
-      <div className="page-width" aria-hidden="true">
-        <hr className="rule" />
-      </div>
-
-      {/* The long-form account, when the project carries one: on the same
-          column and rail as the section above, with the parts listed in the
-          rail, where they stay in view as the account is read. */}
       {project.approach ? (
-        <section aria-labelledby="demarche-title">
-          <div className="section-body page-width grid gap-x-gutter lg:grid-cols-[minmax(0,1fr)_minmax(14rem,18rem)]">
+        <section aria-labelledby="demarche-title" className="band">
+          <div className="section-body page-width grid gap-x-gutter lg:grid-cols-[minmax(0,1fr)_minmax(0,16rem)]">
             <div className="min-w-0">
               <h2 id="demarche-title" className="section-title">
                 {copy.approachTitle}
               </h2>
 
-              {/* Inside a part, the heading, the text and what illustrates
-                  it are a title step apart; two parts are a block apart. The
-                  account reads straight through, so no line cuts it: its
-                  headings are enough. */}
-              <div className="mt-block grid gap-block">
+              <div className="mt-block grid gap-section">
                 {project.approach.map((section, sectionIndex) => (
                   <section
                     key={section.title}
@@ -259,13 +244,17 @@ export function ProjectPage({
                       ))}
                     </div>
                     {section.media ? (
-                      <ProjectMedia media={section.media} />
+                      <div className="mt-2">
+                        <ProjectMedia media={section.media} />
+                      </div>
                     ) : null}
                     {section.diagram ? (
-                      <ProjectDiagram
-                        diagram={section.diagram}
-                        labels={{ or: copy.diagramOr }}
-                      />
+                      <div className="mt-2">
+                        <ProjectDiagram
+                          diagram={section.diagram}
+                          labels={{ or: copy.diagramOr }}
+                        />
+                      </div>
                     ) : null}
                   </section>
                 ))}
@@ -280,34 +269,42 @@ export function ProjectPage({
         </section>
       ) : null}
 
-      <div>
-        <nav
-          aria-label={copy.pagerLabel}
-          className="section-body page-width grid gap-title pt-block sm:grid-cols-2"
-        >
-          {previous ? (
-            <div>
-              <Link
-                href={pathFor(locale, "projects", previous.slug)}
-                className="link type-label text-paper-2"
-              >
-                ← {previous.title}
-              </Link>
-            </div>
-          ) : null}
-
-          {next ? (
-            <div className="sm:col-start-2 sm:text-right">
-              <Link
-                href={pathFor(locale, "projects", next.slug)}
-                className="link type-label text-paper-2"
-              >
-                {next.title} →
-              </Link>
-            </div>
-          ) : null}
+      {previous || next ? (
+        <nav aria-label={copy.pagerLabel} className="page-width pt-section">
+          <ul className="grid gap-4 sm:grid-cols-2">
+            {previous ? (
+              <li>
+                <Link
+                  href={pathFor(locale, "projects", previous.slug)}
+                  className="card card-link flex items-center gap-4 p-5"
+                >
+                  <Icon name="arrowLeft" className="text-paper-3" />
+                  <span>
+                    <span className="block type-label text-paper-3">{previous.subtitle}</span>
+                    <span className="card-title item-title">{previous.title}</span>
+                  </span>
+                </Link>
+              </li>
+            ) : null}
+            {next ? (
+              <li className="sm:col-start-2">
+                <Link
+                  href={pathFor(locale, "projects", next.slug)}
+                  className="card card-link flex items-center justify-end gap-4 p-5 text-right"
+                >
+                  <span>
+                    <span className="block type-label text-paper-3">{next.subtitle}</span>
+                    <span className="card-title item-title">{next.title}</span>
+                  </span>
+                  <Icon name="arrowRight" className="text-paper-3" />
+                </Link>
+              </li>
+            ) : null}
+          </ul>
         </nav>
-      </div>
+      ) : null}
+
+      <ContactCta locale={locale} headingId="projet-contact-title" />
     </>
   );
 }
