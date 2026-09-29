@@ -54,8 +54,6 @@ export function ProjectRow({
         ))}
       </ul>
 
-      <span className="tnum text-meta text-paper-3">{project.year}</span>
-
       <div className="relative z-10 flex flex-wrap items-center gap-x-6 gap-y-3">
         <StatusDot status={project.status} labels={copy} />
 

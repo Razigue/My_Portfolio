@@ -107,10 +107,8 @@ export const copy: Localized<typeof frenchCopy> = {
   skillsUsedIn: "Used in:",
 
   projectsDescription: "Full-stack web applications, built solo and in teams.",
-  projectsSummaryOne: "{count} project, {years}.",
-  projectsSummaryMany: "{count} projects, {years}.",
-  yearsSingle: "in {year}",
-  yearsRange: "from {first} to {last}",
+  projectsSummaryOne: "{count} project.",
+  projectsSummaryMany: "{count} projects.",
   kindPersonal: "Personal project",
   kindSchool: "School project",
   groupPersonal: "Personal projects",

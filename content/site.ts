@@ -122,10 +122,8 @@ export const copy = {
 
   // Projets. `{years}`, `{year}`, `{first}`, `{last}` et `{title}` se calculent.
   projectsDescription: "Applications web full-stack, en solo et en équipe.",
-  projectsSummaryOne: "{count} projet, {years}.",
-  projectsSummaryMany: "{count} projets, {years}.",
-  yearsSingle: "en {year}",
-  yearsRange: "de {first} à {last}",
+  projectsSummaryOne: "{count} projet.",
+  projectsSummaryMany: "{count} projets.",
   kindPersonal: "Projet personnel",
   kindSchool: "Projet d’école",
   groupPersonal: "Projets personnels",

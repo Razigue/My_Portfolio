@@ -93,17 +93,16 @@ export function ProjectPage({
         <div className="page-head page-width">
           <div className="grid gap-x-gutter gap-y-block lg:grid-cols-[minmax(0,1fr)_minmax(14rem,18rem)]">
             <div className="min-w-0">
-              <Eyebrow>{String(project.year)}</Eyebrow>
               {titleHref ? (
                 <ExternalLink
                   href={titleHref}
                   newTab={copy.newTab}
-                  className="mt-block block w-fit"
+                  className="block w-fit"
                 >
                   {heading}
                 </ExternalLink>
               ) : (
-                <div className="mt-block">{heading}</div>
+                <div>{heading}</div>
               )}
               {project.subtitle ? (
                 <p className="mt-title max-w-measure text-lede text-paper-2">

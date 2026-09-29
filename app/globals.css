@@ -1304,7 +1304,7 @@
   @media (width >= 64rem) {
     .index {
       grid-template-columns:
-        [row-start] minmax(0, 1.6fr) minmax(0, 1fr) 4rem max-content
+        [row-start] minmax(0, 1.6fr) minmax(0, 1fr) max-content
         [row-end];
       column-gap: 2rem;
     }

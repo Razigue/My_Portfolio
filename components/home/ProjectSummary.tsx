@@ -64,10 +64,9 @@ export function ProjectSummary({
             <StatusDot status={project.status} labels={copy} />
           </div>
 
-          <p className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-meta text-paper-3">
-            {context ? <span>{context}</span> : null}
-            <span className="tnum">{project.year}</span>
-          </p>
+          {context ? (
+            <p className="mt-2 text-meta text-paper-3">{context}</p>
+          ) : null}
 
           <p className="mt-title max-w-measure text-body text-paper-2">
             {project.summary ?? project.description}

@@ -172,22 +172,11 @@ export function projectContext(content: Content, project: Project): string | nul
   return project.team ? `${kind}, ${project.team}` : kind;
 }
 
-/**
- * « Trois projets, en 2026. » — counted, never typed. Adding a project
- * rewrites the sentence on its own, years included.
- */
+/** « Trois projets. » — counted, never typed. */
 export function projectsSummary(content: Content): string {
   const { copy, locale, projects } = content;
-  const years = projects.map((project) => project.year);
-  const first = Math.min(...years);
-  const last = Math.max(...years);
-  const span =
-    first === last
-      ? fill(copy.yearsSingle, { year: first })
-      : fill(copy.yearsRange, { first, last });
   const count = projects.length;
   return fill(count > 1 ? copy.projectsSummaryMany : copy.projectsSummaryOne, {
     count: countWord(locale, count),
-    years: span,
   });
 }
