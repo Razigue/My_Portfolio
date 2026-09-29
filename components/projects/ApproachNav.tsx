@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 
 /**
  * The parts of a project's account, listed in the rail. The part being read
- * carries a faint trace of the gold a link takes under the pointer, so the
- * rail says where the reader is without competing with the pointer.
+ * fades in a pale wash, so the rail says where the reader is without drawing
+ * the eye away from the text.
  *
  * A part is being read once its top has passed the upper third of the
  * window; at the very bottom of the page the last part is, even when it is
@@ -61,7 +61,7 @@ export function ApproachNav({
             <a
               href={`#demarche-${index}`}
               aria-current={index === current ? "location" : undefined}
-              className="link type-label text-paper-2"
+              className="rail-link type-label text-paper-2"
             >
               {title}
             </a>

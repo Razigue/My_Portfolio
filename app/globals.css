@@ -355,17 +355,36 @@
     transform-origin: left center;
   }
 
-  /* The part of an account being read, in the rail: the same mark, barely
-     tinted, and the label at full contrast. The pointer still lays the full
-     gold over it. */
-  .link[aria-current="location"]:not(:hover, :focus-visible) {
+  /* The parts of an account, in the rail. No gold sweep here: the part being
+     read fades in a pale wash, and the pointer only brings the label up to
+     full contrast. */
+  .rail-link {
+    position: relative;
+    isolation: isolate;
+    display: inline-block;
+    text-decoration: none;
+    transition: color var(--t-fast) var(--ease-swift);
+  }
+
+  .rail-link::before {
+    content: "";
+    position: absolute;
+    inset: -0.14em -0.32em;
+    z-index: -1;
+    border-radius: calc(var(--radius-mark) * 2);
+    background-color: color-mix(in srgb, var(--color-flare) 14%, transparent);
+    opacity: 0;
+    transition: opacity 400ms var(--ease-swift);
+  }
+
+  .rail-link:hover,
+  .rail-link:focus-visible,
+  .rail-link[aria-current="location"] {
     color: var(--color-paper);
   }
 
-  .link[aria-current="location"]:not(:hover, :focus-visible)::before {
-    background-color: color-mix(in srgb, var(--color-flare) 14%, transparent);
-    transform: scaleX(1);
-    transform-origin: left center;
+  .rail-link[aria-current="location"]::before {
+    opacity: 1;
   }
 }
 
