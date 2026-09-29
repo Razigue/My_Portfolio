@@ -19,5 +19,8 @@ export const PAPER = "#f4f3f0";
 export const PAPER_3 = "#8b8a85";
 export const FLARE = "#ecdcb0";
 
-/** Daylight, needed only where the browser chrome asks for both. */
+/** Daylight: the browser chrome, and the social cards, which show the home
+ *  page as a first visit sees it. */
 export const INK_LIGHT = "#f6f5f2";
+export const PAPER_LIGHT = "#121114";
+export const PAPER_2_LIGHT = "#3a3835";

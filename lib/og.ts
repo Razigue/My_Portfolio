@@ -43,4 +43,10 @@ export const OG_SIZE = { width: 1200, height: 630 };
 
 // Satori has no cascade and no custom properties, so the images are drawn from
 // the mirrored palette rather than from the stylesheet.
-export { FLARE, INK, PAPER, PAPER_3 } from "@/lib/palette";
+export {
+  FLARE,
+  INK,
+  INK_LIGHT,
+  PAPER_2_LIGHT,
+  PAPER_LIGHT,
+} from "@/lib/palette";
