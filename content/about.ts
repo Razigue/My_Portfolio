@@ -28,7 +28,6 @@ export const recherche = {
     "Faire évoluer une API existante : ajouter un filtre ou une pagination, renforcer la validation des entrées, documenter les routes en OpenAPI.",
     "Brancher le lint et les tests dans la CI, ou accélérer une pipeline trop lente.",
     "Automatiser une tâche manuelle de l’équipe (reporting, export, notes de version) avec un script ou un workflow n8n.",
-    "Rédiger un rapport d’étonnement.",
   ],
   learnTitle: "Ce que je veux apprendre en entreprise",
   learn: [

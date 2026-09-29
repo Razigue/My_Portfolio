@@ -38,7 +38,6 @@ export const recherche: Localized<typeof frenchRecherche> = {
     "Extend an existing API: add a filter or pagination, tighten input validation, document the routes in OpenAPI.",
     "Wire linting and tests into the CI, or speed up a slow pipeline.",
     "Automate a manual team task (reporting, exports, release notes) with a script or an n8n workflow.",
-    "Write a fresh-eyes report on what I notice as a newcomer.",
   ],
   learnTitle: "What I want to learn in a company",
   learn: [
