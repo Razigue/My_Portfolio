@@ -9,7 +9,8 @@ export type ContactStatus =
   | "success"
   | "error"
   | "invalid"
-  | "unconfigured";
+  | "unconfigured"
+  | "relay";
 
 export type ContactField = "name" | "email" | "message";
 
@@ -27,6 +28,12 @@ export type ContactState = {
   values: ContactValues;
   /** Bumped on every submission so an identical result is re-announced. */
   key: number;
+  /**
+   * With `relay`: where the browser posts the checked message, and under what
+   * subject. FormSubmit turns away requests from a host's servers, so without
+   * a Resend key the message leaves from the visitor's browser.
+   */
+  relay?: { to: string; subject: string };
 };
 
 export const initialContactState: ContactState = {

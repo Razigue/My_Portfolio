@@ -11,6 +11,7 @@ import {
 } from "react";
 import { useFormStatus } from "react-dom";
 import { sendMessage } from "@/lib/contact/actions";
+import { relay } from "@/lib/contact/relay";
 import {
   initialContactState,
   type ContactField,
@@ -119,8 +120,13 @@ function Form({
   /** Rebuilt after an interrupted send, from the retry button. */
   resumed: boolean;
 }) {
+  // The server checks the message and sends it; without a Resend key it
+  // hands the checked message back for the browser to send instead.
   const [state, action] = useActionState<ContactState, FormData>(
-    sendMessage,
+    async (previous, formData) => {
+      const checked = await sendMessage(previous, formData);
+      return checked.relay ? relay(checked, checked.relay, form) : checked;
+    },
     initialContactState,
   );
   const formRef = useRef<HTMLFormElement>(null);

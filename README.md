@@ -351,7 +351,10 @@ avec pot de miel et contrôle de délai de saisie.
 Avec `RESEND_API_KEY`, l’envoi passe par Resend. Sans clé, il passe par
 FormSubmit, qui transmet à `CONTACT_TO_EMAIL` (par défaut `site.email`) sans
 compte ni clé, une fois l’adresse activée par le lien que FormSubmit envoie au
-premier message. Tant que ce n’est pas fait, le formulaire renvoie un état
+premier message. FormSubmit refuse les requêtes venues des serveurs d’un
+hébergeur (Vercel compris) : le serveur vérifie le message, puis c’est le
+navigateur du visiteur qui le poste (`lib/contact/relay.ts`). L’activation vaut
+pour le domaine d’où part la requête, donc une fois pour `www.razigue.com`. Tant que ce n’est pas fait, le formulaire renvoie un état
 `unconfigured` explicite qui oriente vers l’adresse email. **Il ne simule
 jamais un envoi réussi.** Voir [`TODO.md`](TODO.md) §7.
 

@@ -76,10 +76,17 @@ export async function sendMessage(
   const subject = `Message de ${name} depuis le portfolio${english ? " (version anglaise)" : ""}`;
 
   // Without a Resend key, the message goes through FormSubmit, which needs no
-  // account: it forwards to the address in its URL, once that address has
-  // clicked the activation link FormSubmit mails it on the first submission.
+  // account. It refuses requests from a host's servers (Vercel's among them),
+  // so the checked message is handed back for the browser to post.
   if (!apiKey) {
-    return sendWithFormSubmit({ to, name, email, message, subject, form, key });
+    return {
+      status: "relay",
+      message: null,
+      fieldErrors: {},
+      values,
+      key,
+      relay: { to, subject },
+    };
   }
 
   const failed: ContactState = {
@@ -110,86 +117,5 @@ export async function sendMessage(
   } catch (cause) {
     console.error("[contact] send failed:", cause);
     return failed;
-  }
-}
-
-/**
- * FormSubmit's JSON endpoint. It answers `success: "true"` once the message is
- * on its way, and `success: "false"` with an explanation otherwise, the first
- * time included: until the mailbox has activated the form, nothing is
- * forwarded. That case is answered like a missing key, with the address to
- * write to, because a message that went nowhere must never read as sent.
- */
-async function sendWithFormSubmit({
-  to,
-  name,
-  email,
-  message,
-  subject,
-  form,
-  key,
-}: {
-  to: string;
-  name: string;
-  email: string;
-  message: string;
-  subject: string;
-  form: typeof frenchForm | typeof englishForm;
-  key: number;
-}): Promise<ContactState> {
-  try {
-    const response = await fetch(
-      `https://formsubmit.co/ajax/${encodeURIComponent(to)}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          // FormSubmit refuses a submission that names no page it came from.
-          Origin: site.url,
-          Referer: `${site.url}/contact`,
-        },
-        body: JSON.stringify({
-          name,
-          email,
-          message,
-          _subject: subject,
-          _replyto: email,
-          _template: "box",
-          _captcha: "false",
-        }),
-        cache: "no-store",
-      },
-    );
-    const data = (await response.json().catch(() => null)) as {
-      success?: string | boolean;
-      message?: string;
-    } | null;
-
-    if (response.ok && (data?.success === true || data?.success === "true")) {
-      return { status: "success", message: form.success, fieldErrors: {}, values: {}, key };
-    }
-
-    console.error(
-      "[contact] FormSubmit refused the message:",
-      data?.message ?? response.status,
-    );
-    const pending = /activat/i.test(data?.message ?? "");
-    return {
-      status: pending ? "unconfigured" : "error",
-      message: pending ? form.unconfigured : form.error,
-      fieldErrors: {},
-      values: { name, email, message },
-      key,
-    };
-  } catch (cause) {
-    console.error("[contact] FormSubmit unreachable:", cause);
-    return {
-      status: "error",
-      message: form.error,
-      fieldErrors: {},
-      values: { name, email, message },
-      key,
-    };
   }
 }
