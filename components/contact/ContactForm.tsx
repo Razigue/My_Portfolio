@@ -194,9 +194,6 @@ function Form({
       {/* So the server answers in the language the visitor wrote in. */}
       <input type="hidden" name="locale" value={locale} />
 
-      {/* Said once, before anything is typed, rather than after a refusal. */}
-      <p className="text-meta text-paper-3">{form.required}</p>
-
       <Field
         key={`name-${state.key}`}
         id={`${base}-name`}

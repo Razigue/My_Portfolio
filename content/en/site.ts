@@ -146,7 +146,6 @@ export const copy: Localized<typeof frenchCopy> = {
 };
 
 export const form: Localized<typeof frenchForm> = {
-  required: "Every field is needed.",
   name: "Name",
   email: "Email",
   message: "Message",
@@ -158,7 +157,10 @@ export const form: Localized<typeof frenchForm> = {
     "The message did not go through, the connection was interrupted. Your text is still here: try again, or write to me directly.",
   unconfigured: `The form is not set up yet. Write to me directly at ${frenchSite.email}.`,
   invalid: "Please correct the fields marked below.",
+  missing: "Every field is needed.",
   nameMissing: "Please enter your name.",
+  emailMissing: "Please enter your email address.",
+  messageMissing: "Please write your message.",
   emailInvalid: "Check the email address, in the form name@company.com.",
   messageShort: "Your message is a little short; add a few words.",
   messageLong: "Your message is over 5,000 characters; please shorten it.",

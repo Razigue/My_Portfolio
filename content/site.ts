@@ -164,8 +164,6 @@ export const copy = {
 } as const;
 
 export const form = {
-  /** Au-dessus des champs : tous sont obligatoires. */
-  required: "Tous les champs sont nécessaires.",
   name: "Nom",
   email: "Email",
   message: "Message",
@@ -178,7 +176,11 @@ export const form = {
     "Le message n’est pas parti, la connexion a été interrompue. Votre texte est conservé : réessayez, ou écrivez-moi directement.",
   unconfigured: `Le formulaire n’est pas encore configuré. Écrivez-moi directement à ${site.email}.`,
   invalid: "Corrigez les champs signalés.",
+  // À l’envoi, quand un champ au moins est resté vide.
+  missing: "Tous les champs sont nécessaires.",
   nameMissing: "Indiquez votre nom.",
+  emailMissing: "Indiquez votre adresse email.",
+  messageMissing: "Écrivez votre message.",
   emailInvalid: "Vérifiez l’adresse email, du type nom@entreprise.fr.",
   messageShort: "Votre message est un peu court, ajoutez quelques mots.",
   messageLong: "Votre message dépasse 5 000 caractères, raccourcissez-le.",

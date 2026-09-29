@@ -51,18 +51,17 @@ export async function sendMessage(
 
   const fieldErrors: ContactState["fieldErrors"] = {};
   if (name.length < 2) fieldErrors.name = form.nameMissing;
-  if (!EMAIL.test(email)) fieldErrors.email = form.emailInvalid;
-  if (message.length < 10) {
-    fieldErrors.message = form.messageShort;
-  }
-  if (message.length > 5000) {
-    fieldErrors.message = form.messageLong;
-  }
+  if (!email) fieldErrors.email = form.emailMissing;
+  else if (!EMAIL.test(email)) fieldErrors.email = form.emailInvalid;
+  if (!message) fieldErrors.message = form.messageMissing;
+  else if (message.length < 10) fieldErrors.message = form.messageShort;
+  else if (message.length > 5000) fieldErrors.message = form.messageLong;
 
   if (Object.keys(fieldErrors).length > 0) {
     return {
       status: "invalid",
-      message: form.invalid,
+      // An empty field is named as such; otherwise the fields say what to fix.
+      message: !name || !email || !message ? form.missing : form.invalid,
       fieldErrors,
       values,
       key,
