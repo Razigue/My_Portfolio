@@ -16,7 +16,7 @@ The site belongs to Razigue Benhmida (he/him), who edits its text himself throug
 
 ## Product Purpose
 
-A bilingual portfolio, French at the root and English mirrored under `/en`, with one job: land Razigue a 12-month alternance (apprenticeship), starting as soon as possible. The role he targets is full-stack web developer (JavaScript / TypeScript first, then PHP and Java), six weeks in the company and two at school, anywhere in Paris and Île-de-France, remote accepted. He trains at the Web@cadémie by Epitech, 2025 to 2027, for the titre RNCP niveau 5 « Développeur intégrateur web ».
+A bilingual portfolio, French at the root and English mirrored under `/en`, with one job: land Razigue a 12-month alternance (apprenticeship), starting as soon as possible. The role he targets is full-stack web developer (Python on the server and React / TypeScript on the interface first, then PHP and Java), six weeks in the company and two at school, anywhere in Paris and Île-de-France, remote accepted. He trains at the Web@cadémie by Epitech, 2025 to 2027, for the titre RNCP niveau 5 « Développeur intégrateur web ».
 
 A visit succeeds when the recruiter does any of these:
 
@@ -44,7 +44,7 @@ What another apprentice's portfolio could not truthfully say:
 
 - Pages, in both languages: home, projects index, a page per published project, about, contact. Only the slugs in `featuredSlugs` (`content/projects.ts`) are published; the other projects are a reserve with no page.
 - Every rendered string lives in `content/`. English mirrors French entry for entry in `content/en/`, and the checks refuse a gap.
-- Terminology: « alternance » in French, "apprenticeship" in English. The role reads « Développeur web full-stack », with the languages in order of mastery under it: JavaScript / TypeScript, PHP, Java.
+- Terminology: « alternance » in French, "apprenticeship" in English. The role reads « Développeur web full-stack », with the main stack under it: React, TypeScript, Python.
 - `null` renders nothing, and nothing that can be counted is typed by hand (`AGENTS.md`).
 - Left out at Razigue's request: any preference for a type of company (it would close doors), the phone number, and some past activities and schooling he chose not to show. Never add an experience, an interest, a level or a claim the site does not already state, from the CV or anywhere else, without asking him.
 - Open, waiting on Razigue:

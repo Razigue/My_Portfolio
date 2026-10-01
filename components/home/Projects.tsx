@@ -5,13 +5,18 @@ import { Icon } from "@/components/ui/Icon";
 import { getContent } from "@/lib/content";
 import { pathFor, type Locale } from "@/lib/i18n";
 
+/** How many published projects the home page shows; the index has them all. */
+const SHOWN = 3;
+
 /**
- * The published projects, in the order of `featuredSlugs`: the first across
- * the page with everything that proves it, the others as cards side by side.
+ * The first published projects, in the order of `featuredSlugs`: the first
+ * across the page with everything that proves it, the next two as cards side
+ * by side, so the grid never ends on a lone card. The rest is one link away.
  */
 export function Projects({ locale }: { locale: Locale }) {
   const { copy, projects, sections } = getContent(locale);
-  const [lead, ...rest] = projects;
+  const [lead, ...rest] = projects.slice(0, SHOWN);
+  const hidden = projects.length > SHOWN;
 
   return (
     <section aria-labelledby="projets-title" className="band">
@@ -42,6 +47,15 @@ export function Projects({ locale }: { locale: Locale }) {
               <ProjectSummary key={project.slug} project={project} locale={locale} />
             ))}
           </ol>
+        ) : null}
+
+        {hidden ? (
+          <div className="mt-block flex justify-center">
+            <Link href={pathFor(locale, "projects")} className="link-arrow type-label">
+              {copy.moreProjects}
+              <Icon name="arrowRight" />
+            </Link>
+          </div>
         ) : null}
       </div>
     </section>

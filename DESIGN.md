@@ -205,7 +205,7 @@ The system consciously refuses the tells of generated landing pages: badges and 
 - Geist semibold headings with tight negative tracking over Geist body; one family, no monospace.
 - 1px hairlines and hairline-ruled lists carry structure; cards only for openable objects.
 - Drawn single-stroke SVG icons, sized to the text they sit in.
-- One staggered entrance on the first screen; hover lifts on project cards; nothing loops.
+- One staggered entrance on the first screen; hover shadows on project cards, never a movement; nothing loops.
 
 ## Colors
 
@@ -297,7 +297,7 @@ The sticky header sits on a solid page-colored ground (no translucency, no blur)
 
 **The No Glow Rule.** No colored shadows, no accent glows, no gradient text, no gradient washes behind content. A capture brings its own color.
 
-**The Hover Lift Rule.** Cards are flat at rest; a card that is a link lifts 2px, darkens its border to Hairline Strong and gains the Lift shadow under the pointer or focus.
+**The Hover Lift Rule.** Cards are flat at rest; a card that is a link never moves: it darkens its border to Hairline Strong and gains the Lift shadow under the pointer or focus.
 
 ## Shapes
 

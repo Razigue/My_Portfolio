@@ -235,6 +235,140 @@ export const projectTexts: Readonly<Record<string, ProjectTranslation>> = {
             "Tonecraft’s studio in the Tone tab, with the amp switched on: the settings bar at the top, with input, gate, amp, cabinet and the Lead preset, the Guilt amp with its lit purple stained glass in the middle, and the tab player, the looper and the guitar and backing tracks at the bottom.",
     },
 
+    binder: {
+        thumbnailAlt:
+            "Binder’s home page: upcoming deadlines, documents to check and documents filed, a price rise alert on the EDF bill, then the list of documents to check and the recent documents.",
+        title: "Binder",
+        subtitle: "AI paperwork agent",
+        team: null,
+        description:
+            "An AI paperwork agent, installed on the computer. Drop in your bills, notices and certificates: it files them, reads their key details and tracks deadlines. Ask it anything: it searches the documents, acts, such as creating a reminder, and cites its sources. Rules check its reading. Nothing leaves the computer.",
+        summary:
+            "An AI agent that files paperwork, tracks its deadlines and answers questions, with nothing leaving the computer.",
+        highlights: [
+            "An agent that searches, reads and acts on the documents",
+            "Its reading checked by rules, its answers sourced",
+            "The AI runs on the computer, documents encrypted",
+        ],
+        approach: [
+            {
+                title: "The need",
+                paragraphs: [
+                    "Bills, tax notices, payslips, certificates: a household’s paperwork piles up, with dates not to miss. It says everything about a household: income, health, identity, address.",
+                    "So I made a choice from the start: to protect this data, the AI agent works on the computer, without sending it online.",
+                ],
+            },
+            {
+                title: "File and explain",
+                paragraphs: [
+                    "Drop in PDFs and photos, or scan them with your phone. The AI files them by category and reads the amount, dates, reference and sender. Rules check its reading; if any doubt remains, the document waits to be checked.",
+                    "“In short” explains each letter plainly: what it is, what to do, and by when.",
+                ],
+                mediaAlt: [
+                    "A property tax notice open in Binder: the document on the left, and on the right “In short”, which sums up the letter and says to pay €1,240 before 6 October 2026, then the extracted details.",
+                ],
+            },
+            {
+                title: "Miss nothing",
+                paragraphs: [
+                    "Payment deadlines and expiry dates are taken from the documents, as a list and a calendar. An identity card is flagged early enough to renew it. Binder also warns when a regular bill rises by more than 10%.",
+                ],
+                mediaAlt: [
+                    "Binder’s deadlines: the October 2026 calendar with upcoming payments by category, then the validity of documents, with an identity card to renew.",
+                ],
+            },
+            {
+                title: "Prepare the paperwork",
+                paragraphs: [
+                    "To rent a home or apply for housing benefit, Binder lists the documents required and shows what is ready, missing or too old. The folder exports as a numbered archive.",
+                    "It also prepares template letters, prefilled with the details of the documents: cancellation, dispute, document request.",
+                ],
+                mediaAlt: [
+                    "The rental folder in Binder: two documents ready out of five, each with its status, ready, incomplete or missing, and what is left to request.",
+                ],
+            },
+            {
+                title: "An agent that acts",
+                paragraphs: [
+                    "You talk to it in your own words: “When does my passport expire?”, “Remind me to pay the property tax”. The agent picks from seventeen tools on its own: search, read a document, create a reminder, mark a bill paid, draft a letter. It chains them, then answers, citing the documents it consulted.",
+                    "It changes nothing unless asked. It invents no amount and no date: if it answers without checking the documents, it is sent back to look first.",
+                ],
+                mediaAlt: [
+                    "Binder’s agent, asked when the identity card expires: it answers 5 December 2026 and cites the identity card among the documents consulted.",
+                ],
+            },
+            {
+                title: "An AI that stays on the computer",
+                paragraphs: [
+                    "Working locally is a design choice, to protect sensitive data. The AI model runs on the computer: no document is sent to an online service. The database and the files are encrypted.",
+                    "Nothing is deleted silently: a trash, a history of every action, and a confirmation before any permanent deletion.",
+                ],
+                diagram: {
+                    title: "The path of a document through Binder",
+                    steps: [
+                        {
+                            nodes: [
+                                {
+                                    icon: "sheet",
+                                    label: "The document",
+                                    hint: "bill, notice, certificate",
+                                },
+                            ],
+                        },
+                        {
+                            nodes: [
+                                {
+                                    icon: "chip",
+                                    label: "The AI agent",
+                                    hint: "files, reads, acts",
+                                    detail: "Ollama",
+                                },
+                            ],
+                            branches: [
+                                {
+                                    flow: "loop",
+                                    icon: "funnel",
+                                    label: "The rules",
+                                    hint: "check its reading",
+                                    detail: "Python",
+                                },
+                            ],
+                        },
+                        {
+                            nodes: [
+                                {
+                                    icon: "storage",
+                                    label: "The vault",
+                                    hint: "encrypted, on the computer",
+                                    detail: "SQLite",
+                                },
+                            ],
+                        },
+                        {
+                            nodes: [
+                                {
+                                    icon: "screen",
+                                    label: "The application",
+                                    hint: "what you see",
+                                    detail: "React",
+                                },
+                            ],
+                        },
+                    ],
+                },
+            },
+            {
+                title: "How I built it",
+                paragraphs: [
+                    "Designed and developed alone, with Claude Code in agent mode, from my own specification. I test everything and decide what is kept.",
+                    "A test bench replays realistic requests and checks the tools called, the documents cited and the figures in the answer. On every push, automated tests run on Windows, macOS and Linux.",
+                ],
+            },
+        ],
+        stackDisclosure: "Show the other technologies",
+        imageAlt:
+            "Binder’s document list: filters by status and category, then each document with its category, sender, date, amount and status, filed or to confirm.",
+    },
     overkill: {
         thumbnailAlt:
             "Overkill’s home page, with its headline about a centralised job search and a quick search form by role, location and contract type.",

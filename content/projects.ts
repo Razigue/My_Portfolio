@@ -20,6 +20,13 @@ import tonecraftTabs from "@/content/media/tonecraft-tabs.webp";
 import tonecraftRecorder from "@/content/media/tonecraft-recorder.webp";
 import tonecraftTuner from "@/content/media/tonecraft-tuner.webp";
 import tonecraftMetronome from "@/content/media/tonecraft-metronome.webp";
+import binderHome from "@/content/media/binder-home.webp";
+import binderBackground from "@/content/media/binder-background.webp";
+import binderDocuments from "@/content/media/binder-documents.webp";
+import binderDetail from "@/content/media/binder-detail.webp";
+import binderDeadlines from "@/content/media/binder-deadlines.webp";
+import binderFolders from "@/content/media/binder-folders.webp";
+import binderAgent from "@/content/media/binder-agent.webp";
 import overkillHome from "@/content/media/overkill-home.webp";
 import overkillBackground from "@/content/media/overkill-background.webp";
 import overkillFeed from "@/content/media/overkill-feed.webp";
@@ -33,7 +40,8 @@ import corelabStudent from "@/content/media/corelab-student.webp";
 import corelabAdmin from "@/content/media/corelab-admin.webp";
 import { checkProjects } from "@/content/check";
 
-export type ProjectStatus = "live" | "archived";
+/** `local` : rien à essayer en ligne, par choix ; le code permet de l'installer. */
+export type ProjectStatus = "live" | "local" | "archived";
 
 /** Where the project was made: on his own, or as Web@cadémie coursework. */
 export type ProjectKind = "personnel" | "ecole";
@@ -454,6 +462,174 @@ export const projects: readonly Project[] = [
         status: "live",
     },
     {
+        slug: "binder",
+        thumbnail: {
+            src: binderHome,
+            background: binderBackground,
+            alt: "L’accueil de Binder : les échéances à venir, les documents à vérifier et les documents classés, une alerte de hausse sur la facture EDF, puis la liste des documents à vérifier et celle des documents récents.",
+        },
+        title: "Binder",
+        subtitle: "agent IA administratif",
+        kind: "personnel",
+        team: null,
+        description:
+            "Un agent IA administratif, installé sur l’ordinateur. On lui dépose ses factures, avis et attestations : il les classe, en lit les informations clés et suit les échéances. On lui demande ce qu’on veut : il cherche dans les documents, agit, comme créer un rappel, et cite ses sources. Des règles vérifient sa lecture. Rien ne quitte l’ordinateur.",
+        summary:
+            "Un agent IA qui range les papiers administratifs, suit leurs échéances et répond aux questions, sans que rien ne quitte l’ordinateur.",
+        highlights: [
+            "Un agent qui cherche, lit et agit sur les documents",
+            "Sa lecture vérifiée par des règles, ses réponses sourcées",
+            "L’IA tourne sur l’ordinateur, documents chiffrés",
+        ],
+        approach: [
+            {
+                title: "Le besoin",
+                paragraphs: [
+                    "Factures, avis d’impôt, bulletins de paie, attestations : les papiers d’un foyer s’accumulent, avec des dates à ne pas manquer. Ils disent tout d’un foyer : revenus, santé, identité, adresse.",
+                    "J’ai donc fait un choix dès le départ : pour protéger ces données, l’agent IA travaille sur l’ordinateur, sans les envoyer en ligne.",
+                ],
+            },
+            {
+                title: "Ranger et expliquer",
+                paragraphs: [
+                    "On dépose ses PDF et ses photos, ou on les scanne avec son téléphone. L’IA les classe par catégorie et lit le montant, les dates, la référence et l’émetteur. Des règles vérifient sa lecture ; s’il reste un doute, le document attend une vérification.",
+                    "« En bref » explique chaque courrier simplement : ce que c’est, quoi faire, et avant quand.",
+                ],
+                media: [
+                    {
+                        src: binderDetail,
+                        alt: "Un avis de taxe foncière ouvert dans Binder : le document à gauche, et à droite « En bref », qui résume le courrier et indique de payer 1 240 € avant le 6 octobre 2026, puis les informations extraites.",
+                    },
+                ],
+            },
+            {
+                title: "Ne rien laisser passer",
+                paragraphs: [
+                    "Les échéances de paiement et les fins de validité sont tirées des documents, en liste et en calendrier. Une carte d’identité est signalée assez tôt pour la renouveler. Binder prévient aussi quand une facture régulière augmente de plus de 10 %.",
+                ],
+                media: [
+                    {
+                        src: binderDeadlines,
+                        alt: "Les échéances de Binder : le calendrier d’octobre 2026 avec les paiements à venir par catégorie, puis la validité des documents, avec une carte d’identité à renouveler.",
+                    },
+                ],
+            },
+            {
+                title: "Préparer les démarches",
+                paragraphs: [
+                    "Pour louer un logement ou demander une aide au logement, Binder liste les pièces demandées et montre ce qui est prêt, manquant ou trop ancien. Le dossier s’exporte en une archive numérotée.",
+                    "Il prépare aussi des courriers types, préremplis avec les informations des documents : résiliation, contestation, demande de document.",
+                ],
+                media: [
+                    {
+                        src: binderFolders,
+                        alt: "Le dossier de location dans Binder : deux pièces prêtes sur cinq, avec pour chacune son état, prêt, incomplet ou manquant, et ce qu’il reste à demander.",
+                    },
+                ],
+            },
+            {
+                title: "Un agent qui agit",
+                paragraphs: [
+                    "On lui parle avec ses propres mots : « Quand expire mon passeport ? », « Rappelle-moi de payer la taxe foncière ». L’agent choisit lui-même parmi dix-sept outils : chercher, lire un document, créer un rappel, marquer une facture payée, préparer un courrier. Il les enchaîne, puis répond en citant les documents consultés.",
+                    "Il ne modifie rien sans qu’on le demande. Il n’invente ni montant ni date : s’il répond sans avoir consulté les documents, il est renvoyé chercher d’abord.",
+                ],
+                media: [
+                    {
+                        src: binderAgent,
+                        alt: "L’agent de Binder, à qui l’on demande quand expire sa carte d’identité : il répond le 5 décembre 2026 et cite la carte d’identité parmi les documents consultés.",
+                    },
+                ],
+            },
+            {
+                title: "Une IA qui reste sur l’ordinateur",
+                paragraphs: [
+                    "Travailler en local est un choix de conception, pour protéger des données sensibles. Le modèle d’IA tourne sur l’ordinateur : aucun document n’est envoyé à un service en ligne. La base de données et les fichiers sont chiffrés.",
+                    "Rien n’est supprimé en silence : une corbeille, un historique de chaque action, et une confirmation avant toute suppression définitive.",
+                ],
+                diagram: {
+                    title: "Le trajet d’un document dans Binder",
+                    steps: [
+                        {
+                            nodes: [
+                                {
+                                    icon: "sheet",
+                                    label: "Le document",
+                                    hint: "facture, avis, attestation",
+                                },
+                            ],
+                        },
+                        {
+                            nodes: [
+                                {
+                                    icon: "chip",
+                                    label: "L’agent IA",
+                                    hint: "classe, lit, agit",
+                                    detail: "Ollama",
+                                },
+                            ],
+                            branches: [
+                                {
+                                    flow: "loop",
+                                    icon: "funnel",
+                                    label: "Les règles",
+                                    hint: "vérifient sa lecture",
+                                    detail: "Python",
+                                },
+                            ],
+                        },
+                        {
+                            nodes: [
+                                {
+                                    icon: "storage",
+                                    label: "Le coffre",
+                                    hint: "chiffré, sur l’ordinateur",
+                                    detail: "SQLite",
+                                },
+                            ],
+                        },
+                        {
+                            nodes: [
+                                {
+                                    icon: "screen",
+                                    label: "L’application",
+                                    hint: "ce qu’on voit",
+                                    detail: "React",
+                                },
+                            ],
+                        },
+                    ],
+                },
+            },
+            {
+                title: "Comment je l’ai construite",
+                paragraphs: [
+                    "Conçue et développée seul, avec Claude Code en mode agent, à partir de mon cahier des charges. Je teste tout et je décide de ce qui est gardé.",
+                    "Un banc d’essai rejoue des demandes réalistes et vérifie les outils appelés, les documents cités et les chiffres de la réponse. À chaque envoi, des tests automatiques tournent sur Windows, macOS et Linux.",
+                ],
+            },
+        ],
+        stackDisclosure: "Voir les autres technologies",
+        stack: [
+            "React",
+            "TypeScript",
+            "Python",
+            "FastAPI",
+            "Tailwind CSS",
+            "SQLite",
+            "Ollama",
+            "GitHub Actions",
+        ],
+        primaryStack: ["Python", "FastAPI", "React", "TypeScript"],
+        image: {
+            src: binderDocuments,
+            alt: "La liste des documents de Binder : les filtres par état et par catégorie, puis chaque document avec sa catégorie, son émetteur, sa date, son montant et son état, classé ou à confirmer.",
+        },
+        year: 2026,
+        repo: `${GH}Razigue/Binder`,
+        demo: null,
+        status: "local",
+    },
+    {
         slug: "overkill",
         thumbnail: {
             src: overkillHome,
@@ -808,7 +984,12 @@ export const projects: readonly Project[] = [
  * l'accueil, l'index, les pages de projet et le sitemap. Les autres restent
  * dans la liste ci-dessus, en réserve, prêts à remplacer l'un d'eux.
  */
-export const featuredSlugs = ["tonecraft", "overkill", "corelab"] as const;
+export const featuredSlugs = [
+    "tonecraft",
+    "binder",
+    "overkill",
+    "corelab",
+] as const;
 
 // Slugs inconnus, doublons, statut « en ligne » sans démo, apostrophe droite :
 // la compilation s'arrête ici plutôt que de publier la page.

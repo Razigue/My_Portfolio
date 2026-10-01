@@ -739,15 +739,13 @@
     border-radius: var(--radius-card);
     background-color: var(--color-card);
     transition: border-color var(--t) var(--ease-swift),
-      box-shadow var(--t) var(--ease-swift),
-      transform var(--t) var(--ease-out);
+      box-shadow var(--t) var(--ease-swift);
   }
 
   .card-link:hover,
   .card-link:has(.stretch-link:focus-visible) {
     border-color: var(--color-line-strong);
     box-shadow: var(--shadow-lift);
-    transform: translateY(-2px);
   }
 
   .card .stretch-link:focus-visible {
@@ -766,14 +764,6 @@
   .card-link:hover .card-title,
   .card:has(.stretch-link:focus-visible) .card-title {
     color: var(--color-flare);
-  }
-
-  .card-link .shot img {
-    transition: transform var(--t-slow) var(--ease-out);
-  }
-
-  .card-link:hover .shot img {
-    transform: scale(1.02);
   }
 
   .stretch-link::after {

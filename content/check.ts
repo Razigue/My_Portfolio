@@ -262,6 +262,12 @@ export function checkProjects(
           `Renseigner l'adresse de la démo, ou passer status à "archived".`,
       );
     }
+    // « à installer » renvoie au code : il faut le dépôt, et pas de démo.
+    if (project.status === "local" && (project.demo !== null || project.repo === null)) {
+      problems.push(
+        `« ${name} » : status vaut "local" : demo doit valoir null et repo être renseigné.`,
+      );
+    }
     if (project.status === "archived" && project.demo !== null) {
       problems.push(
         `« ${name} » : status vaut "archived" alors qu'une démo est en ligne. ` +

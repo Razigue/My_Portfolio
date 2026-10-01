@@ -30,7 +30,7 @@ export const availability: Localized<typeof frenchAvailability> = {
   rhythm: "6 weeks at the company, 2 weeks in training",
   targetLabel: "Target role",
   target: "Full-stack web developer",
-  languages: "JavaScript / TypeScript, PHP, Java",
+  languages: "React, TypeScript, Python",
   schoolLabel: "School",
   diplomaLabel: "Qualification",
   placeLabel: "Location",
@@ -39,7 +39,7 @@ export const availability: Localized<typeof frenchAvailability> = {
 export const hero: Localized<typeof frenchHero> = {
   role: site.role,
   tagline:
-    "Full-stack web developer with a logical mind, with AI in my toolkit since 2022. Looking for a 12-month apprenticeship, starting as soon as possible.",
+    "Full-stack Python and React web developer with a logical mind, with AI in my toolkit since 2022. Looking for a 12-month apprenticeship, starting as soon as possible.",
 };
 
 export const presentation =
@@ -73,6 +73,7 @@ export const copy: Localized<typeof frenchCopy> = {
   approachTitle: "The approach",
   diagramOr: "or",
   statusLive: "live",
+  statusLocal: "to install",
   statusArchived: "archived",
   skipLink: "Skip to content",
   notFoundTitle: "Page not found",
@@ -141,6 +142,7 @@ export const copy: Localized<typeof frenchCopy> = {
 
   caseStudy: "Read the case study",
   allProjects: "All projects",
+  moreProjects: "See the other projects",
   closingTitle: "Let’s talk about your apprenticeship",
   learnLink: "And what I want to learn at the company",
 
@@ -149,8 +151,9 @@ export const copy: Localized<typeof frenchCopy> = {
     "full-stack",
     "apprenticeship",
     "Paris",
+    "Python",
+    "FastAPI",
     "React",
-    "Symfony",
     "TypeScript",
     "AI",
     "Claude Code",

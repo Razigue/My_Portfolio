@@ -220,9 +220,9 @@ export const competences: readonly {
     {
         domain: "Front-end",
         technologies: [
-            "JavaScript",
-            "TypeScript",
             "React",
+            "TypeScript",
+            "JavaScript",
             "Svelte",
             "Astro",
             "HTML",
@@ -233,14 +233,17 @@ export const competences: readonly {
     {
         domain: "Back-end",
         technologies: [
+            "Python",
+            "FastAPI",
+            "API REST",
             "Node.js",
             "Express",
             "PHP",
             "Symfony",
             "Laravel",
             "Java",
-            "API REST",
             "PostgreSQL",
+            "SQLite",
             "MySQL",
             "MongoDB",
         ],
@@ -258,7 +261,7 @@ export const competences: readonly {
     },
     {
         domain: "Outils",
-        technologies: ["Git", "Linux"],
+        technologies: ["Git", "Linux", "Ollama"],
     },
     {
         // Le code de ces parties de Tonecraft est écrit par l’agent : il ne

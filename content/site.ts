@@ -38,8 +38,9 @@ export const availability = {
   rhythm: "6 semaines en entreprise, 2 semaines en formation",
   targetLabel: "Poste visé",
   target: "Développeur web full-stack",
-  // Sous le poste visé, dans l’ordre de maîtrise.
-  languages: "JavaScript / TypeScript, PHP, Java",
+  // Sous le poste visé : la stack principale, React / TypeScript côté
+  // interface, Python côté serveur.
+  languages: "React, TypeScript, Python",
   // L’école, le diplôme et le lieu ne se saisissent pas ici : ils sont lus
   // dans `formation` (content/about.ts) et dans `site.location`.
   schoolLabel: "École",
@@ -50,7 +51,7 @@ export const availability = {
 export const hero = {
   role: site.role,
   tagline:
-    "Développeur web full-stack à l’esprit logique, l’IA dans mes outils depuis 2022. Je cherche une alternance de 12 mois, dès que possible.",
+    "Développeur web full-stack Python et React, à l’esprit logique, l’IA dans mes outils depuis 2022. Je cherche une alternance de 12 mois, dès que possible.",
 } as const;
 
 export const presentation =
@@ -85,6 +86,7 @@ export const copy = {
   approachTitle: "La démarche",
   diagramOr: "ou",
   statusLive: "en ligne",
+  statusLocal: "à installer",
   statusArchived: "archivé",
   skipLink: "Aller au contenu",
   notFoundTitle: "Page introuvable",
@@ -160,6 +162,8 @@ export const copy = {
   // La refonte du 2026-09-29
   caseStudy: "Lire l’étude de cas",
   allProjects: "Tous les projets",
+  // Sous les projets de l’accueil, quand d’autres restent à voir dans l’index.
+  moreProjects: "Voir les autres projets",
   closingTitle: "Parlons de votre alternance",
   learnLink: "Et ce que je veux apprendre en entreprise",
 
@@ -169,8 +173,9 @@ export const copy = {
     "full-stack",
     "alternance",
     "Paris",
+    "Python",
+    "FastAPI",
     "React",
-    "Symfony",
     "TypeScript",
     "IA",
     "Claude Code",

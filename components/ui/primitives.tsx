@@ -25,8 +25,12 @@ export function ProjectMeta({
   className,
 }: {
   context: string | null;
-  status: "live" | "archived";
-  labels: { readonly statusLive: string; readonly statusArchived: string };
+  status: "live" | "local" | "archived";
+  labels: {
+    readonly statusLive: string;
+    readonly statusLocal: string;
+    readonly statusArchived: string;
+  };
   className?: string;
 }) {
   return (
@@ -34,6 +38,8 @@ export function ProjectMeta({
       {context ? `${context}, ` : null}
       {status === "live" ? (
         <span className="font-medium text-paper">{labels.statusLive}</span>
+      ) : status === "local" ? (
+        labels.statusLocal
       ) : (
         labels.statusArchived
       )}
