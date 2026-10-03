@@ -237,14 +237,14 @@ export const projectTexts: Readonly<Record<string, ProjectTranslation>> = {
 
     binder: {
         thumbnailAlt:
-            "Binder’s home page: upcoming deadlines, documents to check and documents filed, a price rise alert on the EDF bill, then the list of documents to check and the recent documents.",
+            "Binder’s “To do” page: one sentence on the day, then a pile of cards, the most urgent on top, such as an overpayment claimed by the CAF with the button to write the letter, and at the bottom the bar to ask a question.",
         title: "Binder",
         subtitle: "AI paperwork agent",
         team: null,
         description:
-            "An AI paperwork agent, installed on the computer. Drop in your bills, notices and certificates: it files them, reads their key details and tracks deadlines. Ask it anything: it searches the documents, acts, such as creating a reminder, and cites its sources. Rules check its reading. Nothing leaves the computer.",
+            "An AI paperwork agent, installed on the computer. Drop in your bills, notices and certificates: it files them, reads their key details and says what to do, and by when. Ask it anything: it searches the documents, acts, such as creating a reminder or writing a letter, and cites its sources. Rules check its reading. No document leaves the computer.",
         summary:
-            "An AI agent that files paperwork, tracks its deadlines and answers questions, with nothing leaving the computer.",
+            "An AI agent that files paperwork, says what to do and by when, and answers questions, with no document leaving the computer.",
         highlights: [
             "An agent that searches, reads and acts on the documents",
             "Its reading checked by rules, its answers sourced",
@@ -261,47 +261,49 @@ export const projectTexts: Readonly<Record<string, ProjectTranslation>> = {
             {
                 title: "File and explain",
                 paragraphs: [
-                    "Drop in PDFs and photos, or scan them with your phone. The AI files them by category and reads the amount, dates, reference and sender. Rules check its reading; if any doubt remains, the document waits to be checked.",
+                    "Drop in PDFs and photos, or scan them with your phone. The AI files them under seven areas, such as housing, money or health, and reads the amount, dates, reference and sender. Rules check every figure against the text of the document. If a doubt remains that changes something, Binder asks one short question.",
                     "“In short” explains each letter plainly: what it is, what to do, and by when.",
                 ],
                 mediaAlt: [
-                    "A property tax notice open in Binder: the document on the left, and on the right “In short”, which sums up the letter and says to pay €1,240 before 6 October 2026, then the extracted details.",
+                    "A tax notice open in Binder: the document on the left, with the details it read outlined, and on the right “In short”, which sums up the letter and says to pay the €1,240 balance before 8 October 2026, then the extracted details.",
                 ],
             },
             {
                 title: "Miss nothing",
                 paragraphs: [
-                    "Payment deadlines and expiry dates are taken from the documents, as a list and a calendar. An identity card is flagged early enough to renew it. Binder also warns when a regular bill rises by more than 10%.",
+                    "The “To do” page piles up what needs action, the most urgent on top: a payment, an identity card to renew, a double debit, a bill that goes up, a paper to fetch. Each card says what to do and by when, with its button.",
+                    "Deadlines are taken from the documents and placed on a timeline.",
                 ],
                 mediaAlt: [
-                    "Binder’s deadlines: the October 2026 calendar with upcoming payments by category, then the validity of documents, with an identity card to renew.",
+                    "Binder’s calendar: a timeline of the last two weeks and the next four months, then the list of deadlines, from the tax notice of 8 October 2026 to the service charge adjustment of 2 November.",
                 ],
             },
             {
                 title: "Prepare the paperwork",
                 paragraphs: [
-                    "To rent a home or apply for housing benefit, Binder lists the documents required and shows what is ready, missing or too old. The folder exports as a numbered archive.",
-                    "It also prepares template letters, prefilled with the details of the documents: cancellation, dispute, document request.",
+                    "You start from what is happening: “I’m moving”, “We’re having a child”, “I want to dispute a bill or a fine”. Binder turns it into steps with their deadlines, letters and files, then follows what is under way.",
+                    "For a file, it shows what is ready, incomplete or missing, and exports it as an archive. Letters are complete, prefilled with the details of the documents. Before offering them, Binder checks the points of law they cite on official sites.",
                 ],
                 mediaAlt: [
-                    "The rental folder in Binder: two documents ready out of five, each with its status, ready, incomplete or missing, and what is left to request.",
+                    "Binder’s “Life events” page: at the top, a dispute letter to send, then life situations, such as “I’m moving” or “We’re having a child”.",
+                    "The rental folder in Binder: two documents ready out of five, each with its status, ready, incomplete or missing, and the button to download the folder.",
                 ],
             },
             {
                 title: "An agent that acts",
                 paragraphs: [
-                    "You talk to it in your own words: “When does my passport expire?”, “Remind me to pay the property tax”. The agent picks from seventeen tools on its own: search, read a document, create a reminder, mark a bill paid, draft a letter. It chains them, then answers, citing the documents it consulted.",
-                    "It changes nothing unless asked. It invents no amount and no date: if it answers without checking the documents, it is sent back to look first.",
+                    "You talk to it in your own words, from the bar at the bottom of every page: “When does my passport expire?”, “Remind me to pay the property tax”. The agent picks from thirty tools on its own: search, read a document, create a reminder, mark a bill paid, write a letter, look up general information on the web. It chains them, then answers, citing the documents it consulted.",
+                    "It changes nothing unless asked, and every action can be undone right after. It invents no amount and no date: if it answers without checking the documents, it is sent back to look first.",
                 ],
                 mediaAlt: [
-                    "Binder’s agent, asked when the identity card expires: it answers 5 December 2026 and cites the identity card among the documents consulted.",
+                    "Binder’s agent, asked for a reminder to renew the identity card a month before it expires: it creates the reminder for 7 November 2026, offers to undo it and cites the identity card.",
                 ],
             },
             {
                 title: "An AI that stays on the computer",
                 paragraphs: [
-                    "Working locally is a design choice, to protect sensitive data. The AI model runs on the computer: no document is sent to an online service. The database and the files are encrypted.",
-                    "Nothing is deleted silently: a trash, a history of every action, and a confirmation before any permanent deletion.",
+                    "Working locally is a design choice, to protect sensitive data. The AI model runs on the computer: Binder installs it on its own at first launch and picks the one that suits the machine. No document is sent to an online service. When the agent looks up general information, such as a legal time limit, only the question leaves, never a name or a reference. The database and the files are encrypted.",
+                    "Nothing is deleted silently: a trash, archives for old papers, a history of every action, and a confirmation before any permanent deletion.",
                 ],
                 diagram: {
                     title: "The path of a document through Binder",
@@ -361,13 +363,13 @@ export const projectTexts: Readonly<Record<string, ProjectTranslation>> = {
                 title: "How I built it",
                 paragraphs: [
                     "Designed and developed alone, with Claude Code in agent mode, from my own specification. I test everything and decide what is kept.",
-                    "A test bench replays realistic requests and checks the tools called, the documents cited and the figures in the answer. On every push, automated tests run on Windows, macOS and Linux.",
+                    "A test bench replays realistic requests and checks the tools called, the documents cited and the figures in the answer. On every push, automated tests run on Windows, macOS and Linux. Each published version installs itself at the next launch.",
                 ],
             },
         ],
         stackDisclosure: "Show the other technologies",
         imageAlt:
-            "Binder’s document list: filters by status and category, then each document with its category, sender, date, amount and status, filed or to confirm.",
+            "“My papers” in Binder: the seven areas as tiles, each with its state in words, such as “Up to date” or “Identity card: renew it”, then the search, the household member filter and the list of documents.",
     },
     overkill: {
         thumbnailAlt:

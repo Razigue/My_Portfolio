@@ -27,6 +27,7 @@ import binderDetail from "@/content/media/binder-detail.webp";
 import binderDeadlines from "@/content/media/binder-deadlines.webp";
 import binderFolders from "@/content/media/binder-folders.webp";
 import binderAgent from "@/content/media/binder-agent.webp";
+import binderProcedures from "@/content/media/binder-procedures.webp";
 import overkillHome from "@/content/media/overkill-home.webp";
 import overkillBackground from "@/content/media/overkill-background.webp";
 import overkillFeed from "@/content/media/overkill-feed.webp";
@@ -466,16 +467,16 @@ export const projects: readonly Project[] = [
         thumbnail: {
             src: binderHome,
             background: binderBackground,
-            alt: "L’accueil de Binder : les échéances à venir, les documents à vérifier et les documents classés, une alerte de hausse sur la facture EDF, puis la liste des documents à vérifier et celle des documents récents.",
+            alt: "La page « À faire » de Binder : une phrase sur la journée, puis une pile de cartes, la plus urgente en haut, comme un trop-perçu réclamé par la CAF avec le bouton pour écrire le courrier, et en bas la barre pour poser une question.",
         },
         title: "Binder",
         subtitle: "agent IA administratif",
         kind: "personnel",
         team: null,
         description:
-            "Un agent IA administratif, installé sur l’ordinateur. On lui dépose ses factures, avis et attestations : il les classe, en lit les informations clés et suit les échéances. On lui demande ce qu’on veut : il cherche dans les documents, agit, comme créer un rappel, et cite ses sources. Des règles vérifient sa lecture. Rien ne quitte l’ordinateur.",
+            "Un agent IA administratif, installé sur l’ordinateur. On lui dépose ses factures, avis et attestations : il les classe, en lit les informations clés et dit quoi faire, et avant quand. On lui demande ce qu’on veut : il cherche dans les documents, agit, comme créer un rappel ou écrire un courrier, et cite ses sources. Des règles vérifient sa lecture. Aucun document ne quitte l’ordinateur.",
         summary:
-            "Un agent IA qui range les papiers administratifs, suit leurs échéances et répond aux questions, sans que rien ne quitte l’ordinateur.",
+            "Un agent IA qui range les papiers administratifs, dit quoi faire et avant quand, et répond aux questions, sans qu’aucun document ne quitte l’ordinateur.",
         highlights: [
             "Un agent qui cherche, lit et agit sur les documents",
             "Sa lecture vérifiée par des règles, ses réponses sourcées",
@@ -492,59 +493,64 @@ export const projects: readonly Project[] = [
             {
                 title: "Ranger et expliquer",
                 paragraphs: [
-                    "On dépose ses PDF et ses photos, ou on les scanne avec son téléphone. L’IA les classe par catégorie et lit le montant, les dates, la référence et l’émetteur. Des règles vérifient sa lecture ; s’il reste un doute, le document attend une vérification.",
+                    "On dépose ses PDF et ses photos, ou on les scanne avec son téléphone. L’IA les range dans sept domaines, comme le logement, l’argent ou la santé, et lit le montant, les dates, la référence et l’émetteur. Des règles vérifient chaque chiffre contre le texte du document. S’il reste un doute qui change quelque chose, Binder pose une seule question courte.",
                     "« En bref » explique chaque courrier simplement : ce que c’est, quoi faire, et avant quand.",
                 ],
                 media: [
                     {
                         src: binderDetail,
-                        alt: "Un avis de taxe foncière ouvert dans Binder : le document à gauche, et à droite « En bref », qui résume le courrier et indique de payer 1 240 € avant le 6 octobre 2026, puis les informations extraites.",
+                        alt: "Un avis d’imposition ouvert dans Binder : le document à gauche, avec les informations lues entourées, et à droite « En bref », qui résume le courrier et indique de payer le solde de 1 240 € avant le 8 octobre 2026, puis les informations extraites.",
                     },
                 ],
             },
             {
                 title: "Ne rien laisser passer",
                 paragraphs: [
-                    "Les échéances de paiement et les fins de validité sont tirées des documents, en liste et en calendrier. Une carte d’identité est signalée assez tôt pour la renouveler. Binder prévient aussi quand une facture régulière augmente de plus de 10 %.",
+                    "La page « À faire » empile ce qui demande une action, le plus urgent en haut : un paiement, une carte d’identité à renouveler, un prélèvement en double, une facture qui augmente, un papier à aller chercher. Chaque carte dit quoi faire et avant quand, avec son bouton.",
+                    "Les échéances sont tirées des documents et placées sur une frise.",
                 ],
                 media: [
                     {
                         src: binderDeadlines,
-                        alt: "Les échéances de Binder : le calendrier d’octobre 2026 avec les paiements à venir par catégorie, puis la validité des documents, avec une carte d’identité à renouveler.",
+                        alt: "Le calendrier de Binder : une frise des deux dernières semaines et des quatre prochains mois, puis la liste des échéances, de l’avis d’imposition du 8 octobre 2026 à la régularisation de charges du 2 novembre.",
                     },
                 ],
             },
             {
                 title: "Préparer les démarches",
                 paragraphs: [
-                    "Pour louer un logement ou demander une aide au logement, Binder liste les pièces demandées et montre ce qui est prêt, manquant ou trop ancien. Le dossier s’exporte en une archive numérotée.",
-                    "Il prépare aussi des courriers types, préremplis avec les informations des documents : résiliation, contestation, demande de document.",
+                    "On part de ce qui arrive : « Je déménage », « Nous attendons un enfant », « Je conteste une facture ou une amende ». Binder en tire les étapes avec leurs dates limites, les courriers et les dossiers, puis suit ce qui est en cours.",
+                    "Pour un dossier, il montre ce qui est prêt, incomplet ou manquant, et l’exporte en une archive. Les courriers sont complets, préremplis avec les informations des documents. Avant de les proposer, Binder vérifie sur des sites officiels les points de loi qu’ils citent.",
                 ],
                 media: [
                     {
+                        src: binderProcedures,
+                        alt: "La page « Démarches » de Binder : en haut, un courrier de contestation à envoyer, puis les situations de vie, comme « Je déménage » ou « Nous attendons un enfant ».",
+                    },
+                    {
                         src: binderFolders,
-                        alt: "Le dossier de location dans Binder : deux pièces prêtes sur cinq, avec pour chacune son état, prêt, incomplet ou manquant, et ce qu’il reste à demander.",
+                        alt: "Le dossier de location dans Binder : deux pièces prêtes sur cinq, chacune avec son état, prêt, incomplet ou manquant, et le bouton pour télécharger le dossier.",
                     },
                 ],
             },
             {
                 title: "Un agent qui agit",
                 paragraphs: [
-                    "On lui parle avec ses propres mots : « Quand expire mon passeport ? », « Rappelle-moi de payer la taxe foncière ». L’agent choisit lui-même parmi dix-sept outils : chercher, lire un document, créer un rappel, marquer une facture payée, préparer un courrier. Il les enchaîne, puis répond en citant les documents consultés.",
-                    "Il ne modifie rien sans qu’on le demande. Il n’invente ni montant ni date : s’il répond sans avoir consulté les documents, il est renvoyé chercher d’abord.",
+                    "On lui parle avec ses propres mots, depuis la barre en bas de chaque page : « Quand expire mon passeport ? », « Rappelle-moi de payer la taxe foncière ». L’agent choisit lui-même parmi trente outils : chercher, lire un document, créer un rappel, marquer une facture payée, écrire un courrier, chercher une information générale sur le web. Il les enchaîne, puis répond en citant les documents consultés.",
+                    "Il ne modifie rien sans qu’on le demande, et chaque action s’annule juste après. Il n’invente ni montant ni date : s’il répond sans avoir consulté les documents, il est renvoyé chercher d’abord.",
                 ],
                 media: [
                     {
                         src: binderAgent,
-                        alt: "L’agent de Binder, à qui l’on demande quand expire sa carte d’identité : il répond le 5 décembre 2026 et cite la carte d’identité parmi les documents consultés.",
+                        alt: "L’agent de Binder, à qui l’on demande un rappel pour renouveler sa carte d’identité un mois avant son expiration : il crée le rappel au 7 novembre 2026, propose de l’annuler et cite la carte d’identité.",
                     },
                 ],
             },
             {
                 title: "Une IA qui reste sur l’ordinateur",
                 paragraphs: [
-                    "Travailler en local est un choix de conception, pour protéger des données sensibles. Le modèle d’IA tourne sur l’ordinateur : aucun document n’est envoyé à un service en ligne. La base de données et les fichiers sont chiffrés.",
-                    "Rien n’est supprimé en silence : une corbeille, un historique de chaque action, et une confirmation avant toute suppression définitive.",
+                    "Travailler en local est un choix de conception, pour protéger des données sensibles. Le modèle d’IA tourne sur l’ordinateur : Binder l’installe seul au premier lancement et choisit celui qui convient à la machine. Aucun document n’est envoyé à un service en ligne. Quand l’agent cherche une information générale, comme un délai légal, seule la question part, jamais un nom ni une référence. La base de données et les fichiers sont chiffrés.",
+                    "Rien n’est supprimé en silence : une corbeille, des archives pour les vieux papiers, un historique de chaque action, et une confirmation avant toute suppression définitive.",
                 ],
                 diagram: {
                     title: "Le trajet d’un document dans Binder",
@@ -604,7 +610,7 @@ export const projects: readonly Project[] = [
                 title: "Comment je l’ai construite",
                 paragraphs: [
                     "Conçue et développée seul, avec Claude Code en mode agent, à partir de mon cahier des charges. Je teste tout et je décide de ce qui est gardé.",
-                    "Un banc d’essai rejoue des demandes réalistes et vérifie les outils appelés, les documents cités et les chiffres de la réponse. À chaque envoi, des tests automatiques tournent sur Windows, macOS et Linux.",
+                    "Un banc d’essai rejoue des demandes réalistes et vérifie les outils appelés, les documents cités et les chiffres de la réponse. À chaque envoi, des tests automatiques tournent sur Windows, macOS et Linux. Chaque version publiée s’installe d’elle-même au lancement suivant.",
                 ],
             },
         ],
@@ -622,7 +628,7 @@ export const projects: readonly Project[] = [
         primaryStack: ["Python", "FastAPI", "React", "TypeScript"],
         image: {
             src: binderDocuments,
-            alt: "La liste des documents de Binder : les filtres par état et par catégorie, puis chaque document avec sa catégorie, son émetteur, sa date, son montant et son état, classé ou à confirmer.",
+            alt: "« Mes papiers » dans Binder : les sept domaines en tuiles, chacun avec son état en mots, comme « À jour » ou « Carte d’identité : à renouveler », puis la recherche, le filtre par membre du foyer et la liste des documents.",
         },
         year: 2026,
         repo: `${GH}Razigue/Binder`,
