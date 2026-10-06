@@ -991,8 +991,8 @@ export const projects: readonly Project[] = [
  * dans la liste ci-dessus, en réserve, prêts à remplacer l'un d'eux.
  */
 export const featuredSlugs = [
-    "tonecraft",
     "binder",
+    "tonecraft",
     "overkill",
     "corelab",
 ] as const;
