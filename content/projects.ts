@@ -26,6 +26,7 @@ import binderDocuments from "@/content/media/binder-documents.webp";
 import binderDetail from "@/content/media/binder-detail.webp";
 import binderDeadlines from "@/content/media/binder-deadlines.webp";
 import binderFolders from "@/content/media/binder-folders.webp";
+import binderCover from "@/content/media/binder-cover.webp";
 import binderAgent from "@/content/media/binder-agent.webp";
 import binderProcedures from "@/content/media/binder-procedures.webp";
 import overkillHome from "@/content/media/overkill-home.webp";
@@ -166,8 +167,12 @@ export type Project = {
      * `public/` so that Next reads its dimensions and builds its blur placeholder
      * itself. `null` on a project that has nothing to show, which is most of
      * them: the pages carry their weight in type.
+     *
+     * `cover` is an optional square framing of the same screen for the
+     * featured card on the home page, whose stage is about as tall as it is
+     * wide. It shares `alt`, so it must show what `alt` describes.
      */
-    readonly image: ProjectImage | null;
+    readonly image: (ProjectImage & { readonly cover?: StaticImageData }) | null;
     /** Optional artwork beside the title, at the top of the project page. */
     readonly thumbnail?: ProjectImage & {
         /** Decorative scenery behind the project page's header. */
@@ -628,6 +633,7 @@ export const projects: readonly Project[] = [
         primaryStack: ["Python", "FastAPI", "React", "TypeScript"],
         image: {
             src: binderDocuments,
+            cover: binderCover,
             alt: "« Mes papiers » dans Binder : les sept domaines en tuiles, chacun avec son état en mots, comme « À jour » ou « Carte d’identité : à renouveler », puis la recherche, le filtre par membre du foyer et la liste des documents.",
         },
         year: 2026,

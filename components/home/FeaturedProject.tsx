@@ -26,7 +26,9 @@ export function FeaturedProject({
   const { copy } = content;
   const context = projectContext(content, project);
   const href = pathFor(locale, "projects", project.slug);
-  const visual = project.image ?? project.thumbnail ?? null;
+  const visual = project.image
+    ? { ...project.image, src: project.image.cover ?? project.image.src }
+    : (project.thumbnail ?? null);
   const stack = project.primaryStack ?? project.stack;
 
   return (

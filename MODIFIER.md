@@ -328,6 +328,24 @@ La capture s’affiche à deux endroits :
 Elle n’apparaît pas dans l’index, qui montre la première phrase de la
 description à la place.
 
+Le premier projet de `featuredSlugs` s’affiche en grand sur l’accueil, dans un
+cadre à peu près carré : une capture large y flotte au milieu d’un grand vide.
+Le champ facultatif `cover`, à côté de `src`, lui donne une version carrée du
+même écran, utilisée seulement là. La page du projet garde `src`. Comme les
+deux partagent `alt`, `cover` doit montrer ce que `alt` décrit.
+
+```ts
+    image: {
+      src: binderDocuments,
+      cover: binderCover,
+      alt: "« Mes papiers » dans Binder…",
+    },
+```
+
+Celle de Binder, `binder-cover.webp`, est « Mes papiers » avec les documents de
+démonstration, prise dans une fenêtre de 900 × 900 px et enregistrée en
+1800 × 1800.
+
 Une capture s’affiche telle quelle : coins arrondis, sans cadre, sans barre de
 fenêtre, sans bordure ni ombre. Une image détourée, sur fond transparent, prend
 `cutout: true` à côté de son `src` : rien ne s’affiche derrière ses parties
